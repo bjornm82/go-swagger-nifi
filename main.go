@@ -56,3 +56,15 @@ func main() {
 
 	log.Println(d.Payload.ProcessGroupFlow.Flow.ProcessGroups[0].ID)
 }
+
+func createProcessorGroupOnRoot() {
+
+}
+
+func getProcessorGroupsOnRoot() {
+
+}
+
+func createProcessorGroupControllerService() {
+
+}
