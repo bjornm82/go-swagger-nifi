@@ -1,4 +1,4 @@
-module github.com/bjornm82/swagger-nifi
+module github.com/bjornm82/go-swagger-nifi
 
 go 1.15
 

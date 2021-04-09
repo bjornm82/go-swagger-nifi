@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 
-	"github.com/bjornm82/swagger-nifi/client"
-	"github.com/bjornm82/swagger-nifi/client/flow"
+	"github.com/bjornm82/go-swagger-nifi/client"
+	"github.com/bjornm82/go-swagger-nifi/client/flow"
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 )

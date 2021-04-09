@@ -13,7 +13,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/bjornm82/swagger-nifi/models"
+	models "github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // GetProcessGroupStatusReader is a Reader for the GetProcessGroupStatus structure.
