@@ -25,8 +25,8 @@ type ReportingTasksClearStateReader struct {
 func (o *ReportingTasksClearStateReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
-	case 200:
-		result := NewReportingTasksClearStateOK()
+	case 201:
+		result := NewReportingTasksClearStateCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -72,24 +72,24 @@ func (o *ReportingTasksClearStateReader) ReadResponse(response runtime.ClientRes
 	}
 }
 
-// NewReportingTasksClearStateOK creates a ReportingTasksClearStateOK with default headers values
-func NewReportingTasksClearStateOK() *ReportingTasksClearStateOK {
-	return &ReportingTasksClearStateOK{}
+// NewReportingTasksClearStateCreated creates a ReportingTasksClearStateCreated with default headers values
+func NewReportingTasksClearStateCreated() *ReportingTasksClearStateCreated {
+	return &ReportingTasksClearStateCreated{}
 }
 
-/*ReportingTasksClearStateOK handles this case with default header values.
+/*ReportingTasksClearStateCreated handles this case with default header values.
 
 successful operation
 */
-type ReportingTasksClearStateOK struct {
+type ReportingTasksClearStateCreated struct {
 	Payload *models.ComponentStateEntity
 }
 
-func (o *ReportingTasksClearStateOK) Error() string {
-	return fmt.Sprintf("[POST /reporting-tasks/{id}/state/clear-requests][%d] reportingTasksClearStateOK  %+v", 200, o.Payload)
+func (o *ReportingTasksClearStateCreated) Error() string {
+	return fmt.Sprintf("[POST /reporting-tasks/{id}/state/clear-requests][%d] reportingTasksClearStateCreated  %+v", 201, o.Payload)
 }
 
-func (o *ReportingTasksClearStateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *ReportingTasksClearStateCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ComponentStateEntity)
 

@@ -25,8 +25,8 @@ type InitiateVersionControlUpdateReader struct {
 func (o *InitiateVersionControlUpdateReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
-	case 200:
-		result := NewInitiateVersionControlUpdateOK()
+	case 201:
+		result := NewInitiateVersionControlUpdateCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -72,24 +72,24 @@ func (o *InitiateVersionControlUpdateReader) ReadResponse(response runtime.Clien
 	}
 }
 
-// NewInitiateVersionControlUpdateOK creates a InitiateVersionControlUpdateOK with default headers values
-func NewInitiateVersionControlUpdateOK() *InitiateVersionControlUpdateOK {
-	return &InitiateVersionControlUpdateOK{}
+// NewInitiateVersionControlUpdateCreated creates a InitiateVersionControlUpdateCreated with default headers values
+func NewInitiateVersionControlUpdateCreated() *InitiateVersionControlUpdateCreated {
+	return &InitiateVersionControlUpdateCreated{}
 }
 
-/*InitiateVersionControlUpdateOK handles this case with default header values.
+/*InitiateVersionControlUpdateCreated handles this case with default header values.
 
 successful operation
 */
-type InitiateVersionControlUpdateOK struct {
+type InitiateVersionControlUpdateCreated struct {
 	Payload *models.VersionedFlowUpdateRequestEntity
 }
 
-func (o *InitiateVersionControlUpdateOK) Error() string {
-	return fmt.Sprintf("[POST /versions/update-requests/process-groups/{id}][%d] initiateVersionControlUpdateOK  %+v", 200, o.Payload)
+func (o *InitiateVersionControlUpdateCreated) Error() string {
+	return fmt.Sprintf("[POST /versions/update-requests/process-groups/{id}][%d] initiateVersionControlUpdateCreated  %+v", 201, o.Payload)
 }
 
-func (o *InitiateVersionControlUpdateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *InitiateVersionControlUpdateCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.VersionedFlowUpdateRequestEntity)
 

@@ -27,7 +27,7 @@ type Client struct {
 /*
 ControllerCreateControllerService creates a new controller service
 */
-func (a *Client) ControllerCreateControllerService(params *ControllerCreateControllerServiceParams, authInfo runtime.ClientAuthInfoWriter) (*ControllerCreateControllerServiceOK, error) {
+func (a *Client) ControllerCreateControllerService(params *ControllerCreateControllerServiceParams, authInfo runtime.ClientAuthInfoWriter) (*ControllerCreateControllerServiceCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewControllerCreateControllerServiceParams()
@@ -49,14 +49,14 @@ func (a *Client) ControllerCreateControllerService(params *ControllerCreateContr
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ControllerCreateControllerServiceOK), nil
+	return result.(*ControllerCreateControllerServiceCreated), nil
 
 }
 
 /*
 CreateBulletin creates a new bulletin
 */
-func (a *Client) CreateBulletin(params *CreateBulletinParams, authInfo runtime.ClientAuthInfoWriter) (*CreateBulletinOK, error) {
+func (a *Client) CreateBulletin(params *CreateBulletinParams, authInfo runtime.ClientAuthInfoWriter) (*CreateBulletinCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateBulletinParams()
@@ -78,14 +78,14 @@ func (a *Client) CreateBulletin(params *CreateBulletinParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateBulletinOK), nil
+	return result.(*CreateBulletinCreated), nil
 
 }
 
 /*
 CreateRegistryClient creates a new registry client
 */
-func (a *Client) CreateRegistryClient(params *CreateRegistryClientParams, authInfo runtime.ClientAuthInfoWriter) (*CreateRegistryClientOK, error) {
+func (a *Client) CreateRegistryClient(params *CreateRegistryClientParams, authInfo runtime.ClientAuthInfoWriter) (*CreateRegistryClientCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateRegistryClientParams()
@@ -107,14 +107,14 @@ func (a *Client) CreateRegistryClient(params *CreateRegistryClientParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateRegistryClientOK), nil
+	return result.(*CreateRegistryClientCreated), nil
 
 }
 
 /*
 CreateReportingTask creates a new reporting task
 */
-func (a *Client) CreateReportingTask(params *CreateReportingTaskParams, authInfo runtime.ClientAuthInfoWriter) (*CreateReportingTaskOK, error) {
+func (a *Client) CreateReportingTask(params *CreateReportingTaskParams, authInfo runtime.ClientAuthInfoWriter) (*CreateReportingTaskCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateReportingTaskParams()
@@ -136,7 +136,7 @@ func (a *Client) CreateReportingTask(params *CreateReportingTaskParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateReportingTaskOK), nil
+	return result.(*CreateReportingTaskCreated), nil
 
 }
 

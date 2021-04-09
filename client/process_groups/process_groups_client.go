@@ -27,7 +27,7 @@ type Client struct {
 /*
 CopySnippet copies a snippet and discards it
 */
-func (a *Client) CopySnippet(params *CopySnippetParams, authInfo runtime.ClientAuthInfoWriter) (*CopySnippetOK, error) {
+func (a *Client) CopySnippet(params *CopySnippetParams, authInfo runtime.ClientAuthInfoWriter) (*CopySnippetCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCopySnippetParams()
@@ -49,14 +49,14 @@ func (a *Client) CopySnippet(params *CopySnippetParams, authInfo runtime.ClientA
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CopySnippetOK), nil
+	return result.(*CopySnippetCreated), nil
 
 }
 
 /*
 CreateConnection creates a connection
 */
-func (a *Client) CreateConnection(params *CreateConnectionParams, authInfo runtime.ClientAuthInfoWriter) (*CreateConnectionOK, error) {
+func (a *Client) CreateConnection(params *CreateConnectionParams, authInfo runtime.ClientAuthInfoWriter) (*CreateConnectionCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateConnectionParams()
@@ -78,14 +78,14 @@ func (a *Client) CreateConnection(params *CreateConnectionParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateConnectionOK), nil
+	return result.(*CreateConnectionCreated), nil
 
 }
 
 /*
 CreateEmptyAllConnectionsRequest creates a request to drop all flowfiles of all connection queues in this process group
 */
-func (a *Client) CreateEmptyAllConnectionsRequest(params *CreateEmptyAllConnectionsRequestParams, authInfo runtime.ClientAuthInfoWriter) (*CreateEmptyAllConnectionsRequestOK, *CreateEmptyAllConnectionsRequestAccepted, error) {
+func (a *Client) CreateEmptyAllConnectionsRequest(params *CreateEmptyAllConnectionsRequestParams, authInfo runtime.ClientAuthInfoWriter) (*CreateEmptyAllConnectionsRequestCreated, *CreateEmptyAllConnectionsRequestAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateEmptyAllConnectionsRequestParams()
@@ -108,7 +108,7 @@ func (a *Client) CreateEmptyAllConnectionsRequest(params *CreateEmptyAllConnecti
 		return nil, nil, err
 	}
 	switch value := result.(type) {
-	case *CreateEmptyAllConnectionsRequestOK:
+	case *CreateEmptyAllConnectionsRequestCreated:
 		return value, nil, nil
 	case *CreateEmptyAllConnectionsRequestAccepted:
 		return nil, value, nil
@@ -120,7 +120,7 @@ func (a *Client) CreateEmptyAllConnectionsRequest(params *CreateEmptyAllConnecti
 /*
 CreateFunnel creates a funnel
 */
-func (a *Client) CreateFunnel(params *CreateFunnelParams, authInfo runtime.ClientAuthInfoWriter) (*CreateFunnelOK, error) {
+func (a *Client) CreateFunnel(params *CreateFunnelParams, authInfo runtime.ClientAuthInfoWriter) (*CreateFunnelCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateFunnelParams()
@@ -142,14 +142,14 @@ func (a *Client) CreateFunnel(params *CreateFunnelParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateFunnelOK), nil
+	return result.(*CreateFunnelCreated), nil
 
 }
 
 /*
 CreateInputPort creates an input port
 */
-func (a *Client) CreateInputPort(params *CreateInputPortParams, authInfo runtime.ClientAuthInfoWriter) (*CreateInputPortOK, error) {
+func (a *Client) CreateInputPort(params *CreateInputPortParams, authInfo runtime.ClientAuthInfoWriter) (*CreateInputPortCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateInputPortParams()
@@ -171,14 +171,14 @@ func (a *Client) CreateInputPort(params *CreateInputPortParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateInputPortOK), nil
+	return result.(*CreateInputPortCreated), nil
 
 }
 
 /*
 CreateLabel creates a label
 */
-func (a *Client) CreateLabel(params *CreateLabelParams, authInfo runtime.ClientAuthInfoWriter) (*CreateLabelOK, error) {
+func (a *Client) CreateLabel(params *CreateLabelParams, authInfo runtime.ClientAuthInfoWriter) (*CreateLabelCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateLabelParams()
@@ -200,14 +200,14 @@ func (a *Client) CreateLabel(params *CreateLabelParams, authInfo runtime.ClientA
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateLabelOK), nil
+	return result.(*CreateLabelCreated), nil
 
 }
 
 /*
 CreateOutputPort creates an output port
 */
-func (a *Client) CreateOutputPort(params *CreateOutputPortParams, authInfo runtime.ClientAuthInfoWriter) (*CreateOutputPortOK, error) {
+func (a *Client) CreateOutputPort(params *CreateOutputPortParams, authInfo runtime.ClientAuthInfoWriter) (*CreateOutputPortCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateOutputPortParams()
@@ -229,14 +229,14 @@ func (a *Client) CreateOutputPort(params *CreateOutputPortParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateOutputPortOK), nil
+	return result.(*CreateOutputPortCreated), nil
 
 }
 
 /*
 CreateProcessGroup creates a process group
 */
-func (a *Client) CreateProcessGroup(params *CreateProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*CreateProcessGroupOK, error) {
+func (a *Client) CreateProcessGroup(params *CreateProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*CreateProcessGroupCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateProcessGroupParams()
@@ -258,14 +258,14 @@ func (a *Client) CreateProcessGroup(params *CreateProcessGroupParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateProcessGroupOK), nil
+	return result.(*CreateProcessGroupCreated), nil
 
 }
 
 /*
 CreateProcessor creates a new processor
 */
-func (a *Client) CreateProcessor(params *CreateProcessorParams, authInfo runtime.ClientAuthInfoWriter) (*CreateProcessorOK, error) {
+func (a *Client) CreateProcessor(params *CreateProcessorParams, authInfo runtime.ClientAuthInfoWriter) (*CreateProcessorCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateProcessorParams()
@@ -287,14 +287,14 @@ func (a *Client) CreateProcessor(params *CreateProcessorParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateProcessorOK), nil
+	return result.(*CreateProcessorCreated), nil
 
 }
 
 /*
 CreateRemoteProcessGroup creates a new process group
 */
-func (a *Client) CreateRemoteProcessGroup(params *CreateRemoteProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*CreateRemoteProcessGroupOK, error) {
+func (a *Client) CreateRemoteProcessGroup(params *CreateRemoteProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*CreateRemoteProcessGroupCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateRemoteProcessGroupParams()
@@ -316,14 +316,14 @@ func (a *Client) CreateRemoteProcessGroup(params *CreateRemoteProcessGroupParams
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateRemoteProcessGroupOK), nil
+	return result.(*CreateRemoteProcessGroupCreated), nil
 
 }
 
 /*
 CreateTemplate creates a template and discards the specified snippet
 */
-func (a *Client) CreateTemplate(params *CreateTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTemplateOK, error) {
+func (a *Client) CreateTemplate(params *CreateTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTemplateCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateTemplateParams()
@@ -345,7 +345,7 @@ func (a *Client) CreateTemplate(params *CreateTemplateParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateTemplateOK), nil
+	return result.(*CreateTemplateCreated), nil
 
 }
 
@@ -855,7 +855,7 @@ func (a *Client) GetVariableRegistryUpdateRequest(params *GetVariableRegistryUpd
 /*
 ImportTemplate imports a template
 */
-func (a *Client) ImportTemplate(params *ImportTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*ImportTemplateOK, error) {
+func (a *Client) ImportTemplate(params *ImportTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*ImportTemplateCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewImportTemplateParams()
@@ -877,7 +877,7 @@ func (a *Client) ImportTemplate(params *ImportTemplateParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ImportTemplateOK), nil
+	return result.(*ImportTemplateCreated), nil
 
 }
 
@@ -886,7 +886,7 @@ InitiateReplaceProcessGroup initiates the replace request of a process group wit
 
 This will initiate the action of replacing a process group with the given process group. This can be a lengthy process, as it will stop any Processors and disable any Controller Services necessary to perform the action and then restart them. As a result, the endpoint will immediately return a ProcessGroupReplaceRequestEntity, and the process of replacing the flow will occur asynchronously in the background. The client may then periodically poll the status of the request by issuing a GET request to /process-groups/replace-requests/{requestId}. Once the request is completed, the client is expected to issue a DELETE request to /process-groups/replace-requests/{requestId}. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
-func (a *Client) InitiateReplaceProcessGroup(params *InitiateReplaceProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*InitiateReplaceProcessGroupOK, error) {
+func (a *Client) InitiateReplaceProcessGroup(params *InitiateReplaceProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*InitiateReplaceProcessGroupCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewInitiateReplaceProcessGroupParams()
@@ -908,14 +908,14 @@ func (a *Client) InitiateReplaceProcessGroup(params *InitiateReplaceProcessGroup
 	if err != nil {
 		return nil, err
 	}
-	return result.(*InitiateReplaceProcessGroupOK), nil
+	return result.(*InitiateReplaceProcessGroupCreated), nil
 
 }
 
 /*
 InstantiateTemplate instantiates a template
 */
-func (a *Client) InstantiateTemplate(params *InstantiateTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*InstantiateTemplateOK, error) {
+func (a *Client) InstantiateTemplate(params *InstantiateTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*InstantiateTemplateCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewInstantiateTemplateParams()
@@ -937,14 +937,14 @@ func (a *Client) InstantiateTemplate(params *InstantiateTemplateParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*InstantiateTemplateOK), nil
+	return result.(*InstantiateTemplateCreated), nil
 
 }
 
 /*
 ProcessGroupsCreateControllerService creates a new controller service
 */
-func (a *Client) ProcessGroupsCreateControllerService(params *ProcessGroupsCreateControllerServiceParams, authInfo runtime.ClientAuthInfoWriter) (*ProcessGroupsCreateControllerServiceOK, error) {
+func (a *Client) ProcessGroupsCreateControllerService(params *ProcessGroupsCreateControllerServiceParams, authInfo runtime.ClientAuthInfoWriter) (*ProcessGroupsCreateControllerServiceCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewProcessGroupsCreateControllerServiceParams()
@@ -966,7 +966,7 @@ func (a *Client) ProcessGroupsCreateControllerService(params *ProcessGroupsCreat
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ProcessGroupsCreateControllerServiceOK), nil
+	return result.(*ProcessGroupsCreateControllerServiceCreated), nil
 
 }
 
@@ -1064,7 +1064,7 @@ SubmitUpdateVariableRegistryRequest submits a request to update a process group 
 
 Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
-func (a *Client) SubmitUpdateVariableRegistryRequest(params *SubmitUpdateVariableRegistryRequestParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitUpdateVariableRegistryRequestOK, error) {
+func (a *Client) SubmitUpdateVariableRegistryRequest(params *SubmitUpdateVariableRegistryRequestParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitUpdateVariableRegistryRequestCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSubmitUpdateVariableRegistryRequestParams()
@@ -1086,7 +1086,7 @@ func (a *Client) SubmitUpdateVariableRegistryRequest(params *SubmitUpdateVariabl
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SubmitUpdateVariableRegistryRequestOK), nil
+	return result.(*SubmitUpdateVariableRegistryRequestCreated), nil
 
 }
 

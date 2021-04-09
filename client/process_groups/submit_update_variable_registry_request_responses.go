@@ -25,8 +25,8 @@ type SubmitUpdateVariableRegistryRequestReader struct {
 func (o *SubmitUpdateVariableRegistryRequestReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
-	case 200:
-		result := NewSubmitUpdateVariableRegistryRequestOK()
+	case 201:
+		result := NewSubmitUpdateVariableRegistryRequestCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -72,24 +72,24 @@ func (o *SubmitUpdateVariableRegistryRequestReader) ReadResponse(response runtim
 	}
 }
 
-// NewSubmitUpdateVariableRegistryRequestOK creates a SubmitUpdateVariableRegistryRequestOK with default headers values
-func NewSubmitUpdateVariableRegistryRequestOK() *SubmitUpdateVariableRegistryRequestOK {
-	return &SubmitUpdateVariableRegistryRequestOK{}
+// NewSubmitUpdateVariableRegistryRequestCreated creates a SubmitUpdateVariableRegistryRequestCreated with default headers values
+func NewSubmitUpdateVariableRegistryRequestCreated() *SubmitUpdateVariableRegistryRequestCreated {
+	return &SubmitUpdateVariableRegistryRequestCreated{}
 }
 
-/*SubmitUpdateVariableRegistryRequestOK handles this case with default header values.
+/*SubmitUpdateVariableRegistryRequestCreated handles this case with default header values.
 
 successful operation
 */
-type SubmitUpdateVariableRegistryRequestOK struct {
+type SubmitUpdateVariableRegistryRequestCreated struct {
 	Payload *models.VariableRegistryUpdateRequestEntity
 }
 
-func (o *SubmitUpdateVariableRegistryRequestOK) Error() string {
-	return fmt.Sprintf("[POST /process-groups/{id}/variable-registry/update-requests][%d] submitUpdateVariableRegistryRequestOK  %+v", 200, o.Payload)
+func (o *SubmitUpdateVariableRegistryRequestCreated) Error() string {
+	return fmt.Sprintf("[POST /process-groups/{id}/variable-registry/update-requests][%d] submitUpdateVariableRegistryRequestCreated  %+v", 201, o.Payload)
 }
 
-func (o *SubmitUpdateVariableRegistryRequestOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *SubmitUpdateVariableRegistryRequestCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.VariableRegistryUpdateRequestEntity)
 

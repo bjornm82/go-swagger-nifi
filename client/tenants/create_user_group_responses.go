@@ -25,8 +25,8 @@ type CreateUserGroupReader struct {
 func (o *CreateUserGroupReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
-	case 200:
-		result := NewCreateUserGroupOK()
+	case 201:
+		result := NewCreateUserGroupCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -72,24 +72,24 @@ func (o *CreateUserGroupReader) ReadResponse(response runtime.ClientResponse, co
 	}
 }
 
-// NewCreateUserGroupOK creates a CreateUserGroupOK with default headers values
-func NewCreateUserGroupOK() *CreateUserGroupOK {
-	return &CreateUserGroupOK{}
+// NewCreateUserGroupCreated creates a CreateUserGroupCreated with default headers values
+func NewCreateUserGroupCreated() *CreateUserGroupCreated {
+	return &CreateUserGroupCreated{}
 }
 
-/*CreateUserGroupOK handles this case with default header values.
+/*CreateUserGroupCreated handles this case with default header values.
 
 successful operation
 */
-type CreateUserGroupOK struct {
+type CreateUserGroupCreated struct {
 	Payload *models.UserGroupEntity
 }
 
-func (o *CreateUserGroupOK) Error() string {
-	return fmt.Sprintf("[POST /tenants/user-groups][%d] createUserGroupOK  %+v", 200, o.Payload)
+func (o *CreateUserGroupCreated) Error() string {
+	return fmt.Sprintf("[POST /tenants/user-groups][%d] createUserGroupCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateUserGroupOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateUserGroupCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.UserGroupEntity)
 

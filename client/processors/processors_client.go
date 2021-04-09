@@ -116,7 +116,7 @@ func (a *Client) GetProcessorDiagnostics(params *GetProcessorDiagnosticsParams, 
 /*
 GetProcessorRunStatusDetails submits a query to retrieve the run status details of all processors that are in the given list of processor ids
 */
-func (a *Client) GetProcessorRunStatusDetails(params *GetProcessorRunStatusDetailsParams, authInfo runtime.ClientAuthInfoWriter) (*GetProcessorRunStatusDetailsOK, error) {
+func (a *Client) GetProcessorRunStatusDetails(params *GetProcessorRunStatusDetailsParams, authInfo runtime.ClientAuthInfoWriter) (*GetProcessorRunStatusDetailsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetProcessorRunStatusDetailsParams()
@@ -138,14 +138,14 @@ func (a *Client) GetProcessorRunStatusDetails(params *GetProcessorRunStatusDetai
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetProcessorRunStatusDetailsOK), nil
+	return result.(*GetProcessorRunStatusDetailsCreated), nil
 
 }
 
 /*
 ProcessorsClearState clears the state for a processor
 */
-func (a *Client) ProcessorsClearState(params *ProcessorsClearStateParams, authInfo runtime.ClientAuthInfoWriter) (*ProcessorsClearStateOK, error) {
+func (a *Client) ProcessorsClearState(params *ProcessorsClearStateParams, authInfo runtime.ClientAuthInfoWriter) (*ProcessorsClearStateCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewProcessorsClearStateParams()
@@ -167,7 +167,7 @@ func (a *Client) ProcessorsClearState(params *ProcessorsClearStateParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ProcessorsClearStateOK), nil
+	return result.(*ProcessorsClearStateCreated), nil
 
 }
 

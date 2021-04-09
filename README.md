@@ -48,4 +48,16 @@ should become:
 "operationId" : "controllerServicesGetState", <-- to become
 ```
 
+Add a miniumum to RevisionDTO.Version, this will create an *int64, so 0 can be set (default unmarshalling behaviour golang)
+```
+"RevisionDTO" : {
+    "type" : "object",
+    "properties" : {
+    "version" : {
+        "format" : "int64",
+        "minimum": 0
+```
+
+Bug in the code of NiFi, when posting a 201 status code is returned, not a 200, so all the posts needs to have a 201.
+
 TODO: UploadTemplate for now I removed the body, which isn't tested at all, should followup on this

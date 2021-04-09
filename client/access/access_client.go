@@ -29,7 +29,7 @@ CreateAccessToken creates a token for accessing the r e s t API via username pas
 
 The token returned is formatted as a JSON Web Token (JWT). The token is base64 encoded and comprised of three parts. The header, the body, and the signature. The expiration of the token is a contained within the body. The token can be used in the Authorization header in the format 'Authorization: Bearer <token>'.
 */
-func (a *Client) CreateAccessToken(params *CreateAccessTokenParams) (*CreateAccessTokenOK, error) {
+func (a *Client) CreateAccessToken(params *CreateAccessTokenParams) (*CreateAccessTokenCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateAccessTokenParams()
@@ -50,7 +50,7 @@ func (a *Client) CreateAccessToken(params *CreateAccessTokenParams) (*CreateAcce
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateAccessTokenOK), nil
+	return result.(*CreateAccessTokenCreated), nil
 
 }
 
@@ -59,7 +59,7 @@ CreateAccessTokenFromTicket creates a token for accessing the r e s t API via ke
 
 The token returned is formatted as a JSON Web Token (JWT). The token is base64 encoded and comprised of three parts. The header, the body, and the signature. The expiration of the token is a contained within the body. The token can be used in the Authorization header in the format 'Authorization: Bearer <token>'.
 */
-func (a *Client) CreateAccessTokenFromTicket(params *CreateAccessTokenFromTicketParams) (*CreateAccessTokenFromTicketOK, error) {
+func (a *Client) CreateAccessTokenFromTicket(params *CreateAccessTokenFromTicketParams) (*CreateAccessTokenFromTicketCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateAccessTokenFromTicketParams()
@@ -80,7 +80,7 @@ func (a *Client) CreateAccessTokenFromTicket(params *CreateAccessTokenFromTicket
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateAccessTokenFromTicketOK), nil
+	return result.(*CreateAccessTokenFromTicketCreated), nil
 
 }
 
@@ -89,7 +89,7 @@ CreateDownloadToken creates a single use access token for downloading flow file 
 
 The token returned is a base64 encoded string. It is valid for a single request up to five minutes from being issued. It is used as a query parameter name 'access_token'.
 */
-func (a *Client) CreateDownloadToken(params *CreateDownloadTokenParams) (*CreateDownloadTokenOK, error) {
+func (a *Client) CreateDownloadToken(params *CreateDownloadTokenParams) (*CreateDownloadTokenCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateDownloadTokenParams()
@@ -110,7 +110,7 @@ func (a *Client) CreateDownloadToken(params *CreateDownloadTokenParams) (*Create
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateDownloadTokenOK), nil
+	return result.(*CreateDownloadTokenCreated), nil
 
 }
 
@@ -119,7 +119,7 @@ CreateUIExtensionToken creates a single use access token for accessing a ni fi U
 
 The token returned is a base64 encoded string. It is valid for a single request up to five minutes from being issued. It is used as a query parameter name 'access_token'.
 */
-func (a *Client) CreateUIExtensionToken(params *CreateUIExtensionTokenParams) (*CreateUIExtensionTokenOK, error) {
+func (a *Client) CreateUIExtensionToken(params *CreateUIExtensionTokenParams) (*CreateUIExtensionTokenCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateUIExtensionTokenParams()
@@ -140,7 +140,7 @@ func (a *Client) CreateUIExtensionToken(params *CreateUIExtensionTokenParams) (*
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateUIExtensionTokenOK), nil
+	return result.(*CreateUIExtensionTokenCreated), nil
 
 }
 
@@ -387,7 +387,7 @@ OidcExchange retrieves a j w t following a successful login sequence using the c
 
 Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
-func (a *Client) OidcExchange(params *OidcExchangeParams) (*OidcExchangeOK, error) {
+func (a *Client) OidcExchange(params *OidcExchangeParams) (*OidcExchangeCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewOidcExchangeParams()
@@ -408,7 +408,7 @@ func (a *Client) OidcExchange(params *OidcExchangeParams) (*OidcExchangeOK, erro
 	if err != nil {
 		return nil, err
 	}
-	return result.(*OidcExchangeOK), nil
+	return result.(*OidcExchangeCreated), nil
 
 }
 
@@ -537,7 +537,7 @@ SamlLoginExchange retrieves a j w t following a successful login sequence using 
 
 Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
-func (a *Client) SamlLoginExchange(params *SamlLoginExchangeParams) (*SamlLoginExchangeOK, error) {
+func (a *Client) SamlLoginExchange(params *SamlLoginExchangeParams) (*SamlLoginExchangeCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSamlLoginExchangeParams()
@@ -558,7 +558,7 @@ func (a *Client) SamlLoginExchange(params *SamlLoginExchangeParams) (*SamlLoginE
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SamlLoginExchangeOK), nil
+	return result.(*SamlLoginExchangeCreated), nil
 
 }
 

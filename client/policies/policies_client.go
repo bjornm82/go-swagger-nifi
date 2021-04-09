@@ -27,7 +27,7 @@ type Client struct {
 /*
 CreateAccessPolicy creates an access policy
 */
-func (a *Client) CreateAccessPolicy(params *CreateAccessPolicyParams, authInfo runtime.ClientAuthInfoWriter) (*CreateAccessPolicyOK, error) {
+func (a *Client) CreateAccessPolicy(params *CreateAccessPolicyParams, authInfo runtime.ClientAuthInfoWriter) (*CreateAccessPolicyCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateAccessPolicyParams()
@@ -49,7 +49,7 @@ func (a *Client) CreateAccessPolicy(params *CreateAccessPolicyParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateAccessPolicyOK), nil
+	return result.(*CreateAccessPolicyCreated), nil
 
 }
 

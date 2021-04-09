@@ -23,8 +23,8 @@ type CreateVersionControlRequestReader struct {
 func (o *CreateVersionControlRequestReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
-	case 200:
-		result := NewCreateVersionControlRequestOK()
+	case 201:
+		result := NewCreateVersionControlRequestCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -70,24 +70,24 @@ func (o *CreateVersionControlRequestReader) ReadResponse(response runtime.Client
 	}
 }
 
-// NewCreateVersionControlRequestOK creates a CreateVersionControlRequestOK with default headers values
-func NewCreateVersionControlRequestOK() *CreateVersionControlRequestOK {
-	return &CreateVersionControlRequestOK{}
+// NewCreateVersionControlRequestCreated creates a CreateVersionControlRequestCreated with default headers values
+func NewCreateVersionControlRequestCreated() *CreateVersionControlRequestCreated {
+	return &CreateVersionControlRequestCreated{}
 }
 
-/*CreateVersionControlRequestOK handles this case with default header values.
+/*CreateVersionControlRequestCreated handles this case with default header values.
 
 successful operation
 */
-type CreateVersionControlRequestOK struct {
+type CreateVersionControlRequestCreated struct {
 	Payload string
 }
 
-func (o *CreateVersionControlRequestOK) Error() string {
-	return fmt.Sprintf("[POST /versions/active-requests][%d] createVersionControlRequestOK  %+v", 200, o.Payload)
+func (o *CreateVersionControlRequestCreated) Error() string {
+	return fmt.Sprintf("[POST /versions/active-requests][%d] createVersionControlRequestCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateVersionControlRequestOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateVersionControlRequestCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

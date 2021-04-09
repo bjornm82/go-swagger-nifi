@@ -25,8 +25,8 @@ type CopySnippetReader struct {
 func (o *CopySnippetReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
-	case 200:
-		result := NewCopySnippetOK()
+	case 201:
+		result := NewCopySnippetCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -72,24 +72,24 @@ func (o *CopySnippetReader) ReadResponse(response runtime.ClientResponse, consum
 	}
 }
 
-// NewCopySnippetOK creates a CopySnippetOK with default headers values
-func NewCopySnippetOK() *CopySnippetOK {
-	return &CopySnippetOK{}
+// NewCopySnippetCreated creates a CopySnippetCreated with default headers values
+func NewCopySnippetCreated() *CopySnippetCreated {
+	return &CopySnippetCreated{}
 }
 
-/*CopySnippetOK handles this case with default header values.
+/*CopySnippetCreated handles this case with default header values.
 
 successful operation
 */
-type CopySnippetOK struct {
+type CopySnippetCreated struct {
 	Payload *models.FlowEntity
 }
 
-func (o *CopySnippetOK) Error() string {
-	return fmt.Sprintf("[POST /process-groups/{id}/snippet-instance][%d] copySnippetOK  %+v", 200, o.Payload)
+func (o *CopySnippetCreated) Error() string {
+	return fmt.Sprintf("[POST /process-groups/{id}/snippet-instance][%d] copySnippetCreated  %+v", 201, o.Payload)
 }
 
-func (o *CopySnippetOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CopySnippetCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.FlowEntity)
 

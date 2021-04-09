@@ -23,8 +23,8 @@ type ReceiveFlowFilesReader struct {
 func (o *ReceiveFlowFilesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
-	case 200:
-		result := NewReceiveFlowFilesOK()
+	case 201:
+		result := NewReceiveFlowFilesCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -77,24 +77,24 @@ func (o *ReceiveFlowFilesReader) ReadResponse(response runtime.ClientResponse, c
 	}
 }
 
-// NewReceiveFlowFilesOK creates a ReceiveFlowFilesOK with default headers values
-func NewReceiveFlowFilesOK() *ReceiveFlowFilesOK {
-	return &ReceiveFlowFilesOK{}
+// NewReceiveFlowFilesCreated creates a ReceiveFlowFilesCreated with default headers values
+func NewReceiveFlowFilesCreated() *ReceiveFlowFilesCreated {
+	return &ReceiveFlowFilesCreated{}
 }
 
-/*ReceiveFlowFilesOK handles this case with default header values.
+/*ReceiveFlowFilesCreated handles this case with default header values.
 
 successful operation
 */
-type ReceiveFlowFilesOK struct {
+type ReceiveFlowFilesCreated struct {
 	Payload string
 }
 
-func (o *ReceiveFlowFilesOK) Error() string {
-	return fmt.Sprintf("[POST /data-transfer/input-ports/{portId}/transactions/{transactionId}/flow-files][%d] receiveFlowFilesOK  %+v", 200, o.Payload)
+func (o *ReceiveFlowFilesCreated) Error() string {
+	return fmt.Sprintf("[POST /data-transfer/input-ports/{portId}/transactions/{transactionId}/flow-files][%d] receiveFlowFilesCreated  %+v", 201, o.Payload)
 }
 
-func (o *ReceiveFlowFilesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *ReceiveFlowFilesCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

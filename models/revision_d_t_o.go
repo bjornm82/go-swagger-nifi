@@ -8,7 +8,9 @@ package models
 import (
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // RevisionDTO revision d t o
@@ -23,11 +25,34 @@ type RevisionDTO struct {
 	LastModifier string `json:"lastModifier,omitempty"`
 
 	// NiFi employs an optimistic locking strategy where the client must include a revision in their request when performing an update. In a response to a mutable flow request, this field represents the updated base version.
-	Version int64 `json:"version,omitempty"`
+	// Minimum: 0
+	Version *int64 `json:"version,omitempty"`
 }
 
 // Validate validates this revision d t o
 func (m *RevisionDTO) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateVersion(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *RevisionDTO) validateVersion(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Version) { // not required
+		return nil
+	}
+
+	if err := validate.MinimumInt("version", "body", int64(*m.Version), 0, false); err != nil {
+		return err
+	}
+
 	return nil
 }
 

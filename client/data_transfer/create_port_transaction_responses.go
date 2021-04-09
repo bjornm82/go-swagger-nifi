@@ -25,8 +25,8 @@ type CreatePortTransactionReader struct {
 func (o *CreatePortTransactionReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
-	case 200:
-		result := NewCreatePortTransactionOK()
+	case 201:
+		result := NewCreatePortTransactionCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -79,24 +79,24 @@ func (o *CreatePortTransactionReader) ReadResponse(response runtime.ClientRespon
 	}
 }
 
-// NewCreatePortTransactionOK creates a CreatePortTransactionOK with default headers values
-func NewCreatePortTransactionOK() *CreatePortTransactionOK {
-	return &CreatePortTransactionOK{}
+// NewCreatePortTransactionCreated creates a CreatePortTransactionCreated with default headers values
+func NewCreatePortTransactionCreated() *CreatePortTransactionCreated {
+	return &CreatePortTransactionCreated{}
 }
 
-/*CreatePortTransactionOK handles this case with default header values.
+/*CreatePortTransactionCreated handles this case with default header values.
 
 successful operation
 */
-type CreatePortTransactionOK struct {
+type CreatePortTransactionCreated struct {
 	Payload *models.TransactionResultEntity
 }
 
-func (o *CreatePortTransactionOK) Error() string {
-	return fmt.Sprintf("[POST /data-transfer/{portType}/{portId}/transactions][%d] createPortTransactionOK  %+v", 200, o.Payload)
+func (o *CreatePortTransactionCreated) Error() string {
+	return fmt.Sprintf("[POST /data-transfer/{portType}/{portId}/transactions][%d] createPortTransactionCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreatePortTransactionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreatePortTransactionCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.TransactionResultEntity)
 

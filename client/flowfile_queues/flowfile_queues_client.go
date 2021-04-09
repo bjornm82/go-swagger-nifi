@@ -27,7 +27,7 @@ type Client struct {
 /*
 CreateDropRequest creates a request to drop the contents of the queue in this connection
 */
-func (a *Client) CreateDropRequest(params *CreateDropRequestParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDropRequestOK, *CreateDropRequestAccepted, error) {
+func (a *Client) CreateDropRequest(params *CreateDropRequestParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDropRequestCreated, *CreateDropRequestAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateDropRequestParams()
@@ -50,7 +50,7 @@ func (a *Client) CreateDropRequest(params *CreateDropRequestParams, authInfo run
 		return nil, nil, err
 	}
 	switch value := result.(type) {
-	case *CreateDropRequestOK:
+	case *CreateDropRequestCreated:
 		return value, nil, nil
 	case *CreateDropRequestAccepted:
 		return nil, value, nil
@@ -62,7 +62,7 @@ func (a *Client) CreateDropRequest(params *CreateDropRequestParams, authInfo run
 /*
 CreateFlowFileListing lists the contents of the queue in this connection
 */
-func (a *Client) CreateFlowFileListing(params *CreateFlowFileListingParams, authInfo runtime.ClientAuthInfoWriter) (*CreateFlowFileListingOK, *CreateFlowFileListingAccepted, error) {
+func (a *Client) CreateFlowFileListing(params *CreateFlowFileListingParams, authInfo runtime.ClientAuthInfoWriter) (*CreateFlowFileListingCreated, *CreateFlowFileListingAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateFlowFileListingParams()
@@ -85,7 +85,7 @@ func (a *Client) CreateFlowFileListing(params *CreateFlowFileListingParams, auth
 		return nil, nil, err
 	}
 	switch value := result.(type) {
-	case *CreateFlowFileListingOK:
+	case *CreateFlowFileListingCreated:
 		return value, nil, nil
 	case *CreateFlowFileListingAccepted:
 		return nil, value, nil

@@ -25,8 +25,8 @@ type SubmitValidationRequestReader struct {
 func (o *SubmitValidationRequestReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
-	case 200:
-		result := NewSubmitValidationRequestOK()
+	case 201:
+		result := NewSubmitValidationRequestCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -72,24 +72,24 @@ func (o *SubmitValidationRequestReader) ReadResponse(response runtime.ClientResp
 	}
 }
 
-// NewSubmitValidationRequestOK creates a SubmitValidationRequestOK with default headers values
-func NewSubmitValidationRequestOK() *SubmitValidationRequestOK {
-	return &SubmitValidationRequestOK{}
+// NewSubmitValidationRequestCreated creates a SubmitValidationRequestCreated with default headers values
+func NewSubmitValidationRequestCreated() *SubmitValidationRequestCreated {
+	return &SubmitValidationRequestCreated{}
 }
 
-/*SubmitValidationRequestOK handles this case with default header values.
+/*SubmitValidationRequestCreated handles this case with default header values.
 
 successful operation
 */
-type SubmitValidationRequestOK struct {
+type SubmitValidationRequestCreated struct {
 	Payload *models.ParameterContextValidationRequestEntity
 }
 
-func (o *SubmitValidationRequestOK) Error() string {
-	return fmt.Sprintf("[POST /parameter-contexts/{contextId}/validation-requests][%d] submitValidationRequestOK  %+v", 200, o.Payload)
+func (o *SubmitValidationRequestCreated) Error() string {
+	return fmt.Sprintf("[POST /parameter-contexts/{contextId}/validation-requests][%d] submitValidationRequestCreated  %+v", 201, o.Payload)
 }
 
-func (o *SubmitValidationRequestOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *SubmitValidationRequestCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ParameterContextValidationRequestEntity)
 

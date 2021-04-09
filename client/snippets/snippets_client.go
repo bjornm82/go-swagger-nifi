@@ -27,7 +27,7 @@ type Client struct {
 /*
 CreateSnippet creates a snippet the snippet will be automatically discarded if not used in a subsequent request after 1 minute
 */
-func (a *Client) CreateSnippet(params *CreateSnippetParams, authInfo runtime.ClientAuthInfoWriter) (*CreateSnippetOK, error) {
+func (a *Client) CreateSnippet(params *CreateSnippetParams, authInfo runtime.ClientAuthInfoWriter) (*CreateSnippetCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateSnippetParams()
@@ -49,7 +49,7 @@ func (a *Client) CreateSnippet(params *CreateSnippetParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateSnippetOK), nil
+	return result.(*CreateSnippetCreated), nil
 
 }
 

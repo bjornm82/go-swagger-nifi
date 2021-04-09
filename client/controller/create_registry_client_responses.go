@@ -25,8 +25,8 @@ type CreateRegistryClientReader struct {
 func (o *CreateRegistryClientReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
-	case 200:
-		result := NewCreateRegistryClientOK()
+	case 201:
+		result := NewCreateRegistryClientCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -65,24 +65,24 @@ func (o *CreateRegistryClientReader) ReadResponse(response runtime.ClientRespons
 	}
 }
 
-// NewCreateRegistryClientOK creates a CreateRegistryClientOK with default headers values
-func NewCreateRegistryClientOK() *CreateRegistryClientOK {
-	return &CreateRegistryClientOK{}
+// NewCreateRegistryClientCreated creates a CreateRegistryClientCreated with default headers values
+func NewCreateRegistryClientCreated() *CreateRegistryClientCreated {
+	return &CreateRegistryClientCreated{}
 }
 
-/*CreateRegistryClientOK handles this case with default header values.
+/*CreateRegistryClientCreated handles this case with default header values.
 
 successful operation
 */
-type CreateRegistryClientOK struct {
+type CreateRegistryClientCreated struct {
 	Payload *models.RegistryClientEntity
 }
 
-func (o *CreateRegistryClientOK) Error() string {
-	return fmt.Sprintf("[POST /controller/registry-clients][%d] createRegistryClientOK  %+v", 200, o.Payload)
+func (o *CreateRegistryClientCreated) Error() string {
+	return fmt.Sprintf("[POST /controller/registry-clients][%d] createRegistryClientCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateRegistryClientOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateRegistryClientCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RegistryClientEntity)
 

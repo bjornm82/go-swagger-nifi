@@ -25,8 +25,8 @@ type CreateProcessGroupReader struct {
 func (o *CreateProcessGroupReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
-	case 200:
-		result := NewCreateProcessGroupOK()
+	case 201:
+		result := NewCreateProcessGroupCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -72,24 +72,24 @@ func (o *CreateProcessGroupReader) ReadResponse(response runtime.ClientResponse,
 	}
 }
 
-// NewCreateProcessGroupOK creates a CreateProcessGroupOK with default headers values
-func NewCreateProcessGroupOK() *CreateProcessGroupOK {
-	return &CreateProcessGroupOK{}
+// NewCreateProcessGroupCreated creates a CreateProcessGroupCreated with default headers values
+func NewCreateProcessGroupCreated() *CreateProcessGroupCreated {
+	return &CreateProcessGroupCreated{}
 }
 
-/*CreateProcessGroupOK handles this case with default header values.
+/*CreateProcessGroupCreated handles this case with default header values.
 
 successful operation
 */
-type CreateProcessGroupOK struct {
+type CreateProcessGroupCreated struct {
 	Payload *models.ProcessGroupEntity
 }
 
-func (o *CreateProcessGroupOK) Error() string {
-	return fmt.Sprintf("[POST /process-groups/{id}/process-groups][%d] createProcessGroupOK  %+v", 200, o.Payload)
+func (o *CreateProcessGroupCreated) Error() string {
+	return fmt.Sprintf("[POST /process-groups/{id}/process-groups][%d] createProcessGroupCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateProcessGroupOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateProcessGroupCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ProcessGroupEntity)
 

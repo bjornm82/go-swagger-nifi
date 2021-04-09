@@ -29,7 +29,7 @@ CreateVersionControlRequest creates a version control request
 
 Creates a request so that a Process Group can be placed under Version Control or have its Version Control configuration changed. Creating this request will prevent any other threads from simultaneously saving local changes to Version Control. It will not, however, actually save the local flow to the Flow Registry. A POST to /versions/process-groups/{id} should be used to initiate saving of the local flow to the Flow Registry. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
-func (a *Client) CreateVersionControlRequest(params *CreateVersionControlRequestParams, authInfo runtime.ClientAuthInfoWriter) (*CreateVersionControlRequestOK, error) {
+func (a *Client) CreateVersionControlRequest(params *CreateVersionControlRequestParams, authInfo runtime.ClientAuthInfoWriter) (*CreateVersionControlRequestCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateVersionControlRequestParams()
@@ -51,7 +51,7 @@ func (a *Client) CreateVersionControlRequest(params *CreateVersionControlRequest
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateVersionControlRequestOK), nil
+	return result.(*CreateVersionControlRequestCreated), nil
 
 }
 
@@ -244,7 +244,7 @@ InitiateRevertFlowVersion initiates the revert request of a process group with t
 
 For a Process Group that is already under Version Control, this will initiate the action of reverting any local changes that have been made to the Process Group since it was last synchronized with the Flow Registry. This will result in the flow matching the Versioned Flow that exists in the Flow Registry. This can be a lengthy process, as it will stop any Processors and disable any Controller Services necessary to perform the action and then restart them. As a result, the endpoint will immediately return a VersionedFlowUpdateRequestEntity, and the process of updating the flow will occur asynchronously in the background. The client may then periodically poll the status of the request by issuing a GET request to /versions/revert-requests/{requestId}. Once the request is completed, the client is expected to issue a DELETE request to /versions/revert-requests/{requestId}. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
-func (a *Client) InitiateRevertFlowVersion(params *InitiateRevertFlowVersionParams, authInfo runtime.ClientAuthInfoWriter) (*InitiateRevertFlowVersionOK, error) {
+func (a *Client) InitiateRevertFlowVersion(params *InitiateRevertFlowVersionParams, authInfo runtime.ClientAuthInfoWriter) (*InitiateRevertFlowVersionCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewInitiateRevertFlowVersionParams()
@@ -266,7 +266,7 @@ func (a *Client) InitiateRevertFlowVersion(params *InitiateRevertFlowVersionPara
 	if err != nil {
 		return nil, err
 	}
-	return result.(*InitiateRevertFlowVersionOK), nil
+	return result.(*InitiateRevertFlowVersionCreated), nil
 
 }
 
@@ -275,7 +275,7 @@ InitiateVersionControlUpdate initiates the update request of a process group wit
 
 For a Process Group that is already under Version Control, this will initiate the action of changing from a specific version of the flow in the Flow Registry to a different version of the flow. This can be a lengthy process, as it will stop any Processors and disable any Controller Services necessary to perform the action and then restart them. As a result, the endpoint will immediately return a VersionedFlowUpdateRequestEntity, and the process of updating the flow will occur asynchronously in the background. The client may then periodically poll the status of the request by issuing a GET request to /versions/update-requests/{requestId}. Once the request is completed, the client is expected to issue a DELETE request to /versions/update-requests/{requestId}. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
-func (a *Client) InitiateVersionControlUpdate(params *InitiateVersionControlUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*InitiateVersionControlUpdateOK, error) {
+func (a *Client) InitiateVersionControlUpdate(params *InitiateVersionControlUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*InitiateVersionControlUpdateCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewInitiateVersionControlUpdateParams()
@@ -297,7 +297,7 @@ func (a *Client) InitiateVersionControlUpdate(params *InitiateVersionControlUpda
 	if err != nil {
 		return nil, err
 	}
-	return result.(*InitiateVersionControlUpdateOK), nil
+	return result.(*InitiateVersionControlUpdateCreated), nil
 
 }
 
@@ -306,7 +306,7 @@ SaveToFlowRegistry saves the process group with the given ID
 
 Begins version controlling the Process Group with the given ID or commits changes to the Versioned Flow, depending on if the provided VersionControlInformation includes a flowId. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
-func (a *Client) SaveToFlowRegistry(params *SaveToFlowRegistryParams, authInfo runtime.ClientAuthInfoWriter) (*SaveToFlowRegistryOK, error) {
+func (a *Client) SaveToFlowRegistry(params *SaveToFlowRegistryParams, authInfo runtime.ClientAuthInfoWriter) (*SaveToFlowRegistryCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSaveToFlowRegistryParams()
@@ -328,7 +328,7 @@ func (a *Client) SaveToFlowRegistry(params *SaveToFlowRegistryParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SaveToFlowRegistryOK), nil
+	return result.(*SaveToFlowRegistryCreated), nil
 
 }
 

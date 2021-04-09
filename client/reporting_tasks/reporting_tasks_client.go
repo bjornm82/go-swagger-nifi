@@ -85,7 +85,7 @@ func (a *Client) RemoveReportingTask(params *RemoveReportingTaskParams, authInfo
 /*
 ReportingTasksClearState clears the state for a reporting task
 */
-func (a *Client) ReportingTasksClearState(params *ReportingTasksClearStateParams, authInfo runtime.ClientAuthInfoWriter) (*ReportingTasksClearStateOK, error) {
+func (a *Client) ReportingTasksClearState(params *ReportingTasksClearStateParams, authInfo runtime.ClientAuthInfoWriter) (*ReportingTasksClearStateCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewReportingTasksClearStateParams()
@@ -107,7 +107,7 @@ func (a *Client) ReportingTasksClearState(params *ReportingTasksClearStateParams
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ReportingTasksClearStateOK), nil
+	return result.(*ReportingTasksClearStateCreated), nil
 
 }
 

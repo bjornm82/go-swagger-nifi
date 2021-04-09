@@ -25,8 +25,8 @@ type InitiateReplaceProcessGroupReader struct {
 func (o *InitiateReplaceProcessGroupReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
-	case 200:
-		result := NewInitiateReplaceProcessGroupOK()
+	case 201:
+		result := NewInitiateReplaceProcessGroupCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -72,24 +72,24 @@ func (o *InitiateReplaceProcessGroupReader) ReadResponse(response runtime.Client
 	}
 }
 
-// NewInitiateReplaceProcessGroupOK creates a InitiateReplaceProcessGroupOK with default headers values
-func NewInitiateReplaceProcessGroupOK() *InitiateReplaceProcessGroupOK {
-	return &InitiateReplaceProcessGroupOK{}
+// NewInitiateReplaceProcessGroupCreated creates a InitiateReplaceProcessGroupCreated with default headers values
+func NewInitiateReplaceProcessGroupCreated() *InitiateReplaceProcessGroupCreated {
+	return &InitiateReplaceProcessGroupCreated{}
 }
 
-/*InitiateReplaceProcessGroupOK handles this case with default header values.
+/*InitiateReplaceProcessGroupCreated handles this case with default header values.
 
 successful operation
 */
-type InitiateReplaceProcessGroupOK struct {
+type InitiateReplaceProcessGroupCreated struct {
 	Payload *models.ProcessGroupReplaceRequestEntity
 }
 
-func (o *InitiateReplaceProcessGroupOK) Error() string {
-	return fmt.Sprintf("[POST /process-groups/{id}/replace-requests][%d] initiateReplaceProcessGroupOK  %+v", 200, o.Payload)
+func (o *InitiateReplaceProcessGroupCreated) Error() string {
+	return fmt.Sprintf("[POST /process-groups/{id}/replace-requests][%d] initiateReplaceProcessGroupCreated  %+v", 201, o.Payload)
 }
 
-func (o *InitiateReplaceProcessGroupOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *InitiateReplaceProcessGroupCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ProcessGroupReplaceRequestEntity)
 

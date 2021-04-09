@@ -25,8 +25,8 @@ type InitiateRevertFlowVersionReader struct {
 func (o *InitiateRevertFlowVersionReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
-	case 200:
-		result := NewInitiateRevertFlowVersionOK()
+	case 201:
+		result := NewInitiateRevertFlowVersionCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -72,24 +72,24 @@ func (o *InitiateRevertFlowVersionReader) ReadResponse(response runtime.ClientRe
 	}
 }
 
-// NewInitiateRevertFlowVersionOK creates a InitiateRevertFlowVersionOK with default headers values
-func NewInitiateRevertFlowVersionOK() *InitiateRevertFlowVersionOK {
-	return &InitiateRevertFlowVersionOK{}
+// NewInitiateRevertFlowVersionCreated creates a InitiateRevertFlowVersionCreated with default headers values
+func NewInitiateRevertFlowVersionCreated() *InitiateRevertFlowVersionCreated {
+	return &InitiateRevertFlowVersionCreated{}
 }
 
-/*InitiateRevertFlowVersionOK handles this case with default header values.
+/*InitiateRevertFlowVersionCreated handles this case with default header values.
 
 successful operation
 */
-type InitiateRevertFlowVersionOK struct {
+type InitiateRevertFlowVersionCreated struct {
 	Payload *models.VersionedFlowUpdateRequestEntity
 }
 
-func (o *InitiateRevertFlowVersionOK) Error() string {
-	return fmt.Sprintf("[POST /versions/revert-requests/process-groups/{id}][%d] initiateRevertFlowVersionOK  %+v", 200, o.Payload)
+func (o *InitiateRevertFlowVersionCreated) Error() string {
+	return fmt.Sprintf("[POST /versions/revert-requests/process-groups/{id}][%d] initiateRevertFlowVersionCreated  %+v", 201, o.Payload)
 }
 
-func (o *InitiateRevertFlowVersionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *InitiateRevertFlowVersionCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.VersionedFlowUpdateRequestEntity)
 

@@ -25,8 +25,8 @@ type SubmitLineageRequestReader struct {
 func (o *SubmitLineageRequestReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
-	case 200:
-		result := NewSubmitLineageRequestOK()
+	case 201:
+		result := NewSubmitLineageRequestCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -72,24 +72,24 @@ func (o *SubmitLineageRequestReader) ReadResponse(response runtime.ClientRespons
 	}
 }
 
-// NewSubmitLineageRequestOK creates a SubmitLineageRequestOK with default headers values
-func NewSubmitLineageRequestOK() *SubmitLineageRequestOK {
-	return &SubmitLineageRequestOK{}
+// NewSubmitLineageRequestCreated creates a SubmitLineageRequestCreated with default headers values
+func NewSubmitLineageRequestCreated() *SubmitLineageRequestCreated {
+	return &SubmitLineageRequestCreated{}
 }
 
-/*SubmitLineageRequestOK handles this case with default header values.
+/*SubmitLineageRequestCreated handles this case with default header values.
 
 successful operation
 */
-type SubmitLineageRequestOK struct {
+type SubmitLineageRequestCreated struct {
 	Payload *models.LineageEntity
 }
 
-func (o *SubmitLineageRequestOK) Error() string {
-	return fmt.Sprintf("[POST /provenance/lineage][%d] submitLineageRequestOK  %+v", 200, o.Payload)
+func (o *SubmitLineageRequestCreated) Error() string {
+	return fmt.Sprintf("[POST /provenance/lineage][%d] submitLineageRequestCreated  %+v", 201, o.Payload)
 }
 
-func (o *SubmitLineageRequestOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *SubmitLineageRequestCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.LineageEntity)
 

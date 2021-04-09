@@ -25,8 +25,8 @@ type CreateTemplateReader struct {
 func (o *CreateTemplateReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
-	case 200:
-		result := NewCreateTemplateOK()
+	case 201:
+		result := NewCreateTemplateCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -72,24 +72,24 @@ func (o *CreateTemplateReader) ReadResponse(response runtime.ClientResponse, con
 	}
 }
 
-// NewCreateTemplateOK creates a CreateTemplateOK with default headers values
-func NewCreateTemplateOK() *CreateTemplateOK {
-	return &CreateTemplateOK{}
+// NewCreateTemplateCreated creates a CreateTemplateCreated with default headers values
+func NewCreateTemplateCreated() *CreateTemplateCreated {
+	return &CreateTemplateCreated{}
 }
 
-/*CreateTemplateOK handles this case with default header values.
+/*CreateTemplateCreated handles this case with default header values.
 
 successful operation
 */
-type CreateTemplateOK struct {
+type CreateTemplateCreated struct {
 	Payload *models.TemplateEntity
 }
 
-func (o *CreateTemplateOK) Error() string {
-	return fmt.Sprintf("[POST /process-groups/{id}/templates][%d] createTemplateOK  %+v", 200, o.Payload)
+func (o *CreateTemplateCreated) Error() string {
+	return fmt.Sprintf("[POST /process-groups/{id}/templates][%d] createTemplateCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateTemplateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateTemplateCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.TemplateEntity)
 

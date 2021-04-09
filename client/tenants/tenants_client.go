@@ -29,7 +29,7 @@ CreateUser creates a user
 
 Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
-func (a *Client) CreateUser(params *CreateUserParams, authInfo runtime.ClientAuthInfoWriter) (*CreateUserOK, error) {
+func (a *Client) CreateUser(params *CreateUserParams, authInfo runtime.ClientAuthInfoWriter) (*CreateUserCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateUserParams()
@@ -51,7 +51,7 @@ func (a *Client) CreateUser(params *CreateUserParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateUserOK), nil
+	return result.(*CreateUserCreated), nil
 
 }
 
@@ -60,7 +60,7 @@ CreateUserGroup creates a user group
 
 Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
-func (a *Client) CreateUserGroup(params *CreateUserGroupParams, authInfo runtime.ClientAuthInfoWriter) (*CreateUserGroupOK, error) {
+func (a *Client) CreateUserGroup(params *CreateUserGroupParams, authInfo runtime.ClientAuthInfoWriter) (*CreateUserGroupCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateUserGroupParams()
@@ -82,7 +82,7 @@ func (a *Client) CreateUserGroup(params *CreateUserGroupParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateUserGroupOK), nil
+	return result.(*CreateUserGroupCreated), nil
 
 }
 

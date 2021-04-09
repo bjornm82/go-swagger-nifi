@@ -25,8 +25,8 @@ type CreateConnectionReader struct {
 func (o *CreateConnectionReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
-	case 200:
-		result := NewCreateConnectionOK()
+	case 201:
+		result := NewCreateConnectionCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -72,24 +72,24 @@ func (o *CreateConnectionReader) ReadResponse(response runtime.ClientResponse, c
 	}
 }
 
-// NewCreateConnectionOK creates a CreateConnectionOK with default headers values
-func NewCreateConnectionOK() *CreateConnectionOK {
-	return &CreateConnectionOK{}
+// NewCreateConnectionCreated creates a CreateConnectionCreated with default headers values
+func NewCreateConnectionCreated() *CreateConnectionCreated {
+	return &CreateConnectionCreated{}
 }
 
-/*CreateConnectionOK handles this case with default header values.
+/*CreateConnectionCreated handles this case with default header values.
 
 successful operation
 */
-type CreateConnectionOK struct {
+type CreateConnectionCreated struct {
 	Payload *models.ConnectionEntity
 }
 
-func (o *CreateConnectionOK) Error() string {
-	return fmt.Sprintf("[POST /process-groups/{id}/connections][%d] createConnectionOK  %+v", 200, o.Payload)
+func (o *CreateConnectionCreated) Error() string {
+	return fmt.Sprintf("[POST /process-groups/{id}/connections][%d] createConnectionCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateConnectionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateConnectionCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ConnectionEntity)
 

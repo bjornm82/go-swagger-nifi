@@ -23,8 +23,8 @@ type SamlLoginExchangeReader struct {
 func (o *SamlLoginExchangeReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
-	case 200:
-		result := NewSamlLoginExchangeOK()
+	case 201:
+		result := NewSamlLoginExchangeCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -35,24 +35,24 @@ func (o *SamlLoginExchangeReader) ReadResponse(response runtime.ClientResponse, 
 	}
 }
 
-// NewSamlLoginExchangeOK creates a SamlLoginExchangeOK with default headers values
-func NewSamlLoginExchangeOK() *SamlLoginExchangeOK {
-	return &SamlLoginExchangeOK{}
+// NewSamlLoginExchangeCreated creates a SamlLoginExchangeCreated with default headers values
+func NewSamlLoginExchangeCreated() *SamlLoginExchangeCreated {
+	return &SamlLoginExchangeCreated{}
 }
 
-/*SamlLoginExchangeOK handles this case with default header values.
+/*SamlLoginExchangeCreated handles this case with default header values.
 
 successful operation
 */
-type SamlLoginExchangeOK struct {
+type SamlLoginExchangeCreated struct {
 	Payload string
 }
 
-func (o *SamlLoginExchangeOK) Error() string {
-	return fmt.Sprintf("[POST /access/saml/login/exchange][%d] samlLoginExchangeOK  %+v", 200, o.Payload)
+func (o *SamlLoginExchangeCreated) Error() string {
+	return fmt.Sprintf("[POST /access/saml/login/exchange][%d] samlLoginExchangeCreated  %+v", 201, o.Payload)
 }
 
-func (o *SamlLoginExchangeOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *SamlLoginExchangeCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

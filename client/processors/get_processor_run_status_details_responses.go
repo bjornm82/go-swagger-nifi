@@ -25,8 +25,8 @@ type GetProcessorRunStatusDetailsReader struct {
 func (o *GetProcessorRunStatusDetailsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
-	case 200:
-		result := NewGetProcessorRunStatusDetailsOK()
+	case 201:
+		result := NewGetProcessorRunStatusDetailsCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -72,24 +72,24 @@ func (o *GetProcessorRunStatusDetailsReader) ReadResponse(response runtime.Clien
 	}
 }
 
-// NewGetProcessorRunStatusDetailsOK creates a GetProcessorRunStatusDetailsOK with default headers values
-func NewGetProcessorRunStatusDetailsOK() *GetProcessorRunStatusDetailsOK {
-	return &GetProcessorRunStatusDetailsOK{}
+// NewGetProcessorRunStatusDetailsCreated creates a GetProcessorRunStatusDetailsCreated with default headers values
+func NewGetProcessorRunStatusDetailsCreated() *GetProcessorRunStatusDetailsCreated {
+	return &GetProcessorRunStatusDetailsCreated{}
 }
 
-/*GetProcessorRunStatusDetailsOK handles this case with default header values.
+/*GetProcessorRunStatusDetailsCreated handles this case with default header values.
 
 successful operation
 */
-type GetProcessorRunStatusDetailsOK struct {
+type GetProcessorRunStatusDetailsCreated struct {
 	Payload *models.ProcessorsRunStatusDetailsEntity
 }
 
-func (o *GetProcessorRunStatusDetailsOK) Error() string {
-	return fmt.Sprintf("[POST /processors/run-status-details/queries][%d] getProcessorRunStatusDetailsOK  %+v", 200, o.Payload)
+func (o *GetProcessorRunStatusDetailsCreated) Error() string {
+	return fmt.Sprintf("[POST /processors/run-status-details/queries][%d] getProcessorRunStatusDetailsCreated  %+v", 201, o.Payload)
 }
 
-func (o *GetProcessorRunStatusDetailsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *GetProcessorRunStatusDetailsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ProcessorsRunStatusDetailsEntity)
 

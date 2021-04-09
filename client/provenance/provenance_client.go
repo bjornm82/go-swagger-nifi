@@ -174,7 +174,7 @@ SubmitLineageRequest submits a lineage query
 
 Lineage queries may be long running so this endpoint submits a request. The response will include the current state of the query. If the request is not completed the URI in the response can be used at a later time to get the updated state of the query. Once the query has completed the lineage request should be deleted by the client who originally submitted it.
 */
-func (a *Client) SubmitLineageRequest(params *SubmitLineageRequestParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitLineageRequestOK, error) {
+func (a *Client) SubmitLineageRequest(params *SubmitLineageRequestParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitLineageRequestCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSubmitLineageRequestParams()
@@ -196,7 +196,7 @@ func (a *Client) SubmitLineageRequest(params *SubmitLineageRequestParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SubmitLineageRequestOK), nil
+	return result.(*SubmitLineageRequestCreated), nil
 
 }
 
@@ -205,7 +205,7 @@ SubmitProvenanceRequest submits a provenance query
 
 Provenance queries may be long running so this endpoint submits a request. The response will include the current state of the query. If the request is not completed the URI in the response can be used at a later time to get the updated state of the query. Once the query has completed the provenance request should be deleted by the client who originally submitted it.
 */
-func (a *Client) SubmitProvenanceRequest(params *SubmitProvenanceRequestParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitProvenanceRequestOK, error) {
+func (a *Client) SubmitProvenanceRequest(params *SubmitProvenanceRequestParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitProvenanceRequestCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSubmitProvenanceRequestParams()
@@ -227,7 +227,7 @@ func (a *Client) SubmitProvenanceRequest(params *SubmitProvenanceRequestParams, 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SubmitProvenanceRequestOK), nil
+	return result.(*SubmitProvenanceRequestCreated), nil
 
 }
 

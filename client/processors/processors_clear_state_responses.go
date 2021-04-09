@@ -25,8 +25,8 @@ type ProcessorsClearStateReader struct {
 func (o *ProcessorsClearStateReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
-	case 200:
-		result := NewProcessorsClearStateOK()
+	case 201:
+		result := NewProcessorsClearStateCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -72,24 +72,24 @@ func (o *ProcessorsClearStateReader) ReadResponse(response runtime.ClientRespons
 	}
 }
 
-// NewProcessorsClearStateOK creates a ProcessorsClearStateOK with default headers values
-func NewProcessorsClearStateOK() *ProcessorsClearStateOK {
-	return &ProcessorsClearStateOK{}
+// NewProcessorsClearStateCreated creates a ProcessorsClearStateCreated with default headers values
+func NewProcessorsClearStateCreated() *ProcessorsClearStateCreated {
+	return &ProcessorsClearStateCreated{}
 }
 
-/*ProcessorsClearStateOK handles this case with default header values.
+/*ProcessorsClearStateCreated handles this case with default header values.
 
 successful operation
 */
-type ProcessorsClearStateOK struct {
+type ProcessorsClearStateCreated struct {
 	Payload *models.ComponentStateEntity
 }
 
-func (o *ProcessorsClearStateOK) Error() string {
-	return fmt.Sprintf("[POST /processors/{id}/state/clear-requests][%d] processorsClearStateOK  %+v", 200, o.Payload)
+func (o *ProcessorsClearStateCreated) Error() string {
+	return fmt.Sprintf("[POST /processors/{id}/state/clear-requests][%d] processorsClearStateCreated  %+v", 201, o.Payload)
 }
 
-func (o *ProcessorsClearStateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *ProcessorsClearStateCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ComponentStateEntity)
 

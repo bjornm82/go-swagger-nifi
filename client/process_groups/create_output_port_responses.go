@@ -25,8 +25,8 @@ type CreateOutputPortReader struct {
 func (o *CreateOutputPortReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
-	case 200:
-		result := NewCreateOutputPortOK()
+	case 201:
+		result := NewCreateOutputPortCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -72,24 +72,24 @@ func (o *CreateOutputPortReader) ReadResponse(response runtime.ClientResponse, c
 	}
 }
 
-// NewCreateOutputPortOK creates a CreateOutputPortOK with default headers values
-func NewCreateOutputPortOK() *CreateOutputPortOK {
-	return &CreateOutputPortOK{}
+// NewCreateOutputPortCreated creates a CreateOutputPortCreated with default headers values
+func NewCreateOutputPortCreated() *CreateOutputPortCreated {
+	return &CreateOutputPortCreated{}
 }
 
-/*CreateOutputPortOK handles this case with default header values.
+/*CreateOutputPortCreated handles this case with default header values.
 
 successful operation
 */
-type CreateOutputPortOK struct {
+type CreateOutputPortCreated struct {
 	Payload *models.PortEntity
 }
 
-func (o *CreateOutputPortOK) Error() string {
-	return fmt.Sprintf("[POST /process-groups/{id}/output-ports][%d] createOutputPortOK  %+v", 200, o.Payload)
+func (o *CreateOutputPortCreated) Error() string {
+	return fmt.Sprintf("[POST /process-groups/{id}/output-ports][%d] createOutputPortCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateOutputPortOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateOutputPortCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.PortEntity)
 
