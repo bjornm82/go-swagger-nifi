@@ -6,13 +6,14 @@ package provenance_events
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new provenance events API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,8 +25,21 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	GetInputContent(params *GetInputContentParams, authInfo runtime.ClientAuthInfoWriter) (*GetInputContentOK, error)
+
+	GetOutputContent(params *GetOutputContentParams, authInfo runtime.ClientAuthInfoWriter) (*GetOutputContentOK, error)
+
+	GetProvenanceEvent(params *GetProvenanceEventParams, authInfo runtime.ClientAuthInfoWriter) (*GetProvenanceEventOK, error)
+
+	SubmitReplay(params *SubmitReplayParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitReplayOK, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-GetInputContent gets the input content for a provenance event
+  GetInputContent gets the input content for a provenance event
 */
 func (a *Client) GetInputContent(params *GetInputContentParams, authInfo runtime.ClientAuthInfoWriter) (*GetInputContentOK, error) {
 	// TODO: Validate the params before sending
@@ -37,8 +51,8 @@ func (a *Client) GetInputContent(params *GetInputContentParams, authInfo runtime
 		ID:                 "getInputContent",
 		Method:             "GET",
 		PathPattern:        "/provenance-events/{id}/content/input",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{"*/*"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetInputContentReader{formats: a.formats},
@@ -49,12 +63,18 @@ func (a *Client) GetInputContent(params *GetInputContentParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetInputContentOK), nil
-
+	success, ok := result.(*GetInputContentOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getInputContent: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetOutputContent gets the output content for a provenance event
+  GetOutputContent gets the output content for a provenance event
 */
 func (a *Client) GetOutputContent(params *GetOutputContentParams, authInfo runtime.ClientAuthInfoWriter) (*GetOutputContentOK, error) {
 	// TODO: Validate the params before sending
@@ -66,8 +86,8 @@ func (a *Client) GetOutputContent(params *GetOutputContentParams, authInfo runti
 		ID:                 "getOutputContent",
 		Method:             "GET",
 		PathPattern:        "/provenance-events/{id}/content/output",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{"*/*"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetOutputContentReader{formats: a.formats},
@@ -78,12 +98,18 @@ func (a *Client) GetOutputContent(params *GetOutputContentParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetOutputContentOK), nil
-
+	success, ok := result.(*GetOutputContentOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getOutputContent: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetProvenanceEvent gets a provenance event
+  GetProvenanceEvent gets a provenance event
 */
 func (a *Client) GetProvenanceEvent(params *GetProvenanceEventParams, authInfo runtime.ClientAuthInfoWriter) (*GetProvenanceEventOK, error) {
 	// TODO: Validate the params before sending
@@ -96,7 +122,7 @@ func (a *Client) GetProvenanceEvent(params *GetProvenanceEventParams, authInfo r
 		Method:             "GET",
 		PathPattern:        "/provenance-events/{id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetProvenanceEventReader{formats: a.formats},
@@ -107,14 +133,20 @@ func (a *Client) GetProvenanceEvent(params *GetProvenanceEventParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetProvenanceEventOK), nil
-
+	success, ok := result.(*GetProvenanceEventOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getProvenanceEvent: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SubmitReplay replays content from a provenance event
+  SubmitReplay replays content from a provenance event
 */
-func (a *Client) SubmitReplay(params *SubmitReplayParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitReplayCreated, error) {
+func (a *Client) SubmitReplay(params *SubmitReplayParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitReplayOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSubmitReplayParams()
@@ -136,8 +168,14 @@ func (a *Client) SubmitReplay(params *SubmitReplayParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SubmitReplayCreated), nil
-
+	success, ok := result.(*SubmitReplayOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for submitReplay: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

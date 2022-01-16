@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // CreateUserReader is a Reader for the CreateUser structure.
@@ -24,42 +23,36 @@ type CreateUserReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateUserReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewCreateUserCreated()
+	case 200:
+		result := NewCreateUserOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateUserBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewCreateUserUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewCreateUserForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewCreateUserNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewCreateUserConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -72,24 +65,28 @@ func (o *CreateUserReader) ReadResponse(response runtime.ClientResponse, consume
 	}
 }
 
-// NewCreateUserCreated creates a CreateUserCreated with default headers values
-func NewCreateUserCreated() *CreateUserCreated {
-	return &CreateUserCreated{}
+// NewCreateUserOK creates a CreateUserOK with default headers values
+func NewCreateUserOK() *CreateUserOK {
+	return &CreateUserOK{}
 }
 
-/*CreateUserCreated handles this case with default header values.
+/*CreateUserOK handles this case with default header values.
 
 successful operation
 */
-type CreateUserCreated struct {
+type CreateUserOK struct {
 	Payload *models.UserEntity
 }
 
-func (o *CreateUserCreated) Error() string {
-	return fmt.Sprintf("[POST /tenants/users][%d] createUserCreated  %+v", 201, o.Payload)
+func (o *CreateUserOK) Error() string {
+	return fmt.Sprintf("[POST /tenants/users][%d] createUserOK  %+v", 200, o.Payload)
 }
 
-func (o *CreateUserCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateUserOK) GetPayload() *models.UserEntity {
+	return o.Payload
+}
+
+func (o *CreateUserOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.UserEntity)
 

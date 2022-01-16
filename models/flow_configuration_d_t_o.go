@@ -6,17 +6,16 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // FlowConfigurationDTO flow configuration d t o
+//
 // swagger:model FlowConfigurationDTO
 type FlowConfigurationDTO struct {
 
 	// The interval in seconds between the automatic NiFi refresh requests.
-	// Read Only: true
 	AutoRefreshIntervalSeconds int64 `json:"autoRefreshIntervalSeconds,omitempty"`
 
 	// The current time on the system.
@@ -29,16 +28,13 @@ type FlowConfigurationDTO struct {
 	DefaultBackPressureObjectThreshold int64 `json:"defaultBackPressureObjectThreshold,omitempty"`
 
 	// Whether this NiFi supports a configurable authorizer.
-	// Read Only: true
-	SupportsConfigurableAuthorizer *bool `json:"supportsConfigurableAuthorizer,omitempty"`
+	SupportsConfigurableAuthorizer bool `json:"supportsConfigurableAuthorizer,omitempty"`
 
 	// Whether this NiFi supports configurable users and groups.
-	// Read Only: true
-	SupportsConfigurableUsersAndGroups *bool `json:"supportsConfigurableUsersAndGroups,omitempty"`
+	SupportsConfigurableUsersAndGroups bool `json:"supportsConfigurableUsersAndGroups,omitempty"`
 
 	// Whether this NiFi supports a managed authorizer. Managed authorizers can visualize users, groups, and policies in the UI.
-	// Read Only: true
-	SupportsManagedAuthorizer *bool `json:"supportsManagedAuthorizer,omitempty"`
+	SupportsManagedAuthorizer bool `json:"supportsManagedAuthorizer,omitempty"`
 
 	// The time offset of the system.
 	TimeOffset int32 `json:"timeOffset,omitempty"`

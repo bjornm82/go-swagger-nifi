@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // CreateProcessGroupReader is a Reader for the CreateProcessGroup structure.
@@ -24,42 +23,36 @@ type CreateProcessGroupReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateProcessGroupReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewCreateProcessGroupCreated()
+	case 200:
+		result := NewCreateProcessGroupOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateProcessGroupBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewCreateProcessGroupUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewCreateProcessGroupForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewCreateProcessGroupNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewCreateProcessGroupConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -72,24 +65,28 @@ func (o *CreateProcessGroupReader) ReadResponse(response runtime.ClientResponse,
 	}
 }
 
-// NewCreateProcessGroupCreated creates a CreateProcessGroupCreated with default headers values
-func NewCreateProcessGroupCreated() *CreateProcessGroupCreated {
-	return &CreateProcessGroupCreated{}
+// NewCreateProcessGroupOK creates a CreateProcessGroupOK with default headers values
+func NewCreateProcessGroupOK() *CreateProcessGroupOK {
+	return &CreateProcessGroupOK{}
 }
 
-/*CreateProcessGroupCreated handles this case with default header values.
+/*CreateProcessGroupOK handles this case with default header values.
 
 successful operation
 */
-type CreateProcessGroupCreated struct {
+type CreateProcessGroupOK struct {
 	Payload *models.ProcessGroupEntity
 }
 
-func (o *CreateProcessGroupCreated) Error() string {
-	return fmt.Sprintf("[POST /process-groups/{id}/process-groups][%d] createProcessGroupCreated  %+v", 201, o.Payload)
+func (o *CreateProcessGroupOK) Error() string {
+	return fmt.Sprintf("[POST /process-groups/{id}/process-groups][%d] createProcessGroupOK  %+v", 200, o.Payload)
 }
 
-func (o *CreateProcessGroupCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateProcessGroupOK) GetPayload() *models.ProcessGroupEntity {
+	return o.Payload
+}
+
+func (o *CreateProcessGroupOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ProcessGroupEntity)
 

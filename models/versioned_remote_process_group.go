@@ -9,14 +9,14 @@ import (
 	"encoding/json"
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // VersionedRemoteProcessGroup versioned remote process group
+//
 // swagger:model VersionedRemoteProcessGroup
 type VersionedRemoteProcessGroup struct {
 
@@ -156,7 +156,7 @@ const (
 
 // prop value enum
 func (m *VersionedRemoteProcessGroup) validateComponentTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, versionedRemoteProcessGroupTypeComponentTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, versionedRemoteProcessGroupTypeComponentTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil
@@ -275,7 +275,7 @@ const (
 
 // prop value enum
 func (m *VersionedRemoteProcessGroup) validateTransportProtocolEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, versionedRemoteProcessGroupTypeTransportProtocolPropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, versionedRemoteProcessGroupTypeTransportProtocolPropEnum, true); err != nil {
 		return err
 	}
 	return nil

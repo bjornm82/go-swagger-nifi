@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // GetLocalModificationsReader is a Reader for the GetLocalModifications structure.
@@ -24,42 +23,36 @@ type GetLocalModificationsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetLocalModificationsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetLocalModificationsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetLocalModificationsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetLocalModificationsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetLocalModificationsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetLocalModificationsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetLocalModificationsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -87,6 +80,10 @@ type GetLocalModificationsOK struct {
 
 func (o *GetLocalModificationsOK) Error() string {
 	return fmt.Sprintf("[GET /process-groups/{id}/local-modifications][%d] getLocalModificationsOK  %+v", 200, o.Payload)
+}
+
+func (o *GetLocalModificationsOK) GetPayload() *models.FlowComparisonEntity {
+	return o.Payload
 }
 
 func (o *GetLocalModificationsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

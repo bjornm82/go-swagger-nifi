@@ -6,13 +6,14 @@ package access
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new access API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,12 +25,39 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-/*
-CreateAccessToken creates a token for accessing the r e s t API via username password
+// ClientService is the interface for Client methods
+type ClientService interface {
+	CreateAccessToken(params *CreateAccessTokenParams) (*CreateAccessTokenOK, error)
 
-The token returned is formatted as a JSON Web Token (JWT). The token is base64 encoded and comprised of three parts. The header, the body, and the signature. The expiration of the token is a contained within the body. The token can be used in the Authorization header in the format 'Authorization: Bearer <token>'.
+	CreateAccessTokenFromTicket(params *CreateAccessTokenFromTicketParams) (*CreateAccessTokenFromTicketOK, error)
+
+	CreateDownloadToken(params *CreateDownloadTokenParams) (*CreateDownloadTokenOK, error)
+
+	CreateUIExtensionToken(params *CreateUIExtensionTokenParams) (*CreateUIExtensionTokenOK, error)
+
+	GetAccessStatus(params *GetAccessStatusParams) (*GetAccessStatusOK, error)
+
+	GetLoginConfigAccess(params *GetLoginConfigAccessParams) (*GetLoginConfigAccessOK, error)
+
+	KnoxCallback(params *KnoxCallbackParams) error
+
+	KnoxLogout(params *KnoxLogoutParams) error
+
+	KnoxRequest(params *KnoxRequestParams) error
+
+	LogOut(params *LogOutParams) (*LogOutOK, error)
+
+	LogOutCompleteAccess(params *LogOutCompleteAccessParams) (*LogOutCompleteAccessOK, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+  CreateAccessToken creates a token for accessing the r e s t API via username password
+
+  The token returned is formatted as a JSON Web Token (JWT). The token is base64 encoded and comprised of three parts. The header, the body, and the signature. The expiration of the token is a contained within the body. It is stored in the browser as a cookie, but also returned inthe response body to be stored/used by third party client scripts.
 */
-func (a *Client) CreateAccessToken(params *CreateAccessTokenParams) (*CreateAccessTokenCreated, error) {
+func (a *Client) CreateAccessToken(params *CreateAccessTokenParams) (*CreateAccessTokenOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateAccessTokenParams()
@@ -50,16 +78,22 @@ func (a *Client) CreateAccessToken(params *CreateAccessTokenParams) (*CreateAcce
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateAccessTokenCreated), nil
-
+	success, ok := result.(*CreateAccessTokenOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createAccessToken: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-CreateAccessTokenFromTicket creates a token for accessing the r e s t API via kerberos ticket exchange s p n e g o negotiation
+  CreateAccessTokenFromTicket creates a token for accessing the r e s t API via kerberos ticket exchange s p n e g o negotiation
 
-The token returned is formatted as a JSON Web Token (JWT). The token is base64 encoded and comprised of three parts. The header, the body, and the signature. The expiration of the token is a contained within the body. The token can be used in the Authorization header in the format 'Authorization: Bearer <token>'.
+  The token returned is formatted as a JSON Web Token (JWT). The token is base64 encoded and comprised of three parts. The header, the body, and the signature. The expiration of the token is a contained within the body. The token can be used in the Authorization header in the format 'Authorization: Bearer <token>'. It is also stored in the browser as a cookie.
 */
-func (a *Client) CreateAccessTokenFromTicket(params *CreateAccessTokenFromTicketParams) (*CreateAccessTokenFromTicketCreated, error) {
+func (a *Client) CreateAccessTokenFromTicket(params *CreateAccessTokenFromTicketParams) (*CreateAccessTokenFromTicketOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateAccessTokenFromTicketParams()
@@ -80,16 +114,22 @@ func (a *Client) CreateAccessTokenFromTicket(params *CreateAccessTokenFromTicket
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateAccessTokenFromTicketCreated), nil
-
+	success, ok := result.(*CreateAccessTokenFromTicketOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createAccessTokenFromTicket: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-CreateDownloadToken creates a single use access token for downloading flow file content
+  CreateDownloadToken creates a single use access token for downloading flow file content
 
-The token returned is a base64 encoded string. It is valid for a single request up to five minutes from being issued. It is used as a query parameter name 'access_token'.
+  The token returned is a base64 encoded string. It is valid for a single request up to five minutes from being issued. It is used as a query parameter name 'access_token'.
 */
-func (a *Client) CreateDownloadToken(params *CreateDownloadTokenParams) (*CreateDownloadTokenCreated, error) {
+func (a *Client) CreateDownloadToken(params *CreateDownloadTokenParams) (*CreateDownloadTokenOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateDownloadTokenParams()
@@ -110,16 +150,22 @@ func (a *Client) CreateDownloadToken(params *CreateDownloadTokenParams) (*Create
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateDownloadTokenCreated), nil
-
+	success, ok := result.(*CreateDownloadTokenOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createDownloadToken: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-CreateUIExtensionToken creates a single use access token for accessing a ni fi UI extension
+  CreateUIExtensionToken creates a single use access token for accessing a ni fi UI extension
 
-The token returned is a base64 encoded string. It is valid for a single request up to five minutes from being issued. It is used as a query parameter name 'access_token'.
+  The token returned is a base64 encoded string. It is valid for a single request up to five minutes from being issued. It is used as a query parameter name 'access_token'.
 */
-func (a *Client) CreateUIExtensionToken(params *CreateUIExtensionTokenParams) (*CreateUIExtensionTokenCreated, error) {
+func (a *Client) CreateUIExtensionToken(params *CreateUIExtensionTokenParams) (*CreateUIExtensionTokenOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateUIExtensionTokenParams()
@@ -140,14 +186,20 @@ func (a *Client) CreateUIExtensionToken(params *CreateUIExtensionTokenParams) (*
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateUIExtensionTokenCreated), nil
-
+	success, ok := result.(*CreateUIExtensionTokenOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createUiExtensionToken: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetAccessStatus gets the status the client s access
+  GetAccessStatus gets the status the client s access
 
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) GetAccessStatus(params *GetAccessStatusParams) (*GetAccessStatusOK, error) {
 	// TODO: Validate the params before sending
@@ -160,7 +212,7 @@ func (a *Client) GetAccessStatus(params *GetAccessStatusParams) (*GetAccessStatu
 		Method:             "GET",
 		PathPattern:        "/access",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetAccessStatusReader{formats: a.formats},
@@ -170,42 +222,54 @@ func (a *Client) GetAccessStatus(params *GetAccessStatusParams) (*GetAccessStatu
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetAccessStatusOK), nil
-
+	success, ok := result.(*GetAccessStatusOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getAccessStatus: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetLoginConfig retrieves the access configuration for this ni fi
+  GetLoginConfigAccess retrieves the access configuration for this ni fi
 */
-func (a *Client) GetLoginConfig(params *GetLoginConfigParams) (*GetLoginConfigOK, error) {
+func (a *Client) GetLoginConfigAccess(params *GetLoginConfigAccessParams) (*GetLoginConfigAccessOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewGetLoginConfigParams()
+		params = NewGetLoginConfigAccessParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "getLoginConfig",
+		ID:                 "getLoginConfigAccess",
 		Method:             "GET",
 		PathPattern:        "/access/config",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &GetLoginConfigReader{formats: a.formats},
+		Reader:             &GetLoginConfigAccessReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetLoginConfigOK), nil
-
+	success, ok := result.(*GetLoginConfigAccessOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getLoginConfigAccess: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-KnoxCallback redirects callback URI for processing the result of the apache knox login sequence
+  KnoxCallback redirects callback URI for processing the result of the apache knox login sequence
 
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) KnoxCallback(params *KnoxCallbackParams) error {
 	// TODO: Validate the params before sending
@@ -217,8 +281,8 @@ func (a *Client) KnoxCallback(params *KnoxCallbackParams) error {
 		ID:                 "knoxCallback",
 		Method:             "GET",
 		PathPattern:        "/access/knox/callback",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{"*/*"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &KnoxCallbackReader{formats: a.formats},
@@ -229,13 +293,12 @@ func (a *Client) KnoxCallback(params *KnoxCallbackParams) error {
 		return err
 	}
 	return nil
-
 }
 
 /*
-KnoxLogout performs a logout in the apache knox
+  KnoxLogout performs a logout in the apache knox
 
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) KnoxLogout(params *KnoxLogoutParams) error {
 	// TODO: Validate the params before sending
@@ -247,8 +310,8 @@ func (a *Client) KnoxLogout(params *KnoxLogoutParams) error {
 		ID:                 "knoxLogout",
 		Method:             "GET",
 		PathPattern:        "/access/knox/logout",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{"*/*"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &KnoxLogoutReader{formats: a.formats},
@@ -259,13 +322,12 @@ func (a *Client) KnoxLogout(params *KnoxLogoutParams) error {
 		return err
 	}
 	return nil
-
 }
 
 /*
-KnoxRequest initiates a request to authenticate through apache knox
+  KnoxRequest initiates a request to authenticate through apache knox
 
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) KnoxRequest(params *KnoxRequestParams) error {
 	// TODO: Validate the params before sending
@@ -277,8 +339,8 @@ func (a *Client) KnoxRequest(params *KnoxRequestParams) error {
 		ID:                 "knoxRequest",
 		Method:             "GET",
 		PathPattern:        "/access/knox/request",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{"*/*"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &KnoxRequestReader{formats: a.formats},
@@ -289,13 +351,12 @@ func (a *Client) KnoxRequest(params *KnoxRequestParams) error {
 		return err
 	}
 	return nil
-
 }
 
 /*
-LogOut performs a logout for other providers that have been issued a j w t
+  LogOut performs a logout for other providers that have been issued a j w t
 
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) LogOut(params *LogOutParams) (*LogOutOK, error) {
 	// TODO: Validate the params before sending
@@ -307,8 +368,8 @@ func (a *Client) LogOut(params *LogOutParams) (*LogOutOK, error) {
 		ID:                 "logOut",
 		Method:             "DELETE",
 		PathPattern:        "/access/logout",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{"*/*"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &LogOutReader{formats: a.formats},
@@ -318,458 +379,50 @@ func (a *Client) LogOut(params *LogOutParams) (*LogOutOK, error) {
 	if err != nil {
 		return nil, err
 	}
-	return result.(*LogOutOK), nil
-
+	success, ok := result.(*LogOutOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for logOut: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-LogOutComplete completes the logout sequence by removing the cached logout request and cookie if they existed and redirects to nifi login
+  LogOutCompleteAccess completes the logout sequence by removing the cached logout request and cookie if they existed and redirects to nifi login
 
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
-func (a *Client) LogOutComplete(params *LogOutCompleteParams) (*LogOutCompleteOK, error) {
+func (a *Client) LogOutCompleteAccess(params *LogOutCompleteAccessParams) (*LogOutCompleteAccessOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewLogOutCompleteParams()
+		params = NewLogOutCompleteAccessParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "logOutComplete",
+		ID:                 "logOutCompleteAccess",
 		Method:             "GET",
 		PathPattern:        "/access/logout/complete",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{"*/*"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &LogOutCompleteReader{formats: a.formats},
+		Reader:             &LogOutCompleteAccessReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*LogOutCompleteOK), nil
-
-}
-
-/*
-OidcCallback redirects callback URI for processing the result of the open Id connect login sequence
-
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
-*/
-func (a *Client) OidcCallback(params *OidcCallbackParams) error {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewOidcCallbackParams()
+	success, ok := result.(*LogOutCompleteAccessOK)
+	if ok {
+		return success, nil
 	}
-
-	_, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "oidcCallback",
-		Method:             "GET",
-		PathPattern:        "/access/oidc/callback",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &OidcCallbackReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return err
-	}
-	return nil
-
-}
-
-/*
-OidcExchange retrieves a j w t following a successful login sequence using the configured open Id connect provider
-
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
-*/
-func (a *Client) OidcExchange(params *OidcExchangeParams) (*OidcExchangeCreated, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewOidcExchangeParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "oidcExchange",
-		Method:             "POST",
-		PathPattern:        "/access/oidc/exchange",
-		ProducesMediaTypes: []string{"text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &OidcExchangeReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*OidcExchangeCreated), nil
-
-}
-
-/*
-OidcLogout performs a logout in the open Id provider
-
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
-*/
-func (a *Client) OidcLogout(params *OidcLogoutParams) error {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewOidcLogoutParams()
-	}
-
-	_, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "oidcLogout",
-		Method:             "GET",
-		PathPattern:        "/access/oidc/logout",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &OidcLogoutReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return err
-	}
-	return nil
-
-}
-
-/*
-OidcLogoutCallback redirects callback URI for processing the result of the open Id connect logout sequence
-
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
-*/
-func (a *Client) OidcLogoutCallback(params *OidcLogoutCallbackParams) error {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewOidcLogoutCallbackParams()
-	}
-
-	_, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "oidcLogoutCallback",
-		Method:             "GET",
-		PathPattern:        "/access/oidc/logoutCallback",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &OidcLogoutCallbackReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return err
-	}
-	return nil
-
-}
-
-/*
-OidcRequest initiates a request to authenticate through the configured open Id connect provider
-
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
-*/
-func (a *Client) OidcRequest(params *OidcRequestParams) error {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewOidcRequestParams()
-	}
-
-	_, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "oidcRequest",
-		Method:             "GET",
-		PathPattern:        "/access/oidc/request",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &OidcRequestReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return err
-	}
-	return nil
-
-}
-
-/*
-SamlLocalLogout locals logout when s a m l is enabled does not communicate with the ID p
-
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
-*/
-func (a *Client) SamlLocalLogout(params *SamlLocalLogoutParams) error {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewSamlLocalLogoutParams()
-	}
-
-	_, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "samlLocalLogout",
-		Method:             "GET",
-		PathPattern:        "/access/saml/local-logout",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &SamlLocalLogoutReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return err
-	}
-	return nil
-
-}
-
-/*
-SamlLoginExchange retrieves a j w t following a successful login sequence using the configured s a m l identity provider
-
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
-*/
-func (a *Client) SamlLoginExchange(params *SamlLoginExchangeParams) (*SamlLoginExchangeCreated, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewSamlLoginExchangeParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "samlLoginExchange",
-		Method:             "POST",
-		PathPattern:        "/access/saml/login/exchange",
-		ProducesMediaTypes: []string{"text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &SamlLoginExchangeReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*SamlLoginExchangeCreated), nil
-
-}
-
-/*
-SamlLoginHTTPPostConsumer processes the s s o response from the s a m l identity provider for HTTP p o s t binding
-
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
-*/
-func (a *Client) SamlLoginHTTPPostConsumer(params *SamlLoginHTTPPostConsumerParams) error {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewSamlLoginHTTPPostConsumerParams()
-	}
-
-	_, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "samlLoginHttpPostConsumer",
-		Method:             "POST",
-		PathPattern:        "/access/saml/login/consumer",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/x-www-form-urlencoded"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &SamlLoginHTTPPostConsumerReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return err
-	}
-	return nil
-
-}
-
-/*
-SamlLoginHTTPRedirectConsumer processes the s s o response from the s a m l identity provider for HTTP r e d i r e c t binding
-
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
-*/
-func (a *Client) SamlLoginHTTPRedirectConsumer(params *SamlLoginHTTPRedirectConsumerParams) error {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewSamlLoginHTTPRedirectConsumerParams()
-	}
-
-	_, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "samlLoginHttpRedirectConsumer",
-		Method:             "GET",
-		PathPattern:        "/access/saml/login/consumer",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &SamlLoginHTTPRedirectConsumerReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return err
-	}
-	return nil
-
-}
-
-/*
-SamlLoginRequest initiates an s s o request to the configured s a m l identity provider
-
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
-*/
-func (a *Client) SamlLoginRequest(params *SamlLoginRequestParams) error {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewSamlLoginRequestParams()
-	}
-
-	_, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "samlLoginRequest",
-		Method:             "GET",
-		PathPattern:        "/access/saml/login/request",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &SamlLoginRequestReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return err
-	}
-	return nil
-
-}
-
-/*
-SamlMetadata retrieves the service provider metadata
-
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
-*/
-func (a *Client) SamlMetadata(params *SamlMetadataParams) error {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewSamlMetadataParams()
-	}
-
-	_, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "samlMetadata",
-		Method:             "GET",
-		PathPattern:        "/access/saml/metadata",
-		ProducesMediaTypes: []string{"application/samlmetadata+xml"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &SamlMetadataReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return err
-	}
-	return nil
-
-}
-
-/*
-SamlSingleLogoutHTTPPostConsumer processes a single logout message from the configured s a m l identity provider using the HTTP p o s t binding
-
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
-*/
-func (a *Client) SamlSingleLogoutHTTPPostConsumer(params *SamlSingleLogoutHTTPPostConsumerParams) error {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewSamlSingleLogoutHTTPPostConsumerParams()
-	}
-
-	_, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "samlSingleLogoutHttpPostConsumer",
-		Method:             "POST",
-		PathPattern:        "/access/saml/single-logout/consumer",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &SamlSingleLogoutHTTPPostConsumerReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return err
-	}
-	return nil
-
-}
-
-/*
-SamlSingleLogoutHTTPRedirectConsumer processes a single logout message from the configured s a m l identity provider using the HTTP r e d i r e c t binding
-
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
-*/
-func (a *Client) SamlSingleLogoutHTTPRedirectConsumer(params *SamlSingleLogoutHTTPRedirectConsumerParams) error {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewSamlSingleLogoutHTTPRedirectConsumerParams()
-	}
-
-	_, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "samlSingleLogoutHttpRedirectConsumer",
-		Method:             "GET",
-		PathPattern:        "/access/saml/single-logout/consumer",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &SamlSingleLogoutHTTPRedirectConsumerReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return err
-	}
-	return nil
-
-}
-
-/*
-SamlSingleLogoutRequest initiates a logout request using the single logout service of the configured s a m l identity provider
-
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
-*/
-func (a *Client) SamlSingleLogoutRequest(params *SamlSingleLogoutRequestParams) error {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewSamlSingleLogoutRequestParams()
-	}
-
-	_, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "samlSingleLogoutRequest",
-		Method:             "GET",
-		PathPattern:        "/access/saml/single-logout/request",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &SamlSingleLogoutRequestReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return err
-	}
-	return nil
-
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for logOutCompleteAccess: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

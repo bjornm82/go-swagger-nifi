@@ -9,14 +9,14 @@ import (
 	"encoding/json"
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ProcessGroupEntity process group entity
+//
 // swagger:model ProcessGroupEntity
 type ProcessGroupEntity struct {
 
@@ -42,7 +42,6 @@ type ProcessGroupEntity struct {
 	InactiveRemotePortCount int32 `json:"inactiveRemotePortCount,omitempty"`
 
 	// The number of input ports in the process group.
-	// Read Only: true
 	InputPortCount int32 `json:"inputPortCount,omitempty"`
 
 	// The number of invalid components in the process group.
@@ -61,7 +60,6 @@ type ProcessGroupEntity struct {
 	LocallyModifiedCount int32 `json:"locallyModifiedCount,omitempty"`
 
 	// The number of output ports in the process group.
-	// Read Only: true
 	OutputPortCount int32 `json:"outputPortCount,omitempty"`
 
 	// The Parameter Context, or null if no Parameter Context has been bound to the Process Group
@@ -104,11 +102,9 @@ type ProcessGroupEntity struct {
 	URI string `json:"uri,omitempty"`
 
 	// Returns the Versioned Flow that describes the contents of the Versioned Flow to be imported
-	// Read Only: true
 	VersionedFlowSnapshot *VersionedFlowSnapshot `json:"versionedFlowSnapshot,omitempty"`
 
 	// The current state of the Process Group, as it relates to the Versioned Flow
-	// Read Only: true
 	// Enum: [LOCALLY_MODIFIED STALE LOCALLY_MODIFIED_AND_STALE UP_TO_DATE SYNC_FAILURE]
 	VersionedFlowState string `json:"versionedFlowState,omitempty"`
 }
@@ -342,7 +338,7 @@ const (
 
 // prop value enum
 func (m *ProcessGroupEntity) validateVersionedFlowStateEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, processGroupEntityTypeVersionedFlowStatePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, processGroupEntityTypeVersionedFlowStatePropEnum, true); err != nil {
 		return err
 	}
 	return nil

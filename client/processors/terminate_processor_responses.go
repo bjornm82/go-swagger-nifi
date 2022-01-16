@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // TerminateProcessorReader is a Reader for the TerminateProcessor structure.
@@ -24,42 +23,36 @@ type TerminateProcessorReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *TerminateProcessorReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewTerminateProcessorOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewTerminateProcessorBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewTerminateProcessorUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewTerminateProcessorForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewTerminateProcessorNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewTerminateProcessorConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -87,6 +80,10 @@ type TerminateProcessorOK struct {
 
 func (o *TerminateProcessorOK) Error() string {
 	return fmt.Sprintf("[DELETE /processors/{id}/threads][%d] terminateProcessorOK  %+v", 200, o.Payload)
+}
+
+func (o *TerminateProcessorOK) GetPayload() *models.ProcessorEntity {
+	return o.Payload
 }
 
 func (o *TerminateProcessorOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -8,61 +8,51 @@ package models
 import (
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // VariableRegistryUpdateRequestDTO variable registry update request d t o
+//
 // swagger:model VariableRegistryUpdateRequestDTO
 type VariableRegistryUpdateRequestDTO struct {
 
 	// A set of all components that will be affected if the value of this variable is changed
-	// Read Only: true
 	// Unique: true
 	AffectedComponents []*AffectedComponentEntity `json:"affectedComponents"`
 
 	// Whether or not the request is completed
-	// Read Only: true
-	Complete *bool `json:"complete,omitempty"`
+	Complete bool `json:"complete,omitempty"`
 
 	// The reason for the request failing, or null if the request has not failed
-	// Read Only: true
 	FailureReason string `json:"failureReason,omitempty"`
 
 	// The timestamp of when the request was last updated
-	// Read Only: true
 	// Format: date-time
 	LastUpdated strfmt.DateTime `json:"lastUpdated,omitempty"`
 
 	// A value between 0 and 100 (inclusive) indicating how close the request is to completion
-	// Read Only: true
 	PercentCompleted int32 `json:"percentCompleted,omitempty"`
 
 	// The unique ID of the Process Group that the variable registry belongs to
 	ProcessGroupID string `json:"processGroupId,omitempty"`
 
 	// The ID of the request
-	// Read Only: true
 	RequestID string `json:"requestId,omitempty"`
 
 	// A description of the current state of the request
-	// Read Only: true
 	State string `json:"state,omitempty"`
 
 	// The timestamp of when the request was submitted
-	// Read Only: true
 	// Format: date-time
 	SubmissionTime strfmt.DateTime `json:"submissionTime,omitempty"`
 
 	// The steps that are required in order to complete the request, along with the status of each
-	// Read Only: true
 	UpdateSteps []*VariableRegistryUpdateStepDTO `json:"updateSteps"`
 
 	// The URI for the request
-	// Read Only: true
 	URI string `json:"uri,omitempty"`
 }
 

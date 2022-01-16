@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // UpdateFunnelReader is a Reader for the UpdateFunnel structure.
@@ -24,42 +23,36 @@ type UpdateFunnelReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateFunnelReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateFunnelOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewUpdateFunnelBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewUpdateFunnelUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewUpdateFunnelForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewUpdateFunnelNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewUpdateFunnelConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -87,6 +80,10 @@ type UpdateFunnelOK struct {
 
 func (o *UpdateFunnelOK) Error() string {
 	return fmt.Sprintf("[PUT /funnels/{id}][%d] updateFunnelOK  %+v", 200, o.Payload)
+}
+
+func (o *UpdateFunnelOK) GetPayload() *models.FunnelEntity {
+	return o.Payload
 }
 
 func (o *UpdateFunnelOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

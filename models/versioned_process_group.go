@@ -9,14 +9,14 @@ import (
 	"encoding/json"
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // VersionedProcessGroup versioned process group
+//
 // swagger:model VersionedProcessGroup
 type VersionedProcessGroup struct {
 
@@ -34,6 +34,15 @@ type VersionedProcessGroup struct {
 	// The Controller Services
 	// Unique: true
 	ControllerServices []*VersionedControllerService `json:"controllerServices"`
+
+	// Default value used in this Process Group for the maximum data size of objects that can be queued before back pressure is applied.
+	DefaultBackPressureDataSizeThreshold string `json:"defaultBackPressureDataSizeThreshold,omitempty"`
+
+	// Default value used in this Process Group for the maximum number of objects that can be queued before back pressure is applied.
+	DefaultBackPressureObjectThreshold int64 `json:"defaultBackPressureObjectThreshold,omitempty"`
+
+	// The default FlowFile Expiration for this Process Group.
+	DefaultFlowFileExpiration string `json:"defaultFlowFileExpiration,omitempty"`
 
 	// The configured FlowFile Concurrency for the Process Group
 	FlowFileConcurrency string `json:"flowFileConcurrency,omitempty"`
@@ -199,7 +208,7 @@ const (
 
 // prop value enum
 func (m *VersionedProcessGroup) validateComponentTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, versionedProcessGroupTypeComponentTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, versionedProcessGroupTypeComponentTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil

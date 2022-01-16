@@ -6,13 +6,14 @@ package processors
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new processors API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,8 +25,68 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	ClearStateProcessors(params *ClearStateProcessorsParams, authInfo runtime.ClientAuthInfoWriter) (*ClearStateProcessorsOK, error)
+
+	DeleteProcessor(params *DeleteProcessorParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteProcessorOK, error)
+
+	GetProcessor(params *GetProcessorParams, authInfo runtime.ClientAuthInfoWriter) (*GetProcessorOK, error)
+
+	GetProcessorDiagnostics(params *GetProcessorDiagnosticsParams, authInfo runtime.ClientAuthInfoWriter) (*GetProcessorDiagnosticsOK, error)
+
+	GetProcessorRunStatusDetails(params *GetProcessorRunStatusDetailsParams, authInfo runtime.ClientAuthInfoWriter) (*GetProcessorRunStatusDetailsOK, error)
+
+	GetPropertyDescriptorProcessors(params *GetPropertyDescriptorProcessorsParams, authInfo runtime.ClientAuthInfoWriter) (*GetPropertyDescriptorProcessorsOK, error)
+
+	GetStateProcessors(params *GetStateProcessorsParams, authInfo runtime.ClientAuthInfoWriter) (*GetStateProcessorsOK, error)
+
+	TerminateProcessor(params *TerminateProcessorParams, authInfo runtime.ClientAuthInfoWriter) (*TerminateProcessorOK, error)
+
+	UpdateProcessor(params *UpdateProcessorParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateProcessorOK, error)
+
+	UpdateRunStatusProcessors(params *UpdateRunStatusProcessorsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateRunStatusProcessorsOK, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-DeleteProcessor deletes a processor
+  ClearStateProcessors clears the state for a processor
+*/
+func (a *Client) ClearStateProcessors(params *ClearStateProcessorsParams, authInfo runtime.ClientAuthInfoWriter) (*ClearStateProcessorsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewClearStateProcessorsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "clearStateProcessors",
+		Method:             "POST",
+		PathPattern:        "/processors/{id}/state/clear-requests",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ClearStateProcessorsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ClearStateProcessorsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for clearStateProcessors: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DeleteProcessor deletes a processor
 */
 func (a *Client) DeleteProcessor(params *DeleteProcessorParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteProcessorOK, error) {
 	// TODO: Validate the params before sending
@@ -38,7 +99,7 @@ func (a *Client) DeleteProcessor(params *DeleteProcessorParams, authInfo runtime
 		Method:             "DELETE",
 		PathPattern:        "/processors/{id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &DeleteProcessorReader{formats: a.formats},
@@ -49,12 +110,18 @@ func (a *Client) DeleteProcessor(params *DeleteProcessorParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteProcessorOK), nil
-
+	success, ok := result.(*DeleteProcessorOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for deleteProcessor: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetProcessor gets a processor
+  GetProcessor gets a processor
 */
 func (a *Client) GetProcessor(params *GetProcessorParams, authInfo runtime.ClientAuthInfoWriter) (*GetProcessorOK, error) {
 	// TODO: Validate the params before sending
@@ -67,7 +134,7 @@ func (a *Client) GetProcessor(params *GetProcessorParams, authInfo runtime.Clien
 		Method:             "GET",
 		PathPattern:        "/processors/{id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetProcessorReader{formats: a.formats},
@@ -78,14 +145,20 @@ func (a *Client) GetProcessor(params *GetProcessorParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetProcessorOK), nil
-
+	success, ok := result.(*GetProcessorOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getProcessor: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetProcessorDiagnostics gets diagnostics information about a processor
+  GetProcessorDiagnostics gets diagnostics information about a processor
 
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) GetProcessorDiagnostics(params *GetProcessorDiagnosticsParams, authInfo runtime.ClientAuthInfoWriter) (*GetProcessorDiagnosticsOK, error) {
 	// TODO: Validate the params before sending
@@ -98,7 +171,7 @@ func (a *Client) GetProcessorDiagnostics(params *GetProcessorDiagnosticsParams, 
 		Method:             "GET",
 		PathPattern:        "/processors/{id}/diagnostics",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetProcessorDiagnosticsReader{formats: a.formats},
@@ -109,14 +182,20 @@ func (a *Client) GetProcessorDiagnostics(params *GetProcessorDiagnosticsParams, 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetProcessorDiagnosticsOK), nil
-
+	success, ok := result.(*GetProcessorDiagnosticsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getProcessorDiagnostics: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetProcessorRunStatusDetails submits a query to retrieve the run status details of all processors that are in the given list of processor ids
+  GetProcessorRunStatusDetails submits a query to retrieve the run status details of all processors that are in the given list of processor i ds
 */
-func (a *Client) GetProcessorRunStatusDetails(params *GetProcessorRunStatusDetailsParams, authInfo runtime.ClientAuthInfoWriter) (*GetProcessorRunStatusDetailsCreated, error) {
+func (a *Client) GetProcessorRunStatusDetails(params *GetProcessorRunStatusDetailsParams, authInfo runtime.ClientAuthInfoWriter) (*GetProcessorRunStatusDetailsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetProcessorRunStatusDetailsParams()
@@ -138,57 +217,34 @@ func (a *Client) GetProcessorRunStatusDetails(params *GetProcessorRunStatusDetai
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetProcessorRunStatusDetailsCreated), nil
-
+	success, ok := result.(*GetProcessorRunStatusDetailsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getProcessorRunStatusDetails: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ProcessorsClearState clears the state for a processor
+  GetPropertyDescriptorProcessors gets the descriptor for a processor property
 */
-func (a *Client) ProcessorsClearState(params *ProcessorsClearStateParams, authInfo runtime.ClientAuthInfoWriter) (*ProcessorsClearStateCreated, error) {
+func (a *Client) GetPropertyDescriptorProcessors(params *GetPropertyDescriptorProcessorsParams, authInfo runtime.ClientAuthInfoWriter) (*GetPropertyDescriptorProcessorsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewProcessorsClearStateParams()
+		params = NewGetPropertyDescriptorProcessorsParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "processorsClearState",
-		Method:             "POST",
-		PathPattern:        "/processors/{id}/state/clear-requests",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &ProcessorsClearStateReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*ProcessorsClearStateCreated), nil
-
-}
-
-/*
-ProcessorsGetPropertyDescriptor gets the descriptor for a processor property
-*/
-func (a *Client) ProcessorsGetPropertyDescriptor(params *ProcessorsGetPropertyDescriptorParams, authInfo runtime.ClientAuthInfoWriter) (*ProcessorsGetPropertyDescriptorOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewProcessorsGetPropertyDescriptorParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "processorsGetPropertyDescriptor",
+		ID:                 "getPropertyDescriptorProcessors",
 		Method:             "GET",
 		PathPattern:        "/processors/{id}/descriptors",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &ProcessorsGetPropertyDescriptorReader{formats: a.formats},
+		Reader:             &GetPropertyDescriptorProcessorsReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -196,28 +252,34 @@ func (a *Client) ProcessorsGetPropertyDescriptor(params *ProcessorsGetPropertyDe
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ProcessorsGetPropertyDescriptorOK), nil
-
+	success, ok := result.(*GetPropertyDescriptorProcessorsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getPropertyDescriptorProcessors: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ProcessorsGetState gets the state for a processor
+  GetStateProcessors gets the state for a processor
 */
-func (a *Client) ProcessorsGetState(params *ProcessorsGetStateParams, authInfo runtime.ClientAuthInfoWriter) (*ProcessorsGetStateOK, error) {
+func (a *Client) GetStateProcessors(params *GetStateProcessorsParams, authInfo runtime.ClientAuthInfoWriter) (*GetStateProcessorsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewProcessorsGetStateParams()
+		params = NewGetStateProcessorsParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "processorsGetState",
+		ID:                 "getStateProcessors",
 		Method:             "GET",
 		PathPattern:        "/processors/{id}/state",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &ProcessorsGetStateReader{formats: a.formats},
+		Reader:             &GetStateProcessorsReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -225,41 +287,18 @@ func (a *Client) ProcessorsGetState(params *ProcessorsGetStateParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ProcessorsGetStateOK), nil
-
+	success, ok := result.(*GetStateProcessorsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getStateProcessors: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ProcessorsUpdateRunStatus updates run status of a processor
-*/
-func (a *Client) ProcessorsUpdateRunStatus(params *ProcessorsUpdateRunStatusParams, authInfo runtime.ClientAuthInfoWriter) (*ProcessorsUpdateRunStatusOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewProcessorsUpdateRunStatusParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "processorsUpdateRunStatus",
-		Method:             "PUT",
-		PathPattern:        "/processors/{id}/run-status",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &ProcessorsUpdateRunStatusReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*ProcessorsUpdateRunStatusOK), nil
-
-}
-
-/*
-TerminateProcessor terminates a processor essentially deleting its threads and any active tasks
+  TerminateProcessor terminates a processor essentially deleting its threads and any active tasks
 */
 func (a *Client) TerminateProcessor(params *TerminateProcessorParams, authInfo runtime.ClientAuthInfoWriter) (*TerminateProcessorOK, error) {
 	// TODO: Validate the params before sending
@@ -272,7 +311,7 @@ func (a *Client) TerminateProcessor(params *TerminateProcessorParams, authInfo r
 		Method:             "DELETE",
 		PathPattern:        "/processors/{id}/threads",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &TerminateProcessorReader{formats: a.formats},
@@ -283,12 +322,18 @@ func (a *Client) TerminateProcessor(params *TerminateProcessorParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*TerminateProcessorOK), nil
-
+	success, ok := result.(*TerminateProcessorOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for terminateProcessor: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateProcessor updates a processor
+  UpdateProcessor updates a processor
 */
 func (a *Client) UpdateProcessor(params *UpdateProcessorParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateProcessorOK, error) {
 	// TODO: Validate the params before sending
@@ -312,8 +357,49 @@ func (a *Client) UpdateProcessor(params *UpdateProcessorParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateProcessorOK), nil
+	success, ok := result.(*UpdateProcessorOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateProcessor: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
 
+/*
+  UpdateRunStatusProcessors updates run status of a processor
+*/
+func (a *Client) UpdateRunStatusProcessors(params *UpdateRunStatusProcessorsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateRunStatusProcessorsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateRunStatusProcessorsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "updateRunStatusProcessors",
+		Method:             "PUT",
+		PathPattern:        "/processors/{id}/run-status",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpdateRunStatusProcessorsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateRunStatusProcessorsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateRunStatusProcessors: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

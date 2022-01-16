@@ -8,14 +8,14 @@ package models
 import (
 	"encoding/json"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ProvenanceNodeDTO provenance node d t o
+//
 // swagger:model ProvenanceNodeDTO
 type ProvenanceNodeDTO struct {
 
@@ -85,7 +85,7 @@ const (
 
 // prop value enum
 func (m *ProvenanceNodeDTO) validateTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, provenanceNodeDTOTypeTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, provenanceNodeDTOTypeTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil

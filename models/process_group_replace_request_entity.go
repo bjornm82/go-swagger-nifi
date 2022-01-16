@@ -6,13 +6,13 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // ProcessGroupReplaceRequestEntity process group replace request entity
+//
 // swagger:model ProcessGroupReplaceRequestEntity
 type ProcessGroupReplaceRequestEntity struct {
 
@@ -23,7 +23,6 @@ type ProcessGroupReplaceRequestEntity struct {
 	Request *ProcessGroupReplaceRequestDTO `json:"request,omitempty"`
 
 	// Returns the Versioned Flow to replace with
-	// Read Only: true
 	VersionedFlowSnapshot *VersionedFlowSnapshot `json:"versionedFlowSnapshot,omitempty"`
 }
 

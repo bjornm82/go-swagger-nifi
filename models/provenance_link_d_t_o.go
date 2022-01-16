@@ -6,12 +6,12 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // ProvenanceLinkDTO provenance link d t o
+//
 // swagger:model ProvenanceLinkDTO
 type ProvenanceLinkDTO struct {
 

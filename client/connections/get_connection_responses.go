@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // GetConnectionReader is a Reader for the GetConnection structure.
@@ -24,42 +23,36 @@ type GetConnectionReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetConnectionReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetConnectionOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetConnectionBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetConnectionUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetConnectionForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetConnectionNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetConnectionConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -87,6 +80,10 @@ type GetConnectionOK struct {
 
 func (o *GetConnectionOK) Error() string {
 	return fmt.Sprintf("[GET /connections/{id}][%d] getConnectionOK  %+v", 200, o.Payload)
+}
+
+func (o *GetConnectionOK) GetPayload() *models.ConnectionEntity {
+	return o.Payload
 }
 
 func (o *GetConnectionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

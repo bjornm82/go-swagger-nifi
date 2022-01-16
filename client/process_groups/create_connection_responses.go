@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // CreateConnectionReader is a Reader for the CreateConnection structure.
@@ -24,42 +23,36 @@ type CreateConnectionReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateConnectionReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewCreateConnectionCreated()
+	case 200:
+		result := NewCreateConnectionOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateConnectionBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewCreateConnectionUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewCreateConnectionForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewCreateConnectionNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewCreateConnectionConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -72,24 +65,28 @@ func (o *CreateConnectionReader) ReadResponse(response runtime.ClientResponse, c
 	}
 }
 
-// NewCreateConnectionCreated creates a CreateConnectionCreated with default headers values
-func NewCreateConnectionCreated() *CreateConnectionCreated {
-	return &CreateConnectionCreated{}
+// NewCreateConnectionOK creates a CreateConnectionOK with default headers values
+func NewCreateConnectionOK() *CreateConnectionOK {
+	return &CreateConnectionOK{}
 }
 
-/*CreateConnectionCreated handles this case with default header values.
+/*CreateConnectionOK handles this case with default header values.
 
 successful operation
 */
-type CreateConnectionCreated struct {
+type CreateConnectionOK struct {
 	Payload *models.ConnectionEntity
 }
 
-func (o *CreateConnectionCreated) Error() string {
-	return fmt.Sprintf("[POST /process-groups/{id}/connections][%d] createConnectionCreated  %+v", 201, o.Payload)
+func (o *CreateConnectionOK) Error() string {
+	return fmt.Sprintf("[POST /process-groups/{id}/connections][%d] createConnectionOK  %+v", 200, o.Payload)
 }
 
-func (o *CreateConnectionCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateConnectionOK) GetPayload() *models.ConnectionEntity {
+	return o.Payload
+}
+
+func (o *CreateConnectionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ConnectionEntity)
 

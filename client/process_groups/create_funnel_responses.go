@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // CreateFunnelReader is a Reader for the CreateFunnel structure.
@@ -24,42 +23,36 @@ type CreateFunnelReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateFunnelReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewCreateFunnelCreated()
+	case 200:
+		result := NewCreateFunnelOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateFunnelBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewCreateFunnelUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewCreateFunnelForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewCreateFunnelNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewCreateFunnelConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -72,24 +65,28 @@ func (o *CreateFunnelReader) ReadResponse(response runtime.ClientResponse, consu
 	}
 }
 
-// NewCreateFunnelCreated creates a CreateFunnelCreated with default headers values
-func NewCreateFunnelCreated() *CreateFunnelCreated {
-	return &CreateFunnelCreated{}
+// NewCreateFunnelOK creates a CreateFunnelOK with default headers values
+func NewCreateFunnelOK() *CreateFunnelOK {
+	return &CreateFunnelOK{}
 }
 
-/*CreateFunnelCreated handles this case with default header values.
+/*CreateFunnelOK handles this case with default header values.
 
 successful operation
 */
-type CreateFunnelCreated struct {
+type CreateFunnelOK struct {
 	Payload *models.FunnelEntity
 }
 
-func (o *CreateFunnelCreated) Error() string {
-	return fmt.Sprintf("[POST /process-groups/{id}/funnels][%d] createFunnelCreated  %+v", 201, o.Payload)
+func (o *CreateFunnelOK) Error() string {
+	return fmt.Sprintf("[POST /process-groups/{id}/funnels][%d] createFunnelOK  %+v", 200, o.Payload)
 }
 
-func (o *CreateFunnelCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateFunnelOK) GetPayload() *models.FunnelEntity {
+	return o.Payload
+}
+
+func (o *CreateFunnelOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.FunnelEntity)
 

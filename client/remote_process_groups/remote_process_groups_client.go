@@ -6,13 +6,14 @@ package remote_process_groups
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new remote process groups API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,8 +25,33 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	GetRemoteProcessGroup(params *GetRemoteProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*GetRemoteProcessGroupOK, error)
+
+	GetStateRemoteProcessGroups(params *GetStateRemoteProcessGroupsParams, authInfo runtime.ClientAuthInfoWriter) (*GetStateRemoteProcessGroupsOK, error)
+
+	RemoveRemoteProcessGroup(params *RemoveRemoteProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*RemoveRemoteProcessGroupOK, error)
+
+	UpdateRemoteProcessGroup(params *UpdateRemoteProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateRemoteProcessGroupOK, error)
+
+	UpdateRemoteProcessGroupInputPort(params *UpdateRemoteProcessGroupInputPortParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateRemoteProcessGroupInputPortOK, error)
+
+	UpdateRemoteProcessGroupInputPortRunStatus(params *UpdateRemoteProcessGroupInputPortRunStatusParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateRemoteProcessGroupInputPortRunStatusOK, error)
+
+	UpdateRemoteProcessGroupOutputPort(params *UpdateRemoteProcessGroupOutputPortParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateRemoteProcessGroupOutputPortOK, error)
+
+	UpdateRemoteProcessGroupOutputPortRunStatus(params *UpdateRemoteProcessGroupOutputPortRunStatusParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateRemoteProcessGroupOutputPortRunStatusOK, error)
+
+	UpdateRemoteProcessGroupRunStatus(params *UpdateRemoteProcessGroupRunStatusParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateRemoteProcessGroupRunStatusOK, error)
+
+	UpdateRemoteProcessGroupRunStatuses(params *UpdateRemoteProcessGroupRunStatusesParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateRemoteProcessGroupRunStatusesOK, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-GetRemoteProcessGroup gets a remote process group
+  GetRemoteProcessGroup gets a remote process group
 */
 func (a *Client) GetRemoteProcessGroup(params *GetRemoteProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*GetRemoteProcessGroupOK, error) {
 	// TODO: Validate the params before sending
@@ -38,7 +64,7 @@ func (a *Client) GetRemoteProcessGroup(params *GetRemoteProcessGroupParams, auth
 		Method:             "GET",
 		PathPattern:        "/remote-process-groups/{id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetRemoteProcessGroupReader{formats: a.formats},
@@ -49,28 +75,34 @@ func (a *Client) GetRemoteProcessGroup(params *GetRemoteProcessGroupParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetRemoteProcessGroupOK), nil
-
+	success, ok := result.(*GetRemoteProcessGroupOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getRemoteProcessGroup: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-RemoteProcessGroupsGetState gets the state for a remote process group
+  GetStateRemoteProcessGroups gets the state for a remote process group
 */
-func (a *Client) RemoteProcessGroupsGetState(params *RemoteProcessGroupsGetStateParams, authInfo runtime.ClientAuthInfoWriter) (*RemoteProcessGroupsGetStateOK, error) {
+func (a *Client) GetStateRemoteProcessGroups(params *GetStateRemoteProcessGroupsParams, authInfo runtime.ClientAuthInfoWriter) (*GetStateRemoteProcessGroupsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewRemoteProcessGroupsGetStateParams()
+		params = NewGetStateRemoteProcessGroupsParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "remoteProcessGroupsGetState",
+		ID:                 "getStateRemoteProcessGroups",
 		Method:             "GET",
 		PathPattern:        "/remote-process-groups/{id}/state",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &RemoteProcessGroupsGetStateReader{formats: a.formats},
+		Reader:             &GetStateRemoteProcessGroupsReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -78,12 +110,18 @@ func (a *Client) RemoteProcessGroupsGetState(params *RemoteProcessGroupsGetState
 	if err != nil {
 		return nil, err
 	}
-	return result.(*RemoteProcessGroupsGetStateOK), nil
-
+	success, ok := result.(*GetStateRemoteProcessGroupsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getStateRemoteProcessGroups: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-RemoveRemoteProcessGroup deletes a remote process group
+  RemoveRemoteProcessGroup deletes a remote process group
 */
 func (a *Client) RemoveRemoteProcessGroup(params *RemoveRemoteProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*RemoveRemoteProcessGroupOK, error) {
 	// TODO: Validate the params before sending
@@ -96,7 +134,7 @@ func (a *Client) RemoveRemoteProcessGroup(params *RemoveRemoteProcessGroupParams
 		Method:             "DELETE",
 		PathPattern:        "/remote-process-groups/{id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &RemoveRemoteProcessGroupReader{formats: a.formats},
@@ -107,12 +145,18 @@ func (a *Client) RemoveRemoteProcessGroup(params *RemoveRemoteProcessGroupParams
 	if err != nil {
 		return nil, err
 	}
-	return result.(*RemoveRemoteProcessGroupOK), nil
-
+	success, ok := result.(*RemoveRemoteProcessGroupOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for removeRemoteProcessGroup: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateRemoteProcessGroup updates a remote process group
+  UpdateRemoteProcessGroup updates a remote process group
 */
 func (a *Client) UpdateRemoteProcessGroup(params *UpdateRemoteProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateRemoteProcessGroupOK, error) {
 	// TODO: Validate the params before sending
@@ -136,14 +180,20 @@ func (a *Client) UpdateRemoteProcessGroup(params *UpdateRemoteProcessGroupParams
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateRemoteProcessGroupOK), nil
-
+	success, ok := result.(*UpdateRemoteProcessGroupOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateRemoteProcessGroup: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateRemoteProcessGroupInputPort updates a remote port
+  UpdateRemoteProcessGroupInputPort updates a remote port
 
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) UpdateRemoteProcessGroupInputPort(params *UpdateRemoteProcessGroupInputPortParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateRemoteProcessGroupInputPortOK, error) {
 	// TODO: Validate the params before sending
@@ -167,14 +217,20 @@ func (a *Client) UpdateRemoteProcessGroupInputPort(params *UpdateRemoteProcessGr
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateRemoteProcessGroupInputPortOK), nil
-
+	success, ok := result.(*UpdateRemoteProcessGroupInputPortOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateRemoteProcessGroupInputPort: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateRemoteProcessGroupInputPortRunStatus updates run status of a remote port
+  UpdateRemoteProcessGroupInputPortRunStatus updates run status of a remote port
 
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) UpdateRemoteProcessGroupInputPortRunStatus(params *UpdateRemoteProcessGroupInputPortRunStatusParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateRemoteProcessGroupInputPortRunStatusOK, error) {
 	// TODO: Validate the params before sending
@@ -198,14 +254,20 @@ func (a *Client) UpdateRemoteProcessGroupInputPortRunStatus(params *UpdateRemote
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateRemoteProcessGroupInputPortRunStatusOK), nil
-
+	success, ok := result.(*UpdateRemoteProcessGroupInputPortRunStatusOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateRemoteProcessGroupInputPortRunStatus: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateRemoteProcessGroupOutputPort updates a remote port
+  UpdateRemoteProcessGroupOutputPort updates a remote port
 
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) UpdateRemoteProcessGroupOutputPort(params *UpdateRemoteProcessGroupOutputPortParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateRemoteProcessGroupOutputPortOK, error) {
 	// TODO: Validate the params before sending
@@ -229,14 +291,20 @@ func (a *Client) UpdateRemoteProcessGroupOutputPort(params *UpdateRemoteProcessG
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateRemoteProcessGroupOutputPortOK), nil
-
+	success, ok := result.(*UpdateRemoteProcessGroupOutputPortOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateRemoteProcessGroupOutputPort: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateRemoteProcessGroupOutputPortRunStatus updates run status of a remote port
+  UpdateRemoteProcessGroupOutputPortRunStatus updates run status of a remote port
 
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) UpdateRemoteProcessGroupOutputPortRunStatus(params *UpdateRemoteProcessGroupOutputPortRunStatusParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateRemoteProcessGroupOutputPortRunStatusOK, error) {
 	// TODO: Validate the params before sending
@@ -260,12 +328,18 @@ func (a *Client) UpdateRemoteProcessGroupOutputPortRunStatus(params *UpdateRemot
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateRemoteProcessGroupOutputPortRunStatusOK), nil
-
+	success, ok := result.(*UpdateRemoteProcessGroupOutputPortRunStatusOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateRemoteProcessGroupOutputPortRunStatus: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateRemoteProcessGroupRunStatus updates run status of a remote process group
+  UpdateRemoteProcessGroupRunStatus updates run status of a remote process group
 */
 func (a *Client) UpdateRemoteProcessGroupRunStatus(params *UpdateRemoteProcessGroupRunStatusParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateRemoteProcessGroupRunStatusOK, error) {
 	// TODO: Validate the params before sending
@@ -289,8 +363,49 @@ func (a *Client) UpdateRemoteProcessGroupRunStatus(params *UpdateRemoteProcessGr
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateRemoteProcessGroupRunStatusOK), nil
+	success, ok := result.(*UpdateRemoteProcessGroupRunStatusOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateRemoteProcessGroupRunStatus: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
 
+/*
+  UpdateRemoteProcessGroupRunStatuses updates run status of all remote process groups in a process group recursively
+*/
+func (a *Client) UpdateRemoteProcessGroupRunStatuses(params *UpdateRemoteProcessGroupRunStatusesParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateRemoteProcessGroupRunStatusesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateRemoteProcessGroupRunStatusesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "updateRemoteProcessGroupRunStatuses",
+		Method:             "PUT",
+		PathPattern:        "/remote-process-groups/process-group/{id}/run-status",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpdateRemoteProcessGroupRunStatusesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateRemoteProcessGroupRunStatusesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateRemoteProcessGroupRunStatuses: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

@@ -6,19 +6,18 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // StatusHistoryEntity status history entity
+//
 // swagger:model StatusHistoryEntity
 type StatusHistoryEntity struct {
 
 	// Indicates whether the user can read a given resource.
-	// Read Only: true
-	CanRead *bool `json:"canRead,omitempty"`
+	CanRead bool `json:"canRead,omitempty"`
 
 	// status history
 	StatusHistory *StatusHistoryDTO `json:"statusHistory,omitempty"`

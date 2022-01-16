@@ -9,8 +9,7 @@ import (
 	"fmt"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // KnoxCallbackReader is a Reader for the KnoxCallback structure.
@@ -20,7 +19,6 @@ type KnoxCallbackReader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *KnoxCallbackReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
-
 	result := NewKnoxCallbackDefault(response.Code())
 	if err := result.readResponse(response, consumer, o.formats); err != nil {
 		return nil, err
@@ -29,7 +27,6 @@ func (o *KnoxCallbackReader) ReadResponse(response runtime.ClientResponse, consu
 		return result, nil
 	}
 	return nil, result
-
 }
 
 // NewKnoxCallbackDefault creates a KnoxCallbackDefault with default headers values

@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // GetParameterContextUpdateReader is a Reader for the GetParameterContextUpdate structure.
@@ -24,42 +23,36 @@ type GetParameterContextUpdateReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetParameterContextUpdateReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetParameterContextUpdateOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetParameterContextUpdateBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetParameterContextUpdateUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetParameterContextUpdateForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetParameterContextUpdateNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetParameterContextUpdateConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -87,6 +80,10 @@ type GetParameterContextUpdateOK struct {
 
 func (o *GetParameterContextUpdateOK) Error() string {
 	return fmt.Sprintf("[GET /parameter-contexts/{contextId}/update-requests/{requestId}][%d] getParameterContextUpdateOK  %+v", 200, o.Payload)
+}
+
+func (o *GetParameterContextUpdateOK) GetPayload() *models.ParameterContextUpdateRequestEntity {
+	return o.Payload
 }
 
 func (o *GetParameterContextUpdateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

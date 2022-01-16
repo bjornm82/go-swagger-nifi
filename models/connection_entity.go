@@ -9,14 +9,14 @@ import (
 	"encoding/json"
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ConnectionEntity connection entity
+//
 // swagger:model ConnectionEntity
 type ConnectionEntity struct {
 
@@ -228,7 +228,7 @@ const (
 
 // prop value enum
 func (m *ConnectionEntity) validateDestinationTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, connectionEntityTypeDestinationTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, connectionEntityTypeDestinationTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil
@@ -337,7 +337,7 @@ const (
 
 // prop value enum
 func (m *ConnectionEntity) validateSourceTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, connectionEntityTypeSourceTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, connectionEntityTypeSourceTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil

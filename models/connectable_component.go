@@ -8,14 +8,14 @@ package models
 import (
 	"encoding/json"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ConnectableComponent connectable component
+//
 // swagger:model ConnectableComponent
 type ConnectableComponent struct {
 
@@ -114,7 +114,7 @@ const (
 
 // prop value enum
 func (m *ConnectableComponent) validateTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, connectableComponentTypeTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, connectableComponentTypeTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil

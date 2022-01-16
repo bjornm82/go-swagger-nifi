@@ -6,19 +6,18 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // ProcessorStatusSnapshotEntity processor status snapshot entity
+//
 // swagger:model ProcessorStatusSnapshotEntity
 type ProcessorStatusSnapshotEntity struct {
 
 	// Indicates whether the user can read a given resource.
-	// Read Only: true
-	CanRead *bool `json:"canRead,omitempty"`
+	CanRead bool `json:"canRead,omitempty"`
 
 	// The id of the processor.
 	ID string `json:"id,omitempty"`

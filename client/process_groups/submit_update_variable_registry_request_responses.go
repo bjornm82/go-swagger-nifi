@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // SubmitUpdateVariableRegistryRequestReader is a Reader for the SubmitUpdateVariableRegistryRequest structure.
@@ -24,42 +23,36 @@ type SubmitUpdateVariableRegistryRequestReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SubmitUpdateVariableRegistryRequestReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewSubmitUpdateVariableRegistryRequestCreated()
+	case 200:
+		result := NewSubmitUpdateVariableRegistryRequestOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewSubmitUpdateVariableRegistryRequestBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewSubmitUpdateVariableRegistryRequestUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewSubmitUpdateVariableRegistryRequestForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewSubmitUpdateVariableRegistryRequestNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewSubmitUpdateVariableRegistryRequestConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -72,24 +65,28 @@ func (o *SubmitUpdateVariableRegistryRequestReader) ReadResponse(response runtim
 	}
 }
 
-// NewSubmitUpdateVariableRegistryRequestCreated creates a SubmitUpdateVariableRegistryRequestCreated with default headers values
-func NewSubmitUpdateVariableRegistryRequestCreated() *SubmitUpdateVariableRegistryRequestCreated {
-	return &SubmitUpdateVariableRegistryRequestCreated{}
+// NewSubmitUpdateVariableRegistryRequestOK creates a SubmitUpdateVariableRegistryRequestOK with default headers values
+func NewSubmitUpdateVariableRegistryRequestOK() *SubmitUpdateVariableRegistryRequestOK {
+	return &SubmitUpdateVariableRegistryRequestOK{}
 }
 
-/*SubmitUpdateVariableRegistryRequestCreated handles this case with default header values.
+/*SubmitUpdateVariableRegistryRequestOK handles this case with default header values.
 
 successful operation
 */
-type SubmitUpdateVariableRegistryRequestCreated struct {
+type SubmitUpdateVariableRegistryRequestOK struct {
 	Payload *models.VariableRegistryUpdateRequestEntity
 }
 
-func (o *SubmitUpdateVariableRegistryRequestCreated) Error() string {
-	return fmt.Sprintf("[POST /process-groups/{id}/variable-registry/update-requests][%d] submitUpdateVariableRegistryRequestCreated  %+v", 201, o.Payload)
+func (o *SubmitUpdateVariableRegistryRequestOK) Error() string {
+	return fmt.Sprintf("[POST /process-groups/{id}/variable-registry/update-requests][%d] submitUpdateVariableRegistryRequestOK  %+v", 200, o.Payload)
 }
 
-func (o *SubmitUpdateVariableRegistryRequestCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *SubmitUpdateVariableRegistryRequestOK) GetPayload() *models.VariableRegistryUpdateRequestEntity {
+	return o.Payload
+}
+
+func (o *SubmitUpdateVariableRegistryRequestOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.VariableRegistryUpdateRequestEntity)
 

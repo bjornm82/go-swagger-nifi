@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // CreateRemoteProcessGroupReader is a Reader for the CreateRemoteProcessGroup structure.
@@ -24,42 +23,36 @@ type CreateRemoteProcessGroupReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateRemoteProcessGroupReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewCreateRemoteProcessGroupCreated()
+	case 200:
+		result := NewCreateRemoteProcessGroupOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateRemoteProcessGroupBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewCreateRemoteProcessGroupUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewCreateRemoteProcessGroupForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewCreateRemoteProcessGroupNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewCreateRemoteProcessGroupConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -72,24 +65,28 @@ func (o *CreateRemoteProcessGroupReader) ReadResponse(response runtime.ClientRes
 	}
 }
 
-// NewCreateRemoteProcessGroupCreated creates a CreateRemoteProcessGroupCreated with default headers values
-func NewCreateRemoteProcessGroupCreated() *CreateRemoteProcessGroupCreated {
-	return &CreateRemoteProcessGroupCreated{}
+// NewCreateRemoteProcessGroupOK creates a CreateRemoteProcessGroupOK with default headers values
+func NewCreateRemoteProcessGroupOK() *CreateRemoteProcessGroupOK {
+	return &CreateRemoteProcessGroupOK{}
 }
 
-/*CreateRemoteProcessGroupCreated handles this case with default header values.
+/*CreateRemoteProcessGroupOK handles this case with default header values.
 
 successful operation
 */
-type CreateRemoteProcessGroupCreated struct {
+type CreateRemoteProcessGroupOK struct {
 	Payload *models.RemoteProcessGroupEntity
 }
 
-func (o *CreateRemoteProcessGroupCreated) Error() string {
-	return fmt.Sprintf("[POST /process-groups/{id}/remote-process-groups][%d] createRemoteProcessGroupCreated  %+v", 201, o.Payload)
+func (o *CreateRemoteProcessGroupOK) Error() string {
+	return fmt.Sprintf("[POST /process-groups/{id}/remote-process-groups][%d] createRemoteProcessGroupOK  %+v", 200, o.Payload)
 }
 
-func (o *CreateRemoteProcessGroupCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateRemoteProcessGroupOK) GetPayload() *models.RemoteProcessGroupEntity {
+	return o.Payload
+}
+
+func (o *CreateRemoteProcessGroupOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RemoteProcessGroupEntity)
 

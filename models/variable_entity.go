@@ -6,19 +6,18 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // VariableEntity variable entity
+//
 // swagger:model VariableEntity
 type VariableEntity struct {
 
 	// Indicates whether the user can write a given resource.
-	// Read Only: true
-	CanWrite *bool `json:"canWrite,omitempty"`
+	CanWrite bool `json:"canWrite,omitempty"`
 
 	// The variable information
 	Variable *VariableDTO `json:"variable,omitempty"`

@@ -10,8 +10,7 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // CreateUIExtensionTokenReader is a Reader for the CreateUIExtensionToken structure.
@@ -22,28 +21,24 @@ type CreateUIExtensionTokenReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateUIExtensionTokenReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewCreateUIExtensionTokenCreated()
+	case 200:
+		result := NewCreateUIExtensionTokenOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 403:
 		result := NewCreateUIExtensionTokenForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewCreateUIExtensionTokenConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewCreateUIExtensionTokenInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -56,24 +51,28 @@ func (o *CreateUIExtensionTokenReader) ReadResponse(response runtime.ClientRespo
 	}
 }
 
-// NewCreateUIExtensionTokenCreated creates a CreateUIExtensionTokenCreated with default headers values
-func NewCreateUIExtensionTokenCreated() *CreateUIExtensionTokenCreated {
-	return &CreateUIExtensionTokenCreated{}
+// NewCreateUIExtensionTokenOK creates a CreateUIExtensionTokenOK with default headers values
+func NewCreateUIExtensionTokenOK() *CreateUIExtensionTokenOK {
+	return &CreateUIExtensionTokenOK{}
 }
 
-/*CreateUIExtensionTokenCreated handles this case with default header values.
+/*CreateUIExtensionTokenOK handles this case with default header values.
 
 successful operation
 */
-type CreateUIExtensionTokenCreated struct {
+type CreateUIExtensionTokenOK struct {
 	Payload string
 }
 
-func (o *CreateUIExtensionTokenCreated) Error() string {
-	return fmt.Sprintf("[POST /access/ui-extension-token][%d] createUiExtensionTokenCreated  %+v", 201, o.Payload)
+func (o *CreateUIExtensionTokenOK) Error() string {
+	return fmt.Sprintf("[POST /access/ui-extension-token][%d] createUiExtensionTokenOK  %+v", 200, o.Payload)
 }
 
-func (o *CreateUIExtensionTokenCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateUIExtensionTokenOK) GetPayload() string {
+	return o.Payload
+}
+
+func (o *CreateUIExtensionTokenOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // SearchFlowReader is a Reader for the SearchFlow structure.
@@ -24,35 +23,30 @@ type SearchFlowReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SearchFlowReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewSearchFlowOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewSearchFlowBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewSearchFlowUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewSearchFlowForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewSearchFlowConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -80,6 +74,10 @@ type SearchFlowOK struct {
 
 func (o *SearchFlowOK) Error() string {
 	return fmt.Sprintf("[GET /flow/search-results][%d] searchFlowOK  %+v", 200, o.Payload)
+}
+
+func (o *SearchFlowOK) GetPayload() *models.SearchResultsEntity {
+	return o.Payload
 }
 
 func (o *SearchFlowOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

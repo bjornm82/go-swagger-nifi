@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // GetProcessorRunStatusDetailsReader is a Reader for the GetProcessorRunStatusDetails structure.
@@ -24,42 +23,36 @@ type GetProcessorRunStatusDetailsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetProcessorRunStatusDetailsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewGetProcessorRunStatusDetailsCreated()
+	case 200:
+		result := NewGetProcessorRunStatusDetailsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetProcessorRunStatusDetailsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetProcessorRunStatusDetailsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetProcessorRunStatusDetailsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetProcessorRunStatusDetailsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetProcessorRunStatusDetailsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -72,24 +65,28 @@ func (o *GetProcessorRunStatusDetailsReader) ReadResponse(response runtime.Clien
 	}
 }
 
-// NewGetProcessorRunStatusDetailsCreated creates a GetProcessorRunStatusDetailsCreated with default headers values
-func NewGetProcessorRunStatusDetailsCreated() *GetProcessorRunStatusDetailsCreated {
-	return &GetProcessorRunStatusDetailsCreated{}
+// NewGetProcessorRunStatusDetailsOK creates a GetProcessorRunStatusDetailsOK with default headers values
+func NewGetProcessorRunStatusDetailsOK() *GetProcessorRunStatusDetailsOK {
+	return &GetProcessorRunStatusDetailsOK{}
 }
 
-/*GetProcessorRunStatusDetailsCreated handles this case with default header values.
+/*GetProcessorRunStatusDetailsOK handles this case with default header values.
 
 successful operation
 */
-type GetProcessorRunStatusDetailsCreated struct {
+type GetProcessorRunStatusDetailsOK struct {
 	Payload *models.ProcessorsRunStatusDetailsEntity
 }
 
-func (o *GetProcessorRunStatusDetailsCreated) Error() string {
-	return fmt.Sprintf("[POST /processors/run-status-details/queries][%d] getProcessorRunStatusDetailsCreated  %+v", 201, o.Payload)
+func (o *GetProcessorRunStatusDetailsOK) Error() string {
+	return fmt.Sprintf("[POST /processors/run-status-details/queries][%d] getProcessorRunStatusDetailsOK  %+v", 200, o.Payload)
 }
 
-func (o *GetProcessorRunStatusDetailsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *GetProcessorRunStatusDetailsOK) GetPayload() *models.ProcessorsRunStatusDetailsEntity {
+	return o.Payload
+}
+
+func (o *GetProcessorRunStatusDetailsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ProcessorsRunStatusDetailsEntity)
 

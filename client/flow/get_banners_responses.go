@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // GetBannersReader is a Reader for the GetBanners structure.
@@ -24,35 +23,30 @@ type GetBannersReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetBannersReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetBannersOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetBannersBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetBannersUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetBannersForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetBannersConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -80,6 +74,10 @@ type GetBannersOK struct {
 
 func (o *GetBannersOK) Error() string {
 	return fmt.Sprintf("[GET /flow/banners][%d] getBannersOK  %+v", 200, o.Payload)
+}
+
+func (o *GetBannersOK) GetPayload() *models.BannerEntity {
+	return o.Payload
 }
 
 func (o *GetBannersOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

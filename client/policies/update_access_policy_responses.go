@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // UpdateAccessPolicyReader is a Reader for the UpdateAccessPolicy structure.
@@ -24,42 +23,36 @@ type UpdateAccessPolicyReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateAccessPolicyReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateAccessPolicyOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewUpdateAccessPolicyBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewUpdateAccessPolicyUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewUpdateAccessPolicyForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewUpdateAccessPolicyNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewUpdateAccessPolicyConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -87,6 +80,10 @@ type UpdateAccessPolicyOK struct {
 
 func (o *UpdateAccessPolicyOK) Error() string {
 	return fmt.Sprintf("[PUT /policies/{id}][%d] updateAccessPolicyOK  %+v", 200, o.Payload)
+}
+
+func (o *UpdateAccessPolicyOK) GetPayload() *models.AccessPolicyEntity {
+	return o.Payload
 }
 
 func (o *UpdateAccessPolicyOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

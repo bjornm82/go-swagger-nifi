@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // UpdateRemoteProcessGroupOutputPortRunStatusReader is a Reader for the UpdateRemoteProcessGroupOutputPortRunStatus structure.
@@ -24,42 +23,36 @@ type UpdateRemoteProcessGroupOutputPortRunStatusReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateRemoteProcessGroupOutputPortRunStatusReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateRemoteProcessGroupOutputPortRunStatusOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewUpdateRemoteProcessGroupOutputPortRunStatusBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewUpdateRemoteProcessGroupOutputPortRunStatusUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewUpdateRemoteProcessGroupOutputPortRunStatusForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewUpdateRemoteProcessGroupOutputPortRunStatusNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewUpdateRemoteProcessGroupOutputPortRunStatusConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -87,6 +80,10 @@ type UpdateRemoteProcessGroupOutputPortRunStatusOK struct {
 
 func (o *UpdateRemoteProcessGroupOutputPortRunStatusOK) Error() string {
 	return fmt.Sprintf("[PUT /remote-process-groups/{id}/output-ports/{port-id}/run-status][%d] updateRemoteProcessGroupOutputPortRunStatusOK  %+v", 200, o.Payload)
+}
+
+func (o *UpdateRemoteProcessGroupOutputPortRunStatusOK) GetPayload() *models.RemoteProcessGroupPortEntity {
+	return o.Payload
 }
 
 func (o *UpdateRemoteProcessGroupOutputPortRunStatusOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

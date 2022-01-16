@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // SubmitReplayReader is a Reader for the SubmitReplay structure.
@@ -24,42 +23,36 @@ type SubmitReplayReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SubmitReplayReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewSubmitReplayCreated()
+	case 200:
+		result := NewSubmitReplayOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewSubmitReplayBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewSubmitReplayUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewSubmitReplayForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewSubmitReplayNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewSubmitReplayConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -72,24 +65,28 @@ func (o *SubmitReplayReader) ReadResponse(response runtime.ClientResponse, consu
 	}
 }
 
-// NewSubmitReplayCreated creates a SubmitReplayCreated with default headers values
-func NewSubmitReplayCreated() *SubmitReplayCreated {
-	return &SubmitReplayCreated{}
+// NewSubmitReplayOK creates a SubmitReplayOK with default headers values
+func NewSubmitReplayOK() *SubmitReplayOK {
+	return &SubmitReplayOK{}
 }
 
-/*SubmitReplayCreated handles this case with default header values.
+/*SubmitReplayOK handles this case with default header values.
 
 successful operation
 */
-type SubmitReplayCreated struct {
+type SubmitReplayOK struct {
 	Payload *models.ProvenanceEventEntity
 }
 
-func (o *SubmitReplayCreated) Error() string {
-	return fmt.Sprintf("[POST /provenance-events/replays][%d] submitReplayCreated  %+v", 201, o.Payload)
+func (o *SubmitReplayOK) Error() string {
+	return fmt.Sprintf("[POST /provenance-events/replays][%d] submitReplayOK  %+v", 200, o.Payload)
 }
 
-func (o *SubmitReplayCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *SubmitReplayOK) GetPayload() *models.ProvenanceEventEntity {
+	return o.Payload
+}
+
+func (o *SubmitReplayOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ProvenanceEventEntity)
 

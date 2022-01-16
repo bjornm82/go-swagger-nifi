@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // CreateReportingTaskReader is a Reader for the CreateReportingTask structure.
@@ -24,35 +23,30 @@ type CreateReportingTaskReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateReportingTaskReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewCreateReportingTaskCreated()
+	case 200:
+		result := NewCreateReportingTaskOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateReportingTaskBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewCreateReportingTaskUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewCreateReportingTaskForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewCreateReportingTaskConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -65,24 +59,28 @@ func (o *CreateReportingTaskReader) ReadResponse(response runtime.ClientResponse
 	}
 }
 
-// NewCreateReportingTaskCreated creates a CreateReportingTaskCreated with default headers values
-func NewCreateReportingTaskCreated() *CreateReportingTaskCreated {
-	return &CreateReportingTaskCreated{}
+// NewCreateReportingTaskOK creates a CreateReportingTaskOK with default headers values
+func NewCreateReportingTaskOK() *CreateReportingTaskOK {
+	return &CreateReportingTaskOK{}
 }
 
-/*CreateReportingTaskCreated handles this case with default header values.
+/*CreateReportingTaskOK handles this case with default header values.
 
 successful operation
 */
-type CreateReportingTaskCreated struct {
+type CreateReportingTaskOK struct {
 	Payload *models.ReportingTaskEntity
 }
 
-func (o *CreateReportingTaskCreated) Error() string {
-	return fmt.Sprintf("[POST /controller/reporting-tasks][%d] createReportingTaskCreated  %+v", 201, o.Payload)
+func (o *CreateReportingTaskOK) Error() string {
+	return fmt.Sprintf("[POST /controller/reporting-tasks][%d] createReportingTaskOK  %+v", 200, o.Payload)
 }
 
-func (o *CreateReportingTaskCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateReportingTaskOK) GetPayload() *models.ReportingTaskEntity {
+	return o.Payload
+}
+
+func (o *CreateReportingTaskOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ReportingTaskEntity)
 

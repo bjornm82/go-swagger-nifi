@@ -8,14 +8,14 @@ package models
 import (
 	"encoding/json"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // VersionedLabel versioned label
+//
 // swagger:model VersionedLabel
 type VersionedLabel struct {
 
@@ -119,7 +119,7 @@ const (
 
 // prop value enum
 func (m *VersionedLabel) validateComponentTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, versionedLabelTypeComponentTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, versionedLabelTypeComponentTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil

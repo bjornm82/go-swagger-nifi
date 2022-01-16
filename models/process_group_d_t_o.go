@@ -8,14 +8,14 @@ package models
 import (
 	"encoding/json"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ProcessGroupDTO process group d t o
+//
 // swagger:model ProcessGroupDTO
 type ProcessGroupDTO struct {
 
@@ -28,6 +28,15 @@ type ProcessGroupDTO struct {
 	// The contents of this process group.
 	Contents *FlowSnippetDTO `json:"contents,omitempty"`
 
+	// Default value used in this Process Group for the maximum data size of objects that can be queued before back pressure is applied.
+	DefaultBackPressureDataSizeThreshold string `json:"defaultBackPressureDataSizeThreshold,omitempty"`
+
+	// Default value used in this Process Group for the maximum number of objects that can be queued before back pressure is applied.
+	DefaultBackPressureObjectThreshold int64 `json:"defaultBackPressureObjectThreshold,omitempty"`
+
+	// The default FlowFile Expiration for this Process Group.
+	DefaultFlowFileExpiration string `json:"defaultFlowFileExpiration,omitempty"`
+
 	// The number of disabled components in the process group.
 	DisabledCount int32 `json:"disabledCount,omitempty"`
 
@@ -35,7 +44,7 @@ type ProcessGroupDTO struct {
 	// Enum: [UNBOUNDED SINGLE_FLOWFILE_PER_NODE]
 	FlowfileConcurrency string `json:"flowfileConcurrency,omitempty"`
 
-	// The Oubound Policy that is used for determining how FlowFiles should be transferred out of the Process Group.
+	// The Outbound Policy that is used for determining how FlowFiles should be transferred out of the Process Group.
 	// Enum: [STREAM_WHEN_AVAILABLE BATCH_OUTPUT]
 	FlowfileOutboundPolicy string `json:"flowfileOutboundPolicy,omitempty"`
 
@@ -46,7 +55,6 @@ type ProcessGroupDTO struct {
 	InactiveRemotePortCount int32 `json:"inactiveRemotePortCount,omitempty"`
 
 	// The number of input ports in the process group.
-	// Read Only: true
 	InputPortCount int32 `json:"inputPortCount,omitempty"`
 
 	// The number of invalid components in the process group.
@@ -68,7 +76,6 @@ type ProcessGroupDTO struct {
 	Name string `json:"name,omitempty"`
 
 	// The number of output ports in the process group.
-	// Read Only: true
 	OutputPortCount int32 `json:"outputPortCount,omitempty"`
 
 	// The Parameter Context that this Process Group is bound to.
@@ -102,7 +109,6 @@ type ProcessGroupDTO struct {
 	UpToDateCount int32 `json:"upToDateCount,omitempty"`
 
 	// The variables that are configured for the Process Group. Note that this map contains only those variables that are defined on this Process Group and not any variables that are defined in the parent Process Group, etc. I.e., this Map will not contain all variables that are accessible by components in this Process Group by rather only the variables that are defined for this Process Group itself.
-	// Read Only: true
 	Variables map[string]string `json:"variables,omitempty"`
 
 	// The Version Control information that indicates which Flow Registry, and where in the Flow Registry, this Process Group is tracking to; or null if this Process Group is not under version control
@@ -187,7 +193,7 @@ const (
 
 // prop value enum
 func (m *ProcessGroupDTO) validateFlowfileConcurrencyEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, processGroupDTOTypeFlowfileConcurrencyPropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, processGroupDTOTypeFlowfileConcurrencyPropEnum, true); err != nil {
 		return err
 	}
 	return nil
@@ -230,7 +236,7 @@ const (
 
 // prop value enum
 func (m *ProcessGroupDTO) validateFlowfileOutboundPolicyEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, processGroupDTOTypeFlowfileOutboundPolicyPropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, processGroupDTOTypeFlowfileOutboundPolicyPropEnum, true); err != nil {
 		return err
 	}
 	return nil

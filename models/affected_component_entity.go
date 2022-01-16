@@ -9,14 +9,14 @@ import (
 	"encoding/json"
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // AffectedComponentEntity affected component entity
+//
 // swagger:model AffectedComponentEntity
 type AffectedComponentEntity struct {
 
@@ -222,7 +222,7 @@ const (
 
 // prop value enum
 func (m *AffectedComponentEntity) validateReferenceTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, affectedComponentEntityTypeReferenceTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, affectedComponentEntityTypeReferenceTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil

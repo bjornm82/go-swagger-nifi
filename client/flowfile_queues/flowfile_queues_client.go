@@ -6,13 +6,14 @@ package flowfile_queues
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new flowfile queues API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,10 +25,31 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	CreateDropRequest(params *CreateDropRequestParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDropRequestOK, *CreateDropRequestAccepted, error)
+
+	CreateFlowFileListing(params *CreateFlowFileListingParams, authInfo runtime.ClientAuthInfoWriter) (*CreateFlowFileListingOK, *CreateFlowFileListingAccepted, error)
+
+	DeleteListingRequest(params *DeleteListingRequestParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteListingRequestOK, error)
+
+	DownloadFlowFileContent(params *DownloadFlowFileContentParams, authInfo runtime.ClientAuthInfoWriter) (*DownloadFlowFileContentOK, error)
+
+	GetDropRequest(params *GetDropRequestParams, authInfo runtime.ClientAuthInfoWriter) (*GetDropRequestOK, error)
+
+	GetFlowFile(params *GetFlowFileParams, authInfo runtime.ClientAuthInfoWriter) (*GetFlowFileOK, error)
+
+	GetListingRequest(params *GetListingRequestParams, authInfo runtime.ClientAuthInfoWriter) (*GetListingRequestOK, error)
+
+	RemoveDropRequestFlowFile(params *RemoveDropRequestFlowFileParams, authInfo runtime.ClientAuthInfoWriter) (*RemoveDropRequestFlowFileOK, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-CreateDropRequest creates a request to drop the contents of the queue in this connection
+  CreateDropRequest creates a request to drop the contents of the queue in this connection
 */
-func (a *Client) CreateDropRequest(params *CreateDropRequestParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDropRequestCreated, *CreateDropRequestAccepted, error) {
+func (a *Client) CreateDropRequest(params *CreateDropRequestParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDropRequestOK, *CreateDropRequestAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateDropRequestParams()
@@ -38,7 +60,7 @@ func (a *Client) CreateDropRequest(params *CreateDropRequestParams, authInfo run
 		Method:             "POST",
 		PathPattern:        "/flowfile-queues/{id}/drop-requests",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &CreateDropRequestReader{formats: a.formats},
@@ -50,19 +72,20 @@ func (a *Client) CreateDropRequest(params *CreateDropRequestParams, authInfo run
 		return nil, nil, err
 	}
 	switch value := result.(type) {
-	case *CreateDropRequestCreated:
+	case *CreateDropRequestOK:
 		return value, nil, nil
 	case *CreateDropRequestAccepted:
 		return nil, value, nil
 	}
-	return nil, nil, nil
-
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for flowfile_queues: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-CreateFlowFileListing lists the contents of the queue in this connection
+  CreateFlowFileListing lists the contents of the queue in this connection
 */
-func (a *Client) CreateFlowFileListing(params *CreateFlowFileListingParams, authInfo runtime.ClientAuthInfoWriter) (*CreateFlowFileListingCreated, *CreateFlowFileListingAccepted, error) {
+func (a *Client) CreateFlowFileListing(params *CreateFlowFileListingParams, authInfo runtime.ClientAuthInfoWriter) (*CreateFlowFileListingOK, *CreateFlowFileListingAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateFlowFileListingParams()
@@ -73,7 +96,7 @@ func (a *Client) CreateFlowFileListing(params *CreateFlowFileListingParams, auth
 		Method:             "POST",
 		PathPattern:        "/flowfile-queues/{id}/listing-requests",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &CreateFlowFileListingReader{formats: a.formats},
@@ -85,17 +108,18 @@ func (a *Client) CreateFlowFileListing(params *CreateFlowFileListingParams, auth
 		return nil, nil, err
 	}
 	switch value := result.(type) {
-	case *CreateFlowFileListingCreated:
+	case *CreateFlowFileListingOK:
 		return value, nil, nil
 	case *CreateFlowFileListingAccepted:
 		return nil, value, nil
 	}
-	return nil, nil, nil
-
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for flowfile_queues: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteListingRequest cancels and or removes a request to list the contents of this connection
+  DeleteListingRequest cancels and or removes a request to list the contents of this connection
 */
 func (a *Client) DeleteListingRequest(params *DeleteListingRequestParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteListingRequestOK, error) {
 	// TODO: Validate the params before sending
@@ -108,7 +132,7 @@ func (a *Client) DeleteListingRequest(params *DeleteListingRequestParams, authIn
 		Method:             "DELETE",
 		PathPattern:        "/flowfile-queues/{id}/listing-requests/{listing-request-id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &DeleteListingRequestReader{formats: a.formats},
@@ -119,12 +143,18 @@ func (a *Client) DeleteListingRequest(params *DeleteListingRequestParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteListingRequestOK), nil
-
+	success, ok := result.(*DeleteListingRequestOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for deleteListingRequest: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DownloadFlowFileContent gets the content for a flow file in a connection
+  DownloadFlowFileContent gets the content for a flow file in a connection
 */
 func (a *Client) DownloadFlowFileContent(params *DownloadFlowFileContentParams, authInfo runtime.ClientAuthInfoWriter) (*DownloadFlowFileContentOK, error) {
 	// TODO: Validate the params before sending
@@ -136,8 +166,8 @@ func (a *Client) DownloadFlowFileContent(params *DownloadFlowFileContentParams, 
 		ID:                 "downloadFlowFileContent",
 		Method:             "GET",
 		PathPattern:        "/flowfile-queues/{id}/flowfiles/{flowfile-uuid}/content",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{"*/*"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &DownloadFlowFileContentReader{formats: a.formats},
@@ -148,41 +178,18 @@ func (a *Client) DownloadFlowFileContent(params *DownloadFlowFileContentParams, 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DownloadFlowFileContentOK), nil
-
+	success, ok := result.(*DownloadFlowFileContentOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for downloadFlowFileContent: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-FlowfileQueuesRemoveDropRequest cancels and or removes a request to drop the contents of this connection
-*/
-func (a *Client) FlowfileQueuesRemoveDropRequest(params *FlowfileQueuesRemoveDropRequestParams, authInfo runtime.ClientAuthInfoWriter) (*FlowfileQueuesRemoveDropRequestOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewFlowfileQueuesRemoveDropRequestParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "flowfileQueuesRemoveDropRequest",
-		Method:             "DELETE",
-		PathPattern:        "/flowfile-queues/{id}/drop-requests/{drop-request-id}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &FlowfileQueuesRemoveDropRequestReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*FlowfileQueuesRemoveDropRequestOK), nil
-
-}
-
-/*
-GetDropRequest gets the current status of a drop request for the specified connection
+  GetDropRequest gets the current status of a drop request for the specified connection
 */
 func (a *Client) GetDropRequest(params *GetDropRequestParams, authInfo runtime.ClientAuthInfoWriter) (*GetDropRequestOK, error) {
 	// TODO: Validate the params before sending
@@ -195,7 +202,7 @@ func (a *Client) GetDropRequest(params *GetDropRequestParams, authInfo runtime.C
 		Method:             "GET",
 		PathPattern:        "/flowfile-queues/{id}/drop-requests/{drop-request-id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetDropRequestReader{formats: a.formats},
@@ -206,12 +213,18 @@ func (a *Client) GetDropRequest(params *GetDropRequestParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetDropRequestOK), nil
-
+	success, ok := result.(*GetDropRequestOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getDropRequest: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetFlowFile gets a flow file from a connection
+  GetFlowFile gets a flow file from a connection
 */
 func (a *Client) GetFlowFile(params *GetFlowFileParams, authInfo runtime.ClientAuthInfoWriter) (*GetFlowFileOK, error) {
 	// TODO: Validate the params before sending
@@ -224,7 +237,7 @@ func (a *Client) GetFlowFile(params *GetFlowFileParams, authInfo runtime.ClientA
 		Method:             "GET",
 		PathPattern:        "/flowfile-queues/{id}/flowfiles/{flowfile-uuid}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetFlowFileReader{formats: a.formats},
@@ -235,12 +248,18 @@ func (a *Client) GetFlowFile(params *GetFlowFileParams, authInfo runtime.ClientA
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetFlowFileOK), nil
-
+	success, ok := result.(*GetFlowFileOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getFlowFile: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetListingRequest gets the current status of a listing request for the specified connection
+  GetListingRequest gets the current status of a listing request for the specified connection
 */
 func (a *Client) GetListingRequest(params *GetListingRequestParams, authInfo runtime.ClientAuthInfoWriter) (*GetListingRequestOK, error) {
 	// TODO: Validate the params before sending
@@ -253,7 +272,7 @@ func (a *Client) GetListingRequest(params *GetListingRequestParams, authInfo run
 		Method:             "GET",
 		PathPattern:        "/flowfile-queues/{id}/listing-requests/{listing-request-id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetListingRequestReader{formats: a.formats},
@@ -264,8 +283,49 @@ func (a *Client) GetListingRequest(params *GetListingRequestParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetListingRequestOK), nil
+	success, ok := result.(*GetListingRequestOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getListingRequest: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
 
+/*
+  RemoveDropRequestFlowFile cancels and or removes a request to drop the contents of this connection
+*/
+func (a *Client) RemoveDropRequestFlowFile(params *RemoveDropRequestFlowFileParams, authInfo runtime.ClientAuthInfoWriter) (*RemoveDropRequestFlowFileOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRemoveDropRequestFlowFileParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "removeDropRequestFlowFile",
+		Method:             "DELETE",
+		PathPattern:        "/flowfile-queues/{id}/drop-requests/{drop-request-id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &RemoveDropRequestFlowFileReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*RemoveDropRequestFlowFileOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for removeDropRequestFlowFile: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

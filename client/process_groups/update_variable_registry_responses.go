@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // UpdateVariableRegistryReader is a Reader for the UpdateVariableRegistry structure.
@@ -24,42 +23,36 @@ type UpdateVariableRegistryReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateVariableRegistryReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateVariableRegistryOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewUpdateVariableRegistryBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewUpdateVariableRegistryUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewUpdateVariableRegistryForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewUpdateVariableRegistryNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewUpdateVariableRegistryConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -87,6 +80,10 @@ type UpdateVariableRegistryOK struct {
 
 func (o *UpdateVariableRegistryOK) Error() string {
 	return fmt.Sprintf("[PUT /process-groups/{id}/variable-registry][%d] updateVariableRegistryOK  %+v", 200, o.Payload)
+}
+
+func (o *UpdateVariableRegistryOK) GetPayload() *models.VariableRegistryEntity {
+	return o.Payload
 }
 
 func (o *UpdateVariableRegistryOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

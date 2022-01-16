@@ -9,14 +9,14 @@ import (
 	"encoding/json"
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ControllerServiceReferencingComponentDTO controller service referencing component d t o
+//
 // swagger:model ControllerServiceReferencingComponentDTO
 type ControllerServiceReferencingComponentDTO struct {
 
@@ -129,7 +129,7 @@ const (
 
 // prop value enum
 func (m *ControllerServiceReferencingComponentDTO) validateReferenceTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, controllerServiceReferencingComponentDTOTypeReferenceTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, controllerServiceReferencingComponentDTOTypeReferenceTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil

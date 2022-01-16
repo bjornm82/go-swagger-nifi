@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // CreateAccessPolicyReader is a Reader for the CreateAccessPolicy structure.
@@ -24,42 +23,36 @@ type CreateAccessPolicyReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateAccessPolicyReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewCreateAccessPolicyCreated()
+	case 200:
+		result := NewCreateAccessPolicyOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateAccessPolicyBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewCreateAccessPolicyUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewCreateAccessPolicyForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewCreateAccessPolicyNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewCreateAccessPolicyConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -72,24 +65,28 @@ func (o *CreateAccessPolicyReader) ReadResponse(response runtime.ClientResponse,
 	}
 }
 
-// NewCreateAccessPolicyCreated creates a CreateAccessPolicyCreated with default headers values
-func NewCreateAccessPolicyCreated() *CreateAccessPolicyCreated {
-	return &CreateAccessPolicyCreated{}
+// NewCreateAccessPolicyOK creates a CreateAccessPolicyOK with default headers values
+func NewCreateAccessPolicyOK() *CreateAccessPolicyOK {
+	return &CreateAccessPolicyOK{}
 }
 
-/*CreateAccessPolicyCreated handles this case with default header values.
+/*CreateAccessPolicyOK handles this case with default header values.
 
 successful operation
 */
-type CreateAccessPolicyCreated struct {
+type CreateAccessPolicyOK struct {
 	Payload *models.AccessPolicyEntity
 }
 
-func (o *CreateAccessPolicyCreated) Error() string {
-	return fmt.Sprintf("[POST /policies][%d] createAccessPolicyCreated  %+v", 201, o.Payload)
+func (o *CreateAccessPolicyOK) Error() string {
+	return fmt.Sprintf("[POST /policies][%d] createAccessPolicyOK  %+v", 200, o.Payload)
 }
 
-func (o *CreateAccessPolicyCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateAccessPolicyOK) GetPayload() *models.AccessPolicyEntity {
+	return o.Payload
+}
+
+func (o *CreateAccessPolicyOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.AccessPolicyEntity)
 

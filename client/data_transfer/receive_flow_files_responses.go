@@ -10,8 +10,7 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // ReceiveFlowFilesReader is a Reader for the ReceiveFlowFiles structure.
@@ -22,49 +21,42 @@ type ReceiveFlowFilesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ReceiveFlowFilesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewReceiveFlowFilesCreated()
+	case 200:
+		result := NewReceiveFlowFilesOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewReceiveFlowFilesBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewReceiveFlowFilesUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewReceiveFlowFilesForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewReceiveFlowFilesNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewReceiveFlowFilesConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewReceiveFlowFilesServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -77,24 +69,28 @@ func (o *ReceiveFlowFilesReader) ReadResponse(response runtime.ClientResponse, c
 	}
 }
 
-// NewReceiveFlowFilesCreated creates a ReceiveFlowFilesCreated with default headers values
-func NewReceiveFlowFilesCreated() *ReceiveFlowFilesCreated {
-	return &ReceiveFlowFilesCreated{}
+// NewReceiveFlowFilesOK creates a ReceiveFlowFilesOK with default headers values
+func NewReceiveFlowFilesOK() *ReceiveFlowFilesOK {
+	return &ReceiveFlowFilesOK{}
 }
 
-/*ReceiveFlowFilesCreated handles this case with default header values.
+/*ReceiveFlowFilesOK handles this case with default header values.
 
 successful operation
 */
-type ReceiveFlowFilesCreated struct {
+type ReceiveFlowFilesOK struct {
 	Payload string
 }
 
-func (o *ReceiveFlowFilesCreated) Error() string {
-	return fmt.Sprintf("[POST /data-transfer/input-ports/{portId}/transactions/{transactionId}/flow-files][%d] receiveFlowFilesCreated  %+v", 201, o.Payload)
+func (o *ReceiveFlowFilesOK) Error() string {
+	return fmt.Sprintf("[POST /data-transfer/input-ports/{portId}/transactions/{transactionId}/flow-files][%d] receiveFlowFilesOK  %+v", 200, o.Payload)
 }
 
-func (o *ReceiveFlowFilesCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *ReceiveFlowFilesOK) GetPayload() string {
+	return o.Payload
+}
+
+func (o *ReceiveFlowFilesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

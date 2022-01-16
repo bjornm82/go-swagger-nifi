@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // GetVariableRegistryUpdateRequestReader is a Reader for the GetVariableRegistryUpdateRequest structure.
@@ -24,42 +23,36 @@ type GetVariableRegistryUpdateRequestReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetVariableRegistryUpdateRequestReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetVariableRegistryUpdateRequestOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetVariableRegistryUpdateRequestBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetVariableRegistryUpdateRequestUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetVariableRegistryUpdateRequestForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetVariableRegistryUpdateRequestNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetVariableRegistryUpdateRequestConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -87,6 +80,10 @@ type GetVariableRegistryUpdateRequestOK struct {
 
 func (o *GetVariableRegistryUpdateRequestOK) Error() string {
 	return fmt.Sprintf("[GET /process-groups/{groupId}/variable-registry/update-requests/{updateId}][%d] getVariableRegistryUpdateRequestOK  %+v", 200, o.Payload)
+}
+
+func (o *GetVariableRegistryUpdateRequestOK) GetPayload() *models.VariableRegistryUpdateRequestEntity {
+	return o.Payload
 }
 
 func (o *GetVariableRegistryUpdateRequestOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

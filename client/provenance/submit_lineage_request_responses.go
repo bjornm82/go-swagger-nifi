@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // SubmitLineageRequestReader is a Reader for the SubmitLineageRequest structure.
@@ -24,42 +23,36 @@ type SubmitLineageRequestReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SubmitLineageRequestReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewSubmitLineageRequestCreated()
+	case 200:
+		result := NewSubmitLineageRequestOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewSubmitLineageRequestBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewSubmitLineageRequestUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewSubmitLineageRequestForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewSubmitLineageRequestNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewSubmitLineageRequestConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -72,24 +65,28 @@ func (o *SubmitLineageRequestReader) ReadResponse(response runtime.ClientRespons
 	}
 }
 
-// NewSubmitLineageRequestCreated creates a SubmitLineageRequestCreated with default headers values
-func NewSubmitLineageRequestCreated() *SubmitLineageRequestCreated {
-	return &SubmitLineageRequestCreated{}
+// NewSubmitLineageRequestOK creates a SubmitLineageRequestOK with default headers values
+func NewSubmitLineageRequestOK() *SubmitLineageRequestOK {
+	return &SubmitLineageRequestOK{}
 }
 
-/*SubmitLineageRequestCreated handles this case with default header values.
+/*SubmitLineageRequestOK handles this case with default header values.
 
 successful operation
 */
-type SubmitLineageRequestCreated struct {
+type SubmitLineageRequestOK struct {
 	Payload *models.LineageEntity
 }
 
-func (o *SubmitLineageRequestCreated) Error() string {
-	return fmt.Sprintf("[POST /provenance/lineage][%d] submitLineageRequestCreated  %+v", 201, o.Payload)
+func (o *SubmitLineageRequestOK) Error() string {
+	return fmt.Sprintf("[POST /provenance/lineage][%d] submitLineageRequestOK  %+v", 200, o.Payload)
 }
 
-func (o *SubmitLineageRequestCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *SubmitLineageRequestOK) GetPayload() *models.LineageEntity {
+	return o.Payload
+}
+
+func (o *SubmitLineageRequestOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.LineageEntity)
 

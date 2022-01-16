@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // GetProcessorStatusHistoryReader is a Reader for the GetProcessorStatusHistory structure.
@@ -24,42 +23,36 @@ type GetProcessorStatusHistoryReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetProcessorStatusHistoryReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetProcessorStatusHistoryOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetProcessorStatusHistoryBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetProcessorStatusHistoryUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetProcessorStatusHistoryForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetProcessorStatusHistoryNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetProcessorStatusHistoryConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -87,6 +80,10 @@ type GetProcessorStatusHistoryOK struct {
 
 func (o *GetProcessorStatusHistoryOK) Error() string {
 	return fmt.Sprintf("[GET /flow/processors/{id}/status/history][%d] getProcessorStatusHistoryOK  %+v", 200, o.Payload)
+}
+
+func (o *GetProcessorStatusHistoryOK) GetPayload() *models.StatusHistoryEntity {
+	return o.Payload
 }
 
 func (o *GetProcessorStatusHistoryOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

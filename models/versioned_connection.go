@@ -9,14 +9,14 @@ import (
 	"encoding/json"
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // VersionedConnection versioned connection
+//
 // swagger:model VersionedConnection
 type VersionedConnection struct {
 
@@ -199,7 +199,7 @@ const (
 
 // prop value enum
 func (m *VersionedConnection) validateComponentTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, versionedConnectionTypeComponentTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, versionedConnectionTypeComponentTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil
@@ -263,7 +263,7 @@ const (
 
 // prop value enum
 func (m *VersionedConnection) validateLoadBalanceCompressionEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, versionedConnectionTypeLoadBalanceCompressionPropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, versionedConnectionTypeLoadBalanceCompressionPropEnum, true); err != nil {
 		return err
 	}
 	return nil
@@ -312,7 +312,7 @@ const (
 
 // prop value enum
 func (m *VersionedConnection) validateLoadBalanceStrategyEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, versionedConnectionTypeLoadBalanceStrategyPropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, versionedConnectionTypeLoadBalanceStrategyPropEnum, true); err != nil {
 		return err
 	}
 	return nil

@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // GetReportingTaskTypesReader is a Reader for the GetReportingTaskTypes structure.
@@ -24,35 +23,30 @@ type GetReportingTaskTypesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetReportingTaskTypesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetReportingTaskTypesOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetReportingTaskTypesBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetReportingTaskTypesUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetReportingTaskTypesForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetReportingTaskTypesConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -80,6 +74,10 @@ type GetReportingTaskTypesOK struct {
 
 func (o *GetReportingTaskTypesOK) Error() string {
 	return fmt.Sprintf("[GET /flow/reporting-task-types][%d] getReportingTaskTypesOK  %+v", 200, o.Payload)
+}
+
+func (o *GetReportingTaskTypesOK) GetPayload() *models.ReportingTaskTypesEntity {
+	return o.Payload
 }
 
 func (o *GetReportingTaskTypesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

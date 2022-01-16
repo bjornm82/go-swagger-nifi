@@ -6,25 +6,22 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // ParameterContextUpdateStepDTO parameter context update step d t o
+//
 // swagger:model ParameterContextUpdateStepDTO
 type ParameterContextUpdateStepDTO struct {
 
 	// Whether or not this step has completed
-	// Read Only: true
-	Complete *bool `json:"complete,omitempty"`
+	Complete bool `json:"complete,omitempty"`
 
 	// Explanation of what happens in this step
-	// Read Only: true
 	Description string `json:"description,omitempty"`
 
 	// An explanation of why this step failed, or null if this step did not fail
-	// Read Only: true
 	FailureReason string `json:"failureReason,omitempty"`
 }
 

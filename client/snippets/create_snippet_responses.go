@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // CreateSnippetReader is a Reader for the CreateSnippet structure.
@@ -24,42 +23,36 @@ type CreateSnippetReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateSnippetReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewCreateSnippetCreated()
+	case 200:
+		result := NewCreateSnippetOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateSnippetBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewCreateSnippetUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewCreateSnippetForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewCreateSnippetNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewCreateSnippetConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -72,24 +65,28 @@ func (o *CreateSnippetReader) ReadResponse(response runtime.ClientResponse, cons
 	}
 }
 
-// NewCreateSnippetCreated creates a CreateSnippetCreated with default headers values
-func NewCreateSnippetCreated() *CreateSnippetCreated {
-	return &CreateSnippetCreated{}
+// NewCreateSnippetOK creates a CreateSnippetOK with default headers values
+func NewCreateSnippetOK() *CreateSnippetOK {
+	return &CreateSnippetOK{}
 }
 
-/*CreateSnippetCreated handles this case with default header values.
+/*CreateSnippetOK handles this case with default header values.
 
 successful operation
 */
-type CreateSnippetCreated struct {
+type CreateSnippetOK struct {
 	Payload *models.SnippetEntity
 }
 
-func (o *CreateSnippetCreated) Error() string {
-	return fmt.Sprintf("[POST /snippets][%d] createSnippetCreated  %+v", 201, o.Payload)
+func (o *CreateSnippetOK) Error() string {
+	return fmt.Sprintf("[POST /snippets][%d] createSnippetOK  %+v", 200, o.Payload)
 }
 
-func (o *CreateSnippetCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateSnippetOK) GetPayload() *models.SnippetEntity {
+	return o.Payload
+}
+
+func (o *CreateSnippetOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.SnippetEntity)
 

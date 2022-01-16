@@ -8,14 +8,14 @@ package models
 import (
 	"encoding/json"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // VersionedPort versioned port
+//
 // swagger:model VersionedPort
 type VersionedPort struct {
 
@@ -129,7 +129,7 @@ const (
 
 // prop value enum
 func (m *VersionedPort) validateComponentTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, versionedPortTypeComponentTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, versionedPortTypeComponentTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil
@@ -190,7 +190,7 @@ const (
 
 // prop value enum
 func (m *VersionedPort) validateScheduledStateEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, versionedPortTypeScheduledStatePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, versionedPortTypeScheduledStatePropEnum, true); err != nil {
 		return err
 	}
 	return nil
@@ -233,7 +233,7 @@ const (
 
 // prop value enum
 func (m *VersionedPort) validateTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, versionedPortTypeTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, versionedPortTypeTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil

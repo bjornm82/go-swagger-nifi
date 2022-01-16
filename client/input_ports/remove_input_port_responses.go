@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // RemoveInputPortReader is a Reader for the RemoveInputPort structure.
@@ -24,42 +23,36 @@ type RemoveInputPortReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *RemoveInputPortReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewRemoveInputPortOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewRemoveInputPortBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewRemoveInputPortUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewRemoveInputPortForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewRemoveInputPortNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewRemoveInputPortConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -87,6 +80,10 @@ type RemoveInputPortOK struct {
 
 func (o *RemoveInputPortOK) Error() string {
 	return fmt.Sprintf("[DELETE /input-ports/{id}][%d] removeInputPortOK  %+v", 200, o.Payload)
+}
+
+func (o *RemoveInputPortOK) GetPayload() *models.PortEntity {
+	return o.Payload
 }
 
 func (o *RemoveInputPortOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

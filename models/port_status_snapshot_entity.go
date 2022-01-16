@@ -6,19 +6,18 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // PortStatusSnapshotEntity port status snapshot entity
+//
 // swagger:model PortStatusSnapshotEntity
 type PortStatusSnapshotEntity struct {
 
 	// Indicates whether the user can read a given resource.
-	// Read Only: true
-	CanRead *bool `json:"canRead,omitempty"`
+	CanRead bool `json:"canRead,omitempty"`
 
 	// The id of the port.
 	ID string `json:"id,omitempty"`

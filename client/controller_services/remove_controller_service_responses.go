@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // RemoveControllerServiceReader is a Reader for the RemoveControllerService structure.
@@ -24,42 +23,36 @@ type RemoveControllerServiceReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *RemoveControllerServiceReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewRemoveControllerServiceOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewRemoveControllerServiceBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewRemoveControllerServiceUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewRemoveControllerServiceForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewRemoveControllerServiceNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewRemoveControllerServiceConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -87,6 +80,10 @@ type RemoveControllerServiceOK struct {
 
 func (o *RemoveControllerServiceOK) Error() string {
 	return fmt.Sprintf("[DELETE /controller-services/{id}][%d] removeControllerServiceOK  %+v", 200, o.Payload)
+}
+
+func (o *RemoveControllerServiceOK) GetPayload() *models.ControllerServiceEntity {
+	return o.Payload
 }
 
 func (o *RemoveControllerServiceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

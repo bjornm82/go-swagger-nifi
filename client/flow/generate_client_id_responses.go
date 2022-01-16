@@ -10,8 +10,7 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // GenerateClientIDReader is a Reader for the GenerateClientID structure.
@@ -22,35 +21,30 @@ type GenerateClientIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GenerateClientIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGenerateClientIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGenerateClientIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGenerateClientIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGenerateClientIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGenerateClientIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -78,6 +72,10 @@ type GenerateClientIDOK struct {
 
 func (o *GenerateClientIDOK) Error() string {
 	return fmt.Sprintf("[GET /flow/client-id][%d] generateClientIdOK  %+v", 200, o.Payload)
+}
+
+func (o *GenerateClientIDOK) GetPayload() string {
+	return o.Payload
 }
 
 func (o *GenerateClientIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

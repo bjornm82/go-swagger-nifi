@@ -9,14 +9,14 @@ import (
 	"encoding/json"
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // VersionedControllerService versioned controller service
+//
 // swagger:model VersionedControllerService
 type VersionedControllerService struct {
 
@@ -156,7 +156,7 @@ const (
 
 // prop value enum
 func (m *VersionedControllerService) validateComponentTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, versionedControllerServiceTypeComponentTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, versionedControllerServiceTypeComponentTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil

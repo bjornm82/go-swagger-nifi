@@ -6,13 +6,14 @@ package connections
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new connections API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,8 +25,19 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	DeleteConnection(params *DeleteConnectionParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteConnectionOK, error)
+
+	GetConnection(params *GetConnectionParams, authInfo runtime.ClientAuthInfoWriter) (*GetConnectionOK, error)
+
+	UpdateConnection(params *UpdateConnectionParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateConnectionOK, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-DeleteConnection deletes a connection
+  DeleteConnection deletes a connection
 */
 func (a *Client) DeleteConnection(params *DeleteConnectionParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteConnectionOK, error) {
 	// TODO: Validate the params before sending
@@ -38,7 +50,7 @@ func (a *Client) DeleteConnection(params *DeleteConnectionParams, authInfo runti
 		Method:             "DELETE",
 		PathPattern:        "/connections/{id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &DeleteConnectionReader{formats: a.formats},
@@ -49,12 +61,18 @@ func (a *Client) DeleteConnection(params *DeleteConnectionParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteConnectionOK), nil
-
+	success, ok := result.(*DeleteConnectionOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for deleteConnection: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetConnection gets a connection
+  GetConnection gets a connection
 */
 func (a *Client) GetConnection(params *GetConnectionParams, authInfo runtime.ClientAuthInfoWriter) (*GetConnectionOK, error) {
 	// TODO: Validate the params before sending
@@ -67,7 +85,7 @@ func (a *Client) GetConnection(params *GetConnectionParams, authInfo runtime.Cli
 		Method:             "GET",
 		PathPattern:        "/connections/{id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetConnectionReader{formats: a.formats},
@@ -78,12 +96,18 @@ func (a *Client) GetConnection(params *GetConnectionParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetConnectionOK), nil
-
+	success, ok := result.(*GetConnectionOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getConnection: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateConnection updates a connection
+  UpdateConnection updates a connection
 */
 func (a *Client) UpdateConnection(params *UpdateConnectionParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateConnectionOK, error) {
 	// TODO: Validate the params before sending
@@ -107,8 +131,14 @@ func (a *Client) UpdateConnection(params *UpdateConnectionParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateConnectionOK), nil
-
+	success, ok := result.(*UpdateConnectionOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateConnection: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // InitiateRevertFlowVersionReader is a Reader for the InitiateRevertFlowVersion structure.
@@ -24,42 +23,36 @@ type InitiateRevertFlowVersionReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *InitiateRevertFlowVersionReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewInitiateRevertFlowVersionCreated()
+	case 200:
+		result := NewInitiateRevertFlowVersionOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewInitiateRevertFlowVersionBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewInitiateRevertFlowVersionUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewInitiateRevertFlowVersionForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewInitiateRevertFlowVersionNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewInitiateRevertFlowVersionConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -72,24 +65,28 @@ func (o *InitiateRevertFlowVersionReader) ReadResponse(response runtime.ClientRe
 	}
 }
 
-// NewInitiateRevertFlowVersionCreated creates a InitiateRevertFlowVersionCreated with default headers values
-func NewInitiateRevertFlowVersionCreated() *InitiateRevertFlowVersionCreated {
-	return &InitiateRevertFlowVersionCreated{}
+// NewInitiateRevertFlowVersionOK creates a InitiateRevertFlowVersionOK with default headers values
+func NewInitiateRevertFlowVersionOK() *InitiateRevertFlowVersionOK {
+	return &InitiateRevertFlowVersionOK{}
 }
 
-/*InitiateRevertFlowVersionCreated handles this case with default header values.
+/*InitiateRevertFlowVersionOK handles this case with default header values.
 
 successful operation
 */
-type InitiateRevertFlowVersionCreated struct {
+type InitiateRevertFlowVersionOK struct {
 	Payload *models.VersionedFlowUpdateRequestEntity
 }
 
-func (o *InitiateRevertFlowVersionCreated) Error() string {
-	return fmt.Sprintf("[POST /versions/revert-requests/process-groups/{id}][%d] initiateRevertFlowVersionCreated  %+v", 201, o.Payload)
+func (o *InitiateRevertFlowVersionOK) Error() string {
+	return fmt.Sprintf("[POST /versions/revert-requests/process-groups/{id}][%d] initiateRevertFlowVersionOK  %+v", 200, o.Payload)
 }
 
-func (o *InitiateRevertFlowVersionCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *InitiateRevertFlowVersionOK) GetPayload() *models.VersionedFlowUpdateRequestEntity {
+	return o.Payload
+}
+
+func (o *InitiateRevertFlowVersionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.VersionedFlowUpdateRequestEntity)
 

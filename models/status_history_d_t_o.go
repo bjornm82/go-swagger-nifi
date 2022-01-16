@@ -8,13 +8,13 @@ package models
 import (
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // StatusHistoryDTO status history d t o
+//
 // swagger:model StatusHistoryDTO
 type StatusHistoryDTO struct {
 

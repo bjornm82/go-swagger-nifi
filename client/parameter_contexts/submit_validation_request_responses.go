@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // SubmitValidationRequestReader is a Reader for the SubmitValidationRequest structure.
@@ -24,42 +23,36 @@ type SubmitValidationRequestReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SubmitValidationRequestReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewSubmitValidationRequestCreated()
+	case 200:
+		result := NewSubmitValidationRequestOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewSubmitValidationRequestBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewSubmitValidationRequestUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewSubmitValidationRequestForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewSubmitValidationRequestNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewSubmitValidationRequestConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -72,24 +65,28 @@ func (o *SubmitValidationRequestReader) ReadResponse(response runtime.ClientResp
 	}
 }
 
-// NewSubmitValidationRequestCreated creates a SubmitValidationRequestCreated with default headers values
-func NewSubmitValidationRequestCreated() *SubmitValidationRequestCreated {
-	return &SubmitValidationRequestCreated{}
+// NewSubmitValidationRequestOK creates a SubmitValidationRequestOK with default headers values
+func NewSubmitValidationRequestOK() *SubmitValidationRequestOK {
+	return &SubmitValidationRequestOK{}
 }
 
-/*SubmitValidationRequestCreated handles this case with default header values.
+/*SubmitValidationRequestOK handles this case with default header values.
 
 successful operation
 */
-type SubmitValidationRequestCreated struct {
+type SubmitValidationRequestOK struct {
 	Payload *models.ParameterContextValidationRequestEntity
 }
 
-func (o *SubmitValidationRequestCreated) Error() string {
-	return fmt.Sprintf("[POST /parameter-contexts/{contextId}/validation-requests][%d] submitValidationRequestCreated  %+v", 201, o.Payload)
+func (o *SubmitValidationRequestOK) Error() string {
+	return fmt.Sprintf("[POST /parameter-contexts/{contextId}/validation-requests][%d] submitValidationRequestOK  %+v", 200, o.Payload)
 }
 
-func (o *SubmitValidationRequestCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *SubmitValidationRequestOK) GetPayload() *models.ParameterContextValidationRequestEntity {
+	return o.Payload
+}
+
+func (o *SubmitValidationRequestOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ParameterContextValidationRequestEntity)
 

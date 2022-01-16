@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // GetCountersReader is a Reader for the GetCounters structure.
@@ -24,35 +23,30 @@ type GetCountersReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetCountersReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetCountersOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetCountersBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetCountersUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetCountersForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetCountersConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -80,6 +74,10 @@ type GetCountersOK struct {
 
 func (o *GetCountersOK) Error() string {
 	return fmt.Sprintf("[GET /counters][%d] getCountersOK  %+v", 200, o.Payload)
+}
+
+func (o *GetCountersOK) GetPayload() *models.CountersEntity {
+	return o.Payload
 }
 
 func (o *GetCountersOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

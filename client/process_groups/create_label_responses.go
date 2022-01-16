@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // CreateLabelReader is a Reader for the CreateLabel structure.
@@ -24,42 +23,36 @@ type CreateLabelReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateLabelReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewCreateLabelCreated()
+	case 200:
+		result := NewCreateLabelOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateLabelBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewCreateLabelUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewCreateLabelForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewCreateLabelNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewCreateLabelConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -72,24 +65,28 @@ func (o *CreateLabelReader) ReadResponse(response runtime.ClientResponse, consum
 	}
 }
 
-// NewCreateLabelCreated creates a CreateLabelCreated with default headers values
-func NewCreateLabelCreated() *CreateLabelCreated {
-	return &CreateLabelCreated{}
+// NewCreateLabelOK creates a CreateLabelOK with default headers values
+func NewCreateLabelOK() *CreateLabelOK {
+	return &CreateLabelOK{}
 }
 
-/*CreateLabelCreated handles this case with default header values.
+/*CreateLabelOK handles this case with default header values.
 
 successful operation
 */
-type CreateLabelCreated struct {
+type CreateLabelOK struct {
 	Payload *models.LabelEntity
 }
 
-func (o *CreateLabelCreated) Error() string {
-	return fmt.Sprintf("[POST /process-groups/{id}/labels][%d] createLabelCreated  %+v", 201, o.Payload)
+func (o *CreateLabelOK) Error() string {
+	return fmt.Sprintf("[POST /process-groups/{id}/labels][%d] createLabelOK  %+v", 200, o.Payload)
 }
 
-func (o *CreateLabelCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateLabelOK) GetPayload() *models.LabelEntity {
+	return o.Payload
+}
+
+func (o *CreateLabelOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.LabelEntity)
 

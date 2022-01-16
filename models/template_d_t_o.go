@@ -6,13 +6,13 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // TemplateDTO template d t o
+//
 // swagger:model TemplateDTO
 type TemplateDTO struct {
 
@@ -20,7 +20,7 @@ type TemplateDTO struct {
 	Description string `json:"description,omitempty"`
 
 	// The encoding version of this template.
-	EncodingVersion string `json:"encodingVersion,omitempty" xml:"encoding-version,attr"`
+	EncodingVersion string `json:"encodingVersion,omitempty" xml:"encoding-version,attr,omitempty"`
 
 	// The id of the Process Group that the template belongs to.
 	GroupID string `json:"groupId,omitempty"`

@@ -8,14 +8,14 @@ package models
 import (
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ReportingTaskTypesEntity reporting task types entity
+//
 // swagger:model ReportingTaskTypesEntity
 type ReportingTaskTypesEntity struct {
 

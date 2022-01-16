@@ -9,19 +9,18 @@ import (
 	"encoding/json"
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ConnectionDTO connection d t o
+//
 // swagger:model ConnectionDTO
 type ConnectionDTO struct {
 
 	// The relationships that the source of the connection currently supports.
-	// Read Only: true
 	// Unique: true
 	AvailableRelationships []string `json:"availableRelationships"`
 
@@ -57,7 +56,6 @@ type ConnectionDTO struct {
 	LoadBalancePartitionAttribute string `json:"loadBalancePartitionAttribute,omitempty"`
 
 	// The current status of the Connection's Load Balancing Activities. Status can indicate that Load Balancing is not configured for the connection, that Load Balancing is configured but inactive (not currently transferring data to another node), or that Load Balancing is configured and actively transferring data to another node.
-	// Read Only: true
 	// Enum: [LOAD_BALANCE_NOT_CONFIGURED LOAD_BALANCE_INACTIVE LOAD_BALANCE_ACTIVE]
 	LoadBalanceStatus string `json:"loadBalanceStatus,omitempty"`
 
@@ -216,7 +214,7 @@ const (
 
 // prop value enum
 func (m *ConnectionDTO) validateLoadBalanceCompressionEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, connectionDTOTypeLoadBalanceCompressionPropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, connectionDTOTypeLoadBalanceCompressionPropEnum, true); err != nil {
 		return err
 	}
 	return nil
@@ -262,7 +260,7 @@ const (
 
 // prop value enum
 func (m *ConnectionDTO) validateLoadBalanceStatusEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, connectionDTOTypeLoadBalanceStatusPropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, connectionDTOTypeLoadBalanceStatusPropEnum, true); err != nil {
 		return err
 	}
 	return nil
@@ -311,7 +309,7 @@ const (
 
 // prop value enum
 func (m *ConnectionDTO) validateLoadBalanceStrategyEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, connectionDTOTypeLoadBalanceStrategyPropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, connectionDTOTypeLoadBalanceStrategyPropEnum, true); err != nil {
 		return err
 	}
 	return nil

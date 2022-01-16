@@ -6,12 +6,13 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // VersionedPropertyDescriptor versioned property descriptor
+//
 // swagger:model VersionedPropertyDescriptor
 type VersionedPropertyDescriptor struct {
 
@@ -24,12 +25,42 @@ type VersionedPropertyDescriptor struct {
 	// The name of the property
 	Name string `json:"name,omitempty"`
 
+	// Returns the Resource Definition that defines which type(s) of resource(s) this property references, if any
+	ResourceDefinition *VersionedResourceDefinition `json:"resourceDefinition,omitempty"`
+
 	// Whether or not the property is considered sensitive
 	Sensitive bool `json:"sensitive,omitempty"`
 }
 
 // Validate validates this versioned property descriptor
 func (m *VersionedPropertyDescriptor) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateResourceDefinition(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *VersionedPropertyDescriptor) validateResourceDefinition(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ResourceDefinition) { // not required
+		return nil
+	}
+
+	if m.ResourceDefinition != nil {
+		if err := m.ResourceDefinition.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("resourceDefinition")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

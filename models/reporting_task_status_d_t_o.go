@@ -8,14 +8,14 @@ package models
 import (
 	"encoding/json"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ReportingTaskStatusDTO reporting task status d t o
+//
 // swagger:model ReportingTaskStatusDTO
 type ReportingTaskStatusDTO struct {
 
@@ -23,12 +23,10 @@ type ReportingTaskStatusDTO struct {
 	ActiveThreadCount int32 `json:"activeThreadCount,omitempty"`
 
 	// The run status of this ReportingTask
-	// Read Only: true
 	// Enum: [RUNNING STOPPED DISABLED]
 	RunStatus string `json:"runStatus,omitempty"`
 
 	// Indicates whether the component is valid, invalid, or still in the process of validating (i.e., it is unknown whether or not the component is valid)
-	// Read Only: true
 	// Enum: [VALID INVALID VALIDATING]
 	ValidationStatus string `json:"validationStatus,omitempty"`
 }
@@ -77,7 +75,7 @@ const (
 
 // prop value enum
 func (m *ReportingTaskStatusDTO) validateRunStatusEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, reportingTaskStatusDTOTypeRunStatusPropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, reportingTaskStatusDTOTypeRunStatusPropEnum, true); err != nil {
 		return err
 	}
 	return nil
@@ -123,7 +121,7 @@ const (
 
 // prop value enum
 func (m *ReportingTaskStatusDTO) validateValidationStatusEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, reportingTaskStatusDTOTypeValidationStatusPropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, reportingTaskStatusDTOTypeValidationStatusPropEnum, true); err != nil {
 		return err
 	}
 	return nil

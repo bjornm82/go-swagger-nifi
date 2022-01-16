@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // GetControllerStatusReader is a Reader for the GetControllerStatus structure.
@@ -24,35 +23,30 @@ type GetControllerStatusReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetControllerStatusReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetControllerStatusOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetControllerStatusBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetControllerStatusUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetControllerStatusForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetControllerStatusConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -80,6 +74,10 @@ type GetControllerStatusOK struct {
 
 func (o *GetControllerStatusOK) Error() string {
 	return fmt.Sprintf("[GET /flow/status][%d] getControllerStatusOK  %+v", 200, o.Payload)
+}
+
+func (o *GetControllerStatusOK) GetPayload() *models.ControllerStatusEntity {
+	return o.Payload
 }
 
 func (o *GetControllerStatusOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

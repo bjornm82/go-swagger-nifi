@@ -9,14 +9,14 @@ import (
 	"encoding/json"
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ControllerServiceDTO controller service d t o
+//
 // swagger:model ControllerServiceDTO
 type ControllerServiceDTO struct {
 
@@ -83,7 +83,6 @@ type ControllerServiceDTO struct {
 	ValidationErrors []string `json:"validationErrors"`
 
 	// Indicates whether the ControllerService is valid, invalid, or still in the process of validating (i.e., it is unknown whether or not the ControllerService is valid)
-	// Read Only: true
 	// Enum: [VALID INVALID VALIDATING]
 	ValidationStatus string `json:"validationStatus,omitempty"`
 
@@ -270,7 +269,7 @@ const (
 
 // prop value enum
 func (m *ControllerServiceDTO) validateStateEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, controllerServiceDTOTypeStatePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, controllerServiceDTOTypeStatePropEnum, true); err != nil {
 		return err
 	}
 	return nil
@@ -316,7 +315,7 @@ const (
 
 // prop value enum
 func (m *ControllerServiceDTO) validateValidationStatusEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, controllerServiceDTOTypeValidationStatusPropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, controllerServiceDTOTypeValidationStatusPropEnum, true); err != nil {
 		return err
 	}
 	return nil

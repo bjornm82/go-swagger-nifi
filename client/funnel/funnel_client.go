@@ -6,13 +6,14 @@ package funnel
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new funnel API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,8 +25,19 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	GetFunnel(params *GetFunnelParams, authInfo runtime.ClientAuthInfoWriter) (*GetFunnelOK, error)
+
+	RemoveFunnel(params *RemoveFunnelParams, authInfo runtime.ClientAuthInfoWriter) (*RemoveFunnelOK, error)
+
+	UpdateFunnel(params *UpdateFunnelParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateFunnelOK, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-GetFunnel gets a funnel
+  GetFunnel gets a funnel
 */
 func (a *Client) GetFunnel(params *GetFunnelParams, authInfo runtime.ClientAuthInfoWriter) (*GetFunnelOK, error) {
 	// TODO: Validate the params before sending
@@ -38,7 +50,7 @@ func (a *Client) GetFunnel(params *GetFunnelParams, authInfo runtime.ClientAuthI
 		Method:             "GET",
 		PathPattern:        "/funnels/{id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetFunnelReader{formats: a.formats},
@@ -49,12 +61,18 @@ func (a *Client) GetFunnel(params *GetFunnelParams, authInfo runtime.ClientAuthI
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetFunnelOK), nil
-
+	success, ok := result.(*GetFunnelOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getFunnel: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-RemoveFunnel deletes a funnel
+  RemoveFunnel deletes a funnel
 */
 func (a *Client) RemoveFunnel(params *RemoveFunnelParams, authInfo runtime.ClientAuthInfoWriter) (*RemoveFunnelOK, error) {
 	// TODO: Validate the params before sending
@@ -67,7 +85,7 @@ func (a *Client) RemoveFunnel(params *RemoveFunnelParams, authInfo runtime.Clien
 		Method:             "DELETE",
 		PathPattern:        "/funnels/{id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &RemoveFunnelReader{formats: a.formats},
@@ -78,12 +96,18 @@ func (a *Client) RemoveFunnel(params *RemoveFunnelParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*RemoveFunnelOK), nil
-
+	success, ok := result.(*RemoveFunnelOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for removeFunnel: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateFunnel updates a funnel
+  UpdateFunnel updates a funnel
 */
 func (a *Client) UpdateFunnel(params *UpdateFunnelParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateFunnelOK, error) {
 	// TODO: Validate the params before sending
@@ -107,8 +131,14 @@ func (a *Client) UpdateFunnel(params *UpdateFunnelParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateFunnelOK), nil
-
+	success, ok := result.(*UpdateFunnelOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateFunnel: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

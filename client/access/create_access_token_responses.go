@@ -10,8 +10,7 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // CreateAccessTokenReader is a Reader for the CreateAccessToken structure.
@@ -22,35 +21,30 @@ type CreateAccessTokenReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateAccessTokenReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewCreateAccessTokenCreated()
+	case 200:
+		result := NewCreateAccessTokenOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateAccessTokenBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewCreateAccessTokenForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewCreateAccessTokenConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewCreateAccessTokenInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -63,24 +57,28 @@ func (o *CreateAccessTokenReader) ReadResponse(response runtime.ClientResponse, 
 	}
 }
 
-// NewCreateAccessTokenCreated creates a CreateAccessTokenCreated with default headers values
-func NewCreateAccessTokenCreated() *CreateAccessTokenCreated {
-	return &CreateAccessTokenCreated{}
+// NewCreateAccessTokenOK creates a CreateAccessTokenOK with default headers values
+func NewCreateAccessTokenOK() *CreateAccessTokenOK {
+	return &CreateAccessTokenOK{}
 }
 
-/*CreateAccessTokenCreated handles this case with default header values.
+/*CreateAccessTokenOK handles this case with default header values.
 
 successful operation
 */
-type CreateAccessTokenCreated struct {
+type CreateAccessTokenOK struct {
 	Payload string
 }
 
-func (o *CreateAccessTokenCreated) Error() string {
-	return fmt.Sprintf("[POST /access/token][%d] createAccessTokenCreated  %+v", 201, o.Payload)
+func (o *CreateAccessTokenOK) Error() string {
+	return fmt.Sprintf("[POST /access/token][%d] createAccessTokenOK  %+v", 200, o.Payload)
 }
 
-func (o *CreateAccessTokenCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateAccessTokenOK) GetPayload() string {
+	return o.Payload
+}
+
+func (o *CreateAccessTokenOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

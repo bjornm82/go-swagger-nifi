@@ -6,13 +6,14 @@ package provenance
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new provenance API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,8 +25,27 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	DeleteLineage(params *DeleteLineageParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteLineageOK, error)
+
+	DeleteProvenance(params *DeleteProvenanceParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteProvenanceOK, error)
+
+	GetLineage(params *GetLineageParams, authInfo runtime.ClientAuthInfoWriter) (*GetLineageOK, error)
+
+	GetProvenance(params *GetProvenanceParams, authInfo runtime.ClientAuthInfoWriter) (*GetProvenanceOK, error)
+
+	GetSearchOptions(params *GetSearchOptionsParams, authInfo runtime.ClientAuthInfoWriter) (*GetSearchOptionsOK, error)
+
+	SubmitLineageRequest(params *SubmitLineageRequestParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitLineageRequestOK, error)
+
+	SubmitProvenanceRequest(params *SubmitProvenanceRequestParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitProvenanceRequestOK, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-DeleteLineage deletes a lineage query
+  DeleteLineage deletes a lineage query
 */
 func (a *Client) DeleteLineage(params *DeleteLineageParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteLineageOK, error) {
 	// TODO: Validate the params before sending
@@ -38,7 +58,7 @@ func (a *Client) DeleteLineage(params *DeleteLineageParams, authInfo runtime.Cli
 		Method:             "DELETE",
 		PathPattern:        "/provenance/lineage/{id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &DeleteLineageReader{formats: a.formats},
@@ -49,12 +69,18 @@ func (a *Client) DeleteLineage(params *DeleteLineageParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteLineageOK), nil
-
+	success, ok := result.(*DeleteLineageOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for deleteLineage: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteProvenance deletes a provenance query
+  DeleteProvenance deletes a provenance query
 */
 func (a *Client) DeleteProvenance(params *DeleteProvenanceParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteProvenanceOK, error) {
 	// TODO: Validate the params before sending
@@ -67,7 +93,7 @@ func (a *Client) DeleteProvenance(params *DeleteProvenanceParams, authInfo runti
 		Method:             "DELETE",
 		PathPattern:        "/provenance/{id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &DeleteProvenanceReader{formats: a.formats},
@@ -78,12 +104,18 @@ func (a *Client) DeleteProvenance(params *DeleteProvenanceParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteProvenanceOK), nil
-
+	success, ok := result.(*DeleteProvenanceOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for deleteProvenance: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetLineage gets a lineage query
+  GetLineage gets a lineage query
 */
 func (a *Client) GetLineage(params *GetLineageParams, authInfo runtime.ClientAuthInfoWriter) (*GetLineageOK, error) {
 	// TODO: Validate the params before sending
@@ -96,7 +128,7 @@ func (a *Client) GetLineage(params *GetLineageParams, authInfo runtime.ClientAut
 		Method:             "GET",
 		PathPattern:        "/provenance/lineage/{id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetLineageReader{formats: a.formats},
@@ -107,12 +139,18 @@ func (a *Client) GetLineage(params *GetLineageParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetLineageOK), nil
-
+	success, ok := result.(*GetLineageOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getLineage: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetProvenance gets a provenance query
+  GetProvenance gets a provenance query
 */
 func (a *Client) GetProvenance(params *GetProvenanceParams, authInfo runtime.ClientAuthInfoWriter) (*GetProvenanceOK, error) {
 	// TODO: Validate the params before sending
@@ -125,7 +163,7 @@ func (a *Client) GetProvenance(params *GetProvenanceParams, authInfo runtime.Cli
 		Method:             "GET",
 		PathPattern:        "/provenance/{id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetProvenanceReader{formats: a.formats},
@@ -136,12 +174,18 @@ func (a *Client) GetProvenance(params *GetProvenanceParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetProvenanceOK), nil
-
+	success, ok := result.(*GetProvenanceOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getProvenance: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetSearchOptions gets the searchable attributes for provenance events
+  GetSearchOptions gets the searchable attributes for provenance events
 */
 func (a *Client) GetSearchOptions(params *GetSearchOptionsParams, authInfo runtime.ClientAuthInfoWriter) (*GetSearchOptionsOK, error) {
 	// TODO: Validate the params before sending
@@ -154,7 +198,7 @@ func (a *Client) GetSearchOptions(params *GetSearchOptionsParams, authInfo runti
 		Method:             "GET",
 		PathPattern:        "/provenance/search-options",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetSearchOptionsReader{formats: a.formats},
@@ -165,16 +209,22 @@ func (a *Client) GetSearchOptions(params *GetSearchOptionsParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetSearchOptionsOK), nil
-
+	success, ok := result.(*GetSearchOptionsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getSearchOptions: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SubmitLineageRequest submits a lineage query
+  SubmitLineageRequest submits a lineage query
 
-Lineage queries may be long running so this endpoint submits a request. The response will include the current state of the query. If the request is not completed the URI in the response can be used at a later time to get the updated state of the query. Once the query has completed the lineage request should be deleted by the client who originally submitted it.
+  Lineage queries may be long running so this endpoint submits a request. The response will include the current state of the query. If the request is not completed the URI in the response can be used at a later time to get the updated state of the query. Once the query has completed the lineage request should be deleted by the client who originally submitted it.
 */
-func (a *Client) SubmitLineageRequest(params *SubmitLineageRequestParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitLineageRequestCreated, error) {
+func (a *Client) SubmitLineageRequest(params *SubmitLineageRequestParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitLineageRequestOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSubmitLineageRequestParams()
@@ -196,16 +246,22 @@ func (a *Client) SubmitLineageRequest(params *SubmitLineageRequestParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SubmitLineageRequestCreated), nil
-
+	success, ok := result.(*SubmitLineageRequestOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for submitLineageRequest: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SubmitProvenanceRequest submits a provenance query
+  SubmitProvenanceRequest submits a provenance query
 
-Provenance queries may be long running so this endpoint submits a request. The response will include the current state of the query. If the request is not completed the URI in the response can be used at a later time to get the updated state of the query. Once the query has completed the provenance request should be deleted by the client who originally submitted it.
+  Provenance queries may be long running so this endpoint submits a request. The response will include the current state of the query. If the request is not completed the URI in the response can be used at a later time to get the updated state of the query. Once the query has completed the provenance request should be deleted by the client who originally submitted it.
 */
-func (a *Client) SubmitProvenanceRequest(params *SubmitProvenanceRequestParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitProvenanceRequestCreated, error) {
+func (a *Client) SubmitProvenanceRequest(params *SubmitProvenanceRequestParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitProvenanceRequestOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSubmitProvenanceRequestParams()
@@ -227,8 +283,14 @@ func (a *Client) SubmitProvenanceRequest(params *SubmitProvenanceRequestParams, 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SubmitProvenanceRequestCreated), nil
-
+	success, ok := result.(*SubmitProvenanceRequestOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for submitProvenanceRequest: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

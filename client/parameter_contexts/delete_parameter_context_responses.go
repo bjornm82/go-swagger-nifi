@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // DeleteParameterContextReader is a Reader for the DeleteParameterContext structure.
@@ -24,42 +23,36 @@ type DeleteParameterContextReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteParameterContextReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteParameterContextOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewDeleteParameterContextBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewDeleteParameterContextUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewDeleteParameterContextForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewDeleteParameterContextNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewDeleteParameterContextConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -87,6 +80,10 @@ type DeleteParameterContextOK struct {
 
 func (o *DeleteParameterContextOK) Error() string {
 	return fmt.Sprintf("[DELETE /parameter-contexts/{id}][%d] deleteParameterContextOK  %+v", 200, o.Payload)
+}
+
+func (o *DeleteParameterContextOK) GetPayload() *models.ParameterContextEntity {
+	return o.Payload
 }
 
 func (o *DeleteParameterContextOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

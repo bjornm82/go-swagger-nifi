@@ -10,8 +10,7 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // CreateAccessTokenFromTicketReader is a Reader for the CreateAccessTokenFromTicket structure.
@@ -22,35 +21,30 @@ type CreateAccessTokenFromTicketReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateAccessTokenFromTicketReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewCreateAccessTokenFromTicketCreated()
+	case 200:
+		result := NewCreateAccessTokenFromTicketOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateAccessTokenFromTicketBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewCreateAccessTokenFromTicketUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewCreateAccessTokenFromTicketConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewCreateAccessTokenFromTicketInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -63,24 +57,28 @@ func (o *CreateAccessTokenFromTicketReader) ReadResponse(response runtime.Client
 	}
 }
 
-// NewCreateAccessTokenFromTicketCreated creates a CreateAccessTokenFromTicketCreated with default headers values
-func NewCreateAccessTokenFromTicketCreated() *CreateAccessTokenFromTicketCreated {
-	return &CreateAccessTokenFromTicketCreated{}
+// NewCreateAccessTokenFromTicketOK creates a CreateAccessTokenFromTicketOK with default headers values
+func NewCreateAccessTokenFromTicketOK() *CreateAccessTokenFromTicketOK {
+	return &CreateAccessTokenFromTicketOK{}
 }
 
-/*CreateAccessTokenFromTicketCreated handles this case with default header values.
+/*CreateAccessTokenFromTicketOK handles this case with default header values.
 
 successful operation
 */
-type CreateAccessTokenFromTicketCreated struct {
+type CreateAccessTokenFromTicketOK struct {
 	Payload string
 }
 
-func (o *CreateAccessTokenFromTicketCreated) Error() string {
-	return fmt.Sprintf("[POST /access/kerberos][%d] createAccessTokenFromTicketCreated  %+v", 201, o.Payload)
+func (o *CreateAccessTokenFromTicketOK) Error() string {
+	return fmt.Sprintf("[POST /access/kerberos][%d] createAccessTokenFromTicketOK  %+v", 200, o.Payload)
 }
 
-func (o *CreateAccessTokenFromTicketCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateAccessTokenFromTicketOK) GetPayload() string {
+	return o.Payload
+}
+
+func (o *CreateAccessTokenFromTicketOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

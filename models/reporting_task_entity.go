@@ -8,13 +8,13 @@ package models
 import (
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // ReportingTaskEntity reporting task entity
+//
 // swagger:model ReportingTaskEntity
 type ReportingTaskEntity struct {
 
@@ -43,7 +43,6 @@ type ReportingTaskEntity struct {
 	Revision *RevisionDTO `json:"revision,omitempty"`
 
 	// The status for this ReportingTask.
-	// Read Only: true
 	Status *ReportingTaskStatusDTO `json:"status,omitempty"`
 
 	// The URI for futures requests to the component.

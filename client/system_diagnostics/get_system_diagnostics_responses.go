@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // GetSystemDiagnosticsReader is a Reader for the GetSystemDiagnostics structure.
@@ -24,21 +23,18 @@ type GetSystemDiagnosticsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetSystemDiagnosticsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetSystemDiagnosticsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 401:
 		result := NewGetSystemDiagnosticsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetSystemDiagnosticsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -66,6 +62,10 @@ type GetSystemDiagnosticsOK struct {
 
 func (o *GetSystemDiagnosticsOK) Error() string {
 	return fmt.Sprintf("[GET /system-diagnostics][%d] getSystemDiagnosticsOK  %+v", 200, o.Payload)
+}
+
+func (o *GetSystemDiagnosticsOK) GetPayload() *models.SystemDiagnosticsEntity {
+	return o.Payload
 }
 
 func (o *GetSystemDiagnosticsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

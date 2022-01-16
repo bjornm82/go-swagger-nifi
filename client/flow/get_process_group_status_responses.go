@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // GetProcessGroupStatusReader is a Reader for the GetProcessGroupStatus structure.
@@ -24,42 +23,36 @@ type GetProcessGroupStatusReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetProcessGroupStatusReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetProcessGroupStatusOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetProcessGroupStatusBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetProcessGroupStatusUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetProcessGroupStatusForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetProcessGroupStatusNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetProcessGroupStatusConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -87,6 +80,10 @@ type GetProcessGroupStatusOK struct {
 
 func (o *GetProcessGroupStatusOK) Error() string {
 	return fmt.Sprintf("[GET /flow/process-groups/{id}/status][%d] getProcessGroupStatusOK  %+v", 200, o.Payload)
+}
+
+func (o *GetProcessGroupStatusOK) GetPayload() *models.ProcessGroupStatusEntity {
+	return o.Payload
 }
 
 func (o *GetProcessGroupStatusOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

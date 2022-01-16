@@ -8,10 +8,11 @@ package client
 import (
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 
 	"github.com/bjornm82/go-swagger-nifi/client/access"
+	"github.com/bjornm82/go-swagger-nifi/client/accessoidc"
+	"github.com/bjornm82/go-swagger-nifi/client/accesssaml"
 	"github.com/bjornm82/go-swagger-nifi/client/connections"
 	"github.com/bjornm82/go-swagger-nifi/client/controller"
 	"github.com/bjornm82/go-swagger-nifi/client/controller_services"
@@ -82,61 +83,35 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *NiFiRest {
 
 	cli := new(NiFiRest)
 	cli.Transport = transport
-
 	cli.Access = access.New(transport, formats)
-
+	cli.Accessoidc = accessoidc.New(transport, formats)
+	cli.Accesssaml = accesssaml.New(transport, formats)
 	cli.Connections = connections.New(transport, formats)
-
 	cli.Controller = controller.New(transport, formats)
-
 	cli.ControllerServices = controller_services.New(transport, formats)
-
 	cli.Counters = counters.New(transport, formats)
-
 	cli.DataTransfer = data_transfer.New(transport, formats)
-
 	cli.Flow = flow.New(transport, formats)
-
 	cli.FlowfileQueues = flowfile_queues.New(transport, formats)
-
 	cli.Funnel = funnel.New(transport, formats)
-
 	cli.InputPorts = input_ports.New(transport, formats)
-
 	cli.Labels = labels.New(transport, formats)
-
 	cli.OutputPorts = output_ports.New(transport, formats)
-
 	cli.ParameterContexts = parameter_contexts.New(transport, formats)
-
 	cli.Policies = policies.New(transport, formats)
-
 	cli.ProcessGroups = process_groups.New(transport, formats)
-
 	cli.Processors = processors.New(transport, formats)
-
 	cli.Provenance = provenance.New(transport, formats)
-
 	cli.ProvenanceEvents = provenance_events.New(transport, formats)
-
 	cli.RemoteProcessGroups = remote_process_groups.New(transport, formats)
-
 	cli.ReportingTasks = reporting_tasks.New(transport, formats)
-
 	cli.Resources = resources.New(transport, formats)
-
 	cli.SiteToSite = site_to_site.New(transport, formats)
-
 	cli.Snippets = snippets.New(transport, formats)
-
 	cli.SystemDiagnostics = system_diagnostics.New(transport, formats)
-
 	cli.Templates = templates.New(transport, formats)
-
 	cli.Tenants = tenants.New(transport, formats)
-
 	cli.Versions = versions.New(transport, formats)
-
 	return cli
 }
 
@@ -181,59 +156,63 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 
 // NiFiRest is a client for ni fi rest
 type NiFiRest struct {
-	Access *access.Client
+	Access access.ClientService
 
-	Connections *connections.Client
+	Accessoidc accessoidc.ClientService
 
-	Controller *controller.Client
+	Accesssaml accesssaml.ClientService
 
-	ControllerServices *controller_services.Client
+	Connections connections.ClientService
 
-	Counters *counters.Client
+	Controller controller.ClientService
 
-	DataTransfer *data_transfer.Client
+	ControllerServices controller_services.ClientService
 
-	Flow *flow.Client
+	Counters counters.ClientService
 
-	FlowfileQueues *flowfile_queues.Client
+	DataTransfer data_transfer.ClientService
 
-	Funnel *funnel.Client
+	Flow flow.ClientService
 
-	InputPorts *input_ports.Client
+	FlowfileQueues flowfile_queues.ClientService
 
-	Labels *labels.Client
+	Funnel funnel.ClientService
 
-	OutputPorts *output_ports.Client
+	InputPorts input_ports.ClientService
 
-	ParameterContexts *parameter_contexts.Client
+	Labels labels.ClientService
 
-	Policies *policies.Client
+	OutputPorts output_ports.ClientService
 
-	ProcessGroups *process_groups.Client
+	ParameterContexts parameter_contexts.ClientService
 
-	Processors *processors.Client
+	Policies policies.ClientService
 
-	Provenance *provenance.Client
+	ProcessGroups process_groups.ClientService
 
-	ProvenanceEvents *provenance_events.Client
+	Processors processors.ClientService
 
-	RemoteProcessGroups *remote_process_groups.Client
+	Provenance provenance.ClientService
 
-	ReportingTasks *reporting_tasks.Client
+	ProvenanceEvents provenance_events.ClientService
 
-	Resources *resources.Client
+	RemoteProcessGroups remote_process_groups.ClientService
 
-	SiteToSite *site_to_site.Client
+	ReportingTasks reporting_tasks.ClientService
 
-	Snippets *snippets.Client
+	Resources resources.ClientService
 
-	SystemDiagnostics *system_diagnostics.Client
+	SiteToSite site_to_site.ClientService
 
-	Templates *templates.Client
+	Snippets snippets.ClientService
 
-	Tenants *tenants.Client
+	SystemDiagnostics system_diagnostics.ClientService
 
-	Versions *versions.Client
+	Templates templates.ClientService
+
+	Tenants tenants.ClientService
+
+	Versions versions.ClientService
 
 	Transport runtime.ClientTransport
 }
@@ -241,59 +220,33 @@ type NiFiRest struct {
 // SetTransport changes the transport on the client and all its subresources
 func (c *NiFiRest) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
-
 	c.Access.SetTransport(transport)
-
+	c.Accessoidc.SetTransport(transport)
+	c.Accesssaml.SetTransport(transport)
 	c.Connections.SetTransport(transport)
-
 	c.Controller.SetTransport(transport)
-
 	c.ControllerServices.SetTransport(transport)
-
 	c.Counters.SetTransport(transport)
-
 	c.DataTransfer.SetTransport(transport)
-
 	c.Flow.SetTransport(transport)
-
 	c.FlowfileQueues.SetTransport(transport)
-
 	c.Funnel.SetTransport(transport)
-
 	c.InputPorts.SetTransport(transport)
-
 	c.Labels.SetTransport(transport)
-
 	c.OutputPorts.SetTransport(transport)
-
 	c.ParameterContexts.SetTransport(transport)
-
 	c.Policies.SetTransport(transport)
-
 	c.ProcessGroups.SetTransport(transport)
-
 	c.Processors.SetTransport(transport)
-
 	c.Provenance.SetTransport(transport)
-
 	c.ProvenanceEvents.SetTransport(transport)
-
 	c.RemoteProcessGroups.SetTransport(transport)
-
 	c.ReportingTasks.SetTransport(transport)
-
 	c.Resources.SetTransport(transport)
-
 	c.SiteToSite.SetTransport(transport)
-
 	c.Snippets.SetTransport(transport)
-
 	c.SystemDiagnostics.SetTransport(transport)
-
 	c.Templates.SetTransport(transport)
-
 	c.Tenants.SetTransport(transport)
-
 	c.Versions.SetTransport(transport)
-
 }

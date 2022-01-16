@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // GetProcessorDiagnosticsReader is a Reader for the GetProcessorDiagnostics structure.
@@ -24,42 +23,36 @@ type GetProcessorDiagnosticsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetProcessorDiagnosticsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetProcessorDiagnosticsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetProcessorDiagnosticsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetProcessorDiagnosticsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetProcessorDiagnosticsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetProcessorDiagnosticsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetProcessorDiagnosticsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -87,6 +80,10 @@ type GetProcessorDiagnosticsOK struct {
 
 func (o *GetProcessorDiagnosticsOK) Error() string {
 	return fmt.Sprintf("[GET /processors/{id}/diagnostics][%d] getProcessorDiagnosticsOK  %+v", 200, o.Payload)
+}
+
+func (o *GetProcessorDiagnosticsOK) GetPayload() *models.ProcessorEntity {
+	return o.Payload
 }
 
 func (o *GetProcessorDiagnosticsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

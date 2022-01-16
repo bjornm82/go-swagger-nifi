@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // CreateRegistryClientReader is a Reader for the CreateRegistryClient structure.
@@ -24,35 +23,30 @@ type CreateRegistryClientReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateRegistryClientReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewCreateRegistryClientCreated()
+	case 200:
+		result := NewCreateRegistryClientOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateRegistryClientBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewCreateRegistryClientUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewCreateRegistryClientForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewCreateRegistryClientConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -65,24 +59,28 @@ func (o *CreateRegistryClientReader) ReadResponse(response runtime.ClientRespons
 	}
 }
 
-// NewCreateRegistryClientCreated creates a CreateRegistryClientCreated with default headers values
-func NewCreateRegistryClientCreated() *CreateRegistryClientCreated {
-	return &CreateRegistryClientCreated{}
+// NewCreateRegistryClientOK creates a CreateRegistryClientOK with default headers values
+func NewCreateRegistryClientOK() *CreateRegistryClientOK {
+	return &CreateRegistryClientOK{}
 }
 
-/*CreateRegistryClientCreated handles this case with default header values.
+/*CreateRegistryClientOK handles this case with default header values.
 
 successful operation
 */
-type CreateRegistryClientCreated struct {
+type CreateRegistryClientOK struct {
 	Payload *models.RegistryClientEntity
 }
 
-func (o *CreateRegistryClientCreated) Error() string {
-	return fmt.Sprintf("[POST /controller/registry-clients][%d] createRegistryClientCreated  %+v", 201, o.Payload)
+func (o *CreateRegistryClientOK) Error() string {
+	return fmt.Sprintf("[POST /controller/registry-clients][%d] createRegistryClientOK  %+v", 200, o.Payload)
 }
 
-func (o *CreateRegistryClientCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateRegistryClientOK) GetPayload() *models.RegistryClientEntity {
+	return o.Payload
+}
+
+func (o *CreateRegistryClientOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RegistryClientEntity)
 

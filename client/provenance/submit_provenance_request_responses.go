@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // SubmitProvenanceRequestReader is a Reader for the SubmitProvenanceRequest structure.
@@ -24,35 +23,30 @@ type SubmitProvenanceRequestReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SubmitProvenanceRequestReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewSubmitProvenanceRequestCreated()
+	case 200:
+		result := NewSubmitProvenanceRequestOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewSubmitProvenanceRequestBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewSubmitProvenanceRequestUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewSubmitProvenanceRequestForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewSubmitProvenanceRequestConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -65,24 +59,28 @@ func (o *SubmitProvenanceRequestReader) ReadResponse(response runtime.ClientResp
 	}
 }
 
-// NewSubmitProvenanceRequestCreated creates a SubmitProvenanceRequestCreated with default headers values
-func NewSubmitProvenanceRequestCreated() *SubmitProvenanceRequestCreated {
-	return &SubmitProvenanceRequestCreated{}
+// NewSubmitProvenanceRequestOK creates a SubmitProvenanceRequestOK with default headers values
+func NewSubmitProvenanceRequestOK() *SubmitProvenanceRequestOK {
+	return &SubmitProvenanceRequestOK{}
 }
 
-/*SubmitProvenanceRequestCreated handles this case with default header values.
+/*SubmitProvenanceRequestOK handles this case with default header values.
 
 successful operation
 */
-type SubmitProvenanceRequestCreated struct {
+type SubmitProvenanceRequestOK struct {
 	Payload *models.ProvenanceEntity
 }
 
-func (o *SubmitProvenanceRequestCreated) Error() string {
-	return fmt.Sprintf("[POST /provenance][%d] submitProvenanceRequestCreated  %+v", 201, o.Payload)
+func (o *SubmitProvenanceRequestOK) Error() string {
+	return fmt.Sprintf("[POST /provenance][%d] submitProvenanceRequestOK  %+v", 200, o.Payload)
 }
 
-func (o *SubmitProvenanceRequestCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *SubmitProvenanceRequestOK) GetPayload() *models.ProvenanceEntity {
+	return o.Payload
+}
+
+func (o *SubmitProvenanceRequestOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ProvenanceEntity)
 

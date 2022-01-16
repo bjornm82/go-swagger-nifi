@@ -9,14 +9,14 @@ import (
 	"encoding/json"
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ProcessGroupStatusSnapshotDTO process group status snapshot d t o
+//
 // swagger:model ProcessGroupStatusSnapshotDTO
 type ProcessGroupStatusSnapshotDTO struct {
 
@@ -120,7 +120,6 @@ type ProcessGroupStatusSnapshotDTO struct {
 	Transferred string `json:"transferred,omitempty"`
 
 	// The current state of the Process Group, as it relates to the Versioned Flow
-	// Read Only: true
 	// Enum: [LOCALLY_MODIFIED STALE LOCALLY_MODIFIED_AND_STALE UP_TO_DATE SYNC_FAILURE]
 	VersionedFlowState string `json:"versionedFlowState,omitempty"`
 
@@ -348,7 +347,7 @@ const (
 
 // prop value enum
 func (m *ProcessGroupStatusSnapshotDTO) validateVersionedFlowStateEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, processGroupStatusSnapshotDTOTypeVersionedFlowStatePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, processGroupStatusSnapshotDTOTypeVersionedFlowStatePropEnum, true); err != nil {
 		return err
 	}
 	return nil

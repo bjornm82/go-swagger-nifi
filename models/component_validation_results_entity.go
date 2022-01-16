@@ -8,13 +8,13 @@ package models
 import (
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // ComponentValidationResultsEntity component validation results entity
+//
 // swagger:model ComponentValidationResultsEntity
 type ComponentValidationResultsEntity struct {
 

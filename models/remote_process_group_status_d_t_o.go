@@ -9,14 +9,14 @@ import (
 	"encoding/json"
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // RemoteProcessGroupStatusDTO remote process group status d t o
+//
 // swagger:model RemoteProcessGroupStatusDTO
 type RemoteProcessGroupStatusDTO struct {
 
@@ -45,7 +45,6 @@ type RemoteProcessGroupStatusDTO struct {
 	TransmissionStatus string `json:"transmissionStatus,omitempty"`
 
 	// Indicates whether the component is valid, invalid, or still in the process of validating (i.e., it is unknown whether or not the component is valid)
-	// Read Only: true
 	// Enum: [VALID INVALID VALIDATING]
 	ValidationStatus string `json:"validationStatus,omitempty"`
 }
@@ -141,7 +140,7 @@ const (
 
 // prop value enum
 func (m *RemoteProcessGroupStatusDTO) validateValidationStatusEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, remoteProcessGroupStatusDTOTypeValidationStatusPropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, remoteProcessGroupStatusDTOTypeValidationStatusPropEnum, true); err != nil {
 		return err
 	}
 	return nil

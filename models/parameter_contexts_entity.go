@@ -8,19 +8,18 @@ package models
 import (
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ParameterContextsEntity parameter contexts entity
+//
 // swagger:model ParameterContextsEntity
 type ParameterContextsEntity struct {
 
 	// The current time on the system.
-	// Read Only: true
 	CurrentTime string `json:"currentTime,omitempty"`
 
 	// The Parameter Contexts

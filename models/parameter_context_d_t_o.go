@@ -8,19 +8,18 @@ package models
 import (
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ParameterContextDTO parameter context d t o
+//
 // swagger:model ParameterContextDTO
 type ParameterContextDTO struct {
 
 	// The Process Groups that are bound to this Parameter Context
-	// Read Only: true
 	// Unique: true
 	BoundProcessGroups []*ProcessGroupEntity `json:"boundProcessGroups"`
 
@@ -28,7 +27,6 @@ type ParameterContextDTO struct {
 	Description string `json:"description,omitempty"`
 
 	// The ID the Parameter Context.
-	// Read Only: true
 	ID string `json:"id,omitempty"`
 
 	// The Name of the Parameter Context.

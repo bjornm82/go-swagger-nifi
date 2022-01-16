@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // DownloadFlowFileContentReader is a Reader for the DownloadFlowFileContent structure.
@@ -24,42 +23,36 @@ type DownloadFlowFileContentReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DownloadFlowFileContentReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDownloadFlowFileContentOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewDownloadFlowFileContentBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewDownloadFlowFileContentUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewDownloadFlowFileContentForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewDownloadFlowFileContentNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewDownloadFlowFileContentConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -87,6 +80,10 @@ type DownloadFlowFileContentOK struct {
 
 func (o *DownloadFlowFileContentOK) Error() string {
 	return fmt.Sprintf("[GET /flowfile-queues/{id}/flowfiles/{flowfile-uuid}/content][%d] downloadFlowFileContentOK  %+v", 200, o.Payload)
+}
+
+func (o *DownloadFlowFileContentOK) GetPayload() models.StreamingOutput {
+	return o.Payload
 }
 
 func (o *DownloadFlowFileContentOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

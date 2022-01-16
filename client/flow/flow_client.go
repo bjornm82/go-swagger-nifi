@@ -6,13 +6,14 @@ package flow
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new flow API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,8 +25,97 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	ActivateControllerServices(params *ActivateControllerServicesParams, authInfo runtime.ClientAuthInfoWriter) (*ActivateControllerServicesOK, error)
+
+	GenerateClientID(params *GenerateClientIDParams, authInfo runtime.ClientAuthInfoWriter) (*GenerateClientIDOK, error)
+
+	GetAboutInfo(params *GetAboutInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetAboutInfoOK, error)
+
+	GetAction(params *GetActionParams, authInfo runtime.ClientAuthInfoWriter) (*GetActionOK, error)
+
+	GetBanners(params *GetBannersParams, authInfo runtime.ClientAuthInfoWriter) (*GetBannersOK, error)
+
+	GetBuckets(params *GetBucketsParams, authInfo runtime.ClientAuthInfoWriter) (*GetBucketsOK, error)
+
+	GetBulletinBoard(params *GetBulletinBoardParams, authInfo runtime.ClientAuthInfoWriter) (*GetBulletinBoardOK, error)
+
+	GetBulletins(params *GetBulletinsParams, authInfo runtime.ClientAuthInfoWriter) (*GetBulletinsOK, error)
+
+	GetClusterSummary(params *GetClusterSummaryParams, authInfo runtime.ClientAuthInfoWriter) (*GetClusterSummaryOK, error)
+
+	GetComponentHistory(params *GetComponentHistoryParams, authInfo runtime.ClientAuthInfoWriter) (*GetComponentHistoryOK, error)
+
+	GetConnectionStatistics(params *GetConnectionStatisticsParams, authInfo runtime.ClientAuthInfoWriter) (*GetConnectionStatisticsOK, error)
+
+	GetConnectionStatus(params *GetConnectionStatusParams, authInfo runtime.ClientAuthInfoWriter) (*GetConnectionStatusOK, error)
+
+	GetConnectionStatusHistory(params *GetConnectionStatusHistoryParams, authInfo runtime.ClientAuthInfoWriter) (*GetConnectionStatusHistoryOK, error)
+
+	GetControllerServiceTypes(params *GetControllerServiceTypesParams, authInfo runtime.ClientAuthInfoWriter) (*GetControllerServiceTypesOK, error)
+
+	GetControllerServicesFromController(params *GetControllerServicesFromControllerParams, authInfo runtime.ClientAuthInfoWriter) (*GetControllerServicesFromControllerOK, error)
+
+	GetControllerServicesFromGroup(params *GetControllerServicesFromGroupParams, authInfo runtime.ClientAuthInfoWriter) (*GetControllerServicesFromGroupOK, error)
+
+	GetControllerStatus(params *GetControllerStatusParams, authInfo runtime.ClientAuthInfoWriter) (*GetControllerStatusOK, error)
+
+	GetCurrentUser(params *GetCurrentUserParams, authInfo runtime.ClientAuthInfoWriter) (*GetCurrentUserOK, error)
+
+	GetFlow(params *GetFlowParams, authInfo runtime.ClientAuthInfoWriter) (*GetFlowOK, error)
+
+	GetFlowConfig(params *GetFlowConfigParams, authInfo runtime.ClientAuthInfoWriter) (*GetFlowConfigOK, error)
+
+	GetFlowMetrics(params *GetFlowMetricsParams, authInfo runtime.ClientAuthInfoWriter) (*GetFlowMetricsOK, error)
+
+	GetFlows(params *GetFlowsParams, authInfo runtime.ClientAuthInfoWriter) (*GetFlowsOK, error)
+
+	GetInputPortStatus(params *GetInputPortStatusParams, authInfo runtime.ClientAuthInfoWriter) (*GetInputPortStatusOK, error)
+
+	GetOutputPortStatus(params *GetOutputPortStatusParams, authInfo runtime.ClientAuthInfoWriter) (*GetOutputPortStatusOK, error)
+
+	GetParameterContexts(params *GetParameterContextsParams, authInfo runtime.ClientAuthInfoWriter) (*GetParameterContextsOK, error)
+
+	GetPrioritizers(params *GetPrioritizersParams, authInfo runtime.ClientAuthInfoWriter) (*GetPrioritizersOK, error)
+
+	GetProcessGroupStatus(params *GetProcessGroupStatusParams, authInfo runtime.ClientAuthInfoWriter) (*GetProcessGroupStatusOK, error)
+
+	GetProcessGroupStatusHistory(params *GetProcessGroupStatusHistoryParams, authInfo runtime.ClientAuthInfoWriter) (*GetProcessGroupStatusHistoryOK, error)
+
+	GetProcessorStatus(params *GetProcessorStatusParams, authInfo runtime.ClientAuthInfoWriter) (*GetProcessorStatusOK, error)
+
+	GetProcessorStatusHistory(params *GetProcessorStatusHistoryParams, authInfo runtime.ClientAuthInfoWriter) (*GetProcessorStatusHistoryOK, error)
+
+	GetProcessorTypes(params *GetProcessorTypesParams, authInfo runtime.ClientAuthInfoWriter) (*GetProcessorTypesOK, error)
+
+	GetRegistries(params *GetRegistriesParams, authInfo runtime.ClientAuthInfoWriter) (*GetRegistriesOK, error)
+
+	GetRemoteProcessGroupStatus(params *GetRemoteProcessGroupStatusParams, authInfo runtime.ClientAuthInfoWriter) (*GetRemoteProcessGroupStatusOK, error)
+
+	GetRemoteProcessGroupStatusHistory(params *GetRemoteProcessGroupStatusHistoryParams, authInfo runtime.ClientAuthInfoWriter) (*GetRemoteProcessGroupStatusHistoryOK, error)
+
+	GetReportingTaskTypes(params *GetReportingTaskTypesParams, authInfo runtime.ClientAuthInfoWriter) (*GetReportingTaskTypesOK, error)
+
+	GetReportingTasks(params *GetReportingTasksParams, authInfo runtime.ClientAuthInfoWriter) (*GetReportingTasksOK, error)
+
+	GetTemplates(params *GetTemplatesParams, authInfo runtime.ClientAuthInfoWriter) (*GetTemplatesOK, error)
+
+	GetVersions(params *GetVersionsParams, authInfo runtime.ClientAuthInfoWriter) (*GetVersionsOK, error)
+
+	QueryHistory(params *QueryHistoryParams, authInfo runtime.ClientAuthInfoWriter) (*QueryHistoryOK, error)
+
+	ScheduleComponents(params *ScheduleComponentsParams, authInfo runtime.ClientAuthInfoWriter) (*ScheduleComponentsOK, error)
+
+	SearchCluster(params *SearchClusterParams, authInfo runtime.ClientAuthInfoWriter) (*SearchClusterOK, error)
+
+	SearchFlow(params *SearchFlowParams, authInfo runtime.ClientAuthInfoWriter) (*SearchFlowOK, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-ActivateControllerServices enables or disable controller services in the specified process group
+  ActivateControllerServices enables or disable controller services in the specified process group
 */
 func (a *Client) ActivateControllerServices(params *ActivateControllerServicesParams, authInfo runtime.ClientAuthInfoWriter) (*ActivateControllerServicesOK, error) {
 	// TODO: Validate the params before sending
@@ -49,12 +139,18 @@ func (a *Client) ActivateControllerServices(params *ActivateControllerServicesPa
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ActivateControllerServicesOK), nil
-
+	success, ok := result.(*ActivateControllerServicesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for activateControllerServices: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GenerateClientID generates a client id
+  GenerateClientID generates a client id
 */
 func (a *Client) GenerateClientID(params *GenerateClientIDParams, authInfo runtime.ClientAuthInfoWriter) (*GenerateClientIDOK, error) {
 	// TODO: Validate the params before sending
@@ -67,7 +163,7 @@ func (a *Client) GenerateClientID(params *GenerateClientIDParams, authInfo runti
 		Method:             "GET",
 		PathPattern:        "/flow/client-id",
 		ProducesMediaTypes: []string{"text/plain"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GenerateClientIDReader{formats: a.formats},
@@ -78,12 +174,18 @@ func (a *Client) GenerateClientID(params *GenerateClientIDParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GenerateClientIDOK), nil
-
+	success, ok := result.(*GenerateClientIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for generateClientId: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetAboutInfo retrieves details about this ni fi to put in the about dialog
+  GetAboutInfo retrieves details about this ni fi to put in the about dialog
 */
 func (a *Client) GetAboutInfo(params *GetAboutInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetAboutInfoOK, error) {
 	// TODO: Validate the params before sending
@@ -96,7 +198,7 @@ func (a *Client) GetAboutInfo(params *GetAboutInfoParams, authInfo runtime.Clien
 		Method:             "GET",
 		PathPattern:        "/flow/about",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetAboutInfoReader{formats: a.formats},
@@ -107,14 +209,20 @@ func (a *Client) GetAboutInfo(params *GetAboutInfoParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetAboutInfoOK), nil
-
+	success, ok := result.(*GetAboutInfoOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getAboutInfo: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetAction gets an action
+  GetAction gets an action
 
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) GetAction(params *GetActionParams, authInfo runtime.ClientAuthInfoWriter) (*GetActionOK, error) {
 	// TODO: Validate the params before sending
@@ -127,7 +235,7 @@ func (a *Client) GetAction(params *GetActionParams, authInfo runtime.ClientAuthI
 		Method:             "GET",
 		PathPattern:        "/flow/history/{id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetActionReader{formats: a.formats},
@@ -138,12 +246,18 @@ func (a *Client) GetAction(params *GetActionParams, authInfo runtime.ClientAuthI
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetActionOK), nil
-
+	success, ok := result.(*GetActionOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getAction: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetBanners retrieves the banners for this ni fi
+  GetBanners retrieves the banners for this ni fi
 */
 func (a *Client) GetBanners(params *GetBannersParams, authInfo runtime.ClientAuthInfoWriter) (*GetBannersOK, error) {
 	// TODO: Validate the params before sending
@@ -156,7 +270,7 @@ func (a *Client) GetBanners(params *GetBannersParams, authInfo runtime.ClientAut
 		Method:             "GET",
 		PathPattern:        "/flow/banners",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetBannersReader{formats: a.formats},
@@ -167,12 +281,18 @@ func (a *Client) GetBanners(params *GetBannersParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetBannersOK), nil
-
+	success, ok := result.(*GetBannersOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getBanners: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetBuckets gets the buckets from the specified registry for the current user
+  GetBuckets gets the buckets from the specified registry for the current user
 */
 func (a *Client) GetBuckets(params *GetBucketsParams, authInfo runtime.ClientAuthInfoWriter) (*GetBucketsOK, error) {
 	// TODO: Validate the params before sending
@@ -185,7 +305,7 @@ func (a *Client) GetBuckets(params *GetBucketsParams, authInfo runtime.ClientAut
 		Method:             "GET",
 		PathPattern:        "/flow/registries/{id}/buckets",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetBucketsReader{formats: a.formats},
@@ -196,12 +316,18 @@ func (a *Client) GetBuckets(params *GetBucketsParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetBucketsOK), nil
-
+	success, ok := result.(*GetBucketsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getBuckets: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetBulletinBoard gets current bulletins
+  GetBulletinBoard gets current bulletins
 */
 func (a *Client) GetBulletinBoard(params *GetBulletinBoardParams, authInfo runtime.ClientAuthInfoWriter) (*GetBulletinBoardOK, error) {
 	// TODO: Validate the params before sending
@@ -214,7 +340,7 @@ func (a *Client) GetBulletinBoard(params *GetBulletinBoardParams, authInfo runti
 		Method:             "GET",
 		PathPattern:        "/flow/bulletin-board",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetBulletinBoardReader{formats: a.formats},
@@ -225,12 +351,18 @@ func (a *Client) GetBulletinBoard(params *GetBulletinBoardParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetBulletinBoardOK), nil
-
+	success, ok := result.(*GetBulletinBoardOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getBulletinBoard: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetBulletins retrieves controller level bulletins
+  GetBulletins retrieves controller level bulletins
 */
 func (a *Client) GetBulletins(params *GetBulletinsParams, authInfo runtime.ClientAuthInfoWriter) (*GetBulletinsOK, error) {
 	// TODO: Validate the params before sending
@@ -243,7 +375,7 @@ func (a *Client) GetBulletins(params *GetBulletinsParams, authInfo runtime.Clien
 		Method:             "GET",
 		PathPattern:        "/flow/controller/bulletins",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetBulletinsReader{formats: a.formats},
@@ -254,12 +386,18 @@ func (a *Client) GetBulletins(params *GetBulletinsParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetBulletinsOK), nil
-
+	success, ok := result.(*GetBulletinsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getBulletins: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetClusterSummary thes cluster summary for this ni fi
+  GetClusterSummary thes cluster summary for this ni fi
 */
 func (a *Client) GetClusterSummary(params *GetClusterSummaryParams, authInfo runtime.ClientAuthInfoWriter) (*GetClusterSummaryOK, error) {
 	// TODO: Validate the params before sending
@@ -272,7 +410,7 @@ func (a *Client) GetClusterSummary(params *GetClusterSummaryParams, authInfo run
 		Method:             "GET",
 		PathPattern:        "/flow/cluster/summary",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetClusterSummaryReader{formats: a.formats},
@@ -283,14 +421,20 @@ func (a *Client) GetClusterSummary(params *GetClusterSummaryParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetClusterSummaryOK), nil
-
+	success, ok := result.(*GetClusterSummaryOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getClusterSummary: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetComponentHistory gets configuration history for a component
+  GetComponentHistory gets configuration history for a component
 
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) GetComponentHistory(params *GetComponentHistoryParams, authInfo runtime.ClientAuthInfoWriter) (*GetComponentHistoryOK, error) {
 	// TODO: Validate the params before sending
@@ -303,7 +447,7 @@ func (a *Client) GetComponentHistory(params *GetComponentHistoryParams, authInfo
 		Method:             "GET",
 		PathPattern:        "/flow/history/components/{componentId}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetComponentHistoryReader{formats: a.formats},
@@ -314,12 +458,18 @@ func (a *Client) GetComponentHistory(params *GetComponentHistoryParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetComponentHistoryOK), nil
-
+	success, ok := result.(*GetComponentHistoryOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getComponentHistory: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetConnectionStatistics gets statistics for a connection
+  GetConnectionStatistics gets statistics for a connection
 */
 func (a *Client) GetConnectionStatistics(params *GetConnectionStatisticsParams, authInfo runtime.ClientAuthInfoWriter) (*GetConnectionStatisticsOK, error) {
 	// TODO: Validate the params before sending
@@ -332,7 +482,7 @@ func (a *Client) GetConnectionStatistics(params *GetConnectionStatisticsParams, 
 		Method:             "GET",
 		PathPattern:        "/flow/connections/{id}/statistics",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetConnectionStatisticsReader{formats: a.formats},
@@ -343,12 +493,18 @@ func (a *Client) GetConnectionStatistics(params *GetConnectionStatisticsParams, 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetConnectionStatisticsOK), nil
-
+	success, ok := result.(*GetConnectionStatisticsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getConnectionStatistics: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetConnectionStatus gets status for a connection
+  GetConnectionStatus gets status for a connection
 */
 func (a *Client) GetConnectionStatus(params *GetConnectionStatusParams, authInfo runtime.ClientAuthInfoWriter) (*GetConnectionStatusOK, error) {
 	// TODO: Validate the params before sending
@@ -361,7 +517,7 @@ func (a *Client) GetConnectionStatus(params *GetConnectionStatusParams, authInfo
 		Method:             "GET",
 		PathPattern:        "/flow/connections/{id}/status",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetConnectionStatusReader{formats: a.formats},
@@ -372,12 +528,18 @@ func (a *Client) GetConnectionStatus(params *GetConnectionStatusParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetConnectionStatusOK), nil
-
+	success, ok := result.(*GetConnectionStatusOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getConnectionStatus: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetConnectionStatusHistory gets the status history for a connection
+  GetConnectionStatusHistory gets the status history for a connection
 */
 func (a *Client) GetConnectionStatusHistory(params *GetConnectionStatusHistoryParams, authInfo runtime.ClientAuthInfoWriter) (*GetConnectionStatusHistoryOK, error) {
 	// TODO: Validate the params before sending
@@ -390,7 +552,7 @@ func (a *Client) GetConnectionStatusHistory(params *GetConnectionStatusHistoryPa
 		Method:             "GET",
 		PathPattern:        "/flow/connections/{id}/status/history",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetConnectionStatusHistoryReader{formats: a.formats},
@@ -401,14 +563,20 @@ func (a *Client) GetConnectionStatusHistory(params *GetConnectionStatusHistoryPa
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetConnectionStatusHistoryOK), nil
-
+	success, ok := result.(*GetConnectionStatusHistoryOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getConnectionStatusHistory: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetControllerServiceTypes retrieves the types of controller services that this ni fi supports
+  GetControllerServiceTypes retrieves the types of controller services that this ni fi supports
 
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) GetControllerServiceTypes(params *GetControllerServiceTypesParams, authInfo runtime.ClientAuthInfoWriter) (*GetControllerServiceTypesOK, error) {
 	// TODO: Validate the params before sending
@@ -421,7 +589,7 @@ func (a *Client) GetControllerServiceTypes(params *GetControllerServiceTypesPara
 		Method:             "GET",
 		PathPattern:        "/flow/controller-service-types",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetControllerServiceTypesReader{formats: a.formats},
@@ -432,12 +600,18 @@ func (a *Client) GetControllerServiceTypes(params *GetControllerServiceTypesPara
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetControllerServiceTypesOK), nil
-
+	success, ok := result.(*GetControllerServiceTypesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getControllerServiceTypes: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetControllerServicesFromController gets controller services for reporting tasks
+  GetControllerServicesFromController gets controller services for reporting tasks
 */
 func (a *Client) GetControllerServicesFromController(params *GetControllerServicesFromControllerParams, authInfo runtime.ClientAuthInfoWriter) (*GetControllerServicesFromControllerOK, error) {
 	// TODO: Validate the params before sending
@@ -450,7 +624,7 @@ func (a *Client) GetControllerServicesFromController(params *GetControllerServic
 		Method:             "GET",
 		PathPattern:        "/flow/controller/controller-services",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetControllerServicesFromControllerReader{formats: a.formats},
@@ -461,12 +635,18 @@ func (a *Client) GetControllerServicesFromController(params *GetControllerServic
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetControllerServicesFromControllerOK), nil
-
+	success, ok := result.(*GetControllerServicesFromControllerOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getControllerServicesFromController: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetControllerServicesFromGroup gets all controller services
+  GetControllerServicesFromGroup gets all controller services
 */
 func (a *Client) GetControllerServicesFromGroup(params *GetControllerServicesFromGroupParams, authInfo runtime.ClientAuthInfoWriter) (*GetControllerServicesFromGroupOK, error) {
 	// TODO: Validate the params before sending
@@ -479,7 +659,7 @@ func (a *Client) GetControllerServicesFromGroup(params *GetControllerServicesFro
 		Method:             "GET",
 		PathPattern:        "/flow/process-groups/{id}/controller-services",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetControllerServicesFromGroupReader{formats: a.formats},
@@ -490,12 +670,18 @@ func (a *Client) GetControllerServicesFromGroup(params *GetControllerServicesFro
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetControllerServicesFromGroupOK), nil
-
+	success, ok := result.(*GetControllerServicesFromGroupOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getControllerServicesFromGroup: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetControllerStatus gets the current status of this ni fi
+  GetControllerStatus gets the current status of this ni fi
 */
 func (a *Client) GetControllerStatus(params *GetControllerStatusParams, authInfo runtime.ClientAuthInfoWriter) (*GetControllerStatusOK, error) {
 	// TODO: Validate the params before sending
@@ -508,7 +694,7 @@ func (a *Client) GetControllerStatus(params *GetControllerStatusParams, authInfo
 		Method:             "GET",
 		PathPattern:        "/flow/status",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetControllerStatusReader{formats: a.formats},
@@ -519,12 +705,18 @@ func (a *Client) GetControllerStatus(params *GetControllerStatusParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetControllerStatusOK), nil
-
+	success, ok := result.(*GetControllerStatusOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getControllerStatus: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetCurrentUser retrieves the user identity of the user making the request
+  GetCurrentUser retrieves the user identity of the user making the request
 */
 func (a *Client) GetCurrentUser(params *GetCurrentUserParams, authInfo runtime.ClientAuthInfoWriter) (*GetCurrentUserOK, error) {
 	// TODO: Validate the params before sending
@@ -537,7 +729,7 @@ func (a *Client) GetCurrentUser(params *GetCurrentUserParams, authInfo runtime.C
 		Method:             "GET",
 		PathPattern:        "/flow/current-user",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetCurrentUserReader{formats: a.formats},
@@ -548,12 +740,18 @@ func (a *Client) GetCurrentUser(params *GetCurrentUserParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetCurrentUserOK), nil
-
+	success, ok := result.(*GetCurrentUserOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getCurrentUser: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetFlow gets a process group
+  GetFlow gets a process group
 */
 func (a *Client) GetFlow(params *GetFlowParams, authInfo runtime.ClientAuthInfoWriter) (*GetFlowOK, error) {
 	// TODO: Validate the params before sending
@@ -566,7 +764,7 @@ func (a *Client) GetFlow(params *GetFlowParams, authInfo runtime.ClientAuthInfoW
 		Method:             "GET",
 		PathPattern:        "/flow/process-groups/{id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetFlowReader{formats: a.formats},
@@ -577,12 +775,18 @@ func (a *Client) GetFlow(params *GetFlowParams, authInfo runtime.ClientAuthInfoW
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetFlowOK), nil
-
+	success, ok := result.(*GetFlowOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getFlow: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetFlowConfig retrieves the configuration for this ni fi flow
+  GetFlowConfig retrieves the configuration for this ni fi flow
 */
 func (a *Client) GetFlowConfig(params *GetFlowConfigParams, authInfo runtime.ClientAuthInfoWriter) (*GetFlowConfigOK, error) {
 	// TODO: Validate the params before sending
@@ -595,7 +799,7 @@ func (a *Client) GetFlowConfig(params *GetFlowConfigParams, authInfo runtime.Cli
 		Method:             "GET",
 		PathPattern:        "/flow/config",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetFlowConfigReader{formats: a.formats},
@@ -606,12 +810,18 @@ func (a *Client) GetFlowConfig(params *GetFlowConfigParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetFlowConfigOK), nil
-
+	success, ok := result.(*GetFlowConfigOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getFlowConfig: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetFlowMetrics gets all metrics for the flow from a particular node
+  GetFlowMetrics gets all metrics for the flow from a particular node
 */
 func (a *Client) GetFlowMetrics(params *GetFlowMetricsParams, authInfo runtime.ClientAuthInfoWriter) (*GetFlowMetricsOK, error) {
 	// TODO: Validate the params before sending
@@ -623,8 +833,8 @@ func (a *Client) GetFlowMetrics(params *GetFlowMetricsParams, authInfo runtime.C
 		ID:                 "getFlowMetrics",
 		Method:             "GET",
 		PathPattern:        "/flow/metrics/{producer}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{"*/*"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetFlowMetricsReader{formats: a.formats},
@@ -635,12 +845,18 @@ func (a *Client) GetFlowMetrics(params *GetFlowMetricsParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetFlowMetricsOK), nil
-
+	success, ok := result.(*GetFlowMetricsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getFlowMetrics: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetFlows gets the flows from the specified registry and bucket for the current user
+  GetFlows gets the flows from the specified registry and bucket for the current user
 */
 func (a *Client) GetFlows(params *GetFlowsParams, authInfo runtime.ClientAuthInfoWriter) (*GetFlowsOK, error) {
 	// TODO: Validate the params before sending
@@ -653,7 +869,7 @@ func (a *Client) GetFlows(params *GetFlowsParams, authInfo runtime.ClientAuthInf
 		Method:             "GET",
 		PathPattern:        "/flow/registries/{registry-id}/buckets/{bucket-id}/flows",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetFlowsReader{formats: a.formats},
@@ -664,12 +880,18 @@ func (a *Client) GetFlows(params *GetFlowsParams, authInfo runtime.ClientAuthInf
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetFlowsOK), nil
-
+	success, ok := result.(*GetFlowsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getFlows: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetInputPortStatus gets status for an input port
+  GetInputPortStatus gets status for an input port
 */
 func (a *Client) GetInputPortStatus(params *GetInputPortStatusParams, authInfo runtime.ClientAuthInfoWriter) (*GetInputPortStatusOK, error) {
 	// TODO: Validate the params before sending
@@ -682,7 +904,7 @@ func (a *Client) GetInputPortStatus(params *GetInputPortStatusParams, authInfo r
 		Method:             "GET",
 		PathPattern:        "/flow/input-ports/{id}/status",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetInputPortStatusReader{formats: a.formats},
@@ -693,12 +915,18 @@ func (a *Client) GetInputPortStatus(params *GetInputPortStatusParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetInputPortStatusOK), nil
-
+	success, ok := result.(*GetInputPortStatusOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getInputPortStatus: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetOutputPortStatus gets status for an output port
+  GetOutputPortStatus gets status for an output port
 */
 func (a *Client) GetOutputPortStatus(params *GetOutputPortStatusParams, authInfo runtime.ClientAuthInfoWriter) (*GetOutputPortStatusOK, error) {
 	// TODO: Validate the params before sending
@@ -711,7 +939,7 @@ func (a *Client) GetOutputPortStatus(params *GetOutputPortStatusParams, authInfo
 		Method:             "GET",
 		PathPattern:        "/flow/output-ports/{id}/status",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetOutputPortStatusReader{formats: a.formats},
@@ -722,12 +950,18 @@ func (a *Client) GetOutputPortStatus(params *GetOutputPortStatusParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetOutputPortStatusOK), nil
-
+	success, ok := result.(*GetOutputPortStatusOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getOutputPortStatus: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetParameterContexts gets all parameter contexts
+  GetParameterContexts gets all parameter contexts
 */
 func (a *Client) GetParameterContexts(params *GetParameterContextsParams, authInfo runtime.ClientAuthInfoWriter) (*GetParameterContextsOK, error) {
 	// TODO: Validate the params before sending
@@ -740,7 +974,7 @@ func (a *Client) GetParameterContexts(params *GetParameterContextsParams, authIn
 		Method:             "GET",
 		PathPattern:        "/flow/parameter-contexts",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetParameterContextsReader{formats: a.formats},
@@ -751,14 +985,20 @@ func (a *Client) GetParameterContexts(params *GetParameterContextsParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetParameterContextsOK), nil
-
+	success, ok := result.(*GetParameterContextsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getParameterContexts: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetPrioritizers retrieves the types of prioritizers that this ni fi supports
+  GetPrioritizers retrieves the types of prioritizers that this ni fi supports
 
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) GetPrioritizers(params *GetPrioritizersParams, authInfo runtime.ClientAuthInfoWriter) (*GetPrioritizersOK, error) {
 	// TODO: Validate the params before sending
@@ -771,7 +1011,7 @@ func (a *Client) GetPrioritizers(params *GetPrioritizersParams, authInfo runtime
 		Method:             "GET",
 		PathPattern:        "/flow/prioritizers",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetPrioritizersReader{formats: a.formats},
@@ -782,14 +1022,20 @@ func (a *Client) GetPrioritizers(params *GetPrioritizersParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetPrioritizersOK), nil
-
+	success, ok := result.(*GetPrioritizersOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getPrioritizers: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetProcessGroupStatus gets the status for a process group
+  GetProcessGroupStatus gets the status for a process group
 
-The status for a process group includes status for all descendent components. When invoked on the root group with recursive set to true, it will return the current status of every component in the flow.
+  The status for a process group includes status for all descendent components. When invoked on the root group with recursive set to true, it will return the current status of every component in the flow.
 */
 func (a *Client) GetProcessGroupStatus(params *GetProcessGroupStatusParams, authInfo runtime.ClientAuthInfoWriter) (*GetProcessGroupStatusOK, error) {
 	// TODO: Validate the params before sending
@@ -802,7 +1048,7 @@ func (a *Client) GetProcessGroupStatus(params *GetProcessGroupStatusParams, auth
 		Method:             "GET",
 		PathPattern:        "/flow/process-groups/{id}/status",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetProcessGroupStatusReader{formats: a.formats},
@@ -813,12 +1059,18 @@ func (a *Client) GetProcessGroupStatus(params *GetProcessGroupStatusParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetProcessGroupStatusOK), nil
-
+	success, ok := result.(*GetProcessGroupStatusOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getProcessGroupStatus: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetProcessGroupStatusHistory gets status history for a remote process group
+  GetProcessGroupStatusHistory gets status history for a remote process group
 */
 func (a *Client) GetProcessGroupStatusHistory(params *GetProcessGroupStatusHistoryParams, authInfo runtime.ClientAuthInfoWriter) (*GetProcessGroupStatusHistoryOK, error) {
 	// TODO: Validate the params before sending
@@ -831,7 +1083,7 @@ func (a *Client) GetProcessGroupStatusHistory(params *GetProcessGroupStatusHisto
 		Method:             "GET",
 		PathPattern:        "/flow/process-groups/{id}/status/history",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetProcessGroupStatusHistoryReader{formats: a.formats},
@@ -842,12 +1094,18 @@ func (a *Client) GetProcessGroupStatusHistory(params *GetProcessGroupStatusHisto
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetProcessGroupStatusHistoryOK), nil
-
+	success, ok := result.(*GetProcessGroupStatusHistoryOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getProcessGroupStatusHistory: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetProcessorStatus gets status for a processor
+  GetProcessorStatus gets status for a processor
 */
 func (a *Client) GetProcessorStatus(params *GetProcessorStatusParams, authInfo runtime.ClientAuthInfoWriter) (*GetProcessorStatusOK, error) {
 	// TODO: Validate the params before sending
@@ -860,7 +1118,7 @@ func (a *Client) GetProcessorStatus(params *GetProcessorStatusParams, authInfo r
 		Method:             "GET",
 		PathPattern:        "/flow/processors/{id}/status",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetProcessorStatusReader{formats: a.formats},
@@ -871,12 +1129,18 @@ func (a *Client) GetProcessorStatus(params *GetProcessorStatusParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetProcessorStatusOK), nil
-
+	success, ok := result.(*GetProcessorStatusOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getProcessorStatus: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetProcessorStatusHistory gets status history for a processor
+  GetProcessorStatusHistory gets status history for a processor
 */
 func (a *Client) GetProcessorStatusHistory(params *GetProcessorStatusHistoryParams, authInfo runtime.ClientAuthInfoWriter) (*GetProcessorStatusHistoryOK, error) {
 	// TODO: Validate the params before sending
@@ -889,7 +1153,7 @@ func (a *Client) GetProcessorStatusHistory(params *GetProcessorStatusHistoryPara
 		Method:             "GET",
 		PathPattern:        "/flow/processors/{id}/status/history",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetProcessorStatusHistoryReader{formats: a.formats},
@@ -900,14 +1164,20 @@ func (a *Client) GetProcessorStatusHistory(params *GetProcessorStatusHistoryPara
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetProcessorStatusHistoryOK), nil
-
+	success, ok := result.(*GetProcessorStatusHistoryOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getProcessorStatusHistory: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetProcessorTypes retrieves the types of processors that this ni fi supports
+  GetProcessorTypes retrieves the types of processors that this ni fi supports
 
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) GetProcessorTypes(params *GetProcessorTypesParams, authInfo runtime.ClientAuthInfoWriter) (*GetProcessorTypesOK, error) {
 	// TODO: Validate the params before sending
@@ -920,7 +1190,7 @@ func (a *Client) GetProcessorTypes(params *GetProcessorTypesParams, authInfo run
 		Method:             "GET",
 		PathPattern:        "/flow/processor-types",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetProcessorTypesReader{formats: a.formats},
@@ -931,12 +1201,18 @@ func (a *Client) GetProcessorTypes(params *GetProcessorTypesParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetProcessorTypesOK), nil
-
+	success, ok := result.(*GetProcessorTypesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getProcessorTypes: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetRegistries gets the listing of available registries
+  GetRegistries gets the listing of available registries
 */
 func (a *Client) GetRegistries(params *GetRegistriesParams, authInfo runtime.ClientAuthInfoWriter) (*GetRegistriesOK, error) {
 	// TODO: Validate the params before sending
@@ -949,7 +1225,7 @@ func (a *Client) GetRegistries(params *GetRegistriesParams, authInfo runtime.Cli
 		Method:             "GET",
 		PathPattern:        "/flow/registries",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetRegistriesReader{formats: a.formats},
@@ -960,12 +1236,18 @@ func (a *Client) GetRegistries(params *GetRegistriesParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetRegistriesOK), nil
-
+	success, ok := result.(*GetRegistriesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getRegistries: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetRemoteProcessGroupStatus gets status for a remote process group
+  GetRemoteProcessGroupStatus gets status for a remote process group
 */
 func (a *Client) GetRemoteProcessGroupStatus(params *GetRemoteProcessGroupStatusParams, authInfo runtime.ClientAuthInfoWriter) (*GetRemoteProcessGroupStatusOK, error) {
 	// TODO: Validate the params before sending
@@ -978,7 +1260,7 @@ func (a *Client) GetRemoteProcessGroupStatus(params *GetRemoteProcessGroupStatus
 		Method:             "GET",
 		PathPattern:        "/flow/remote-process-groups/{id}/status",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetRemoteProcessGroupStatusReader{formats: a.formats},
@@ -989,12 +1271,18 @@ func (a *Client) GetRemoteProcessGroupStatus(params *GetRemoteProcessGroupStatus
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetRemoteProcessGroupStatusOK), nil
-
+	success, ok := result.(*GetRemoteProcessGroupStatusOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getRemoteProcessGroupStatus: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetRemoteProcessGroupStatusHistory gets the status history
+  GetRemoteProcessGroupStatusHistory gets the status history
 */
 func (a *Client) GetRemoteProcessGroupStatusHistory(params *GetRemoteProcessGroupStatusHistoryParams, authInfo runtime.ClientAuthInfoWriter) (*GetRemoteProcessGroupStatusHistoryOK, error) {
 	// TODO: Validate the params before sending
@@ -1007,7 +1295,7 @@ func (a *Client) GetRemoteProcessGroupStatusHistory(params *GetRemoteProcessGrou
 		Method:             "GET",
 		PathPattern:        "/flow/remote-process-groups/{id}/status/history",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetRemoteProcessGroupStatusHistoryReader{formats: a.formats},
@@ -1018,14 +1306,20 @@ func (a *Client) GetRemoteProcessGroupStatusHistory(params *GetRemoteProcessGrou
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetRemoteProcessGroupStatusHistoryOK), nil
-
+	success, ok := result.(*GetRemoteProcessGroupStatusHistoryOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getRemoteProcessGroupStatusHistory: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetReportingTaskTypes retrieves the types of reporting tasks that this ni fi supports
+  GetReportingTaskTypes retrieves the types of reporting tasks that this ni fi supports
 
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) GetReportingTaskTypes(params *GetReportingTaskTypesParams, authInfo runtime.ClientAuthInfoWriter) (*GetReportingTaskTypesOK, error) {
 	// TODO: Validate the params before sending
@@ -1038,7 +1332,7 @@ func (a *Client) GetReportingTaskTypes(params *GetReportingTaskTypesParams, auth
 		Method:             "GET",
 		PathPattern:        "/flow/reporting-task-types",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetReportingTaskTypesReader{formats: a.formats},
@@ -1049,12 +1343,18 @@ func (a *Client) GetReportingTaskTypes(params *GetReportingTaskTypesParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetReportingTaskTypesOK), nil
-
+	success, ok := result.(*GetReportingTaskTypesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getReportingTaskTypes: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetReportingTasks gets all reporting tasks
+  GetReportingTasks gets all reporting tasks
 */
 func (a *Client) GetReportingTasks(params *GetReportingTasksParams, authInfo runtime.ClientAuthInfoWriter) (*GetReportingTasksOK, error) {
 	// TODO: Validate the params before sending
@@ -1067,7 +1367,7 @@ func (a *Client) GetReportingTasks(params *GetReportingTasksParams, authInfo run
 		Method:             "GET",
 		PathPattern:        "/flow/reporting-tasks",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetReportingTasksReader{formats: a.formats},
@@ -1078,12 +1378,18 @@ func (a *Client) GetReportingTasks(params *GetReportingTasksParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetReportingTasksOK), nil
-
+	success, ok := result.(*GetReportingTasksOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getReportingTasks: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetTemplates gets all templates
+  GetTemplates gets all templates
 */
 func (a *Client) GetTemplates(params *GetTemplatesParams, authInfo runtime.ClientAuthInfoWriter) (*GetTemplatesOK, error) {
 	// TODO: Validate the params before sending
@@ -1096,7 +1402,7 @@ func (a *Client) GetTemplates(params *GetTemplatesParams, authInfo runtime.Clien
 		Method:             "GET",
 		PathPattern:        "/flow/templates",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetTemplatesReader{formats: a.formats},
@@ -1107,12 +1413,18 @@ func (a *Client) GetTemplates(params *GetTemplatesParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetTemplatesOK), nil
-
+	success, ok := result.(*GetTemplatesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getTemplates: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetVersions gets the flow versions from the specified registry and bucket for the specified flow for the current user
+  GetVersions gets the flow versions from the specified registry and bucket for the specified flow for the current user
 */
 func (a *Client) GetVersions(params *GetVersionsParams, authInfo runtime.ClientAuthInfoWriter) (*GetVersionsOK, error) {
 	// TODO: Validate the params before sending
@@ -1125,7 +1437,7 @@ func (a *Client) GetVersions(params *GetVersionsParams, authInfo runtime.ClientA
 		Method:             "GET",
 		PathPattern:        "/flow/registries/{registry-id}/buckets/{bucket-id}/flows/{flow-id}/versions",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetVersionsReader{formats: a.formats},
@@ -1136,14 +1448,20 @@ func (a *Client) GetVersions(params *GetVersionsParams, authInfo runtime.ClientA
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetVersionsOK), nil
-
+	success, ok := result.(*GetVersionsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getVersions: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-QueryHistory gets configuration history
+  QueryHistory gets configuration history
 
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) QueryHistory(params *QueryHistoryParams, authInfo runtime.ClientAuthInfoWriter) (*QueryHistoryOK, error) {
 	// TODO: Validate the params before sending
@@ -1156,7 +1474,7 @@ func (a *Client) QueryHistory(params *QueryHistoryParams, authInfo runtime.Clien
 		Method:             "GET",
 		PathPattern:        "/flow/history",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &QueryHistoryReader{formats: a.formats},
@@ -1167,12 +1485,18 @@ func (a *Client) QueryHistory(params *QueryHistoryParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*QueryHistoryOK), nil
-
+	success, ok := result.(*QueryHistoryOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for queryHistory: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ScheduleComponents schedules or unschedule components in the specified process group
+  ScheduleComponents schedules or unschedule components in the specified process group
 */
 func (a *Client) ScheduleComponents(params *ScheduleComponentsParams, authInfo runtime.ClientAuthInfoWriter) (*ScheduleComponentsOK, error) {
 	// TODO: Validate the params before sending
@@ -1196,14 +1520,20 @@ func (a *Client) ScheduleComponents(params *ScheduleComponentsParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ScheduleComponentsOK), nil
-
+	success, ok := result.(*ScheduleComponentsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for scheduleComponents: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SearchCluster searches the cluster for a node with the specified address
+  SearchCluster searches the cluster for a node with the specified address
 
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) SearchCluster(params *SearchClusterParams, authInfo runtime.ClientAuthInfoWriter) (*SearchClusterOK, error) {
 	// TODO: Validate the params before sending
@@ -1216,7 +1546,7 @@ func (a *Client) SearchCluster(params *SearchClusterParams, authInfo runtime.Cli
 		Method:             "GET",
 		PathPattern:        "/flow/cluster/search-results",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &SearchClusterReader{formats: a.formats},
@@ -1227,14 +1557,20 @@ func (a *Client) SearchCluster(params *SearchClusterParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SearchClusterOK), nil
-
+	success, ok := result.(*SearchClusterOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for searchCluster: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SearchFlow performs a search against this ni fi using the specified search term
+  SearchFlow performs a search against this ni fi using the specified search term
 
-Only search results from authorized components will be returned.
+  Only search results from authorized components will be returned.
 */
 func (a *Client) SearchFlow(params *SearchFlowParams, authInfo runtime.ClientAuthInfoWriter) (*SearchFlowOK, error) {
 	// TODO: Validate the params before sending
@@ -1247,7 +1583,7 @@ func (a *Client) SearchFlow(params *SearchFlowParams, authInfo runtime.ClientAut
 		Method:             "GET",
 		PathPattern:        "/flow/search-results",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &SearchFlowReader{formats: a.formats},
@@ -1258,8 +1594,14 @@ func (a *Client) SearchFlow(params *SearchFlowParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SearchFlowOK), nil
-
+	success, ok := result.(*SearchFlowOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for searchFlow: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

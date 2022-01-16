@@ -8,19 +8,18 @@ package models
 import (
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // UserDTO user d t o
+//
 // swagger:model UserDTO
 type UserDTO struct {
 
 	// The access policies this user belongs to.
-	// Read Only: true
 	// Unique: true
 	AccessPolicies []*AccessPolicySummaryEntity `json:"accessPolicies"`
 
@@ -40,7 +39,6 @@ type UserDTO struct {
 	Position *PositionDTO `json:"position,omitempty"`
 
 	// The groups to which the user belongs. This field is read only and it provided for convenience.
-	// Read Only: true
 	// Unique: true
 	UserGroups []*TenantEntity `json:"userGroups"`
 

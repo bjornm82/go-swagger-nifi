@@ -8,14 +8,14 @@ package models
 import (
 	"encoding/json"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // VersionControlInformationDTO version control information d t o
+//
 // swagger:model VersionControlInformationDTO
 type VersionControlInformationDTO struct {
 
@@ -23,7 +23,6 @@ type VersionControlInformationDTO struct {
 	BucketID string `json:"bucketId,omitempty"`
 
 	// The name of the bucket that the flow is stored in
-	// Read Only: true
 	BucketName string `json:"bucketName,omitempty"`
 
 	// The description of the flow
@@ -42,16 +41,13 @@ type VersionControlInformationDTO struct {
 	RegistryID string `json:"registryId,omitempty"`
 
 	// The name of the registry that the flow is stored in
-	// Read Only: true
 	RegistryName string `json:"registryName,omitempty"`
 
 	// The current state of the Process Group, as it relates to the Versioned Flow
-	// Read Only: true
 	// Enum: [LOCALLY_MODIFIED STALE LOCALLY_MODIFIED_AND_STALE UP_TO_DATE SYNC_FAILURE]
 	State string `json:"state,omitempty"`
 
 	// Explanation of why the group is in the specified state
-	// Read Only: true
 	StateExplanation string `json:"stateExplanation,omitempty"`
 
 	// The version of the flow
@@ -104,7 +100,7 @@ const (
 
 // prop value enum
 func (m *VersionControlInformationDTO) validateStateEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, versionControlInformationDTOTypeStatePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, versionControlInformationDTOTypeStatePropEnum, true); err != nil {
 		return err
 	}
 	return nil

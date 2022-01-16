@@ -6,19 +6,18 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // PortStatusEntity port status entity
+//
 // swagger:model PortStatusEntity
 type PortStatusEntity struct {
 
 	// Indicates whether the user can read a given resource.
-	// Read Only: true
-	CanRead *bool `json:"canRead,omitempty"`
+	CanRead bool `json:"canRead,omitempty"`
 
 	// port status
 	PortStatus *PortStatusDTO `json:"portStatus,omitempty"`

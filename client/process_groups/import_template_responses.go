@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // ImportTemplateReader is a Reader for the ImportTemplate structure.
@@ -24,35 +23,30 @@ type ImportTemplateReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ImportTemplateReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewImportTemplateCreated()
+	case 200:
+		result := NewImportTemplateOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewImportTemplateBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewImportTemplateUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewImportTemplateForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewImportTemplateConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -65,24 +59,28 @@ func (o *ImportTemplateReader) ReadResponse(response runtime.ClientResponse, con
 	}
 }
 
-// NewImportTemplateCreated creates a ImportTemplateCreated with default headers values
-func NewImportTemplateCreated() *ImportTemplateCreated {
-	return &ImportTemplateCreated{}
+// NewImportTemplateOK creates a ImportTemplateOK with default headers values
+func NewImportTemplateOK() *ImportTemplateOK {
+	return &ImportTemplateOK{}
 }
 
-/*ImportTemplateCreated handles this case with default header values.
+/*ImportTemplateOK handles this case with default header values.
 
 successful operation
 */
-type ImportTemplateCreated struct {
+type ImportTemplateOK struct {
 	Payload *models.TemplateEntity
 }
 
-func (o *ImportTemplateCreated) Error() string {
-	return fmt.Sprintf("[POST /process-groups/{id}/templates/import][%d] importTemplateCreated  %+v", 201, o.Payload)
+func (o *ImportTemplateOK) Error() string {
+	return fmt.Sprintf("[POST /process-groups/{id}/templates/import][%d] importTemplateOK  %+v", 200, o.Payload)
 }
 
-func (o *ImportTemplateCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *ImportTemplateOK) GetPayload() *models.TemplateEntity {
+	return o.Payload
+}
+
+func (o *ImportTemplateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.TemplateEntity)
 

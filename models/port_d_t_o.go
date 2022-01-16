@@ -8,14 +8,14 @@ package models
 import (
 	"encoding/json"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // PortDTO port d t o
+//
 // swagger:model PortDTO
 type PortDTO struct {
 
@@ -153,7 +153,7 @@ const (
 
 // prop value enum
 func (m *PortDTO) validateStateEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, portDTOTypeStatePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, portDTOTypeStatePropEnum, true); err != nil {
 		return err
 	}
 	return nil
@@ -196,7 +196,7 @@ const (
 
 // prop value enum
 func (m *PortDTO) validateTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, portDTOTypeTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, portDTOTypeTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil

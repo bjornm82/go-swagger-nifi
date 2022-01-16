@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // GetResourcesReader is a Reader for the GetResources structure.
@@ -24,21 +23,18 @@ type GetResourcesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetResourcesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetResourcesOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 401:
 		result := NewGetResourcesUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetResourcesForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -66,6 +62,10 @@ type GetResourcesOK struct {
 
 func (o *GetResourcesOK) Error() string {
 	return fmt.Sprintf("[GET /resources][%d] getResourcesOK  %+v", 200, o.Payload)
+}
+
+func (o *GetResourcesOK) GetPayload() *models.ResourcesEntity {
+	return o.Payload
 }
 
 func (o *GetResourcesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

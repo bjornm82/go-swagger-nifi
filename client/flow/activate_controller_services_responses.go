@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // ActivateControllerServicesReader is a Reader for the ActivateControllerServices structure.
@@ -24,42 +23,36 @@ type ActivateControllerServicesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ActivateControllerServicesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewActivateControllerServicesOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewActivateControllerServicesBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewActivateControllerServicesUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewActivateControllerServicesForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewActivateControllerServicesNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewActivateControllerServicesConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -87,6 +80,10 @@ type ActivateControllerServicesOK struct {
 
 func (o *ActivateControllerServicesOK) Error() string {
 	return fmt.Sprintf("[PUT /flow/process-groups/{id}/controller-services][%d] activateControllerServicesOK  %+v", 200, o.Payload)
+}
+
+func (o *ActivateControllerServicesOK) GetPayload() *models.ActivateControllerServicesEntity {
+	return o.Payload
 }
 
 func (o *ActivateControllerServicesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // CreateTemplateReader is a Reader for the CreateTemplate structure.
@@ -24,42 +23,36 @@ type CreateTemplateReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateTemplateReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewCreateTemplateCreated()
+	case 200:
+		result := NewCreateTemplateOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateTemplateBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewCreateTemplateUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewCreateTemplateForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewCreateTemplateNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewCreateTemplateConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -72,24 +65,28 @@ func (o *CreateTemplateReader) ReadResponse(response runtime.ClientResponse, con
 	}
 }
 
-// NewCreateTemplateCreated creates a CreateTemplateCreated with default headers values
-func NewCreateTemplateCreated() *CreateTemplateCreated {
-	return &CreateTemplateCreated{}
+// NewCreateTemplateOK creates a CreateTemplateOK with default headers values
+func NewCreateTemplateOK() *CreateTemplateOK {
+	return &CreateTemplateOK{}
 }
 
-/*CreateTemplateCreated handles this case with default header values.
+/*CreateTemplateOK handles this case with default header values.
 
 successful operation
 */
-type CreateTemplateCreated struct {
+type CreateTemplateOK struct {
 	Payload *models.TemplateEntity
 }
 
-func (o *CreateTemplateCreated) Error() string {
-	return fmt.Sprintf("[POST /process-groups/{id}/templates][%d] createTemplateCreated  %+v", 201, o.Payload)
+func (o *CreateTemplateOK) Error() string {
+	return fmt.Sprintf("[POST /process-groups/{id}/templates][%d] createTemplateOK  %+v", 200, o.Payload)
 }
 
-func (o *CreateTemplateCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateTemplateOK) GetPayload() *models.TemplateEntity {
+	return o.Payload
+}
+
+func (o *CreateTemplateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.TemplateEntity)
 

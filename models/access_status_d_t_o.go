@@ -6,25 +6,22 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // AccessStatusDTO access status d t o
+//
 // swagger:model AccessStatusDTO
 type AccessStatusDTO struct {
 
 	// The user identity.
-	// Read Only: true
 	Identity string `json:"identity,omitempty"`
 
 	// Additional details about the user access status.
-	// Read Only: true
 	Message string `json:"message,omitempty"`
 
 	// The user access status.
-	// Read Only: true
 	Status string `json:"status,omitempty"`
 }
 

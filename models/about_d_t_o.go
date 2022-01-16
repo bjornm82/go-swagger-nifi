@@ -6,12 +6,12 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // AboutDTO about d t o
+//
 // swagger:model AboutDTO
 type AboutDTO struct {
 
@@ -31,7 +31,6 @@ type AboutDTO struct {
 	ContentViewerURL string `json:"contentViewerUrl,omitempty"`
 
 	// The timezone of the NiFi instance.
-	// Read Only: true
 	Timezone string `json:"timezone,omitempty"`
 
 	// The title to be used on the page and in the about dialog.

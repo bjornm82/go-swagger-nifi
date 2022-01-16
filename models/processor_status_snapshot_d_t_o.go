@@ -8,14 +8,14 @@ package models
 import (
 	"encoding/json"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ProcessorStatusSnapshotDTO processor status snapshot d t o
+//
 // swagger:model ProcessorStatusSnapshotDTO
 type ProcessorStatusSnapshotDTO struct {
 
@@ -129,7 +129,7 @@ const (
 
 // prop value enum
 func (m *ProcessorStatusSnapshotDTO) validateExecutionNodeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, processorStatusSnapshotDTOTypeExecutionNodePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, processorStatusSnapshotDTOTypeExecutionNodePropEnum, true); err != nil {
 		return err
 	}
 	return nil
@@ -181,7 +181,7 @@ const (
 
 // prop value enum
 func (m *ProcessorStatusSnapshotDTO) validateRunStatusEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, processorStatusSnapshotDTOTypeRunStatusPropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, processorStatusSnapshotDTOTypeRunStatusPropEnum, true); err != nil {
 		return err
 	}
 	return nil

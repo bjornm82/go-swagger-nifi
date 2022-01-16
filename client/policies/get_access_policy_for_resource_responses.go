@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // GetAccessPolicyForResourceReader is a Reader for the GetAccessPolicyForResource structure.
@@ -24,42 +23,36 @@ type GetAccessPolicyForResourceReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetAccessPolicyForResourceReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetAccessPolicyForResourceOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetAccessPolicyForResourceBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetAccessPolicyForResourceUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetAccessPolicyForResourceForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetAccessPolicyForResourceNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetAccessPolicyForResourceConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -87,6 +80,10 @@ type GetAccessPolicyForResourceOK struct {
 
 func (o *GetAccessPolicyForResourceOK) Error() string {
 	return fmt.Sprintf("[GET /policies/{action}/{resource}][%d] getAccessPolicyForResourceOK  %+v", 200, o.Payload)
+}
+
+func (o *GetAccessPolicyForResourceOK) GetPayload() *models.AccessPolicyEntity {
+	return o.Payload
 }
 
 func (o *GetAccessPolicyForResourceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

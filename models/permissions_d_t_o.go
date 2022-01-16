@@ -6,22 +6,20 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // PermissionsDTO permissions d t o
+//
 // swagger:model PermissionsDTO
 type PermissionsDTO struct {
 
 	// Indicates whether the user can read a given resource.
-	// Read Only: true
-	CanRead *bool `json:"canRead,omitempty"`
+	CanRead bool `json:"canRead,omitempty"`
 
 	// Indicates whether the user can write a given resource.
-	// Read Only: true
-	CanWrite *bool `json:"canWrite,omitempty"`
+	CanWrite bool `json:"canWrite,omitempty"`
 }
 
 // Validate validates this permissions d t o

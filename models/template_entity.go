@@ -8,13 +8,13 @@ package models
 import (
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // TemplateEntity template entity
+//
 // swagger:model TemplateEntity
 type TemplateEntity struct {
 

@@ -10,8 +10,7 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // ExportTemplateReader is a Reader for the ExportTemplate structure.
@@ -22,42 +21,36 @@ type ExportTemplateReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ExportTemplateReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewExportTemplateOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewExportTemplateBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewExportTemplateUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewExportTemplateForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewExportTemplateNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewExportTemplateConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -85,6 +78,10 @@ type ExportTemplateOK struct {
 
 func (o *ExportTemplateOK) Error() string {
 	return fmt.Sprintf("[GET /templates/{id}/download][%d] exportTemplateOK  %+v", 200, o.Payload)
+}
+
+func (o *ExportTemplateOK) GetPayload() string {
+	return o.Payload
 }
 
 func (o *ExportTemplateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -6,13 +6,14 @@ package versions
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new versions API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,12 +25,45 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-/*
-CreateVersionControlRequest creates a version control request
+// ClientService is the interface for Client methods
+type ClientService interface {
+	CreateVersionControlRequest(params *CreateVersionControlRequestParams, authInfo runtime.ClientAuthInfoWriter) (*CreateVersionControlRequestOK, error)
 
-Creates a request so that a Process Group can be placed under Version Control or have its Version Control configuration changed. Creating this request will prevent any other threads from simultaneously saving local changes to Version Control. It will not, however, actually save the local flow to the Flow Registry. A POST to /versions/process-groups/{id} should be used to initiate saving of the local flow to the Flow Registry. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+	DeleteRevertRequest(params *DeleteRevertRequestParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteRevertRequestOK, error)
+
+	DeleteUpdateRequestVersions(params *DeleteUpdateRequestVersionsParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteUpdateRequestVersionsOK, error)
+
+	DeleteVersionControlRequest(params *DeleteVersionControlRequestParams, authInfo runtime.ClientAuthInfoWriter) error
+
+	ExportFlowVersion(params *ExportFlowVersionParams, authInfo runtime.ClientAuthInfoWriter) (*ExportFlowVersionOK, error)
+
+	GetRevertRequest(params *GetRevertRequestParams, authInfo runtime.ClientAuthInfoWriter) (*GetRevertRequestOK, error)
+
+	GetUpdateRequest(params *GetUpdateRequestParams, authInfo runtime.ClientAuthInfoWriter) (*GetUpdateRequestOK, error)
+
+	GetVersionInformation(params *GetVersionInformationParams, authInfo runtime.ClientAuthInfoWriter) (*GetVersionInformationOK, error)
+
+	InitiateRevertFlowVersion(params *InitiateRevertFlowVersionParams, authInfo runtime.ClientAuthInfoWriter) (*InitiateRevertFlowVersionOK, error)
+
+	InitiateVersionControlUpdate(params *InitiateVersionControlUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*InitiateVersionControlUpdateOK, error)
+
+	SaveToFlowRegistry(params *SaveToFlowRegistryParams, authInfo runtime.ClientAuthInfoWriter) (*SaveToFlowRegistryOK, error)
+
+	StopVersionControl(params *StopVersionControlParams, authInfo runtime.ClientAuthInfoWriter) (*StopVersionControlOK, error)
+
+	UpdateFlowVersion(params *UpdateFlowVersionParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateFlowVersionOK, error)
+
+	UpdateVersionControlRequest(params *UpdateVersionControlRequestParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateVersionControlRequestOK, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+  CreateVersionControlRequest creates a version control request
+
+  Creates a request so that a Process Group can be placed under Version Control or have its Version Control configuration changed. Creating this request will prevent any other threads from simultaneously saving local changes to Version Control. It will not, however, actually save the local flow to the Flow Registry. A POST to /versions/process-groups/{id} should be used to initiate saving of the local flow to the Flow Registry. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
-func (a *Client) CreateVersionControlRequest(params *CreateVersionControlRequestParams, authInfo runtime.ClientAuthInfoWriter) (*CreateVersionControlRequestCreated, error) {
+func (a *Client) CreateVersionControlRequest(params *CreateVersionControlRequestParams, authInfo runtime.ClientAuthInfoWriter) (*CreateVersionControlRequestOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateVersionControlRequestParams()
@@ -51,14 +85,20 @@ func (a *Client) CreateVersionControlRequest(params *CreateVersionControlRequest
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateVersionControlRequestCreated), nil
-
+	success, ok := result.(*CreateVersionControlRequestOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createVersionControlRequest: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteRevertRequest deletes the revert request with the given ID
+  DeleteRevertRequest deletes the revert request with the given ID
 
-Deletes the Revert Request with the given ID. After a request is created via a POST to /versions/revert-requests/process-groups/{id}, it is expected that the client will properly clean up the request by DELETE'ing it, once the Revert process has completed. If the request is deleted before the request completes, then the Revert request will finish the step that it is currently performing and then will cancel any subsequent steps. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Deletes the Revert Request with the given ID. After a request is created via a POST to /versions/revert-requests/process-groups/{id}, it is expected that the client will properly clean up the request by DELETE'ing it, once the Revert process has completed. If the request is deleted before the request completes, then the Revert request will finish the step that it is currently performing and then will cancel any subsequent steps. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) DeleteRevertRequest(params *DeleteRevertRequestParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteRevertRequestOK, error) {
 	// TODO: Validate the params before sending
@@ -71,7 +111,7 @@ func (a *Client) DeleteRevertRequest(params *DeleteRevertRequestParams, authInfo
 		Method:             "DELETE",
 		PathPattern:        "/versions/revert-requests/{id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &DeleteRevertRequestReader{formats: a.formats},
@@ -82,14 +122,57 @@ func (a *Client) DeleteRevertRequest(params *DeleteRevertRequestParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteRevertRequestOK), nil
-
+	success, ok := result.(*DeleteRevertRequestOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for deleteRevertRequest: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteVersionControlRequest deletes the version control request with the given ID
+  DeleteUpdateRequestVersions deletes the update request with the given ID
 
-Deletes the Version Control Request with the given ID. This will allow other threads to save flows to the Flow Registry. See also the documentation for POSTing to /versions/active-requests for information regarding why this is done. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Deletes the Update Request with the given ID. After a request is created via a POST to /versions/update-requests/process-groups/{id}, it is expected that the client will properly clean up the request by DELETE'ing it, once the Update process has completed. If the request is deleted before the request completes, then the Update request will finish the step that it is currently performing and then will cancel any subsequent steps. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+*/
+func (a *Client) DeleteUpdateRequestVersions(params *DeleteUpdateRequestVersionsParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteUpdateRequestVersionsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteUpdateRequestVersionsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "deleteUpdateRequestVersions",
+		Method:             "DELETE",
+		PathPattern:        "/versions/update-requests/{id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &DeleteUpdateRequestVersionsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteUpdateRequestVersionsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for deleteUpdateRequestVersions: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DeleteVersionControlRequest deletes the version control request with the given ID
+
+  Deletes the Version Control Request with the given ID. This will allow other threads to save flows to the Flow Registry. See also the documentation for POSTing to /versions/active-requests for information regarding why this is done. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) DeleteVersionControlRequest(params *DeleteVersionControlRequestParams, authInfo runtime.ClientAuthInfoWriter) error {
 	// TODO: Validate the params before sending
@@ -102,7 +185,7 @@ func (a *Client) DeleteVersionControlRequest(params *DeleteVersionControlRequest
 		Method:             "DELETE",
 		PathPattern:        "/versions/active-requests/{id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &DeleteVersionControlRequestReader{formats: a.formats},
@@ -114,11 +197,10 @@ func (a *Client) DeleteVersionControlRequest(params *DeleteVersionControlRequest
 		return err
 	}
 	return nil
-
 }
 
 /*
-ExportFlowVersion gets the latest version of a process group for download
+  ExportFlowVersion gets the latest version of a process group for download
 */
 func (a *Client) ExportFlowVersion(params *ExportFlowVersionParams, authInfo runtime.ClientAuthInfoWriter) (*ExportFlowVersionOK, error) {
 	// TODO: Validate the params before sending
@@ -131,7 +213,7 @@ func (a *Client) ExportFlowVersion(params *ExportFlowVersionParams, authInfo run
 		Method:             "GET",
 		PathPattern:        "/versions/process-groups/{id}/download",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &ExportFlowVersionReader{formats: a.formats},
@@ -142,14 +224,20 @@ func (a *Client) ExportFlowVersion(params *ExportFlowVersionParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ExportFlowVersionOK), nil
-
+	success, ok := result.(*ExportFlowVersionOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for exportFlowVersion: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetRevertRequest returns the revert request with the given ID
+  GetRevertRequest returns the revert request with the given ID
 
-Returns the Revert Request with the given ID. Once a Revert Request has been created by performing a POST to /versions/revert-requests/process-groups/{id}, that request can subsequently be retrieved via this endpoint, and the request that is fetched will contain the updated state, such as percent complete, the current state of the request, and any failures. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Returns the Revert Request with the given ID. Once a Revert Request has been created by performing a POST to /versions/revert-requests/process-groups/{id}, that request can subsequently be retrieved via this endpoint, and the request that is fetched will contain the updated state, such as percent complete, the current state of the request, and any failures. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) GetRevertRequest(params *GetRevertRequestParams, authInfo runtime.ClientAuthInfoWriter) (*GetRevertRequestOK, error) {
 	// TODO: Validate the params before sending
@@ -162,7 +250,7 @@ func (a *Client) GetRevertRequest(params *GetRevertRequestParams, authInfo runti
 		Method:             "GET",
 		PathPattern:        "/versions/revert-requests/{id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetRevertRequestReader{formats: a.formats},
@@ -173,14 +261,20 @@ func (a *Client) GetRevertRequest(params *GetRevertRequestParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetRevertRequestOK), nil
-
+	success, ok := result.(*GetRevertRequestOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getRevertRequest: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetUpdateRequest returns the update request with the given ID
+  GetUpdateRequest returns the update request with the given ID
 
-Returns the Update Request with the given ID. Once an Update Request has been created by performing a POST to /versions/update-requests/process-groups/{id}, that request can subsequently be retrieved via this endpoint, and the request that is fetched will contain the updated state, such as percent complete, the current state of the request, and any failures. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Returns the Update Request with the given ID. Once an Update Request has been created by performing a POST to /versions/update-requests/process-groups/{id}, that request can subsequently be retrieved via this endpoint, and the request that is fetched will contain the updated state, such as percent complete, the current state of the request, and any failures. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) GetUpdateRequest(params *GetUpdateRequestParams, authInfo runtime.ClientAuthInfoWriter) (*GetUpdateRequestOK, error) {
 	// TODO: Validate the params before sending
@@ -193,7 +287,7 @@ func (a *Client) GetUpdateRequest(params *GetUpdateRequestParams, authInfo runti
 		Method:             "GET",
 		PathPattern:        "/versions/update-requests/{id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetUpdateRequestReader{formats: a.formats},
@@ -204,14 +298,20 @@ func (a *Client) GetUpdateRequest(params *GetUpdateRequestParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetUpdateRequestOK), nil
-
+	success, ok := result.(*GetUpdateRequestOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getUpdateRequest: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetVersionInformation gets the version control information for a process group
+  GetVersionInformation gets the version control information for a process group
 
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) GetVersionInformation(params *GetVersionInformationParams, authInfo runtime.ClientAuthInfoWriter) (*GetVersionInformationOK, error) {
 	// TODO: Validate the params before sending
@@ -224,7 +324,7 @@ func (a *Client) GetVersionInformation(params *GetVersionInformationParams, auth
 		Method:             "GET",
 		PathPattern:        "/versions/process-groups/{id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetVersionInformationReader{formats: a.formats},
@@ -235,16 +335,22 @@ func (a *Client) GetVersionInformation(params *GetVersionInformationParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetVersionInformationOK), nil
-
+	success, ok := result.(*GetVersionInformationOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getVersionInformation: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-InitiateRevertFlowVersion initiates the revert request of a process group with the given ID
+  InitiateRevertFlowVersion initiates the revert request of a process group with the given ID
 
-For a Process Group that is already under Version Control, this will initiate the action of reverting any local changes that have been made to the Process Group since it was last synchronized with the Flow Registry. This will result in the flow matching the Versioned Flow that exists in the Flow Registry. This can be a lengthy process, as it will stop any Processors and disable any Controller Services necessary to perform the action and then restart them. As a result, the endpoint will immediately return a VersionedFlowUpdateRequestEntity, and the process of updating the flow will occur asynchronously in the background. The client may then periodically poll the status of the request by issuing a GET request to /versions/revert-requests/{requestId}. Once the request is completed, the client is expected to issue a DELETE request to /versions/revert-requests/{requestId}. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  For a Process Group that is already under Version Control, this will initiate the action of reverting any local changes that have been made to the Process Group since it was last synchronized with the Flow Registry. This will result in the flow matching the Versioned Flow that exists in the Flow Registry. This can be a lengthy process, as it will stop any Processors and disable any Controller Services necessary to perform the action and then restart them. As a result, the endpoint will immediately return a VersionedFlowUpdateRequestEntity, and the process of updating the flow will occur asynchronously in the background. The client may then periodically poll the status of the request by issuing a GET request to /versions/revert-requests/{requestId}. Once the request is completed, the client is expected to issue a DELETE request to /versions/revert-requests/{requestId}. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
-func (a *Client) InitiateRevertFlowVersion(params *InitiateRevertFlowVersionParams, authInfo runtime.ClientAuthInfoWriter) (*InitiateRevertFlowVersionCreated, error) {
+func (a *Client) InitiateRevertFlowVersion(params *InitiateRevertFlowVersionParams, authInfo runtime.ClientAuthInfoWriter) (*InitiateRevertFlowVersionOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewInitiateRevertFlowVersionParams()
@@ -266,16 +372,22 @@ func (a *Client) InitiateRevertFlowVersion(params *InitiateRevertFlowVersionPara
 	if err != nil {
 		return nil, err
 	}
-	return result.(*InitiateRevertFlowVersionCreated), nil
-
+	success, ok := result.(*InitiateRevertFlowVersionOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for initiateRevertFlowVersion: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-InitiateVersionControlUpdate initiates the update request of a process group with the given ID
+  InitiateVersionControlUpdate initiates the update request of a process group with the given ID
 
-For a Process Group that is already under Version Control, this will initiate the action of changing from a specific version of the flow in the Flow Registry to a different version of the flow. This can be a lengthy process, as it will stop any Processors and disable any Controller Services necessary to perform the action and then restart them. As a result, the endpoint will immediately return a VersionedFlowUpdateRequestEntity, and the process of updating the flow will occur asynchronously in the background. The client may then periodically poll the status of the request by issuing a GET request to /versions/update-requests/{requestId}. Once the request is completed, the client is expected to issue a DELETE request to /versions/update-requests/{requestId}. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  For a Process Group that is already under Version Control, this will initiate the action of changing from a specific version of the flow in the Flow Registry to a different version of the flow. This can be a lengthy process, as it will stop any Processors and disable any Controller Services necessary to perform the action and then restart them. As a result, the endpoint will immediately return a VersionedFlowUpdateRequestEntity, and the process of updating the flow will occur asynchronously in the background. The client may then periodically poll the status of the request by issuing a GET request to /versions/update-requests/{requestId}. Once the request is completed, the client is expected to issue a DELETE request to /versions/update-requests/{requestId}. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
-func (a *Client) InitiateVersionControlUpdate(params *InitiateVersionControlUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*InitiateVersionControlUpdateCreated, error) {
+func (a *Client) InitiateVersionControlUpdate(params *InitiateVersionControlUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*InitiateVersionControlUpdateOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewInitiateVersionControlUpdateParams()
@@ -297,16 +409,22 @@ func (a *Client) InitiateVersionControlUpdate(params *InitiateVersionControlUpda
 	if err != nil {
 		return nil, err
 	}
-	return result.(*InitiateVersionControlUpdateCreated), nil
-
+	success, ok := result.(*InitiateVersionControlUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for initiateVersionControlUpdate: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SaveToFlowRegistry saves the process group with the given ID
+  SaveToFlowRegistry saves the process group with the given ID
 
-Begins version controlling the Process Group with the given ID or commits changes to the Versioned Flow, depending on if the provided VersionControlInformation includes a flowId. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Begins version controlling the Process Group with the given ID or commits changes to the Versioned Flow, depending on if the provided VersionControlInformation includes a flowId. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
-func (a *Client) SaveToFlowRegistry(params *SaveToFlowRegistryParams, authInfo runtime.ClientAuthInfoWriter) (*SaveToFlowRegistryCreated, error) {
+func (a *Client) SaveToFlowRegistry(params *SaveToFlowRegistryParams, authInfo runtime.ClientAuthInfoWriter) (*SaveToFlowRegistryOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSaveToFlowRegistryParams()
@@ -328,14 +446,20 @@ func (a *Client) SaveToFlowRegistry(params *SaveToFlowRegistryParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SaveToFlowRegistryCreated), nil
-
+	success, ok := result.(*SaveToFlowRegistryOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for saveToFlowRegistry: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StopVersionControl stops version controlling the process group with the given ID
+  StopVersionControl stops version controlling the process group with the given ID
 
-Stops version controlling the Process Group with the given ID. The Process Group will no longer track to any Versioned Flow. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Stops version controlling the Process Group with the given ID. The Process Group will no longer track to any Versioned Flow. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) StopVersionControl(params *StopVersionControlParams, authInfo runtime.ClientAuthInfoWriter) (*StopVersionControlOK, error) {
 	// TODO: Validate the params before sending
@@ -348,7 +472,7 @@ func (a *Client) StopVersionControl(params *StopVersionControlParams, authInfo r
 		Method:             "DELETE",
 		PathPattern:        "/versions/process-groups/{id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &StopVersionControlReader{formats: a.formats},
@@ -359,14 +483,20 @@ func (a *Client) StopVersionControl(params *StopVersionControlParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StopVersionControlOK), nil
-
+	success, ok := result.(*StopVersionControlOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for stopVersionControl: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateFlowVersion updates the version of a process group with the given ID
+  UpdateFlowVersion updates the version of a process group with the given ID
 
-For a Process Group that is already under Version Control, this will update the version of the flow to a different version. This endpoint expects that the given snapshot will not modify any Processor that is currently running or any Controller Service that is enabled. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  For a Process Group that is already under Version Control, this will update the version of the flow to a different version. This endpoint expects that the given snapshot will not modify any Processor that is currently running or any Controller Service that is enabled. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) UpdateFlowVersion(params *UpdateFlowVersionParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateFlowVersionOK, error) {
 	// TODO: Validate the params before sending
@@ -390,14 +520,20 @@ func (a *Client) UpdateFlowVersion(params *UpdateFlowVersionParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateFlowVersionOK), nil
-
+	success, ok := result.(*UpdateFlowVersionOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateFlowVersion: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateVersionControlRequest updates the request with the given ID
+  UpdateVersionControlRequest updates the request with the given ID
 
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) UpdateVersionControlRequest(params *UpdateVersionControlRequestParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateVersionControlRequestOK, error) {
 	// TODO: Validate the params before sending
@@ -421,39 +557,14 @@ func (a *Client) UpdateVersionControlRequest(params *UpdateVersionControlRequest
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateVersionControlRequestOK), nil
-
-}
-
-/*
-VersionsDeleteUpdateRequest deletes the update request with the given ID
-
-Deletes the Update Request with the given ID. After a request is created via a POST to /versions/update-requests/process-groups/{id}, it is expected that the client will properly clean up the request by DELETE'ing it, once the Update process has completed. If the request is deleted before the request completes, then the Update request will finish the step that it is currently performing and then will cancel any subsequent steps. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
-*/
-func (a *Client) VersionsDeleteUpdateRequest(params *VersionsDeleteUpdateRequestParams, authInfo runtime.ClientAuthInfoWriter) (*VersionsDeleteUpdateRequestOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewVersionsDeleteUpdateRequestParams()
+	success, ok := result.(*UpdateVersionControlRequestOK)
+	if ok {
+		return success, nil
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "versionsDeleteUpdateRequest",
-		Method:             "DELETE",
-		PathPattern:        "/versions/update-requests/{id}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &VersionsDeleteUpdateRequestReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*VersionsDeleteUpdateRequestOK), nil
-
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateVersionControlRequest: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

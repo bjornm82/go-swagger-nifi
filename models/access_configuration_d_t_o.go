@@ -6,18 +6,17 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // AccessConfigurationDTO access configuration d t o
+//
 // swagger:model AccessConfigurationDTO
 type AccessConfigurationDTO struct {
 
 	// Indicates whether or not this NiFi supports user login.
-	// Read Only: true
-	SupportsLogin *bool `json:"supportsLogin,omitempty"`
+	SupportsLogin bool `json:"supportsLogin,omitempty"`
 }
 
 // Validate validates this access configuration d t o

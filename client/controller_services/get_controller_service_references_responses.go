@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // GetControllerServiceReferencesReader is a Reader for the GetControllerServiceReferences structure.
@@ -24,42 +23,36 @@ type GetControllerServiceReferencesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetControllerServiceReferencesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetControllerServiceReferencesOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetControllerServiceReferencesBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetControllerServiceReferencesUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetControllerServiceReferencesForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetControllerServiceReferencesNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetControllerServiceReferencesConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -87,6 +80,10 @@ type GetControllerServiceReferencesOK struct {
 
 func (o *GetControllerServiceReferencesOK) Error() string {
 	return fmt.Sprintf("[GET /controller-services/{id}/references][%d] getControllerServiceReferencesOK  %+v", 200, o.Payload)
+}
+
+func (o *GetControllerServiceReferencesOK) GetPayload() *models.ControllerServiceReferencingComponentsEntity {
+	return o.Payload
 }
 
 func (o *GetControllerServiceReferencesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

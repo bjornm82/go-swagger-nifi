@@ -6,13 +6,13 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // AllowableValueEntity allowable value entity
+//
 // swagger:model AllowableValueEntity
 type AllowableValueEntity struct {
 
@@ -20,8 +20,7 @@ type AllowableValueEntity struct {
 	AllowableValue *AllowableValueDTO `json:"allowableValue,omitempty"`
 
 	// Indicates whether the user can read a given resource.
-	// Read Only: true
-	CanRead *bool `json:"canRead,omitempty"`
+	CanRead bool `json:"canRead,omitempty"`
 }
 
 // Validate validates this allowable value entity

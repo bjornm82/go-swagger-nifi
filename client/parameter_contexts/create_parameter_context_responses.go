@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // CreateParameterContextReader is a Reader for the CreateParameterContext structure.
@@ -24,42 +23,36 @@ type CreateParameterContextReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateParameterContextReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewCreateParameterContextCreated()
+	case 200:
+		result := NewCreateParameterContextOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateParameterContextBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewCreateParameterContextUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewCreateParameterContextForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewCreateParameterContextNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewCreateParameterContextConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -72,24 +65,28 @@ func (o *CreateParameterContextReader) ReadResponse(response runtime.ClientRespo
 	}
 }
 
-// NewCreateParameterContextCreated creates a CreateParameterContextCreated with default headers values
-func NewCreateParameterContextCreated() *CreateParameterContextCreated {
-	return &CreateParameterContextCreated{}
+// NewCreateParameterContextOK creates a CreateParameterContextOK with default headers values
+func NewCreateParameterContextOK() *CreateParameterContextOK {
+	return &CreateParameterContextOK{}
 }
 
-/*CreateParameterContextCreated handles this case with default header values.
+/*CreateParameterContextOK handles this case with default header values.
 
 successful operation
 */
-type CreateParameterContextCreated struct {
+type CreateParameterContextOK struct {
 	Payload *models.ParameterContextEntity
 }
 
-func (o *CreateParameterContextCreated) Error() string {
-	return fmt.Sprintf("[POST /parameter-contexts][%d] createParameterContextCreated  %+v", 201, o.Payload)
+func (o *CreateParameterContextOK) Error() string {
+	return fmt.Sprintf("[POST /parameter-contexts][%d] createParameterContextOK  %+v", 200, o.Payload)
 }
 
-func (o *CreateParameterContextCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateParameterContextOK) GetPayload() *models.ParameterContextEntity {
+	return o.Payload
+}
+
+func (o *CreateParameterContextOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ParameterContextEntity)
 

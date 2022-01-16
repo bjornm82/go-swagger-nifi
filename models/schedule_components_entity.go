@@ -8,14 +8,14 @@ package models
 import (
 	"encoding/json"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ScheduleComponentsEntity schedule components entity
+//
 // swagger:model ScheduleComponentsEntity
 type ScheduleComponentsEntity struct {
 
@@ -102,7 +102,7 @@ const (
 
 // prop value enum
 func (m *ScheduleComponentsEntity) validateStateEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, scheduleComponentsEntityTypeStatePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, scheduleComponentsEntityTypeStatePropEnum, true); err != nil {
 		return err
 	}
 	return nil

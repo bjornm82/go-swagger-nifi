@@ -9,8 +9,7 @@ import (
 	"fmt"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // LogOutReader is a Reader for the LogOut structure.
@@ -21,21 +20,18 @@ type LogOutReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *LogOutReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewLogOutOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 401:
 		result := NewLogOutUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewLogOutInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {

@@ -6,16 +6,14 @@ package reporting_tasks
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"net/http"
 	"time"
-
-	"golang.org/x/net/context"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // NewGetReportingTaskParams creates a new GetReportingTaskParams object

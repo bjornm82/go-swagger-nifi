@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // ReplaceProcessGroupReader is a Reader for the ReplaceProcessGroup structure.
@@ -24,42 +23,36 @@ type ReplaceProcessGroupReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ReplaceProcessGroupReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewReplaceProcessGroupOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewReplaceProcessGroupBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewReplaceProcessGroupUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewReplaceProcessGroupForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewReplaceProcessGroupNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewReplaceProcessGroupConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -87,6 +80,10 @@ type ReplaceProcessGroupOK struct {
 
 func (o *ReplaceProcessGroupOK) Error() string {
 	return fmt.Sprintf("[PUT /process-groups/{id}/flow-contents][%d] replaceProcessGroupOK  %+v", 200, o.Payload)
+}
+
+func (o *ReplaceProcessGroupOK) GetPayload() *models.ProcessGroupImportEntity {
+	return o.Payload
 }
 
 func (o *ReplaceProcessGroupOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

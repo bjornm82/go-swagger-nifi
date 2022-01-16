@@ -6,19 +6,18 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // ProcessGroupStatusEntity process group status entity
+//
 // swagger:model ProcessGroupStatusEntity
 type ProcessGroupStatusEntity struct {
 
 	// Indicates whether the user can read a given resource.
-	// Read Only: true
-	CanRead *bool `json:"canRead,omitempty"`
+	CanRead bool `json:"canRead,omitempty"`
 
 	// process group status
 	ProcessGroupStatus *ProcessGroupStatusDTO `json:"processGroupStatus,omitempty"`

@@ -8,19 +8,18 @@ package models
 import (
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // VariableDTO variable d t o
+//
 // swagger:model VariableDTO
 type VariableDTO struct {
 
 	// A set of all components that will be affected if the value of this variable is changed
-	// Read Only: true
 	// Unique: true
 	AffectedComponents []*AffectedComponentEntity `json:"affectedComponents"`
 
@@ -28,7 +27,6 @@ type VariableDTO struct {
 	Name string `json:"name,omitempty"`
 
 	// The ID of the Process Group where this Variable is defined
-	// Read Only: true
 	ProcessGroupID string `json:"processGroupId,omitempty"`
 
 	// The value of the variable

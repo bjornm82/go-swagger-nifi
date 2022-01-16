@@ -6,13 +6,14 @@ package data_transfer
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new data transfer API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,8 +25,27 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	CommitInputPortTransaction(params *CommitInputPortTransactionParams, authInfo runtime.ClientAuthInfoWriter) (*CommitInputPortTransactionOK, error)
+
+	CommitOutputPortTransaction(params *CommitOutputPortTransactionParams, authInfo runtime.ClientAuthInfoWriter) (*CommitOutputPortTransactionOK, error)
+
+	CreatePortTransaction(params *CreatePortTransactionParams, authInfo runtime.ClientAuthInfoWriter) (*CreatePortTransactionOK, error)
+
+	ExtendInputPortTransactionTTL(params *ExtendInputPortTransactionTTLParams, authInfo runtime.ClientAuthInfoWriter) (*ExtendInputPortTransactionTTLOK, error)
+
+	ExtendOutputPortTransactionTTL(params *ExtendOutputPortTransactionTTLParams, authInfo runtime.ClientAuthInfoWriter) (*ExtendOutputPortTransactionTTLOK, error)
+
+	ReceiveFlowFiles(params *ReceiveFlowFilesParams, authInfo runtime.ClientAuthInfoWriter) (*ReceiveFlowFilesOK, error)
+
+	TransferFlowFiles(params *TransferFlowFilesParams, authInfo runtime.ClientAuthInfoWriter) (*TransferFlowFilesOK, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-CommitInputPortTransaction commits or cancel the specified transaction
+  CommitInputPortTransaction commits or cancel the specified transaction
 */
 func (a *Client) CommitInputPortTransaction(params *CommitInputPortTransactionParams, authInfo runtime.ClientAuthInfoWriter) (*CommitInputPortTransactionOK, error) {
 	// TODO: Validate the params before sending
@@ -49,12 +69,18 @@ func (a *Client) CommitInputPortTransaction(params *CommitInputPortTransactionPa
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CommitInputPortTransactionOK), nil
-
+	success, ok := result.(*CommitInputPortTransactionOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for commitInputPortTransaction: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-CommitOutputPortTransaction commits or cancel the specified transaction
+  CommitOutputPortTransaction commits or cancel the specified transaction
 */
 func (a *Client) CommitOutputPortTransaction(params *CommitOutputPortTransactionParams, authInfo runtime.ClientAuthInfoWriter) (*CommitOutputPortTransactionOK, error) {
 	// TODO: Validate the params before sending
@@ -78,14 +104,20 @@ func (a *Client) CommitOutputPortTransaction(params *CommitOutputPortTransaction
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CommitOutputPortTransactionOK), nil
-
+	success, ok := result.(*CommitOutputPortTransactionOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for commitOutputPortTransaction: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-CreatePortTransaction creates a transaction to the specified output port or input port
+  CreatePortTransaction creates a transaction to the specified output port or input port
 */
-func (a *Client) CreatePortTransaction(params *CreatePortTransactionParams, authInfo runtime.ClientAuthInfoWriter) (*CreatePortTransactionCreated, error) {
+func (a *Client) CreatePortTransaction(params *CreatePortTransactionParams, authInfo runtime.ClientAuthInfoWriter) (*CreatePortTransactionOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreatePortTransactionParams()
@@ -96,7 +128,7 @@ func (a *Client) CreatePortTransaction(params *CreatePortTransactionParams, auth
 		Method:             "POST",
 		PathPattern:        "/data-transfer/{portType}/{portId}/transactions",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &CreatePortTransactionReader{formats: a.formats},
@@ -107,12 +139,18 @@ func (a *Client) CreatePortTransaction(params *CreatePortTransactionParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreatePortTransactionCreated), nil
-
+	success, ok := result.(*CreatePortTransactionOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createPortTransaction: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ExtendInputPortTransactionTTL extends transaction TTL
+  ExtendInputPortTransactionTTL extends transaction TTL
 */
 func (a *Client) ExtendInputPortTransactionTTL(params *ExtendInputPortTransactionTTLParams, authInfo runtime.ClientAuthInfoWriter) (*ExtendInputPortTransactionTTLOK, error) {
 	// TODO: Validate the params before sending
@@ -125,7 +163,7 @@ func (a *Client) ExtendInputPortTransactionTTL(params *ExtendInputPortTransactio
 		Method:             "PUT",
 		PathPattern:        "/data-transfer/input-ports/{portId}/transactions/{transactionId}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &ExtendInputPortTransactionTTLReader{formats: a.formats},
@@ -136,12 +174,18 @@ func (a *Client) ExtendInputPortTransactionTTL(params *ExtendInputPortTransactio
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ExtendInputPortTransactionTTLOK), nil
-
+	success, ok := result.(*ExtendInputPortTransactionTTLOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extendInputPortTransactionTTL: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ExtendOutputPortTransactionTTL extends transaction TTL
+  ExtendOutputPortTransactionTTL extends transaction TTL
 */
 func (a *Client) ExtendOutputPortTransactionTTL(params *ExtendOutputPortTransactionTTLParams, authInfo runtime.ClientAuthInfoWriter) (*ExtendOutputPortTransactionTTLOK, error) {
 	// TODO: Validate the params before sending
@@ -154,7 +198,7 @@ func (a *Client) ExtendOutputPortTransactionTTL(params *ExtendOutputPortTransact
 		Method:             "PUT",
 		PathPattern:        "/data-transfer/output-ports/{portId}/transactions/{transactionId}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &ExtendOutputPortTransactionTTLReader{formats: a.formats},
@@ -165,14 +209,20 @@ func (a *Client) ExtendOutputPortTransactionTTL(params *ExtendOutputPortTransact
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ExtendOutputPortTransactionTTLOK), nil
-
+	success, ok := result.(*ExtendOutputPortTransactionTTLOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for extendOutputPortTransactionTTL: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ReceiveFlowFiles transfers flow files to the input port
+  ReceiveFlowFiles transfers flow files to the input port
 */
-func (a *Client) ReceiveFlowFiles(params *ReceiveFlowFilesParams, authInfo runtime.ClientAuthInfoWriter) (*ReceiveFlowFilesCreated, error) {
+func (a *Client) ReceiveFlowFiles(params *ReceiveFlowFilesParams, authInfo runtime.ClientAuthInfoWriter) (*ReceiveFlowFilesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewReceiveFlowFilesParams()
@@ -194,12 +244,18 @@ func (a *Client) ReceiveFlowFiles(params *ReceiveFlowFilesParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ReceiveFlowFilesCreated), nil
-
+	success, ok := result.(*ReceiveFlowFilesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for receiveFlowFiles: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-TransferFlowFiles transfers flow files from the output port
+  TransferFlowFiles transfers flow files from the output port
 */
 func (a *Client) TransferFlowFiles(params *TransferFlowFilesParams, authInfo runtime.ClientAuthInfoWriter) (*TransferFlowFilesOK, error) {
 	// TODO: Validate the params before sending
@@ -212,7 +268,7 @@ func (a *Client) TransferFlowFiles(params *TransferFlowFilesParams, authInfo run
 		Method:             "GET",
 		PathPattern:        "/data-transfer/output-ports/{portId}/transactions/{transactionId}/flow-files",
 		ProducesMediaTypes: []string{"application/octet-stream"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &TransferFlowFilesReader{formats: a.formats},
@@ -223,8 +279,14 @@ func (a *Client) TransferFlowFiles(params *TransferFlowFilesParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*TransferFlowFilesOK), nil
-
+	success, ok := result.(*TransferFlowFilesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for transferFlowFiles: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

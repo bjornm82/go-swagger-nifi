@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // GetCurrentUserReader is a Reader for the GetCurrentUser structure.
@@ -24,7 +23,6 @@ type GetCurrentUserReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetCurrentUserReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetCurrentUserOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -52,6 +50,10 @@ type GetCurrentUserOK struct {
 
 func (o *GetCurrentUserOK) Error() string {
 	return fmt.Sprintf("[GET /flow/current-user][%d] getCurrentUserOK  %+v", 200, o.Payload)
+}
+
+func (o *GetCurrentUserOK) GetPayload() *models.CurrentUserEntity {
+	return o.Payload
 }
 
 func (o *GetCurrentUserOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

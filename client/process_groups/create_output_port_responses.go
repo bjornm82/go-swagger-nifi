@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // CreateOutputPortReader is a Reader for the CreateOutputPort structure.
@@ -24,42 +23,36 @@ type CreateOutputPortReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateOutputPortReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewCreateOutputPortCreated()
+	case 200:
+		result := NewCreateOutputPortOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateOutputPortBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewCreateOutputPortUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewCreateOutputPortForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewCreateOutputPortNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewCreateOutputPortConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -72,24 +65,28 @@ func (o *CreateOutputPortReader) ReadResponse(response runtime.ClientResponse, c
 	}
 }
 
-// NewCreateOutputPortCreated creates a CreateOutputPortCreated with default headers values
-func NewCreateOutputPortCreated() *CreateOutputPortCreated {
-	return &CreateOutputPortCreated{}
+// NewCreateOutputPortOK creates a CreateOutputPortOK with default headers values
+func NewCreateOutputPortOK() *CreateOutputPortOK {
+	return &CreateOutputPortOK{}
 }
 
-/*CreateOutputPortCreated handles this case with default header values.
+/*CreateOutputPortOK handles this case with default header values.
 
 successful operation
 */
-type CreateOutputPortCreated struct {
+type CreateOutputPortOK struct {
 	Payload *models.PortEntity
 }
 
-func (o *CreateOutputPortCreated) Error() string {
-	return fmt.Sprintf("[POST /process-groups/{id}/output-ports][%d] createOutputPortCreated  %+v", 201, o.Payload)
+func (o *CreateOutputPortOK) Error() string {
+	return fmt.Sprintf("[POST /process-groups/{id}/output-ports][%d] createOutputPortOK  %+v", 200, o.Payload)
 }
 
-func (o *CreateOutputPortCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateOutputPortOK) GetPayload() *models.PortEntity {
+	return o.Payload
+}
+
+func (o *CreateOutputPortOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.PortEntity)
 

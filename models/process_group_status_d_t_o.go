@@ -8,13 +8,13 @@ package models
 import (
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // ProcessGroupStatusDTO process group status d t o
+//
 // swagger:model ProcessGroupStatusDTO
 type ProcessGroupStatusDTO struct {
 

@@ -10,8 +10,7 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // CreateDownloadTokenReader is a Reader for the CreateDownloadToken structure.
@@ -22,28 +21,24 @@ type CreateDownloadTokenReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateDownloadTokenReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewCreateDownloadTokenCreated()
+	case 200:
+		result := NewCreateDownloadTokenOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 403:
 		result := NewCreateDownloadTokenForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewCreateDownloadTokenConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewCreateDownloadTokenInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -56,24 +51,28 @@ func (o *CreateDownloadTokenReader) ReadResponse(response runtime.ClientResponse
 	}
 }
 
-// NewCreateDownloadTokenCreated creates a CreateDownloadTokenCreated with default headers values
-func NewCreateDownloadTokenCreated() *CreateDownloadTokenCreated {
-	return &CreateDownloadTokenCreated{}
+// NewCreateDownloadTokenOK creates a CreateDownloadTokenOK with default headers values
+func NewCreateDownloadTokenOK() *CreateDownloadTokenOK {
+	return &CreateDownloadTokenOK{}
 }
 
-/*CreateDownloadTokenCreated handles this case with default header values.
+/*CreateDownloadTokenOK handles this case with default header values.
 
 successful operation
 */
-type CreateDownloadTokenCreated struct {
+type CreateDownloadTokenOK struct {
 	Payload string
 }
 
-func (o *CreateDownloadTokenCreated) Error() string {
-	return fmt.Sprintf("[POST /access/download-token][%d] createDownloadTokenCreated  %+v", 201, o.Payload)
+func (o *CreateDownloadTokenOK) Error() string {
+	return fmt.Sprintf("[POST /access/download-token][%d] createDownloadTokenOK  %+v", 200, o.Payload)
 }
 
-func (o *CreateDownloadTokenCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateDownloadTokenOK) GetPayload() string {
+	return o.Payload
+}
+
+func (o *CreateDownloadTokenOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

@@ -8,14 +8,14 @@ package models
 import (
 	"encoding/json"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // AccessPolicySummaryDTO access policy summary d t o
+//
 // swagger:model AccessPolicySummaryDTO
 type AccessPolicySummaryDTO struct {
 
@@ -90,7 +90,7 @@ const (
 
 // prop value enum
 func (m *AccessPolicySummaryDTO) validateActionEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, accessPolicySummaryDTOTypeActionPropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, accessPolicySummaryDTOTypeActionPropEnum, true); err != nil {
 		return err
 	}
 	return nil

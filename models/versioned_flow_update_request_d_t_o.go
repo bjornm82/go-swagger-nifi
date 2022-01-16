@@ -6,49 +6,41 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // VersionedFlowUpdateRequestDTO versioned flow update request d t o
+//
 // swagger:model VersionedFlowUpdateRequestDTO
 type VersionedFlowUpdateRequestDTO struct {
 
 	// Whether or not this request has completed
-	// Read Only: true
-	Complete *bool `json:"complete,omitempty"`
+	Complete bool `json:"complete,omitempty"`
 
 	// An explanation of why this request failed, or null if this request has not failed
-	// Read Only: true
 	FailureReason string `json:"failureReason,omitempty"`
 
 	// The last time this request was updated.
-	// Read Only: true
 	LastUpdated string `json:"lastUpdated,omitempty"`
 
 	// The percentage complete for the request, between 0 and 100
-	// Read Only: true
 	PercentCompleted int32 `json:"percentCompleted,omitempty"`
 
 	// The unique ID of the Process Group being updated
 	ProcessGroupID string `json:"processGroupId,omitempty"`
 
 	// The unique ID of this request.
-	// Read Only: true
 	RequestID string `json:"requestId,omitempty"`
 
 	// The state of the request
-	// Read Only: true
 	State string `json:"state,omitempty"`
 
 	// The URI for future requests to this drop request.
-	// Read Only: true
 	URI string `json:"uri,omitempty"`
 
 	// The VersionControlInformation that describes where the Versioned Flow is located; this may not be populated until the request is completed.
-	// Read Only: true
 	VersionControlInformation *VersionControlInformationDTO `json:"versionControlInformation,omitempty"`
 }
 

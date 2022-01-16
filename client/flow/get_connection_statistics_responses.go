@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // GetConnectionStatisticsReader is a Reader for the GetConnectionStatistics structure.
@@ -24,42 +23,36 @@ type GetConnectionStatisticsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetConnectionStatisticsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetConnectionStatisticsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetConnectionStatisticsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetConnectionStatisticsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetConnectionStatisticsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetConnectionStatisticsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetConnectionStatisticsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -87,6 +80,10 @@ type GetConnectionStatisticsOK struct {
 
 func (o *GetConnectionStatisticsOK) Error() string {
 	return fmt.Sprintf("[GET /flow/connections/{id}/statistics][%d] getConnectionStatisticsOK  %+v", 200, o.Payload)
+}
+
+func (o *GetConnectionStatisticsOK) GetPayload() *models.ConnectionStatisticsEntity {
+	return o.Payload
 }
 
 func (o *GetConnectionStatisticsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

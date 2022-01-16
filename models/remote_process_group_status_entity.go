@@ -6,19 +6,18 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // RemoteProcessGroupStatusEntity remote process group status entity
+//
 // swagger:model RemoteProcessGroupStatusEntity
 type RemoteProcessGroupStatusEntity struct {
 
 	// Indicates whether the user can read a given resource.
-	// Read Only: true
-	CanRead *bool `json:"canRead,omitempty"`
+	CanRead bool `json:"canRead,omitempty"`
 
 	// remote process group status
 	RemoteProcessGroupStatus *RemoteProcessGroupStatusDTO `json:"remoteProcessGroupStatus,omitempty"`

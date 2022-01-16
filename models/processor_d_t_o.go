@@ -9,14 +9,14 @@ import (
 	"encoding/json"
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ProcessorDTO processor d t o
+//
 // swagger:model ProcessorDTO
 type ProcessorDTO struct {
 
@@ -60,7 +60,6 @@ type ProcessorDTO struct {
 	Position *PositionDTO `json:"position,omitempty"`
 
 	// The available relationships that the processor currently supports.
-	// Read Only: true
 	Relationships []*RelationshipDTO `json:"relationships"`
 
 	// Whether the processor requires elevated privileges.
@@ -89,7 +88,6 @@ type ProcessorDTO struct {
 	ValidationErrors []string `json:"validationErrors"`
 
 	// Indicates whether the Processor is valid, invalid, or still in the process of validating (i.e., it is unknown whether or not the Processor is valid)
-	// Read Only: true
 	// Enum: [VALID INVALID VALIDATING]
 	ValidationStatus string `json:"validationStatus,omitempty"`
 
@@ -236,7 +234,7 @@ const (
 
 // prop value enum
 func (m *ProcessorDTO) validateStateEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, processorDTOTypeStatePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, processorDTOTypeStatePropEnum, true); err != nil {
 		return err
 	}
 	return nil
@@ -282,7 +280,7 @@ const (
 
 // prop value enum
 func (m *ProcessorDTO) validateValidationStatusEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, processorDTOTypeValidationStatusPropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, processorDTOTypeValidationStatusPropEnum, true); err != nil {
 		return err
 	}
 	return nil

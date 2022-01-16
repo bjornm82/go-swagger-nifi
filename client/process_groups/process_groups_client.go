@@ -6,13 +6,14 @@ package process_groups
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new process groups API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,10 +25,95 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	CopySnippet(params *CopySnippetParams, authInfo runtime.ClientAuthInfoWriter) (*CopySnippetOK, error)
+
+	CreateConnection(params *CreateConnectionParams, authInfo runtime.ClientAuthInfoWriter) (*CreateConnectionOK, error)
+
+	CreateControllerServiceProcessGroups(params *CreateControllerServiceProcessGroupsParams, authInfo runtime.ClientAuthInfoWriter) (*CreateControllerServiceProcessGroupsOK, error)
+
+	CreateEmptyAllConnectionsRequest(params *CreateEmptyAllConnectionsRequestParams, authInfo runtime.ClientAuthInfoWriter) (*CreateEmptyAllConnectionsRequestOK, *CreateEmptyAllConnectionsRequestAccepted, error)
+
+	CreateFunnel(params *CreateFunnelParams, authInfo runtime.ClientAuthInfoWriter) (*CreateFunnelOK, error)
+
+	CreateInputPort(params *CreateInputPortParams, authInfo runtime.ClientAuthInfoWriter) (*CreateInputPortOK, error)
+
+	CreateLabel(params *CreateLabelParams, authInfo runtime.ClientAuthInfoWriter) (*CreateLabelOK, error)
+
+	CreateOutputPort(params *CreateOutputPortParams, authInfo runtime.ClientAuthInfoWriter) (*CreateOutputPortOK, error)
+
+	CreateProcessGroup(params *CreateProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*CreateProcessGroupOK, error)
+
+	CreateProcessor(params *CreateProcessorParams, authInfo runtime.ClientAuthInfoWriter) (*CreateProcessorOK, error)
+
+	CreateRemoteProcessGroup(params *CreateRemoteProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*CreateRemoteProcessGroupOK, error)
+
+	CreateTemplate(params *CreateTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTemplateOK, error)
+
+	DeleteReplaceProcessGroupRequest(params *DeleteReplaceProcessGroupRequestParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteReplaceProcessGroupRequestOK, error)
+
+	DeleteVariableRegistryUpdateRequest(params *DeleteVariableRegistryUpdateRequestParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteVariableRegistryUpdateRequestOK, error)
+
+	ExportProcessGroup(params *ExportProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*ExportProcessGroupOK, error)
+
+	GetConnections(params *GetConnectionsParams, authInfo runtime.ClientAuthInfoWriter) (*GetConnectionsOK, error)
+
+	GetDropAllFlowfilesRequest(params *GetDropAllFlowfilesRequestParams, authInfo runtime.ClientAuthInfoWriter) (*GetDropAllFlowfilesRequestOK, error)
+
+	GetFunnels(params *GetFunnelsParams, authInfo runtime.ClientAuthInfoWriter) (*GetFunnelsOK, error)
+
+	GetInputPorts(params *GetInputPortsParams, authInfo runtime.ClientAuthInfoWriter) (*GetInputPortsOK, error)
+
+	GetLabels(params *GetLabelsParams, authInfo runtime.ClientAuthInfoWriter) (*GetLabelsOK, error)
+
+	GetLocalModifications(params *GetLocalModificationsParams, authInfo runtime.ClientAuthInfoWriter) (*GetLocalModificationsOK, error)
+
+	GetOutputPorts(params *GetOutputPortsParams, authInfo runtime.ClientAuthInfoWriter) (*GetOutputPortsOK, error)
+
+	GetProcessGroup(params *GetProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*GetProcessGroupOK, error)
+
+	GetProcessGroups(params *GetProcessGroupsParams, authInfo runtime.ClientAuthInfoWriter) (*GetProcessGroupsOK, error)
+
+	GetProcessors(params *GetProcessorsParams, authInfo runtime.ClientAuthInfoWriter) (*GetProcessorsOK, error)
+
+	GetRemoteProcessGroups(params *GetRemoteProcessGroupsParams, authInfo runtime.ClientAuthInfoWriter) (*GetRemoteProcessGroupsOK, error)
+
+	GetReplaceProcessGroupRequest(params *GetReplaceProcessGroupRequestParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplaceProcessGroupRequestOK, error)
+
+	GetVariableRegistry(params *GetVariableRegistryParams, authInfo runtime.ClientAuthInfoWriter) (*GetVariableRegistryOK, error)
+
+	GetVariableRegistryUpdateRequest(params *GetVariableRegistryUpdateRequestParams, authInfo runtime.ClientAuthInfoWriter) (*GetVariableRegistryUpdateRequestOK, error)
+
+	ImportProcessGroup(params *ImportProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*ImportProcessGroupOK, error)
+
+	ImportTemplate(params *ImportTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*ImportTemplateOK, error)
+
+	InitiateReplaceProcessGroup(params *InitiateReplaceProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*InitiateReplaceProcessGroupOK, error)
+
+	InstantiateTemplate(params *InstantiateTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*InstantiateTemplateOK, error)
+
+	RemoveDropRequestProcessGroups(params *RemoveDropRequestProcessGroupsParams, authInfo runtime.ClientAuthInfoWriter) (*RemoveDropRequestProcessGroupsOK, error)
+
+	RemoveProcessGroup(params *RemoveProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*RemoveProcessGroupOK, error)
+
+	ReplaceProcessGroup(params *ReplaceProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*ReplaceProcessGroupOK, error)
+
+	SubmitUpdateVariableRegistryRequest(params *SubmitUpdateVariableRegistryRequestParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitUpdateVariableRegistryRequestOK, error)
+
+	UpdateProcessGroup(params *UpdateProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateProcessGroupOK, error)
+
+	UpdateVariableRegistry(params *UpdateVariableRegistryParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateVariableRegistryOK, error)
+
+	UploadTemplate(params *UploadTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*UploadTemplateOK, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-CopySnippet copies a snippet and discards it
+  CopySnippet copies a snippet and discards it
 */
-func (a *Client) CopySnippet(params *CopySnippetParams, authInfo runtime.ClientAuthInfoWriter) (*CopySnippetCreated, error) {
+func (a *Client) CopySnippet(params *CopySnippetParams, authInfo runtime.ClientAuthInfoWriter) (*CopySnippetOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCopySnippetParams()
@@ -49,14 +135,20 @@ func (a *Client) CopySnippet(params *CopySnippetParams, authInfo runtime.ClientA
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CopySnippetCreated), nil
-
+	success, ok := result.(*CopySnippetOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for copySnippet: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-CreateConnection creates a connection
+  CreateConnection creates a connection
 */
-func (a *Client) CreateConnection(params *CreateConnectionParams, authInfo runtime.ClientAuthInfoWriter) (*CreateConnectionCreated, error) {
+func (a *Client) CreateConnection(params *CreateConnectionParams, authInfo runtime.ClientAuthInfoWriter) (*CreateConnectionOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateConnectionParams()
@@ -78,14 +170,55 @@ func (a *Client) CreateConnection(params *CreateConnectionParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateConnectionCreated), nil
-
+	success, ok := result.(*CreateConnectionOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createConnection: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-CreateEmptyAllConnectionsRequest creates a request to drop all flowfiles of all connection queues in this process group
+  CreateControllerServiceProcessGroups creates a new controller service
 */
-func (a *Client) CreateEmptyAllConnectionsRequest(params *CreateEmptyAllConnectionsRequestParams, authInfo runtime.ClientAuthInfoWriter) (*CreateEmptyAllConnectionsRequestCreated, *CreateEmptyAllConnectionsRequestAccepted, error) {
+func (a *Client) CreateControllerServiceProcessGroups(params *CreateControllerServiceProcessGroupsParams, authInfo runtime.ClientAuthInfoWriter) (*CreateControllerServiceProcessGroupsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateControllerServiceProcessGroupsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "createControllerServiceProcessGroups",
+		Method:             "POST",
+		PathPattern:        "/process-groups/{id}/controller-services",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &CreateControllerServiceProcessGroupsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CreateControllerServiceProcessGroupsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createControllerServiceProcessGroups: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  CreateEmptyAllConnectionsRequest creates a request to drop all flowfiles of all connection queues in this process group
+*/
+func (a *Client) CreateEmptyAllConnectionsRequest(params *CreateEmptyAllConnectionsRequestParams, authInfo runtime.ClientAuthInfoWriter) (*CreateEmptyAllConnectionsRequestOK, *CreateEmptyAllConnectionsRequestAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateEmptyAllConnectionsRequestParams()
@@ -96,7 +229,7 @@ func (a *Client) CreateEmptyAllConnectionsRequest(params *CreateEmptyAllConnecti
 		Method:             "POST",
 		PathPattern:        "/process-groups/{id}/empty-all-connections-requests",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &CreateEmptyAllConnectionsRequestReader{formats: a.formats},
@@ -108,19 +241,20 @@ func (a *Client) CreateEmptyAllConnectionsRequest(params *CreateEmptyAllConnecti
 		return nil, nil, err
 	}
 	switch value := result.(type) {
-	case *CreateEmptyAllConnectionsRequestCreated:
+	case *CreateEmptyAllConnectionsRequestOK:
 		return value, nil, nil
 	case *CreateEmptyAllConnectionsRequestAccepted:
 		return nil, value, nil
 	}
-	return nil, nil, nil
-
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for process_groups: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-CreateFunnel creates a funnel
+  CreateFunnel creates a funnel
 */
-func (a *Client) CreateFunnel(params *CreateFunnelParams, authInfo runtime.ClientAuthInfoWriter) (*CreateFunnelCreated, error) {
+func (a *Client) CreateFunnel(params *CreateFunnelParams, authInfo runtime.ClientAuthInfoWriter) (*CreateFunnelOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateFunnelParams()
@@ -142,14 +276,20 @@ func (a *Client) CreateFunnel(params *CreateFunnelParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateFunnelCreated), nil
-
+	success, ok := result.(*CreateFunnelOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createFunnel: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-CreateInputPort creates an input port
+  CreateInputPort creates an input port
 */
-func (a *Client) CreateInputPort(params *CreateInputPortParams, authInfo runtime.ClientAuthInfoWriter) (*CreateInputPortCreated, error) {
+func (a *Client) CreateInputPort(params *CreateInputPortParams, authInfo runtime.ClientAuthInfoWriter) (*CreateInputPortOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateInputPortParams()
@@ -171,14 +311,20 @@ func (a *Client) CreateInputPort(params *CreateInputPortParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateInputPortCreated), nil
-
+	success, ok := result.(*CreateInputPortOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createInputPort: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-CreateLabel creates a label
+  CreateLabel creates a label
 */
-func (a *Client) CreateLabel(params *CreateLabelParams, authInfo runtime.ClientAuthInfoWriter) (*CreateLabelCreated, error) {
+func (a *Client) CreateLabel(params *CreateLabelParams, authInfo runtime.ClientAuthInfoWriter) (*CreateLabelOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateLabelParams()
@@ -200,14 +346,20 @@ func (a *Client) CreateLabel(params *CreateLabelParams, authInfo runtime.ClientA
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateLabelCreated), nil
-
+	success, ok := result.(*CreateLabelOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createLabel: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-CreateOutputPort creates an output port
+  CreateOutputPort creates an output port
 */
-func (a *Client) CreateOutputPort(params *CreateOutputPortParams, authInfo runtime.ClientAuthInfoWriter) (*CreateOutputPortCreated, error) {
+func (a *Client) CreateOutputPort(params *CreateOutputPortParams, authInfo runtime.ClientAuthInfoWriter) (*CreateOutputPortOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateOutputPortParams()
@@ -229,14 +381,20 @@ func (a *Client) CreateOutputPort(params *CreateOutputPortParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateOutputPortCreated), nil
-
+	success, ok := result.(*CreateOutputPortOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createOutputPort: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-CreateProcessGroup creates a process group
+  CreateProcessGroup creates a process group
 */
-func (a *Client) CreateProcessGroup(params *CreateProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*CreateProcessGroupCreated, error) {
+func (a *Client) CreateProcessGroup(params *CreateProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*CreateProcessGroupOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateProcessGroupParams()
@@ -258,14 +416,20 @@ func (a *Client) CreateProcessGroup(params *CreateProcessGroupParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateProcessGroupCreated), nil
-
+	success, ok := result.(*CreateProcessGroupOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createProcessGroup: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-CreateProcessor creates a new processor
+  CreateProcessor creates a new processor
 */
-func (a *Client) CreateProcessor(params *CreateProcessorParams, authInfo runtime.ClientAuthInfoWriter) (*CreateProcessorCreated, error) {
+func (a *Client) CreateProcessor(params *CreateProcessorParams, authInfo runtime.ClientAuthInfoWriter) (*CreateProcessorOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateProcessorParams()
@@ -287,14 +451,20 @@ func (a *Client) CreateProcessor(params *CreateProcessorParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateProcessorCreated), nil
-
+	success, ok := result.(*CreateProcessorOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createProcessor: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-CreateRemoteProcessGroup creates a new process group
+  CreateRemoteProcessGroup creates a new process group
 */
-func (a *Client) CreateRemoteProcessGroup(params *CreateRemoteProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*CreateRemoteProcessGroupCreated, error) {
+func (a *Client) CreateRemoteProcessGroup(params *CreateRemoteProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*CreateRemoteProcessGroupOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateRemoteProcessGroupParams()
@@ -316,14 +486,20 @@ func (a *Client) CreateRemoteProcessGroup(params *CreateRemoteProcessGroupParams
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateRemoteProcessGroupCreated), nil
-
+	success, ok := result.(*CreateRemoteProcessGroupOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createRemoteProcessGroup: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-CreateTemplate creates a template and discards the specified snippet
+  CreateTemplate creates a template and discards the specified snippet
 */
-func (a *Client) CreateTemplate(params *CreateTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTemplateCreated, error) {
+func (a *Client) CreateTemplate(params *CreateTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTemplateOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateTemplateParams()
@@ -345,14 +521,20 @@ func (a *Client) CreateTemplate(params *CreateTemplateParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateTemplateCreated), nil
-
+	success, ok := result.(*CreateTemplateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for createTemplate: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteReplaceProcessGroupRequest deletes the replace request with the given ID
+  DeleteReplaceProcessGroupRequest deletes the replace request with the given ID
 
-Deletes the Replace Request with the given ID. After a request is created via a POST to /process-groups/{id}/replace-requests, it is expected that the client will properly clean up the request by DELETE'ing it, once the Replace process has completed. If the request is deleted before the request completes, then the Replace request will finish the step that it is currently performing and then will cancel any subsequent steps. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Deletes the Replace Request with the given ID. After a request is created via a POST to /process-groups/{id}/replace-requests, it is expected that the client will properly clean up the request by DELETE'ing it, once the Replace process has completed. If the request is deleted before the request completes, then the Replace request will finish the step that it is currently performing and then will cancel any subsequent steps. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) DeleteReplaceProcessGroupRequest(params *DeleteReplaceProcessGroupRequestParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteReplaceProcessGroupRequestOK, error) {
 	// TODO: Validate the params before sending
@@ -365,7 +547,7 @@ func (a *Client) DeleteReplaceProcessGroupRequest(params *DeleteReplaceProcessGr
 		Method:             "DELETE",
 		PathPattern:        "/process-groups/replace-requests/{id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &DeleteReplaceProcessGroupRequestReader{formats: a.formats},
@@ -376,14 +558,20 @@ func (a *Client) DeleteReplaceProcessGroupRequest(params *DeleteReplaceProcessGr
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteReplaceProcessGroupRequestOK), nil
-
+	success, ok := result.(*DeleteReplaceProcessGroupRequestOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for deleteReplaceProcessGroupRequest: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteVariableRegistryUpdateRequest deletes an update request for a process group s variable registry if the request is not yet complete it will automatically be cancelled
+  DeleteVariableRegistryUpdateRequest deletes an update request for a process group s variable registry if the request is not yet complete it will automatically be cancelled
 
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) DeleteVariableRegistryUpdateRequest(params *DeleteVariableRegistryUpdateRequestParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteVariableRegistryUpdateRequestOK, error) {
 	// TODO: Validate the params before sending
@@ -396,7 +584,7 @@ func (a *Client) DeleteVariableRegistryUpdateRequest(params *DeleteVariableRegis
 		Method:             "DELETE",
 		PathPattern:        "/process-groups/{groupId}/variable-registry/update-requests/{updateId}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &DeleteVariableRegistryUpdateRequestReader{formats: a.formats},
@@ -407,12 +595,18 @@ func (a *Client) DeleteVariableRegistryUpdateRequest(params *DeleteVariableRegis
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteVariableRegistryUpdateRequestOK), nil
-
+	success, ok := result.(*DeleteVariableRegistryUpdateRequestOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for deleteVariableRegistryUpdateRequest: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ExportProcessGroup gets a process group for download
+  ExportProcessGroup gets a process group for download
 */
 func (a *Client) ExportProcessGroup(params *ExportProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*ExportProcessGroupOK, error) {
 	// TODO: Validate the params before sending
@@ -425,7 +619,7 @@ func (a *Client) ExportProcessGroup(params *ExportProcessGroupParams, authInfo r
 		Method:             "GET",
 		PathPattern:        "/process-groups/{id}/download",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &ExportProcessGroupReader{formats: a.formats},
@@ -436,12 +630,18 @@ func (a *Client) ExportProcessGroup(params *ExportProcessGroupParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ExportProcessGroupOK), nil
-
+	success, ok := result.(*ExportProcessGroupOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for exportProcessGroup: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetConnections gets all connections
+  GetConnections gets all connections
 */
 func (a *Client) GetConnections(params *GetConnectionsParams, authInfo runtime.ClientAuthInfoWriter) (*GetConnectionsOK, error) {
 	// TODO: Validate the params before sending
@@ -454,7 +654,7 @@ func (a *Client) GetConnections(params *GetConnectionsParams, authInfo runtime.C
 		Method:             "GET",
 		PathPattern:        "/process-groups/{id}/connections",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetConnectionsReader{formats: a.formats},
@@ -465,12 +665,18 @@ func (a *Client) GetConnections(params *GetConnectionsParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetConnectionsOK), nil
-
+	success, ok := result.(*GetConnectionsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getConnections: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetDropAllFlowfilesRequest gets the current status of a drop all flowfiles request
+  GetDropAllFlowfilesRequest gets the current status of a drop all flowfiles request
 */
 func (a *Client) GetDropAllFlowfilesRequest(params *GetDropAllFlowfilesRequestParams, authInfo runtime.ClientAuthInfoWriter) (*GetDropAllFlowfilesRequestOK, error) {
 	// TODO: Validate the params before sending
@@ -483,7 +689,7 @@ func (a *Client) GetDropAllFlowfilesRequest(params *GetDropAllFlowfilesRequestPa
 		Method:             "GET",
 		PathPattern:        "/process-groups/{id}/empty-all-connections-requests/{drop-request-id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetDropAllFlowfilesRequestReader{formats: a.formats},
@@ -494,12 +700,18 @@ func (a *Client) GetDropAllFlowfilesRequest(params *GetDropAllFlowfilesRequestPa
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetDropAllFlowfilesRequestOK), nil
-
+	success, ok := result.(*GetDropAllFlowfilesRequestOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getDropAllFlowfilesRequest: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetFunnels gets all funnels
+  GetFunnels gets all funnels
 */
 func (a *Client) GetFunnels(params *GetFunnelsParams, authInfo runtime.ClientAuthInfoWriter) (*GetFunnelsOK, error) {
 	// TODO: Validate the params before sending
@@ -512,7 +724,7 @@ func (a *Client) GetFunnels(params *GetFunnelsParams, authInfo runtime.ClientAut
 		Method:             "GET",
 		PathPattern:        "/process-groups/{id}/funnels",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetFunnelsReader{formats: a.formats},
@@ -523,12 +735,18 @@ func (a *Client) GetFunnels(params *GetFunnelsParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetFunnelsOK), nil
-
+	success, ok := result.(*GetFunnelsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getFunnels: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetInputPorts gets all input ports
+  GetInputPorts gets all input ports
 */
 func (a *Client) GetInputPorts(params *GetInputPortsParams, authInfo runtime.ClientAuthInfoWriter) (*GetInputPortsOK, error) {
 	// TODO: Validate the params before sending
@@ -541,7 +759,7 @@ func (a *Client) GetInputPorts(params *GetInputPortsParams, authInfo runtime.Cli
 		Method:             "GET",
 		PathPattern:        "/process-groups/{id}/input-ports",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetInputPortsReader{formats: a.formats},
@@ -552,12 +770,18 @@ func (a *Client) GetInputPorts(params *GetInputPortsParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetInputPortsOK), nil
-
+	success, ok := result.(*GetInputPortsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getInputPorts: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetLabels gets all labels
+  GetLabels gets all labels
 */
 func (a *Client) GetLabels(params *GetLabelsParams, authInfo runtime.ClientAuthInfoWriter) (*GetLabelsOK, error) {
 	// TODO: Validate the params before sending
@@ -570,7 +794,7 @@ func (a *Client) GetLabels(params *GetLabelsParams, authInfo runtime.ClientAuthI
 		Method:             "GET",
 		PathPattern:        "/process-groups/{id}/labels",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetLabelsReader{formats: a.formats},
@@ -581,12 +805,18 @@ func (a *Client) GetLabels(params *GetLabelsParams, authInfo runtime.ClientAuthI
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetLabelsOK), nil
-
+	success, ok := result.(*GetLabelsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getLabels: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetLocalModifications gets a list of local modifications to the process group since it was last synchronized with the flow registry
+  GetLocalModifications gets a list of local modifications to the process group since it was last synchronized with the flow registry
 */
 func (a *Client) GetLocalModifications(params *GetLocalModificationsParams, authInfo runtime.ClientAuthInfoWriter) (*GetLocalModificationsOK, error) {
 	// TODO: Validate the params before sending
@@ -599,7 +829,7 @@ func (a *Client) GetLocalModifications(params *GetLocalModificationsParams, auth
 		Method:             "GET",
 		PathPattern:        "/process-groups/{id}/local-modifications",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetLocalModificationsReader{formats: a.formats},
@@ -610,12 +840,18 @@ func (a *Client) GetLocalModifications(params *GetLocalModificationsParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetLocalModificationsOK), nil
-
+	success, ok := result.(*GetLocalModificationsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getLocalModifications: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetOutputPorts gets all output ports
+  GetOutputPorts gets all output ports
 */
 func (a *Client) GetOutputPorts(params *GetOutputPortsParams, authInfo runtime.ClientAuthInfoWriter) (*GetOutputPortsOK, error) {
 	// TODO: Validate the params before sending
@@ -628,7 +864,7 @@ func (a *Client) GetOutputPorts(params *GetOutputPortsParams, authInfo runtime.C
 		Method:             "GET",
 		PathPattern:        "/process-groups/{id}/output-ports",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetOutputPortsReader{formats: a.formats},
@@ -639,12 +875,18 @@ func (a *Client) GetOutputPorts(params *GetOutputPortsParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetOutputPortsOK), nil
-
+	success, ok := result.(*GetOutputPortsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getOutputPorts: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetProcessGroup gets a process group
+  GetProcessGroup gets a process group
 */
 func (a *Client) GetProcessGroup(params *GetProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*GetProcessGroupOK, error) {
 	// TODO: Validate the params before sending
@@ -657,7 +899,7 @@ func (a *Client) GetProcessGroup(params *GetProcessGroupParams, authInfo runtime
 		Method:             "GET",
 		PathPattern:        "/process-groups/{id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetProcessGroupReader{formats: a.formats},
@@ -668,12 +910,18 @@ func (a *Client) GetProcessGroup(params *GetProcessGroupParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetProcessGroupOK), nil
-
+	success, ok := result.(*GetProcessGroupOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getProcessGroup: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetProcessGroups gets all process groups
+  GetProcessGroups gets all process groups
 */
 func (a *Client) GetProcessGroups(params *GetProcessGroupsParams, authInfo runtime.ClientAuthInfoWriter) (*GetProcessGroupsOK, error) {
 	// TODO: Validate the params before sending
@@ -686,7 +934,7 @@ func (a *Client) GetProcessGroups(params *GetProcessGroupsParams, authInfo runti
 		Method:             "GET",
 		PathPattern:        "/process-groups/{id}/process-groups",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetProcessGroupsReader{formats: a.formats},
@@ -697,12 +945,18 @@ func (a *Client) GetProcessGroups(params *GetProcessGroupsParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetProcessGroupsOK), nil
-
+	success, ok := result.(*GetProcessGroupsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getProcessGroups: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetProcessors gets all processors
+  GetProcessors gets all processors
 */
 func (a *Client) GetProcessors(params *GetProcessorsParams, authInfo runtime.ClientAuthInfoWriter) (*GetProcessorsOK, error) {
 	// TODO: Validate the params before sending
@@ -715,7 +969,7 @@ func (a *Client) GetProcessors(params *GetProcessorsParams, authInfo runtime.Cli
 		Method:             "GET",
 		PathPattern:        "/process-groups/{id}/processors",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetProcessorsReader{formats: a.formats},
@@ -726,12 +980,18 @@ func (a *Client) GetProcessors(params *GetProcessorsParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetProcessorsOK), nil
-
+	success, ok := result.(*GetProcessorsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getProcessors: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetRemoteProcessGroups gets all remote process groups
+  GetRemoteProcessGroups gets all remote process groups
 */
 func (a *Client) GetRemoteProcessGroups(params *GetRemoteProcessGroupsParams, authInfo runtime.ClientAuthInfoWriter) (*GetRemoteProcessGroupsOK, error) {
 	// TODO: Validate the params before sending
@@ -744,7 +1004,7 @@ func (a *Client) GetRemoteProcessGroups(params *GetRemoteProcessGroupsParams, au
 		Method:             "GET",
 		PathPattern:        "/process-groups/{id}/remote-process-groups",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetRemoteProcessGroupsReader{formats: a.formats},
@@ -755,14 +1015,20 @@ func (a *Client) GetRemoteProcessGroups(params *GetRemoteProcessGroupsParams, au
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetRemoteProcessGroupsOK), nil
-
+	success, ok := result.(*GetRemoteProcessGroupsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getRemoteProcessGroups: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetReplaceProcessGroupRequest returns the replace request with the given ID
+  GetReplaceProcessGroupRequest returns the replace request with the given ID
 
-Returns the Replace Request with the given ID. Once a Replace Request has been created by performing a POST to /process-groups/{id}/replace-requests, that request can subsequently be retrieved via this endpoint, and the request that is fetched will contain the updated state, such as percent complete, the current state of the request, and any failures. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Returns the Replace Request with the given ID. Once a Replace Request has been created by performing a POST to /process-groups/{id}/replace-requests, that request can subsequently be retrieved via this endpoint, and the request that is fetched will contain the updated state, such as percent complete, the current state of the request, and any failures. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) GetReplaceProcessGroupRequest(params *GetReplaceProcessGroupRequestParams, authInfo runtime.ClientAuthInfoWriter) (*GetReplaceProcessGroupRequestOK, error) {
 	// TODO: Validate the params before sending
@@ -775,7 +1041,7 @@ func (a *Client) GetReplaceProcessGroupRequest(params *GetReplaceProcessGroupReq
 		Method:             "GET",
 		PathPattern:        "/process-groups/replace-requests/{id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetReplaceProcessGroupRequestReader{formats: a.formats},
@@ -786,14 +1052,20 @@ func (a *Client) GetReplaceProcessGroupRequest(params *GetReplaceProcessGroupReq
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetReplaceProcessGroupRequestOK), nil
-
+	success, ok := result.(*GetReplaceProcessGroupRequestOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getReplaceProcessGroupRequest: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetVariableRegistry gets a process group s variable registry
+  GetVariableRegistry gets a process group s variable registry
 
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) GetVariableRegistry(params *GetVariableRegistryParams, authInfo runtime.ClientAuthInfoWriter) (*GetVariableRegistryOK, error) {
 	// TODO: Validate the params before sending
@@ -806,7 +1078,7 @@ func (a *Client) GetVariableRegistry(params *GetVariableRegistryParams, authInfo
 		Method:             "GET",
 		PathPattern:        "/process-groups/{id}/variable-registry",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetVariableRegistryReader{formats: a.formats},
@@ -817,14 +1089,20 @@ func (a *Client) GetVariableRegistry(params *GetVariableRegistryParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetVariableRegistryOK), nil
-
+	success, ok := result.(*GetVariableRegistryOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getVariableRegistry: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetVariableRegistryUpdateRequest gets a process group s variable registry
+  GetVariableRegistryUpdateRequest gets a process group s variable registry
 
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) GetVariableRegistryUpdateRequest(params *GetVariableRegistryUpdateRequestParams, authInfo runtime.ClientAuthInfoWriter) (*GetVariableRegistryUpdateRequestOK, error) {
 	// TODO: Validate the params before sending
@@ -837,7 +1115,7 @@ func (a *Client) GetVariableRegistryUpdateRequest(params *GetVariableRegistryUpd
 		Method:             "GET",
 		PathPattern:        "/process-groups/{groupId}/variable-registry/update-requests/{updateId}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetVariableRegistryUpdateRequestReader{formats: a.formats},
@@ -848,14 +1126,55 @@ func (a *Client) GetVariableRegistryUpdateRequest(params *GetVariableRegistryUpd
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetVariableRegistryUpdateRequestOK), nil
-
+	success, ok := result.(*GetVariableRegistryUpdateRequestOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getVariableRegistryUpdateRequest: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ImportTemplate imports a template
+  ImportProcessGroup imports a specified process group
 */
-func (a *Client) ImportTemplate(params *ImportTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*ImportTemplateCreated, error) {
+func (a *Client) ImportProcessGroup(params *ImportProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*ImportProcessGroupOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewImportProcessGroupParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "importProcessGroup",
+		Method:             "POST",
+		PathPattern:        "/process-groups/{id}/process-groups/import",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ImportProcessGroupReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ImportProcessGroupOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for importProcessGroup: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  ImportTemplate imports a template
+*/
+func (a *Client) ImportTemplate(params *ImportTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*ImportTemplateOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewImportTemplateParams()
@@ -877,16 +1196,22 @@ func (a *Client) ImportTemplate(params *ImportTemplateParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ImportTemplateCreated), nil
-
+	success, ok := result.(*ImportTemplateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for importTemplate: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-InitiateReplaceProcessGroup initiates the replace request of a process group with the given ID
+  InitiateReplaceProcessGroup initiates the replace request of a process group with the given ID
 
-This will initiate the action of replacing a process group with the given process group. This can be a lengthy process, as it will stop any Processors and disable any Controller Services necessary to perform the action and then restart them. As a result, the endpoint will immediately return a ProcessGroupReplaceRequestEntity, and the process of replacing the flow will occur asynchronously in the background. The client may then periodically poll the status of the request by issuing a GET request to /process-groups/replace-requests/{requestId}. Once the request is completed, the client is expected to issue a DELETE request to /process-groups/replace-requests/{requestId}. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  This will initiate the action of replacing a process group with the given process group. This can be a lengthy process, as it will stop any Processors and disable any Controller Services necessary to perform the action and then restart them. As a result, the endpoint will immediately return a ProcessGroupReplaceRequestEntity, and the process of replacing the flow will occur asynchronously in the background. The client may then periodically poll the status of the request by issuing a GET request to /process-groups/replace-requests/{requestId}. Once the request is completed, the client is expected to issue a DELETE request to /process-groups/replace-requests/{requestId}. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
-func (a *Client) InitiateReplaceProcessGroup(params *InitiateReplaceProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*InitiateReplaceProcessGroupCreated, error) {
+func (a *Client) InitiateReplaceProcessGroup(params *InitiateReplaceProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*InitiateReplaceProcessGroupOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewInitiateReplaceProcessGroupParams()
@@ -908,14 +1233,20 @@ func (a *Client) InitiateReplaceProcessGroup(params *InitiateReplaceProcessGroup
 	if err != nil {
 		return nil, err
 	}
-	return result.(*InitiateReplaceProcessGroupCreated), nil
-
+	success, ok := result.(*InitiateReplaceProcessGroupOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for initiateReplaceProcessGroup: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-InstantiateTemplate instantiates a template
+  InstantiateTemplate instantiates a template
 */
-func (a *Client) InstantiateTemplate(params *InstantiateTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*InstantiateTemplateCreated, error) {
+func (a *Client) InstantiateTemplate(params *InstantiateTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*InstantiateTemplateOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewInstantiateTemplateParams()
@@ -937,57 +1268,34 @@ func (a *Client) InstantiateTemplate(params *InstantiateTemplateParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*InstantiateTemplateCreated), nil
-
+	success, ok := result.(*InstantiateTemplateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for instantiateTemplate: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ProcessGroupsCreateControllerService creates a new controller service
+  RemoveDropRequestProcessGroups cancels and or removes a request to drop all flowfiles
 */
-func (a *Client) ProcessGroupsCreateControllerService(params *ProcessGroupsCreateControllerServiceParams, authInfo runtime.ClientAuthInfoWriter) (*ProcessGroupsCreateControllerServiceCreated, error) {
+func (a *Client) RemoveDropRequestProcessGroups(params *RemoveDropRequestProcessGroupsParams, authInfo runtime.ClientAuthInfoWriter) (*RemoveDropRequestProcessGroupsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewProcessGroupsCreateControllerServiceParams()
+		params = NewRemoveDropRequestProcessGroupsParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "processGroupsCreateControllerService",
-		Method:             "POST",
-		PathPattern:        "/process-groups/{id}/controller-services",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &ProcessGroupsCreateControllerServiceReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*ProcessGroupsCreateControllerServiceCreated), nil
-
-}
-
-/*
-ProcessGroupsRemoveDropRequest cancels and or removes a request to drop all flowfiles
-*/
-func (a *Client) ProcessGroupsRemoveDropRequest(params *ProcessGroupsRemoveDropRequestParams, authInfo runtime.ClientAuthInfoWriter) (*ProcessGroupsRemoveDropRequestOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewProcessGroupsRemoveDropRequestParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "processGroupsRemoveDropRequest",
+		ID:                 "removeDropRequestProcessGroups",
 		Method:             "DELETE",
 		PathPattern:        "/process-groups/{id}/empty-all-connections-requests/{drop-request-id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &ProcessGroupsRemoveDropRequestReader{formats: a.formats},
+		Reader:             &RemoveDropRequestProcessGroupsReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -995,12 +1303,18 @@ func (a *Client) ProcessGroupsRemoveDropRequest(params *ProcessGroupsRemoveDropR
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ProcessGroupsRemoveDropRequestOK), nil
-
+	success, ok := result.(*RemoveDropRequestProcessGroupsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for removeDropRequestProcessGroups: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-RemoveProcessGroup deletes a process group
+  RemoveProcessGroup deletes a process group
 */
 func (a *Client) RemoveProcessGroup(params *RemoveProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*RemoveProcessGroupOK, error) {
 	// TODO: Validate the params before sending
@@ -1013,7 +1327,7 @@ func (a *Client) RemoveProcessGroup(params *RemoveProcessGroupParams, authInfo r
 		Method:             "DELETE",
 		PathPattern:        "/process-groups/{id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &RemoveProcessGroupReader{formats: a.formats},
@@ -1024,14 +1338,20 @@ func (a *Client) RemoveProcessGroup(params *RemoveProcessGroupParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*RemoveProcessGroupOK), nil
-
+	success, ok := result.(*RemoveProcessGroupOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for removeProcessGroup: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ReplaceProcessGroup replaces process group contents with the given ID with the specified process group contents
+  ReplaceProcessGroup replaces process group contents with the given ID with the specified process group contents
 
-This endpoint is used for replication within a cluster, when replacing a flow with a new flow. It expects that the flow beingreplaced is not under version control and that the given snapshot will not modify any Processor that is currently running or any Controller Service that is enabled. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  This endpoint is used for replication within a cluster, when replacing a flow with a new flow. It expects that the flow beingreplaced is not under version control and that the given snapshot will not modify any Processor that is currently running or any Controller Service that is enabled. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) ReplaceProcessGroup(params *ReplaceProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*ReplaceProcessGroupOK, error) {
 	// TODO: Validate the params before sending
@@ -1055,16 +1375,22 @@ func (a *Client) ReplaceProcessGroup(params *ReplaceProcessGroupParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ReplaceProcessGroupOK), nil
-
+	success, ok := result.(*ReplaceProcessGroupOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for replaceProcessGroup: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SubmitUpdateVariableRegistryRequest submits a request to update a process group s variable registry
+  SubmitUpdateVariableRegistryRequest submits a request to update a process group s variable registry
 
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
-func (a *Client) SubmitUpdateVariableRegistryRequest(params *SubmitUpdateVariableRegistryRequestParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitUpdateVariableRegistryRequestCreated, error) {
+func (a *Client) SubmitUpdateVariableRegistryRequest(params *SubmitUpdateVariableRegistryRequestParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitUpdateVariableRegistryRequestOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSubmitUpdateVariableRegistryRequestParams()
@@ -1086,12 +1412,18 @@ func (a *Client) SubmitUpdateVariableRegistryRequest(params *SubmitUpdateVariabl
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SubmitUpdateVariableRegistryRequestCreated), nil
-
+	success, ok := result.(*SubmitUpdateVariableRegistryRequestOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for submitUpdateVariableRegistryRequest: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateProcessGroup updates a process group
+  UpdateProcessGroup updates a process group
 */
 func (a *Client) UpdateProcessGroup(params *UpdateProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateProcessGroupOK, error) {
 	// TODO: Validate the params before sending
@@ -1115,14 +1447,20 @@ func (a *Client) UpdateProcessGroup(params *UpdateProcessGroupParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateProcessGroupOK), nil
-
+	success, ok := result.(*UpdateProcessGroupOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateProcessGroup: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateVariableRegistry updates the contents of a process group s variable registry
+  UpdateVariableRegistry updates the contents of a process group s variable registry
 
-Note: This endpoint is subject to change as NiFi and it's REST API evolve.
+  Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
 func (a *Client) UpdateVariableRegistry(params *UpdateVariableRegistryParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateVariableRegistryOK, error) {
 	// TODO: Validate the params before sending
@@ -1146,14 +1484,20 @@ func (a *Client) UpdateVariableRegistry(params *UpdateVariableRegistryParams, au
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateVariableRegistryOK), nil
-
+	success, ok := result.(*UpdateVariableRegistryOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateVariableRegistry: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UploadTemplate uploads a template
+  UploadTemplate uploads a template
 */
-func (a *Client) UploadTemplate(params *UploadTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*UploadTemplateCreated, error) {
+func (a *Client) UploadTemplate(params *UploadTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*UploadTemplateOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUploadTemplateParams()
@@ -1175,8 +1519,14 @@ func (a *Client) UploadTemplate(params *UploadTemplateParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UploadTemplateCreated), nil
-
+	success, ok := result.(*UploadTemplateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for uploadTemplate: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

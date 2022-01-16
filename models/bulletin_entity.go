@@ -6,13 +6,13 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // BulletinEntity bulletin entity
+//
 // swagger:model BulletinEntity
 type BulletinEntity struct {
 
@@ -20,8 +20,7 @@ type BulletinEntity struct {
 	Bulletin *BulletinDTO `json:"bulletin,omitempty"`
 
 	// Indicates whether the user can read a given resource.
-	// Read Only: true
-	CanRead *bool `json:"canRead,omitempty"`
+	CanRead bool `json:"canRead,omitempty"`
 
 	// group Id
 	GroupID string `json:"groupId,omitempty"`

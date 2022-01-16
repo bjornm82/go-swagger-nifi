@@ -9,8 +9,7 @@ import (
 	"fmt"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // KnoxLogoutReader is a Reader for the KnoxLogout structure.
@@ -20,7 +19,6 @@ type KnoxLogoutReader struct {
 
 // ReadResponse reads a server response into the received o.
 func (o *KnoxLogoutReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
-
 	result := NewKnoxLogoutDefault(response.Code())
 	if err := result.readResponse(response, consumer, o.formats); err != nil {
 		return nil, err
@@ -29,7 +27,6 @@ func (o *KnoxLogoutReader) ReadResponse(response runtime.ClientResponse, consume
 		return result, nil
 	}
 	return nil, result
-
 }
 
 // NewKnoxLogoutDefault creates a KnoxLogoutDefault with default headers values

@@ -8,13 +8,13 @@ package models
 import (
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // ProcessorsRunStatusDetailsEntity processors run status details entity
+//
 // swagger:model ProcessorsRunStatusDetailsEntity
 type ProcessorsRunStatusDetailsEntity struct {
 

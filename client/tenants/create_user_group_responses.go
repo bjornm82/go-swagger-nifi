@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // CreateUserGroupReader is a Reader for the CreateUserGroup structure.
@@ -24,42 +23,36 @@ type CreateUserGroupReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateUserGroupReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewCreateUserGroupCreated()
+	case 200:
+		result := NewCreateUserGroupOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateUserGroupBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewCreateUserGroupUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewCreateUserGroupForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewCreateUserGroupNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewCreateUserGroupConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -72,24 +65,28 @@ func (o *CreateUserGroupReader) ReadResponse(response runtime.ClientResponse, co
 	}
 }
 
-// NewCreateUserGroupCreated creates a CreateUserGroupCreated with default headers values
-func NewCreateUserGroupCreated() *CreateUserGroupCreated {
-	return &CreateUserGroupCreated{}
+// NewCreateUserGroupOK creates a CreateUserGroupOK with default headers values
+func NewCreateUserGroupOK() *CreateUserGroupOK {
+	return &CreateUserGroupOK{}
 }
 
-/*CreateUserGroupCreated handles this case with default header values.
+/*CreateUserGroupOK handles this case with default header values.
 
 successful operation
 */
-type CreateUserGroupCreated struct {
+type CreateUserGroupOK struct {
 	Payload *models.UserGroupEntity
 }
 
-func (o *CreateUserGroupCreated) Error() string {
-	return fmt.Sprintf("[POST /tenants/user-groups][%d] createUserGroupCreated  %+v", 201, o.Payload)
+func (o *CreateUserGroupOK) Error() string {
+	return fmt.Sprintf("[POST /tenants/user-groups][%d] createUserGroupOK  %+v", 200, o.Payload)
 }
 
-func (o *CreateUserGroupCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateUserGroupOK) GetPayload() *models.UserGroupEntity {
+	return o.Payload
+}
+
+func (o *CreateUserGroupOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.UserGroupEntity)
 

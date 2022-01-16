@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // UpdateRemoteProcessGroupRunStatusReader is a Reader for the UpdateRemoteProcessGroupRunStatus structure.
@@ -24,42 +23,36 @@ type UpdateRemoteProcessGroupRunStatusReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateRemoteProcessGroupRunStatusReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateRemoteProcessGroupRunStatusOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewUpdateRemoteProcessGroupRunStatusBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewUpdateRemoteProcessGroupRunStatusUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewUpdateRemoteProcessGroupRunStatusForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewUpdateRemoteProcessGroupRunStatusNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewUpdateRemoteProcessGroupRunStatusConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -87,6 +80,10 @@ type UpdateRemoteProcessGroupRunStatusOK struct {
 
 func (o *UpdateRemoteProcessGroupRunStatusOK) Error() string {
 	return fmt.Sprintf("[PUT /remote-process-groups/{id}/run-status][%d] updateRemoteProcessGroupRunStatusOK  %+v", 200, o.Payload)
+}
+
+func (o *UpdateRemoteProcessGroupRunStatusOK) GetPayload() *models.RemoteProcessGroupEntity {
+	return o.Payload
 }
 
 func (o *UpdateRemoteProcessGroupRunStatusOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -1,9 +1,9 @@
 {
   "swagger" : "2.0",
   "info" : {
-    "description" : "The Rest Api provides programmatic access to command and control a NiFi instance in real time. Start and \n                                            stop processors, monitor queues, query provenance data, and more. Each endpoint below includes a description,\n                                            definitions of the expected input and output, potential response codes, and the authorizations required\n                                            to invoke each service.",
-    "version" : "1.13.1",
-    "title" : "NiFi Rest Api",
+    "description" : "The Rest API provides programmatic access to command and control a NiFi instance in real time. Start and\n                                            stop processors, monitor queues, query provenance data, and more. Each endpoint below includes a description,\n                                            definitions of the expected input and output, potential response codes, and the authorizations required\n                                            to invoke each service.",
+    "version" : "1.14.0",
+    "title" : "NiFi Rest API",
     "contact" : {
       "url" : "https://nifi.apache.org",
       "email" : "dev@nifi.apache.org"
@@ -17,6 +17,12 @@
   "tags" : [ {
     "name" : "access",
     "description" : "Endpoints for obtaining an access token or checking access status."
+  }, {
+    "name" : "accessoidc",
+    "description" : "Endpoints for obtaining an access token or checking access status."
+  }, {
+    "name" : "accesssaml",
+    "description" : "Endpoints for authenticating, obtaining an access token or logging out of a configured SAML authentication provider."
   }, {
     "name" : "connections",
     "description" : "Endpoint for managing a Connection."
@@ -104,7 +110,7 @@
         "summary" : "Gets the status the client's access",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getAccessStatus",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -136,8 +142,8 @@
         "tags" : [ "access" ],
         "summary" : "Retrieves the access configuration for this NiFi",
         "description" : "",
-        "operationId" : "getLoginConfig",
-        "consumes" : [ "application/json" ],
+        "operationId" : "getLoginConfigAccess",
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -158,7 +164,7 @@
         "consumes" : [ "application/x-www-form-urlencoded" ],
         "produces" : [ "text/plain" ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "type" : "string"
@@ -180,12 +186,12 @@
       "post" : {
         "tags" : [ "access" ],
         "summary" : "Creates a token for accessing the REST API via Kerberos ticket exchange / SPNEGO negotiation",
-        "description" : "The token returned is formatted as a JSON Web Token (JWT). The token is base64 encoded and comprised of three parts. The header, the body, and the signature. The expiration of the token is a contained within the body. The token can be used in the Authorization header in the format 'Authorization: Bearer <token>'.",
+        "description" : "The token returned is formatted as a JSON Web Token (JWT). The token is base64 encoded and comprised of three parts. The header, the body, and the signature. The expiration of the token is a contained within the body. The token can be used in the Authorization header in the format 'Authorization: Bearer <token>'. It is also stored in the browser as a cookie.",
         "operationId" : "createAccessTokenFromTicket",
         "consumes" : [ "text/plain" ],
         "produces" : [ "text/plain" ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "type" : "string"
@@ -212,8 +218,8 @@
         "summary" : "Redirect/callback URI for processing the result of the Apache Knox login sequence.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "knoxCallback",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
+        "produces" : [ "*/*" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -227,8 +233,8 @@
         "summary" : "Performs a logout in the Apache Knox.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "knoxLogout",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
+        "produces" : [ "*/*" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -242,8 +248,8 @@
         "summary" : "Initiates a request to authenticate through Apache Knox.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "knoxRequest",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
+        "produces" : [ "*/*" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -257,8 +263,8 @@
         "summary" : "Performs a logout for other providers that have been issued a JWT.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "logOut",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
+        "produces" : [ "*/*" ],
         "responses" : {
           "200" : {
             "description" : "User was logged out successfully."
@@ -277,9 +283,9 @@
         "tags" : [ "access" ],
         "summary" : "Completes the logout sequence by removing the cached Logout Request and Cookie if they existed and redirects to /nifi/login.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
-        "operationId" : "logOutComplete",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
+        "operationId" : "logOutCompleteAccess",
+        "consumes" : [ "*/*" ],
+        "produces" : [ "*/*" ],
         "responses" : {
           "200" : {
             "description" : "User was logged out successfully."
@@ -293,14 +299,47 @@
         }
       }
     },
+    "/access/oidc" : {
+      "get" : {
+        "tags" : [ "accessoidc" ],
+        "summary" : "Gets the status the client's access",
+        "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
+        "operationId" : "getAccessStatusOidc",
+        "consumes" : [ "*/*" ],
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/AccessStatusEntity"
+            }
+          },
+          "400" : {
+            "description" : "NiFi was unable to complete the request because it was invalid. The request should not be retried without modification."
+          },
+          "401" : {
+            "description" : "Unable to determine access status because the client could not be authenticated."
+          },
+          "403" : {
+            "description" : "Unable to determine access status because the client is not authorized to make this request."
+          },
+          "409" : {
+            "description" : "Unable to determine access status because NiFi is not in the appropriate state."
+          },
+          "500" : {
+            "description" : "Unable to determine access status because an unexpected error occurred."
+          }
+        }
+      }
+    },
     "/access/oidc/callback" : {
       "get" : {
-        "tags" : [ "access" ],
+        "tags" : [ "accessoidc" ],
         "summary" : "Redirect/callback URI for processing the result of the OpenId Connect login sequence.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "oidcCallback",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
+        "produces" : [ "*/*" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -308,16 +347,61 @@
         }
       }
     },
+    "/access/oidc/config" : {
+      "get" : {
+        "tags" : [ "accessoidc" ],
+        "summary" : "Retrieves the access configuration for this NiFi",
+        "description" : "",
+        "operationId" : "getLoginConfigOidc",
+        "consumes" : [ "*/*" ],
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/AccessConfigurationEntity"
+            }
+          }
+        }
+      }
+    },
+    "/access/oidc/download-token" : {
+      "post" : {
+        "tags" : [ "accessoidc" ],
+        "summary" : "Creates a single use access token for downloading FlowFile content.",
+        "description" : "The token returned is a base64 encoded string. It is valid for a single request up to five minutes from being issued. It is used as a query parameter name 'access_token'.",
+        "operationId" : "createDownloadTokenOidc",
+        "consumes" : [ "application/x-www-form-urlencoded" ],
+        "produces" : [ "text/plain" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "403" : {
+            "description" : "Client is not authorized to make this request."
+          },
+          "409" : {
+            "description" : "Unable to create the download token because NiFi is not in the appropriate state. (i.e. may not have any tokens to grant or be configured to support username/password login)"
+          },
+          "500" : {
+            "description" : "Unable to create download token because an unexpected error occurred."
+          }
+        }
+      }
+    },
     "/access/oidc/exchange" : {
       "post" : {
-        "tags" : [ "access" ],
+        "tags" : [ "accessoidc" ],
         "summary" : "Retrieves a JWT following a successful login sequence using the configured OpenId Connect provider.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "oidcExchange",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "text/plain" ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "type" : "string"
@@ -326,14 +410,44 @@
         }
       }
     },
-    "/access/oidc/logout" : {
+    "/access/oidc/kerberos" : {
+      "post" : {
+        "tags" : [ "accessoidc" ],
+        "summary" : "Creates a token for accessing the REST API via Kerberos ticket exchange / SPNEGO negotiation",
+        "description" : "The token returned is formatted as a JSON Web Token (JWT). The token is base64 encoded and comprised of three parts. The header, the body, and the signature. The expiration of the token is a contained within the body. The token can be used in the Authorization header in the format 'Authorization: Bearer <token>'. It is also stored in the browser as a cookie.",
+        "operationId" : "createAccessTokenFromTicketOidc",
+        "consumes" : [ "text/plain" ],
+        "produces" : [ "text/plain" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "400" : {
+            "description" : "NiFi was unable to complete the request because it was invalid. The request should not be retried without modification."
+          },
+          "401" : {
+            "description" : "NiFi was unable to complete the request because it did not contain a valid Kerberos ticket in the Authorization header. Retry this request after initializing a ticket with kinit and ensuring your browser is configured to support SPNEGO."
+          },
+          "409" : {
+            "description" : "Unable to create access token because NiFi is not in the appropriate state. (i.e. may not be configured to support Kerberos login."
+          },
+          "500" : {
+            "description" : "Unable to create access token because an unexpected error occurred."
+          }
+        }
+      }
+    },
+    "/access/oidc/knox/callback" : {
       "get" : {
-        "tags" : [ "access" ],
-        "summary" : "Performs a logout in the OpenId Provider.",
+        "tags" : [ "accessoidc" ],
+        "summary" : "Redirect/callback URI for processing the result of the Apache Knox login sequence.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
-        "operationId" : "oidcLogout",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
+        "operationId" : "knoxCallbackOidc",
+        "consumes" : [ "*/*" ],
+        "produces" : [ "*/*" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -341,14 +455,99 @@
         }
       }
     },
+    "/access/oidc/knox/logout" : {
+      "get" : {
+        "tags" : [ "accessoidc" ],
+        "summary" : "Performs a logout in the Apache Knox.",
+        "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
+        "operationId" : "knoxLogoutOidc",
+        "consumes" : [ "*/*" ],
+        "produces" : [ "*/*" ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/access/oidc/knox/request" : {
+      "get" : {
+        "tags" : [ "accessoidc" ],
+        "summary" : "Initiates a request to authenticate through Apache Knox.",
+        "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
+        "operationId" : "knoxRequestOidc",
+        "consumes" : [ "*/*" ],
+        "produces" : [ "*/*" ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/access/oidc/logout" : {
+      "get" : {
+        "tags" : [ "accessoidc" ],
+        "summary" : "Performs a logout in the OpenId Provider.",
+        "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
+        "operationId" : "oidcLogout",
+        "consumes" : [ "*/*" ],
+        "produces" : [ "*/*" ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "accessoidc" ],
+        "summary" : "Performs a logout for other providers that have been issued a JWT.",
+        "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
+        "operationId" : "logOutOidc",
+        "consumes" : [ "*/*" ],
+        "produces" : [ "*/*" ],
+        "responses" : {
+          "200" : {
+            "description" : "User was logged out successfully."
+          },
+          "401" : {
+            "description" : "Authentication token provided was empty or not in the correct JWT format."
+          },
+          "500" : {
+            "description" : "Client failed to log out."
+          }
+        }
+      }
+    },
+    "/access/oidc/logout/complete" : {
+      "get" : {
+        "tags" : [ "accessoidc" ],
+        "summary" : "Completes the logout sequence by removing the cached Logout Request and Cookie if they existed and redirects to /nifi/login.",
+        "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
+        "operationId" : "logOutCompleteOidc",
+        "consumes" : [ "*/*" ],
+        "produces" : [ "*/*" ],
+        "responses" : {
+          "200" : {
+            "description" : "User was logged out successfully."
+          },
+          "401" : {
+            "description" : "Authentication token provided was empty or not in the correct JWT format."
+          },
+          "500" : {
+            "description" : "Client failed to log out."
+          }
+        }
+      }
+    },
     "/access/oidc/logoutCallback" : {
       "get" : {
-        "tags" : [ "access" ],
+        "tags" : [ "accessoidc" ],
         "summary" : "Redirect/callback URI for processing the result of the OpenId Connect logout sequence.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "oidcLogoutCallback",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
+        "produces" : [ "*/*" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -358,12 +557,233 @@
     },
     "/access/oidc/request" : {
       "get" : {
-        "tags" : [ "access" ],
+        "tags" : [ "accessoidc" ],
         "summary" : "Initiates a request to authenticate through the configured OpenId Connect provider.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "oidcRequest",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
+        "produces" : [ "*/*" ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/access/oidc/token" : {
+      "post" : {
+        "tags" : [ "accessoidc" ],
+        "summary" : "Creates a token for accessing the REST API via username/password",
+        "description" : "The token returned is formatted as a JSON Web Token (JWT). The token is base64 encoded and comprised of three parts. The header, the body, and the signature. The expiration of the token is a contained within the body. It is stored in the browser as a cookie, but also returned inthe response body to be stored/used by third party client scripts.",
+        "operationId" : "createAccessTokenOidc",
+        "consumes" : [ "application/x-www-form-urlencoded" ],
+        "produces" : [ "text/plain" ],
+        "parameters" : [ {
+          "name" : "username",
+          "in" : "formData",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "password",
+          "in" : "formData",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "400" : {
+            "description" : "NiFi was unable to complete the request because it was invalid. The request should not be retried without modification."
+          },
+          "403" : {
+            "description" : "Client is not authorized to make this request."
+          },
+          "409" : {
+            "description" : "Unable to create access token because NiFi is not in the appropriate state. (i.e. may not be configured to support username/password login."
+          },
+          "500" : {
+            "description" : "Unable to create access token because an unexpected error occurred."
+          }
+        }
+      }
+    },
+    "/access/oidc/ui-extension-token" : {
+      "post" : {
+        "tags" : [ "accessoidc" ],
+        "summary" : "Creates a single use access token for accessing a NiFi UI extension.",
+        "description" : "The token returned is a base64 encoded string. It is valid for a single request up to five minutes from being issued. It is used as a query parameter name 'access_token'.",
+        "operationId" : "createUiExtensionTokenOidc",
+        "consumes" : [ "application/x-www-form-urlencoded" ],
+        "produces" : [ "text/plain" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "403" : {
+            "description" : "Client is not authorized to make this request."
+          },
+          "409" : {
+            "description" : "Unable to create the download token because NiFi is not in the appropriate state. (i.e. may not have any tokens to grant or be configured to support username/password login)"
+          },
+          "500" : {
+            "description" : "Unable to create download token because an unexpected error occurred."
+          }
+        }
+      }
+    },
+    "/access/saml" : {
+      "get" : {
+        "tags" : [ "accesssaml" ],
+        "summary" : "Gets the status the client's access",
+        "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
+        "operationId" : "getAccessStatusSaml",
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/AccessStatusEntity"
+            }
+          },
+          "400" : {
+            "description" : "NiFi was unable to complete the request because it was invalid. The request should not be retried without modification."
+          },
+          "401" : {
+            "description" : "Unable to determine access status because the client could not be authenticated."
+          },
+          "403" : {
+            "description" : "Unable to determine access status because the client is not authorized to make this request."
+          },
+          "409" : {
+            "description" : "Unable to determine access status because NiFi is not in the appropriate state."
+          },
+          "500" : {
+            "description" : "Unable to determine access status because an unexpected error occurred."
+          }
+        }
+      }
+    },
+    "/access/saml/config" : {
+      "get" : {
+        "tags" : [ "accesssaml" ],
+        "summary" : "Retrieves the access configuration for this NiFi",
+        "description" : "",
+        "operationId" : "getLoginConfigSaml",
+        "consumes" : [ "*/*" ],
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/AccessConfigurationEntity"
+            }
+          }
+        }
+      }
+    },
+    "/access/saml/download-token" : {
+      "post" : {
+        "tags" : [ "accesssaml" ],
+        "summary" : "Creates a single use access token for downloading FlowFile content.",
+        "description" : "The token returned is a base64 encoded string. It is valid for a single request up to five minutes from being issued. It is used as a query parameter name 'access_token'.",
+        "operationId" : "createDownloadTokenSaml",
+        "consumes" : [ "application/x-www-form-urlencoded" ],
+        "produces" : [ "text/plain" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "403" : {
+            "description" : "Client is not authorized to make this request."
+          },
+          "409" : {
+            "description" : "Unable to create the download token because NiFi is not in the appropriate state. (i.e. may not have any tokens to grant or be configured to support username/password login)"
+          },
+          "500" : {
+            "description" : "Unable to create download token because an unexpected error occurred."
+          }
+        }
+      }
+    },
+    "/access/saml/kerberos" : {
+      "post" : {
+        "tags" : [ "accesssaml" ],
+        "summary" : "Creates a token for accessing the REST API via Kerberos ticket exchange / SPNEGO negotiation",
+        "description" : "The token returned is formatted as a JSON Web Token (JWT). The token is base64 encoded and comprised of three parts. The header, the body, and the signature. The expiration of the token is a contained within the body. The token can be used in the Authorization header in the format 'Authorization: Bearer <token>'. It is also stored in the browser as a cookie.",
+        "operationId" : "createAccessTokenFromTicketSaml",
+        "consumes" : [ "text/plain" ],
+        "produces" : [ "text/plain" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "400" : {
+            "description" : "NiFi was unable to complete the request because it was invalid. The request should not be retried without modification."
+          },
+          "401" : {
+            "description" : "NiFi was unable to complete the request because it did not contain a valid Kerberos ticket in the Authorization header. Retry this request after initializing a ticket with kinit and ensuring your browser is configured to support SPNEGO."
+          },
+          "409" : {
+            "description" : "Unable to create access token because NiFi is not in the appropriate state. (i.e. may not be configured to support Kerberos login."
+          },
+          "500" : {
+            "description" : "Unable to create access token because an unexpected error occurred."
+          }
+        }
+      }
+    },
+    "/access/saml/knox/callback" : {
+      "get" : {
+        "tags" : [ "accesssaml" ],
+        "summary" : "Redirect/callback URI for processing the result of the Apache Knox login sequence.",
+        "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
+        "operationId" : "knoxCallbackSaml",
+        "consumes" : [ "*/*" ],
+        "produces" : [ "*/*" ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/access/saml/knox/logout" : {
+      "get" : {
+        "tags" : [ "accesssaml" ],
+        "summary" : "Performs a logout in the Apache Knox.",
+        "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
+        "operationId" : "knoxLogoutSaml",
+        "consumes" : [ "*/*" ],
+        "produces" : [ "*/*" ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/access/saml/knox/request" : {
+      "get" : {
+        "tags" : [ "accesssaml" ],
+        "summary" : "Initiates a request to authenticate through Apache Knox.",
+        "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
+        "operationId" : "knoxRequestSaml",
+        "consumes" : [ "*/*" ],
+        "produces" : [ "*/*" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -373,12 +793,12 @@
     },
     "/access/saml/local-logout" : {
       "get" : {
-        "tags" : [ "access" ],
+        "tags" : [ "accesssaml" ],
         "summary" : "Local logout when SAML is enabled, does not communicate with the IDP.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "samlLocalLogout",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
+        "produces" : [ "*/*" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -388,12 +808,12 @@
     },
     "/access/saml/login/consumer" : {
       "get" : {
-        "tags" : [ "access" ],
+        "tags" : [ "accesssaml" ],
         "summary" : "Processes the SSO response from the SAML identity provider for HTTP-REDIRECT binding.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "samlLoginHttpRedirectConsumer",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
+        "produces" : [ "*/*" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -401,12 +821,12 @@
         }
       },
       "post" : {
-        "tags" : [ "access" ],
+        "tags" : [ "accesssaml" ],
         "summary" : "Processes the SSO response from the SAML identity provider for HTTP-POST binding.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "samlLoginHttpPostConsumer",
         "consumes" : [ "application/x-www-form-urlencoded" ],
-        "produces" : [ "application/json" ],
+        "produces" : [ "*/*" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -416,14 +836,14 @@
     },
     "/access/saml/login/exchange" : {
       "post" : {
-        "tags" : [ "access" ],
+        "tags" : [ "accesssaml" ],
         "summary" : "Retrieves a JWT following a successful login sequence using the configured SAML identity provider.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "samlLoginExchange",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "text/plain" ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "type" : "string"
@@ -434,12 +854,12 @@
     },
     "/access/saml/login/request" : {
       "get" : {
-        "tags" : [ "access" ],
+        "tags" : [ "accesssaml" ],
         "summary" : "Initiates an SSO request to the configured SAML identity provider.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "samlLoginRequest",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
+        "produces" : [ "*/*" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -447,13 +867,55 @@
         }
       }
     },
+    "/access/saml/logout" : {
+      "delete" : {
+        "tags" : [ "accesssaml" ],
+        "summary" : "Performs a logout for other providers that have been issued a JWT.",
+        "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
+        "operationId" : "logOutSaml",
+        "consumes" : [ "*/*" ],
+        "produces" : [ "*/*" ],
+        "responses" : {
+          "200" : {
+            "description" : "User was logged out successfully."
+          },
+          "401" : {
+            "description" : "Authentication token provided was empty or not in the correct JWT format."
+          },
+          "500" : {
+            "description" : "Client failed to log out."
+          }
+        }
+      }
+    },
+    "/access/saml/logout/complete" : {
+      "get" : {
+        "tags" : [ "accesssaml" ],
+        "summary" : "Completes the logout sequence by removing the cached Logout Request and Cookie if they existed and redirects to /nifi/login.",
+        "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
+        "operationId" : "logOutCompleteSaml",
+        "consumes" : [ "*/*" ],
+        "produces" : [ "*/*" ],
+        "responses" : {
+          "200" : {
+            "description" : "User was logged out successfully."
+          },
+          "401" : {
+            "description" : "Authentication token provided was empty or not in the correct JWT format."
+          },
+          "500" : {
+            "description" : "Client failed to log out."
+          }
+        }
+      }
+    },
     "/access/saml/metadata" : {
       "get" : {
-        "tags" : [ "access" ],
+        "tags" : [ "accesssaml" ],
         "summary" : "Retrieves the service provider metadata.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "samlMetadata",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/samlmetadata+xml" ],
         "responses" : {
           "default" : {
@@ -464,12 +926,12 @@
     },
     "/access/saml/single-logout/consumer" : {
       "get" : {
-        "tags" : [ "access" ],
+        "tags" : [ "accesssaml" ],
         "summary" : "Processes a SingleLogout message from the configured SAML identity provider using the HTTP-REDIRECT binding.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "samlSingleLogoutHttpRedirectConsumer",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
+        "produces" : [ "*/*" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -477,12 +939,12 @@
         }
       },
       "post" : {
-        "tags" : [ "access" ],
+        "tags" : [ "accesssaml" ],
         "summary" : "Processes a SingleLogout message from the configured SAML identity provider using the HTTP-POST binding.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "samlSingleLogoutHttpPostConsumer",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
+        "produces" : [ "*/*" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -492,15 +954,83 @@
     },
     "/access/saml/single-logout/request" : {
       "get" : {
-        "tags" : [ "access" ],
+        "tags" : [ "accesssaml" ],
         "summary" : "Initiates a logout request using the SingleLogout service of the configured SAML identity provider.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "samlSingleLogoutRequest",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
+        "produces" : [ "*/*" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/access/saml/token" : {
+      "post" : {
+        "tags" : [ "accesssaml" ],
+        "summary" : "Creates a token for accessing the REST API via username/password",
+        "description" : "The token returned is formatted as a JSON Web Token (JWT). The token is base64 encoded and comprised of three parts. The header, the body, and the signature. The expiration of the token is a contained within the body. It is stored in the browser as a cookie, but also returned inthe response body to be stored/used by third party client scripts.",
+        "operationId" : "createAccessTokenSaml",
+        "consumes" : [ "application/x-www-form-urlencoded" ],
+        "produces" : [ "text/plain" ],
+        "parameters" : [ {
+          "name" : "username",
+          "in" : "formData",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "password",
+          "in" : "formData",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "400" : {
+            "description" : "NiFi was unable to complete the request because it was invalid. The request should not be retried without modification."
+          },
+          "403" : {
+            "description" : "Client is not authorized to make this request."
+          },
+          "409" : {
+            "description" : "Unable to create access token because NiFi is not in the appropriate state. (i.e. may not be configured to support username/password login."
+          },
+          "500" : {
+            "description" : "Unable to create access token because an unexpected error occurred."
+          }
+        }
+      }
+    },
+    "/access/saml/ui-extension-token" : {
+      "post" : {
+        "tags" : [ "accesssaml" ],
+        "summary" : "Creates a single use access token for accessing a NiFi UI extension.",
+        "description" : "The token returned is a base64 encoded string. It is valid for a single request up to five minutes from being issued. It is used as a query parameter name 'access_token'.",
+        "operationId" : "createUiExtensionTokenSaml",
+        "consumes" : [ "application/x-www-form-urlencoded" ],
+        "produces" : [ "text/plain" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "403" : {
+            "description" : "Client is not authorized to make this request."
+          },
+          "409" : {
+            "description" : "Unable to create the download token because NiFi is not in the appropriate state. (i.e. may not have any tokens to grant or be configured to support username/password login)"
+          },
+          "500" : {
+            "description" : "Unable to create download token because an unexpected error occurred."
           }
         }
       }
@@ -509,7 +1039,7 @@
       "post" : {
         "tags" : [ "access" ],
         "summary" : "Creates a token for accessing the REST API via username/password",
-        "description" : "The token returned is formatted as a JSON Web Token (JWT). The token is base64 encoded and comprised of three parts. The header, the body, and the signature. The expiration of the token is a contained within the body. The token can be used in the Authorization header in the format 'Authorization: Bearer <token>'.",
+        "description" : "The token returned is formatted as a JSON Web Token (JWT). The token is base64 encoded and comprised of three parts. The header, the body, and the signature. The expiration of the token is a contained within the body. It is stored in the browser as a cookie, but also returned inthe response body to be stored/used by third party client scripts.",
         "operationId" : "createAccessToken",
         "consumes" : [ "application/x-www-form-urlencoded" ],
         "produces" : [ "text/plain" ],
@@ -525,7 +1055,7 @@
           "type" : "string"
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "type" : "string"
@@ -555,7 +1085,7 @@
         "consumes" : [ "application/x-www-form-urlencoded" ],
         "produces" : [ "text/plain" ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "type" : "string"
@@ -579,7 +1109,7 @@
         "summary" : "Gets a connection",
         "description" : "",
         "operationId" : "getConnection",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -677,7 +1207,7 @@
         "summary" : "Deletes a connection",
         "description" : "",
         "operationId" : "deleteConnection",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -743,7 +1273,7 @@
         "summary" : "Gets a controller service",
         "description" : "",
         "operationId" : "getControllerService",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -835,7 +1365,7 @@
         "summary" : "Deletes a controller service",
         "description" : "",
         "operationId" : "removeControllerService",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -902,8 +1432,8 @@
         "tags" : [ "controller-services" ],
         "summary" : "Gets a controller service property descriptor",
         "description" : "",
-        "operationId" : "controllerServicesGetPropertyDescriptor",
-        "consumes" : [ "application/json" ],
+        "operationId" : "getPropertyDescriptorControllerServices",
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -952,7 +1482,7 @@
         "summary" : "Gets a controller service",
         "description" : "",
         "operationId" : "getControllerServiceReferences",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -1043,7 +1573,7 @@
         "tags" : [ "controller-services" ],
         "summary" : "Updates run status of a controller service",
         "description" : "",
-        "operationId" : "controllerServicesUpdateRunStatus",
+        "operationId" : "updateRunStatusControllerServices",
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
@@ -1094,8 +1624,8 @@
         "tags" : [ "controller-services" ],
         "summary" : "Gets the state for a controller service",
         "description" : "",
-        "operationId" : "controllerServicesGetState",
-        "consumes" : [ "application/json" ],
+        "operationId" : "getStateControllerServices",
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -1137,8 +1667,8 @@
         "tags" : [ "controller-services" ],
         "summary" : "Clears the state for a controller service",
         "description" : "",
-        "operationId" : "controllerServicesClearState",
-        "consumes" : [ "application/json" ],
+        "operationId" : "clearStateControllerServices",
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -1193,7 +1723,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/BulletinEntity"
@@ -1223,7 +1753,7 @@
         "summary" : "Gets the contents of the cluster",
         "description" : "Returns the contents of the cluster including all nodes and their status.",
         "operationId" : "getCluster",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -1256,7 +1786,7 @@
         "summary" : "Gets a node in the cluster",
         "description" : "",
         "operationId" : "getNode",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -1346,7 +1876,7 @@
         "summary" : "Removes a node from the cluster",
         "description" : "",
         "operationId" : "deleteNode",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -1389,7 +1919,7 @@
         "summary" : "Retrieves the configuration for this NiFi Controller",
         "description" : "",
         "operationId" : "getControllerConfig",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -1461,7 +1991,7 @@
         "tags" : [ "controller" ],
         "summary" : "Creates a new controller service",
         "description" : "",
-        "operationId" : "controllerCreateControllerService",
+        "operationId" : "createControllerServiceController",
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
@@ -1474,7 +2004,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ControllerServiceEntity"
@@ -1508,7 +2038,7 @@
         "summary" : "Purges history",
         "description" : "",
         "operationId" : "deleteHistory",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "endDate",
@@ -1548,7 +2078,7 @@
         "summary" : "Gets the listing of available registry clients",
         "description" : "",
         "operationId" : "getRegistryClients",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -1594,7 +2124,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/RegistryClientEntity"
@@ -1624,7 +2154,7 @@
         "summary" : "Gets a registry client",
         "description" : "",
         "operationId" : "getRegistryClient",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -1714,7 +2244,7 @@
         "summary" : "Deletes a registry client",
         "description" : "",
         "operationId" : "deleteRegistryClient",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -1788,7 +2318,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ReportingTaskEntity"
@@ -1822,7 +2352,7 @@
         "summary" : "Gets status history for the node",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getNodeStatusHistory",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -1858,7 +2388,7 @@
         "summary" : "Gets the current counters for this NiFi",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getCounters",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "nodewise",
@@ -1905,7 +2435,7 @@
         "summary" : "Updates the specified counter. This will reset the counter value to 0",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "updateCounter",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -1948,7 +2478,7 @@
         "summary" : "Extend transaction TTL",
         "description" : "",
         "operationId" : "extendInputPortTransactionTTL",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "portId",
@@ -2067,7 +2597,7 @@
           "type" : "string"
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "type" : "string"
@@ -2103,7 +2633,7 @@
         "summary" : "Extend transaction TTL",
         "description" : "",
         "operationId" : "extendOutputPortTransactionTTL",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "portId",
@@ -2216,7 +2746,7 @@
         "summary" : "Transfer flow files from the output port",
         "description" : "",
         "operationId" : "transferFlowFiles",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/octet-stream" ],
         "parameters" : [ {
           "name" : "portId",
@@ -2282,7 +2812,7 @@
           "type" : "string"
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/TransactionResultEntity"
@@ -2318,7 +2848,7 @@
         "summary" : "Retrieves details about this NiFi to put in the About dialog",
         "description" : "",
         "operationId" : "getAboutInfo",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -2351,7 +2881,7 @@
         "summary" : "Retrieves the banners for this NiFi",
         "description" : "",
         "operationId" : "getBanners",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -2384,7 +2914,7 @@
         "summary" : "Gets current bulletins",
         "description" : "",
         "operationId" : "getBulletinBoard",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "after",
@@ -2456,7 +2986,7 @@
         "summary" : "Generates a client id.",
         "description" : "",
         "operationId" : "generateClientId",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "text/plain" ],
         "responses" : {
           "200" : {
@@ -2489,7 +3019,7 @@
         "summary" : "Searches the cluster for a node with the specified address",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "searchCluster",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "q",
@@ -2532,7 +3062,7 @@
         "summary" : "The cluster summary for this NiFi",
         "description" : "",
         "operationId" : "getClusterSummary",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -2565,7 +3095,7 @@
         "summary" : "Retrieves the configuration for this NiFi flow",
         "description" : "",
         "operationId" : "getFlowConfig",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -2598,7 +3128,7 @@
         "summary" : "Gets statistics for a connection",
         "description" : "",
         "operationId" : "getConnectionStatistics",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "nodewise",
@@ -2654,7 +3184,7 @@
         "summary" : "Gets status for a connection",
         "description" : "",
         "operationId" : "getConnectionStatus",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "nodewise",
@@ -2710,7 +3240,7 @@
         "summary" : "Gets the status history for a connection",
         "description" : "",
         "operationId" : "getConnectionStatusHistory",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -2753,7 +3283,7 @@
         "summary" : "Retrieves the types of controller services that this NiFi supports",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getControllerServiceTypes",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "serviceType",
@@ -2829,7 +3359,7 @@
         "summary" : "Retrieves Controller level bulletins",
         "description" : "",
         "operationId" : "getBulletins",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -2871,7 +3401,7 @@
         "summary" : "Gets controller services for reporting tasks",
         "description" : "",
         "operationId" : "getControllerServicesFromController",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -2904,7 +3434,7 @@
         "summary" : "Retrieves the user identity of the user making the request",
         "description" : "",
         "operationId" : "getCurrentUser",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -2925,7 +3455,7 @@
         "summary" : "Gets configuration history",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "queryHistory",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "offset",
@@ -3007,7 +3537,7 @@
         "summary" : "Gets configuration history for a component",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getComponentHistory",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "componentId",
@@ -3052,7 +3582,7 @@
         "summary" : "Gets an action",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getAction",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -3095,7 +3625,7 @@
         "summary" : "Gets status for an input port",
         "description" : "",
         "operationId" : "getInputPortStatus",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "nodewise",
@@ -3151,8 +3681,8 @@
         "summary" : "Gets all metrics for the flow from a particular node",
         "description" : "",
         "operationId" : "getFlowMetrics",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
+        "produces" : [ "*/*" ],
         "parameters" : [ {
           "name" : "producer",
           "in" : "path",
@@ -3194,7 +3724,7 @@
         "summary" : "Gets status for an output port",
         "description" : "",
         "operationId" : "getOutputPortStatus",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "nodewise",
@@ -3250,7 +3780,7 @@
         "summary" : "Gets all Parameter Contexts",
         "description" : "",
         "operationId" : "getParameterContexts",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -3283,7 +3813,7 @@
         "summary" : "Retrieves the types of prioritizers that this NiFi supports",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getPrioritizers",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -3316,7 +3846,7 @@
         "summary" : "Gets a process group",
         "description" : "",
         "operationId" : "getFlow",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -3410,7 +3940,7 @@
         "summary" : "Gets all controller services",
         "description" : "",
         "operationId" : "getControllerServicesFromGroup",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -3515,7 +4045,7 @@
         "summary" : "Gets the status for a process group",
         "description" : "The status for a process group includes status for all descendent components. When invoked on the root group with recursive set to true, it will return the current status of every component in the flow.",
         "operationId" : "getProcessGroupStatus",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "recursive",
@@ -3578,7 +4108,7 @@
         "summary" : "Gets status history for a remote process group",
         "description" : "",
         "operationId" : "getProcessGroupStatusHistory",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -3621,7 +4151,7 @@
         "summary" : "Retrieves the types of processors that this NiFi supports",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getProcessorTypes",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "bundleGroupFilter",
@@ -3673,7 +4203,7 @@
         "summary" : "Gets status for a processor",
         "description" : "",
         "operationId" : "getProcessorStatus",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "nodewise",
@@ -3729,7 +4259,7 @@
         "summary" : "Gets status history for a processor",
         "description" : "",
         "operationId" : "getProcessorStatusHistory",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -3772,7 +4302,7 @@
         "summary" : "Gets the listing of available registries",
         "description" : "",
         "operationId" : "getRegistries",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -3808,7 +4338,7 @@
         "summary" : "Gets the buckets from the specified registry for the current user",
         "description" : "",
         "operationId" : "getBuckets",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -3851,7 +4381,7 @@
         "summary" : "Gets the flows from the specified registry and bucket for the current user",
         "description" : "",
         "operationId" : "getFlows",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "registry-id",
@@ -3900,7 +4430,7 @@
         "summary" : "Gets the flow versions from the specified registry and bucket for the specified flow for the current user",
         "description" : "",
         "operationId" : "getVersions",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "registry-id",
@@ -3955,7 +4485,7 @@
         "summary" : "Gets status for a remote process group",
         "description" : "",
         "operationId" : "getRemoteProcessGroupStatus",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "nodewise",
@@ -4011,7 +4541,7 @@
         "summary" : "Gets the status history",
         "description" : "",
         "operationId" : "getRemoteProcessGroupStatusHistory",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -4054,7 +4584,7 @@
         "summary" : "Retrieves the types of reporting tasks that this NiFi supports",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getReportingTaskTypes",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "bundleGroupFilter",
@@ -4106,7 +4636,7 @@
         "summary" : "Gets all reporting tasks",
         "description" : "",
         "operationId" : "getReportingTasks",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -4139,7 +4669,7 @@
         "summary" : "Performs a search against this NiFi using the specified search term",
         "description" : "Only search results from authorized components will be returned.",
         "operationId" : "searchFlow",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "q",
@@ -4183,7 +4713,7 @@
         "summary" : "Gets the current status of this NiFi",
         "description" : "",
         "operationId" : "getControllerStatus",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -4216,7 +4746,7 @@
         "summary" : "Gets all templates",
         "description" : "",
         "operationId" : "getTemplates",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -4249,7 +4779,7 @@
         "summary" : "Creates a request to drop the contents of the queue in this connection.",
         "description" : "",
         "operationId" : "createDropRequest",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -4259,7 +4789,7 @@
           "type" : "string"
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/DropRequestEntity"
@@ -4295,7 +4825,7 @@
         "summary" : "Gets the current status of a drop request for the specified connection.",
         "description" : "",
         "operationId" : "getDropRequest",
-        "consumes" : ["application/json"],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -4341,8 +4871,8 @@
         "tags" : [ "flowfile-queues" ],
         "summary" : "Cancels and/or removes a request to drop the contents of this connection.",
         "description" : "",
-        "operationId" : "flowfileQueuesRemoveDropRequest",
-        "consumes" : [ "application/json" ],
+        "operationId" : "removeDropRequestFlowFile",
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -4391,7 +4921,7 @@
         "summary" : "Gets a FlowFile from a Connection.",
         "description" : "",
         "operationId" : "getFlowFile",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -4446,8 +4976,8 @@
         "summary" : "Gets the content for a FlowFile in a Connection.",
         "description" : "",
         "operationId" : "downloadFlowFileContent",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
+        "produces" : [ "*/*" ],
         "parameters" : [ {
           "name" : "clientId",
           "in" : "query",
@@ -4507,7 +5037,7 @@
         "summary" : "Lists the contents of the queue in this connection.",
         "description" : "",
         "operationId" : "createFlowFileListing",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -4517,7 +5047,7 @@
           "type" : "string"
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ListingRequestEntity"
@@ -4553,7 +5083,7 @@
         "summary" : "Gets the current status of a listing request for the specified connection.",
         "description" : "",
         "operationId" : "getListingRequest",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -4600,7 +5130,7 @@
         "summary" : "Cancels and/or removes a request to list the contents of this connection.",
         "description" : "",
         "operationId" : "deleteListingRequest",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -4649,7 +5179,7 @@
         "summary" : "Gets a funnel",
         "description" : "",
         "operationId" : "getFunnel",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -4739,7 +5269,7 @@
         "summary" : "Deletes a funnel",
         "description" : "",
         "operationId" : "removeFunnel",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -4803,7 +5333,7 @@
         "summary" : "Gets an input port",
         "description" : "",
         "operationId" : "getInputPort",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -4893,7 +5423,7 @@
         "summary" : "Deletes an input port",
         "description" : "",
         "operationId" : "removeInputPort",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -4956,7 +5486,7 @@
         "tags" : [ "input-ports" ],
         "summary" : "Updates run status of an input-port",
         "description" : "",
-        "operationId" : "inputPortsUpdateRunStatus",
+        "operationId" : "updateRunStatusInputPorts",
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
@@ -5008,7 +5538,7 @@
         "summary" : "Gets a label",
         "description" : "",
         "operationId" : "getLabel",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -5098,7 +5628,7 @@
         "summary" : "Deletes a label",
         "description" : "",
         "operationId" : "removeLabel",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -5162,7 +5692,7 @@
         "summary" : "Gets an output port",
         "description" : "",
         "operationId" : "getOutputPort",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -5252,7 +5782,7 @@
         "summary" : "Deletes an output port",
         "description" : "",
         "operationId" : "removeOutputPort",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -5315,7 +5845,7 @@
         "tags" : [ "output-ports" ],
         "summary" : "Updates run status of an output-port",
         "description" : "",
-        "operationId" : "outputPortsUpdateRunStatus",
+        "operationId" : "updateRunStatusOutputPorts",
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
@@ -5379,7 +5909,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ParameterContextEntity"
@@ -5429,7 +5959,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ParameterContextUpdateRequestEntity"
@@ -5468,7 +5998,7 @@
         "summary" : "Returns the Update Request with the given ID",
         "description" : "Returns the Update Request with the given ID. Once an Update Request has been created by performing a POST to /nifi-api/parameter-contexts, that request can subsequently be retrieved via this endpoint, and the request that is fetched will contain the updated state, such as percent complete, the current state of the request, and any failures. ",
         "operationId" : "getParameterContextUpdate",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "contextId",
@@ -5514,8 +6044,8 @@
         "tags" : [ "parameter-contexts" ],
         "summary" : "Deletes the Update Request with the given ID",
         "description" : "Deletes the Update Request with the given ID. After a request is created via a POST to /nifi-api/parameter-contexts/update-requests, it is expected that the client will properly clean up the request by DELETE'ing it, once the Update process has completed. If the request is deleted before the request completes, then the Update request will finish the step that it is currently performing and then will cancel any subsequent steps.",
-        "operationId" : "parameterContextsDeleteUpdateRequest",
-        "consumes" : [ "application/json" ],
+        "operationId" : "deleteUpdateRequestParameterContexts",
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "disconnectedNodeAcknowledged",
@@ -5588,7 +6118,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ParameterContextValidationRequestEntity"
@@ -5621,7 +6151,7 @@
         "summary" : "Returns the Validation Request with the given ID",
         "description" : "Returns the Validation Request with the given ID. Once a Validation Request has been created by performing a POST to /nifi-api/validation-contexts, that request can subsequently be retrieved via this endpoint, and the request that is fetched will contain the updated state, such as percent complete, the current state of the request, and any failures. ",
         "operationId" : "getValidationRequest",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "contextId",
@@ -5668,7 +6198,7 @@
         "summary" : "Deletes the Validation Request with the given ID",
         "description" : "Deletes the Validation Request with the given ID. After a request is created via a POST to /nifi-api/validation-contexts, it is expected that the client will properly clean up the request by DELETE'ing it, once the validation process has completed. If the request is deleted before the request completes, then the Validation request will finish the step that it is currently performing and then will cancel any subsequent steps.",
         "operationId" : "deleteValidationRequest",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "disconnectedNodeAcknowledged",
@@ -5724,7 +6254,7 @@
         "summary" : "Returns the Parameter Context with the given ID",
         "description" : "Returns the Parameter Context with the given ID.",
         "operationId" : "getParameterContext",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -5815,7 +6345,7 @@
         "summary" : "Deletes the Parameter Context with the given ID",
         "description" : "Deletes the Parameter Context with the given ID.",
         "operationId" : "deleteParameterContext",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -5895,7 +6425,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/AccessPolicyEntity"
@@ -5928,7 +6458,7 @@
         "summary" : "Gets an access policy for the specified action and resource",
         "description" : "Will return the effective policy if no component specific policy exists for the specified action and resource. Must have Read permissions to the policy with the desired action and resource. Permissions for the policy that is returned will be indicated in the response. This means the client could be authorized to get the policy for a given component but the effective policy may be inherited from an ancestor Process Group. If the client does not have permissions to that policy, the response will not include the policy and the permissions in the response will be marked accordingly. If the client does not have permissions to the policy of the desired action and resource a 403 response will be returned.",
         "operationId" : "getAccessPolicyForResource",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "action",
@@ -5979,7 +6509,7 @@
         "summary" : "Gets an access policy",
         "description" : "",
         "operationId" : "getAccessPolicy",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -6069,7 +6599,7 @@
         "summary" : "Deletes an access policy",
         "description" : "",
         "operationId" : "removeAccessPolicy",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -6133,7 +6663,7 @@
         "summary" : "Returns the Replace Request with the given ID",
         "description" : "Returns the Replace Request with the given ID. Once a Replace Request has been created by performing a POST to /process-groups/{id}/replace-requests, that request can subsequently be retrieved via this endpoint, and the request that is fetched will contain the updated state, such as percent complete, the current state of the request, and any failures. Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getReplaceProcessGroupRequest",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -6174,7 +6704,7 @@
         "summary" : "Deletes the Replace Request with the given ID",
         "description" : "Deletes the Replace Request with the given ID. After a request is created via a POST to /process-groups/{id}/replace-requests, it is expected that the client will properly clean up the request by DELETE'ing it, once the Replace process has completed. If the request is deleted before the request completes, then the Replace request will finish the step that it is currently performing and then will cancel any subsequent steps. Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "deleteReplaceProcessGroupRequest",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "disconnectedNodeAcknowledged",
@@ -6224,7 +6754,7 @@
         "summary" : "Gets a process group's variable registry",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getVariableRegistryUpdateRequest",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "groupId",
@@ -6271,7 +6801,7 @@
         "summary" : "Deletes an update request for a process group's variable registry. If the request is not yet complete, it will automatically be cancelled.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "deleteVariableRegistryUpdateRequest",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "groupId",
@@ -6327,7 +6857,7 @@
         "summary" : "Gets a process group",
         "description" : "",
         "operationId" : "getProcessGroup",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -6417,7 +6947,7 @@
         "summary" : "Deletes a process group",
         "description" : "",
         "operationId" : "removeProcessGroup",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -6485,7 +7015,7 @@
         "summary" : "Gets all connections",
         "description" : "",
         "operationId" : "getConnections",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -6544,7 +7074,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ConnectionEntity"
@@ -6580,7 +7110,7 @@
         "tags" : [ "process-groups" ],
         "summary" : "Creates a new controller service",
         "description" : "",
-        "operationId" : "processGroupsCreateControllerService",
+        "operationId" : "createControllerServiceProcessGroups",
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
@@ -6599,7 +7129,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ControllerServiceEntity"
@@ -6633,7 +7163,7 @@
         "summary" : "Gets a process group for download",
         "description" : "",
         "operationId" : "exportProcessGroup",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -6676,7 +7206,7 @@
         "summary" : "Creates a request to drop all flowfiles of all connection queues in this process group.",
         "description" : "",
         "operationId" : "createEmptyAllConnectionsRequest",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -6686,7 +7216,7 @@
           "type" : "string"
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ProcessGroupEntity"
@@ -6724,7 +7254,7 @@
         "summary" : "Gets the current status of a drop all flowfiles request.",
         "description" : "",
         "operationId" : "getDropAllFlowfilesRequest",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -6772,8 +7302,8 @@
         "tags" : [ "process-groups" ],
         "summary" : "Cancels and/or removes a request to drop all flowfiles.",
         "description" : "",
-        "operationId" : "processGroupsRemoveDropRequest",
-        "consumes" : [ "application/json" ],
+        "operationId" : "removeDropRequestProcessGroups",
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -6877,7 +7407,7 @@
         "summary" : "Gets all funnels",
         "description" : "",
         "operationId" : "getFunnels",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -6936,7 +7466,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/FunnelEntity"
@@ -6969,7 +7499,7 @@
         "summary" : "Gets all input ports",
         "description" : "",
         "operationId" : "getInputPorts",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -7028,7 +7558,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/PortEntity"
@@ -7061,7 +7591,7 @@
         "summary" : "Gets all labels",
         "description" : "",
         "operationId" : "getLabels",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -7120,7 +7650,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/LabelEntity"
@@ -7153,7 +7683,7 @@
         "summary" : "Gets a list of local modifications to the Process Group since it was last synchronized with the Flow Registry",
         "description" : "",
         "operationId" : "getLocalModifications",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -7198,7 +7728,7 @@
         "summary" : "Gets all output ports",
         "description" : "",
         "operationId" : "getOutputPorts",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -7257,7 +7787,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/PortEntity"
@@ -7290,7 +7820,7 @@
         "summary" : "Gets all process groups",
         "description" : "",
         "operationId" : "getProcessGroups",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -7349,7 +7879,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ProcessGroupEntity"
@@ -7376,13 +7906,53 @@
         } ]
       }
     },
+    "/process-groups/{id}/process-groups/import" : {
+      "post" : {
+        "tags" : [ "process-groups" ],
+        "summary" : "Imports a specified process group",
+        "description" : "",
+        "operationId" : "importProcessGroup",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "The process group id.",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ProcessGroupEntity"
+            }
+          },
+          "400" : {
+            "description" : "NiFi was unable to complete the request because it was invalid. The request should not be retried without modification."
+          },
+          "401" : {
+            "description" : "Client could not be authenticated."
+          },
+          "403" : {
+            "description" : "Client is not authorized to make this request."
+          },
+          "409" : {
+            "description" : "The request was valid but NiFi was not in the appropriate state to process it. Retrying the same request later may be successful."
+          }
+        },
+        "security" : [ {
+          "Write - /process-groups/{uuid}" : [ ]
+        } ]
+      }
+    },
     "/process-groups/{id}/processors" : {
       "get" : {
         "tags" : [ "process-groups" ],
         "summary" : "Gets all processors",
         "description" : "",
         "operationId" : "getProcessors",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -7448,7 +8018,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ProcessorEntity"
@@ -7485,7 +8055,7 @@
         "summary" : "Gets all remote process groups",
         "description" : "",
         "operationId" : "getRemoteProcessGroups",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -7544,7 +8114,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/RemoteProcessGroupEntity"
@@ -7595,7 +8165,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ProcessGroupReplaceRequestEntity"
@@ -7656,7 +8226,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/FlowEntity"
@@ -7711,7 +8281,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/FlowEntity"
@@ -7766,7 +8336,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/TemplateEntity"
@@ -7811,7 +8381,7 @@
           "type" : "string"
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/TemplateEntity"
@@ -7857,7 +8427,7 @@
           "type" : "file"
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/TemplateEntity"
@@ -7887,7 +8457,7 @@
         "summary" : "Gets a process group's variable registry",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getVariableRegistry",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -8004,7 +8574,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/VariableRegistryUpdateRequestEntity"
@@ -8049,7 +8619,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ProcessorsRunStatusDetailsEntity"
@@ -8082,7 +8652,7 @@
         "summary" : "Gets a processor",
         "description" : "",
         "operationId" : "getProcessor",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -8174,7 +8744,7 @@
         "summary" : "Deletes a processor",
         "description" : "",
         "operationId" : "deleteProcessor",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -8239,8 +8809,8 @@
         "tags" : [ "processors" ],
         "summary" : "Gets the descriptor for a processor property",
         "description" : "",
-        "operationId" : "processorsGetPropertyDescriptor",
-        "consumes" : [ "application/json" ],
+        "operationId" : "getPropertyDescriptorProcessors",
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "clientId",
@@ -8295,7 +8865,7 @@
         "summary" : "Gets diagnostics information about a processor",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getProcessorDiagnostics",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -8337,7 +8907,7 @@
         "tags" : [ "processors" ],
         "summary" : "Updates run status of a processor",
         "description" : "",
-        "operationId" : "processorsUpdateRunStatus",
+        "operationId" : "updateRunStatusProcessors",
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
@@ -8388,8 +8958,8 @@
         "tags" : [ "processors" ],
         "summary" : "Gets the state for a processor",
         "description" : "",
-        "operationId" : "processorsGetState",
-        "consumes" : [ "application/json" ],
+        "operationId" : "getStateProcessors",
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -8431,8 +9001,8 @@
         "tags" : [ "processors" ],
         "summary" : "Clears the state for a processor",
         "description" : "",
-        "operationId" : "processorsClearState",
-        "consumes" : [ "application/json" ],
+        "operationId" : "clearStateProcessors",
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -8442,7 +9012,7 @@
           "type" : "string"
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ComponentStateEntity"
@@ -8475,7 +9045,7 @@
         "summary" : "Terminates a processor, essentially \"deleting\" its threads and any active tasks",
         "description" : "",
         "operationId" : "terminateProcessor",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -8530,7 +9100,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ProvenanceEntity"
@@ -8574,7 +9144,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ProvenanceEventEntity"
@@ -8611,7 +9181,7 @@
         "summary" : "Gets a provenance event",
         "description" : "",
         "operationId" : "getProvenanceEvent",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "clusterNodeId",
@@ -8660,8 +9230,8 @@
         "summary" : "Gets the input content for a provenance event",
         "description" : "",
         "operationId" : "getInputContent",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
+        "produces" : [ "*/*" ],
         "parameters" : [ {
           "name" : "clusterNodeId",
           "in" : "query",
@@ -8711,8 +9281,8 @@
         "summary" : "Gets the output content for a provenance event",
         "description" : "",
         "operationId" : "getOutputContent",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
+        "produces" : [ "*/*" ],
         "parameters" : [ {
           "name" : "clusterNodeId",
           "in" : "query",
@@ -8774,7 +9344,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/LineageEntity"
@@ -8809,7 +9379,7 @@
         "summary" : "Gets a lineage query",
         "description" : "",
         "operationId" : "getLineage",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "clusterNodeId",
@@ -8858,7 +9428,7 @@
         "summary" : "Deletes a lineage query",
         "description" : "",
         "operationId" : "deleteLineage",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "clusterNodeId",
@@ -8907,7 +9477,7 @@
         "summary" : "Gets the searchable attributes for provenance events",
         "description" : "",
         "operationId" : "getSearchOptions",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -8940,7 +9510,7 @@
         "summary" : "Gets a provenance query",
         "description" : "",
         "operationId" : "getProvenance",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "clusterNodeId",
@@ -9003,7 +9573,7 @@
         "summary" : "Deletes a provenance query",
         "description" : "",
         "operationId" : "deleteProvenance",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "clusterNodeId",
@@ -9046,13 +9616,64 @@
         } ]
       }
     },
+    "/remote-process-groups/process-group/{id}/run-status" : {
+      "put" : {
+        "tags" : [ "remote-process-groups" ],
+        "summary" : "Updates run status of all remote process groups in a process group (recursively)",
+        "description" : "",
+        "operationId" : "updateRemoteProcessGroupRunStatuses",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "The process group id.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The remote process groups run status.",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/RemotePortRunStatusEntity"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/RemoteProcessGroupEntity"
+            }
+          },
+          "400" : {
+            "description" : "NiFi was unable to complete the request because it was invalid. The request should not be retried without modification."
+          },
+          "401" : {
+            "description" : "Client could not be authenticated."
+          },
+          "403" : {
+            "description" : "Client is not authorized to make this request."
+          },
+          "404" : {
+            "description" : "The specified resource could not be found."
+          },
+          "409" : {
+            "description" : "The request was valid but NiFi was not in the appropriate state to process it. Retrying the same request later may be successful."
+          }
+        },
+        "security" : [ {
+          "Write - /remote-process-groups/{uuid} or /operation/remote-process-groups/{uuid}" : [ ]
+        } ]
+      }
+    },
     "/remote-process-groups/{id}" : {
       "get" : {
         "tags" : [ "remote-process-groups" ],
         "summary" : "Gets a remote process group",
         "description" : "",
         "operationId" : "getRemoteProcessGroup",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -9142,7 +9763,7 @@
         "summary" : "Deletes a remote process group",
         "description" : "",
         "operationId" : "removeRemoteProcessGroup",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -9484,8 +10105,8 @@
         "tags" : [ "remote-process-groups" ],
         "summary" : "Gets the state for a RemoteProcessGroup",
         "description" : "",
-        "operationId" : "remoteProcessGroupsGetState",
-        "consumes" : [ "application/json" ],
+        "operationId" : "getStateRemoteProcessGroups",
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -9528,7 +10149,7 @@
         "summary" : "Gets a reporting task",
         "description" : "",
         "operationId" : "getReportingTask",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -9620,7 +10241,7 @@
         "summary" : "Deletes a reporting task",
         "description" : "",
         "operationId" : "removeReportingTask",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -9685,8 +10306,8 @@
         "tags" : [ "reporting-tasks" ],
         "summary" : "Gets a reporting task property descriptor",
         "description" : "",
-        "operationId" : "reportingTasksGetPropertyDescriptor",
-        "consumes" : [ "application/json" ],
+        "operationId" : "getPropertyDescriptorReportingTasks",
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -9734,7 +10355,7 @@
         "tags" : [ "reporting-tasks" ],
         "summary" : "Updates run status of a reporting task",
         "description" : "",
-        "operationId" : "reportingTasksUpdateRunStatus",
+        "operationId" : "updateRunStatusReportingTasks",
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
@@ -9785,8 +10406,8 @@
         "tags" : [ "reporting-tasks" ],
         "summary" : "Gets the state for a reporting task",
         "description" : "",
-        "operationId" : "reportingTasksGetState",
-        "consumes" : [ "application/json" ],
+        "operationId" : "getStateReportingTasks",
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -9828,8 +10449,8 @@
         "tags" : [ "reporting-tasks" ],
         "summary" : "Clears the state for a reporting task",
         "description" : "",
-        "operationId" : "reportingTasksClearState",
-        "consumes" : [ "application/json" ],
+        "operationId" : "clearStateReportingTasks",
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -9839,7 +10460,7 @@
           "type" : "string"
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ComponentStateEntity"
@@ -9872,7 +10493,7 @@
         "summary" : "Gets the available resources that support access/authorization policies",
         "description" : "",
         "operationId" : "getResources",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -9899,7 +10520,7 @@
         "summary" : "Returns the details about this NiFi necessary to communicate via site to site",
         "description" : "",
         "operationId" : "getSiteToSiteDetails",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -9932,7 +10553,7 @@
         "summary" : "Returns the available Peers and its status of this NiFi",
         "description" : "",
         "operationId" : "getPeers",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json", "application/xml" ],
         "responses" : {
           "200" : {
@@ -9977,7 +10598,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/SnippetEntity"
@@ -10061,7 +10682,7 @@
         "summary" : "Deletes the components in a snippet and discards the snippet",
         "description" : "",
         "operationId" : "deleteSnippet",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "disconnectedNodeAcknowledged",
@@ -10113,7 +10734,7 @@
         "summary" : "Gets the diagnostics for the system NiFi is running on",
         "description" : "",
         "operationId" : "getSystemDiagnostics",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "nodewise",
@@ -10154,7 +10775,7 @@
         "summary" : "Deletes a template",
         "description" : "",
         "operationId" : "removeTemplate",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "disconnectedNodeAcknowledged",
@@ -10206,7 +10827,7 @@
         "summary" : "Exports a template",
         "description" : "",
         "operationId" : "exportTemplate",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/xml" ],
         "parameters" : [ {
           "name" : "id",
@@ -10249,7 +10870,7 @@
         "summary" : "Searches for a tenant with the specified identity",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "searchTenants",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "q",
@@ -10292,7 +10913,7 @@
         "summary" : "Gets all user groups",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getUserGroups",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -10338,7 +10959,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/UserGroupEntity"
@@ -10371,7 +10992,7 @@
         "summary" : "Gets a user group",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getUserGroup",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -10461,7 +11082,7 @@
         "summary" : "Deletes a user group",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "removeUserGroup",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -10523,7 +11144,7 @@
         "summary" : "Gets all users",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getUsers",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -10569,7 +11190,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/UserEntity"
@@ -10602,7 +11223,7 @@
         "summary" : "Gets a user",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getUser",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -10692,7 +11313,7 @@
         "summary" : "Deletes a user",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "removeUser",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -10766,7 +11387,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "type" : "string"
@@ -10848,7 +11469,7 @@
         "summary" : "Deletes the version control request with the given ID",
         "description" : "Deletes the Version Control Request with the given ID. This will allow other threads to save flows to the Flow Registry. See also the documentation for POSTing to /versions/active-requests for information regarding why this is done. Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "deleteVersionControlRequest",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "disconnectedNodeAcknowledged",
@@ -10892,7 +11513,7 @@
         "summary" : "Gets the Version Control information for a process group",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getVersionInformation",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -10951,7 +11572,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/VersionControlInformationEntity"
@@ -11039,7 +11660,7 @@
         "summary" : "Stops version controlling the Process Group with the given ID",
         "description" : "Stops version controlling the Process Group with the given ID. The Process Group will no longer track to any Versioned Flow. Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "stopVersionControl",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -11103,7 +11724,7 @@
         "summary" : "Gets the latest version of a Process Group for download",
         "description" : "",
         "operationId" : "exportFlowVersion",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -11164,7 +11785,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/VersionedFlowUpdateRequestEntity"
@@ -11207,7 +11828,7 @@
         "summary" : "Returns the Revert Request with the given ID",
         "description" : "Returns the Revert Request with the given ID. Once a Revert Request has been created by performing a POST to /versions/revert-requests/process-groups/{id}, that request can subsequently be retrieved via this endpoint, and the request that is fetched will contain the updated state, such as percent complete, the current state of the request, and any failures. Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getRevertRequest",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -11248,7 +11869,7 @@
         "summary" : "Deletes the Revert Request with the given ID",
         "description" : "Deletes the Revert Request with the given ID. After a request is created via a POST to /versions/revert-requests/process-groups/{id}, it is expected that the client will properly clean up the request by DELETE'ing it, once the Revert process has completed. If the request is deleted before the request completes, then the Revert request will finish the step that it is currently performing and then will cancel any subsequent steps. Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "deleteRevertRequest",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "disconnectedNodeAcknowledged",
@@ -11316,7 +11937,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/VersionedFlowUpdateRequestEntity"
@@ -11359,7 +11980,7 @@
         "summary" : "Returns the Update Request with the given ID",
         "description" : "Returns the Update Request with the given ID. Once an Update Request has been created by performing a POST to /versions/update-requests/process-groups/{id}, that request can subsequently be retrieved via this endpoint, and the request that is fetched will contain the updated state, such as percent complete, the current state of the request, and any failures. Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getUpdateRequest",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -11399,8 +12020,8 @@
         "tags" : [ "versions" ],
         "summary" : "Deletes the Update Request with the given ID",
         "description" : "Deletes the Update Request with the given ID. After a request is created via a POST to /versions/update-requests/process-groups/{id}, it is expected that the client will properly clean up the request by DELETE'ing it, once the Update process has completed. If the request is deleted before the request completes, then the Update request will finish the step that it is currently performing and then will cancel any subsequent steps. Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
-        "operationId" : "versionsDeleteUpdateRequest",
-        "consumes" : [ "application/json" ],
+        "operationId" : "deleteUpdateRequestVersions",
+        "consumes" : [ "*/*" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "disconnectedNodeAcknowledged",
@@ -11467,8 +12088,7 @@
         },
         "timezone" : {
           "type" : "string",
-          "description" : "The timezone of the NiFi instance.",
-          "readOnly" : true
+          "description" : "The timezone of the NiFi instance."
         },
         "buildTag" : {
           "type" : "string",
@@ -11504,8 +12124,7 @@
       "properties" : {
         "supportsLogin" : {
           "type" : "boolean",
-          "description" : "Indicates whether or not this NiFi supports user login.",
-          "readOnly" : true
+          "description" : "Indicates whether or not this NiFi supports user login."
         }
       }
     },
@@ -11705,18 +12324,15 @@
       "properties" : {
         "identity" : {
           "type" : "string",
-          "description" : "The user identity.",
-          "readOnly" : true
+          "description" : "The user identity."
         },
         "status" : {
           "type" : "string",
-          "description" : "The user access status.",
-          "readOnly" : true
+          "description" : "The user access status."
         },
         "message" : {
           "type" : "string",
-          "description" : "Additional details about the user access status.",
-          "readOnly" : true
+          "description" : "Additional details about the user access status."
         }
       },
       "xml" : {
@@ -11795,8 +12411,7 @@
         },
         "canRead" : {
           "type" : "boolean",
-          "description" : "Indicates whether the user can read a given resource.",
-          "readOnly" : true
+          "description" : "Indicates whether the user can read a given resource."
         },
         "action" : {
           "$ref" : "#/definitions/ActionDTO"
@@ -11948,8 +12563,7 @@
         },
         "canRead" : {
           "type" : "boolean",
-          "description" : "Indicates whether the user can read a given resource.",
-          "readOnly" : true
+          "description" : "Indicates whether the user can read a given resource."
         }
       },
       "xml" : {
@@ -12227,8 +12841,7 @@
         },
         "canRead" : {
           "type" : "boolean",
-          "description" : "Indicates whether the user can read a given resource.",
-          "readOnly" : true
+          "description" : "Indicates whether the user can read a given resource."
         },
         "bulletin" : {
           "$ref" : "#/definitions/BulletinDTO"
@@ -12269,6 +12882,19 @@
         "version" : {
           "type" : "string",
           "description" : "The version of the bundle."
+        }
+      }
+    },
+    "ClassLoaderDiagnosticsDTO" : {
+      "type" : "object",
+      "properties" : {
+        "bundle" : {
+          "description" : "Information about the Bundle that the ClassLoader belongs to, if any",
+          "$ref" : "#/definitions/BundleDTO"
+        },
+        "parentClassLoader" : {
+          "description" : "A ClassLoaderDiagnosticsDTO that provides information about the parent ClassLoader",
+          "$ref" : "#/definitions/ClassLoaderDiagnosticsDTO"
         }
       }
     },
@@ -12790,7 +13416,6 @@
         "availableRelationships" : {
           "type" : "array",
           "description" : "The relationships that the source of the connection currently supports.",
-          "readOnly" : true,
           "uniqueItems" : true,
           "items" : {
             "type" : "string"
@@ -12840,8 +13465,56 @@
         "loadBalanceStatus" : {
           "type" : "string",
           "description" : "The current status of the Connection's Load Balancing Activities. Status can indicate that Load Balancing is not configured for the connection, that Load Balancing is configured but inactive (not currently transferring data to another node), or that Load Balancing is configured and actively transferring data to another node.",
-          "readOnly" : true,
           "enum" : [ "LOAD_BALANCE_NOT_CONFIGURED", "LOAD_BALANCE_INACTIVE", "LOAD_BALANCE_ACTIVE" ]
+        }
+      }
+    },
+    "ConnectionDiagnosticsDTO" : {
+      "type" : "object",
+      "properties" : {
+        "connection" : {
+          "description" : "Details about the connection",
+          "$ref" : "#/definitions/ConnectionDTO"
+        },
+        "aggregateSnapshot" : {
+          "description" : "Aggregate values for all nodes in the cluster, or for this instance if not clustered",
+          "$ref" : "#/definitions/ConnectionDiagnosticsSnapshotDTO"
+        },
+        "nodeSnapshots" : {
+          "type" : "array",
+          "description" : "A list of values for each node in the cluster, if clustered.",
+          "items" : {
+            "$ref" : "#/definitions/ConnectionDiagnosticsSnapshotDTO"
+          }
+        }
+      }
+    },
+    "ConnectionDiagnosticsSnapshotDTO" : {
+      "type" : "object",
+      "properties" : {
+        "totalFlowFileCount" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Total number of FlowFiles owned by the Connection"
+        },
+        "totalByteCount" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Total number of bytes that make up the content for the FlowFiles owned by this Connection"
+        },
+        "nodeIdentifier" : {
+          "type" : "string",
+          "description" : "The Node Identifier that this information pertains to"
+        },
+        "localQueuePartition" : {
+          "description" : "The local queue partition, from which components can pull FlowFiles on this node.",
+          "$ref" : "#/definitions/LocalQueuePartitionDTO"
+        },
+        "remoteQueuePartitions" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/RemoteQueuePartitionDTO"
+          }
         }
       }
     },
@@ -12967,8 +13640,7 @@
         },
         "canRead" : {
           "type" : "boolean",
-          "description" : "Indicates whether the user can read a given resource.",
-          "readOnly" : true
+          "description" : "Indicates whether the user can read a given resource."
         }
       },
       "xml" : {
@@ -13075,8 +13747,7 @@
         },
         "canRead" : {
           "type" : "boolean",
-          "description" : "Indicates whether the user can read a given resource.",
-          "readOnly" : true
+          "description" : "Indicates whether the user can read a given resource."
         }
       },
       "xml" : {
@@ -13232,8 +13903,7 @@
         },
         "canRead" : {
           "type" : "boolean",
-          "description" : "Indicates whether the user can read a given resource.",
-          "readOnly" : true
+          "description" : "Indicates whether the user can read a given resource."
         }
       },
       "xml" : {
@@ -13554,12 +14224,24 @@
         "validationStatus" : {
           "type" : "string",
           "description" : "Indicates whether the ControllerService is valid, invalid, or still in the process of validating (i.e., it is unknown whether or not the ControllerService is valid)",
-          "readOnly" : true,
           "enum" : [ "VALID", "INVALID", "VALIDATING" ]
         },
         "extensionMissing" : {
           "type" : "boolean",
           "description" : "Whether the underlying extension is missing."
+        }
+      }
+    },
+    "ControllerServiceDiagnosticsDTO" : {
+      "type" : "object",
+      "properties" : {
+        "controllerService" : {
+          "description" : "The Controller Service",
+          "$ref" : "#/definitions/ControllerServiceEntity"
+        },
+        "classLoaderDiagnostics" : {
+          "description" : "Information about the Controller Service's Class Loader",
+          "$ref" : "#/definitions/ClassLoaderDiagnosticsDTO"
         }
       }
     },
@@ -13610,7 +14292,6 @@
         },
         "status" : {
           "description" : "The status for this ControllerService.",
-          "readOnly" : true,
           "$ref" : "#/definitions/ControllerServiceStatusDTO"
         }
       },
@@ -13774,13 +14455,11 @@
         "runStatus" : {
           "type" : "string",
           "description" : "The run status of this ControllerService",
-          "readOnly" : true,
           "enum" : [ "ENABLED", "ENABLING", "DISABLED", "DISABLING" ]
         },
         "validationStatus" : {
           "type" : "string",
           "description" : "Indicates whether the component is valid, invalid, or still in the process of validating (i.e., it is unknown whether or not the component is valid)",
-          "readOnly" : true,
           "enum" : [ "VALID", "INVALID", "VALIDATING" ]
         },
         "activeThreadCount" : {
@@ -14353,7 +15032,6 @@
         "versionedFlowState" : {
           "type" : "string",
           "description" : "The current state of the Process Group, as it relates to the Versioned Flow",
-          "readOnly" : true,
           "enum" : [ "LOCALLY_MODIFIED", "STALE", "LOCALLY_MODIFIED_AND_STALE", "UP_TO_DATE", "SYNC_FAILURE" ]
         },
         "breadcrumb" : {
@@ -14390,24 +15068,20 @@
       "properties" : {
         "supportsManagedAuthorizer" : {
           "type" : "boolean",
-          "description" : "Whether this NiFi supports a managed authorizer. Managed authorizers can visualize users, groups, and policies in the UI.",
-          "readOnly" : true
+          "description" : "Whether this NiFi supports a managed authorizer. Managed authorizers can visualize users, groups, and policies in the UI."
         },
         "supportsConfigurableAuthorizer" : {
           "type" : "boolean",
-          "description" : "Whether this NiFi supports a configurable authorizer.",
-          "readOnly" : true
+          "description" : "Whether this NiFi supports a configurable authorizer."
         },
         "supportsConfigurableUsersAndGroups" : {
           "type" : "boolean",
-          "description" : "Whether this NiFi supports configurable users and groups.",
-          "readOnly" : true
+          "description" : "Whether this NiFi supports configurable users and groups."
         },
         "autoRefreshIntervalSeconds" : {
           "type" : "integer",
           "format" : "int64",
-          "description" : "The interval in seconds between the automatic NiFi refresh requests.",
-          "readOnly" : true
+          "description" : "The interval in seconds between the automatic NiFi refresh requests."
         },
         "currentTime" : {
           "type" : "string",
@@ -14828,6 +15502,26 @@
         "name" : "funnelsEntity"
       }
     },
+    "GCDiagnosticsSnapshotDTO" : {
+      "type" : "object",
+      "properties" : {
+        "timestamp" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "The timestamp of when the Snapshot was taken"
+        },
+        "collectionCount" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The number of times that Garbage Collection has occurred"
+        },
+        "collectionMillis" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The number of milliseconds that the Garbage Collector spent performing Garbage Collection duties"
+        }
+      }
+    },
     "GarbageCollectionDTO" : {
       "type" : "object",
       "properties" : {
@@ -14848,6 +15542,22 @@
           "type" : "integer",
           "format" : "int64",
           "description" : "The total number of milliseconds spent garbage collecting."
+        }
+      }
+    },
+    "GarbageCollectionDiagnosticsDTO" : {
+      "type" : "object",
+      "properties" : {
+        "memoryManagerName" : {
+          "type" : "string",
+          "description" : "The name of the Memory Manager that this Garbage Collection information pertains to"
+        },
+        "snapshots" : {
+          "type" : "array",
+          "description" : "A list of snapshots that have been taken to determine the health of the JVM's heap",
+          "items" : {
+            "$ref" : "#/definitions/GCDiagnosticsSnapshotDTO"
+          }
         }
       }
     },
@@ -14930,6 +15640,171 @@
       },
       "xml" : {
         "name" : "instantiateTemplateRequestEntity"
+      }
+    },
+    "JVMControllerDiagnosticsSnapshotDTO" : {
+      "type" : "object",
+      "properties" : {
+        "primaryNode" : {
+          "type" : "boolean",
+          "description" : "Whether or not this node is primary node"
+        },
+        "clusterCoordinator" : {
+          "type" : "boolean",
+          "description" : "Whether or not this node is cluster coordinator"
+        },
+        "maxTimerDrivenThreads" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The maximum number of timer-driven threads"
+        },
+        "maxEventDrivenThreads" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The maximum number of event-driven threads"
+        }
+      }
+    },
+    "JVMDiagnosticsDTO" : {
+      "type" : "object",
+      "properties" : {
+        "clustered" : {
+          "type" : "boolean",
+          "description" : "Whether or not the NiFi instance is clustered"
+        },
+        "connected" : {
+          "type" : "boolean",
+          "description" : "Whether or not the node is connected to the cluster"
+        },
+        "aggregateSnapshot" : {
+          "description" : "Aggregate JVM diagnostic information about the entire cluster",
+          "$ref" : "#/definitions/JVMDiagnosticsSnapshotDTO"
+        },
+        "nodeSnapshots" : {
+          "type" : "array",
+          "description" : "Node-wise breakdown of JVM diagnostic information",
+          "items" : {
+            "$ref" : "#/definitions/NodeJVMDiagnosticsSnapshotDTO"
+          }
+        }
+      }
+    },
+    "JVMDiagnosticsSnapshotDTO" : {
+      "type" : "object",
+      "properties" : {
+        "systemDiagnosticsDto" : {
+          "description" : "System-related diagnostics information",
+          "$ref" : "#/definitions/JVMSystemDiagnosticsSnapshotDTO"
+        },
+        "flowDiagnosticsDto" : {
+          "description" : "Flow-related diagnostics information",
+          "$ref" : "#/definitions/JVMFlowDiagnosticsSnapshotDTO"
+        },
+        "controllerDiagnostics" : {
+          "description" : "Controller-related diagnostics information",
+          "$ref" : "#/definitions/JVMControllerDiagnosticsSnapshotDTO"
+        }
+      }
+    },
+    "JVMFlowDiagnosticsSnapshotDTO" : {
+      "type" : "object",
+      "properties" : {
+        "uptime" : {
+          "type" : "string",
+          "description" : "How long this node has been running, formatted as hours:minutes:seconds.milliseconds"
+        },
+        "timeZone" : {
+          "type" : "string",
+          "description" : "The name of the Time Zone that is configured, if available"
+        },
+        "activeTimerDrivenThreads" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The number of timer-driven threads that are active"
+        },
+        "activeEventDrivenThreads" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The number of event-driven threads that are active"
+        },
+        "bundlesLoaded" : {
+          "type" : "array",
+          "description" : "The NiFi Bundles (NARs) that are loaded by NiFi",
+          "uniqueItems" : true,
+          "items" : {
+            "$ref" : "#/definitions/BundleDTO"
+          }
+        }
+      }
+    },
+    "JVMSystemDiagnosticsSnapshotDTO" : {
+      "type" : "object",
+      "properties" : {
+        "flowFileRepositoryStorageUsage" : {
+          "description" : "Information about the FlowFile Repository's usage",
+          "$ref" : "#/definitions/RepositoryUsageDTO"
+        },
+        "contentRepositoryStorageUsage" : {
+          "type" : "array",
+          "description" : "Information about the Content Repository's usage",
+          "uniqueItems" : true,
+          "items" : {
+            "$ref" : "#/definitions/RepositoryUsageDTO"
+          }
+        },
+        "provenanceRepositoryStorageUsage" : {
+          "type" : "array",
+          "description" : "Information about the Provenance Repository's usage",
+          "uniqueItems" : true,
+          "items" : {
+            "$ref" : "#/definitions/RepositoryUsageDTO"
+          }
+        },
+        "maxHeapBytes" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The maximum number of bytes that the JVM heap is configured to use for heap"
+        },
+        "maxHeap" : {
+          "type" : "string",
+          "description" : "The maximum number of bytes that the JVM heap is configured to use, as a human-readable value"
+        },
+        "garbageCollectionDiagnostics" : {
+          "type" : "array",
+          "description" : "Diagnostic information about the JVM's garbage collections",
+          "items" : {
+            "$ref" : "#/definitions/GarbageCollectionDiagnosticsDTO"
+          }
+        },
+        "cpuCores" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The number of CPU Cores available on the system"
+        },
+        "cpuLoadAverage" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "The 1-minute CPU Load Average"
+        },
+        "physicalMemoryBytes" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The number of bytes of RAM available on the system"
+        },
+        "physicalMemory" : {
+          "type" : "string",
+          "description" : "The number of bytes of RAM available on the system as a human-readable value"
+        },
+        "openFileDescriptors" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The number of files that are open by the NiFi process"
+        },
+        "maxOpenFileDescriptors" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The maximum number of open file descriptors that are available to each process"
+        }
       }
     },
     "JaxbLink" : {
@@ -15205,13 +16080,13 @@
             "$ref" : "#/definitions/FlowFileSummaryDTO"
           }
         },
-        "sourceRunning" : {
-          "type" : "boolean",
-          "description" : "Whether the source of the connection is running"
-        },
         "destinationRunning" : {
           "type" : "boolean",
           "description" : "Whether the destination of the connection is running"
+        },
+        "sourceRunning" : {
+          "type" : "boolean",
+          "description" : "Whether the source of the connection is running"
         }
       }
     },
@@ -15224,6 +16099,64 @@
       },
       "xml" : {
         "name" : "listingRequestEntity"
+      }
+    },
+    "LocalQueuePartitionDTO" : {
+      "type" : "object",
+      "properties" : {
+        "totalFlowFileCount" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Total number of FlowFiles owned by the Connection"
+        },
+        "totalByteCount" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Total number of bytes that make up the content for the FlowFiles owned by this Connection"
+        },
+        "activeQueueFlowFileCount" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Total number of FlowFiles that exist in the Connection's Active Queue, immediately available to be offered up to a component"
+        },
+        "activeQueueByteCount" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Total number of bytes that make up the content for the FlowFiles that are present in the Connection's Active Queue"
+        },
+        "swapFlowFileCount" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The total number of FlowFiles that are swapped out for this Connection"
+        },
+        "swapByteCount" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Total number of bytes that make up the content for the FlowFiles that are swapped out to disk for the Connection"
+        },
+        "swapFiles" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The number of Swap Files that exist for this Connection"
+        },
+        "inFlightFlowFileCount" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The number of In-Flight FlowFiles for this Connection. These are FlowFiles that belong to the connection but are currently being operated on by a Processor, Port, etc."
+        },
+        "inFlightByteCount" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The number bytes that make up the content of the FlowFiles that are In-Flight"
+        },
+        "allActiveQueueFlowFilesPenalized" : {
+          "type" : "boolean",
+          "description" : "Whether or not all of the FlowFiles in the Active Queue are penalized"
+        },
+        "anyActiveQueueFlowFilesPenalized" : {
+          "type" : "boolean",
+          "description" : "Whether or not any of the FlowFiles in the Active Queue are penalized"
+        }
       }
     },
     "NodeConnectionStatisticsSnapshotDTO" : {
@@ -15297,19 +16230,16 @@
       "properties" : {
         "nodeId" : {
           "type" : "string",
-          "description" : "The id of the node.",
-          "readOnly" : true
+          "description" : "The id of the node."
         },
         "address" : {
           "type" : "string",
-          "description" : "The node's host/ip address.",
-          "readOnly" : true
+          "description" : "The node's host/ip address."
         },
         "apiPort" : {
           "type" : "integer",
           "format" : "int32",
-          "description" : "The port the node is listening for API requests.",
-          "readOnly" : true
+          "description" : "The port the node is listening for API requests."
         },
         "status" : {
           "type" : "string",
@@ -15317,18 +16247,15 @@
         },
         "heartbeat" : {
           "type" : "string",
-          "description" : "the time of the nodes's last heartbeat.",
-          "readOnly" : true
+          "description" : "the time of the nodes's last heartbeat."
         },
         "connectionRequested" : {
           "type" : "string",
-          "description" : "The time of the node's last connection request.",
-          "readOnly" : true
+          "description" : "The time of the node's last connection request."
         },
         "roles" : {
           "type" : "array",
           "description" : "The roles of this node.",
-          "readOnly" : true,
           "uniqueItems" : true,
           "items" : {
             "type" : "string"
@@ -15337,26 +16264,22 @@
         "activeThreadCount" : {
           "type" : "integer",
           "format" : "int32",
-          "description" : "The active threads for the NiFi on the node.",
-          "readOnly" : true
+          "description" : "The active threads for the NiFi on the node."
         },
         "queued" : {
           "type" : "string",
-          "description" : "The queue the NiFi on the node.",
-          "readOnly" : true
+          "description" : "The queue the NiFi on the node."
         },
         "events" : {
           "type" : "array",
           "description" : "The node's events.",
-          "readOnly" : true,
           "items" : {
             "$ref" : "#/definitions/NodeEventDTO"
           }
         },
         "nodeStartTime" : {
           "type" : "string",
-          "description" : "The time at which this Node was last refreshed.",
-          "readOnly" : true
+          "description" : "The time at which this Node was last refreshed."
         }
       }
     },
@@ -15385,6 +16308,28 @@
         "message" : {
           "type" : "string",
           "description" : "The message in the node event."
+        }
+      }
+    },
+    "NodeJVMDiagnosticsSnapshotDTO" : {
+      "type" : "object",
+      "properties" : {
+        "nodeId" : {
+          "type" : "string",
+          "description" : "The unique ID that identifies the node"
+        },
+        "address" : {
+          "type" : "string",
+          "description" : "The API address of the node"
+        },
+        "apiPort" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The API port used to communicate with the node"
+        },
+        "snapshot" : {
+          "description" : "The JVM Diagnostics Snapshot",
+          "$ref" : "#/definitions/JVMDiagnosticsSnapshotDTO"
         }
       }
     },
@@ -15573,7 +16518,6 @@
         "boundProcessGroups" : {
           "type" : "array",
           "description" : "The Process Groups that are bound to this Parameter Context",
-          "readOnly" : true,
           "uniqueItems" : true,
           "items" : {
             "$ref" : "#/definitions/ProcessGroupEntity"
@@ -15581,8 +16525,7 @@
         },
         "id" : {
           "type" : "string",
-          "description" : "The ID the Parameter Context.",
-          "readOnly" : true
+          "description" : "The ID the Parameter Context."
         }
       }
     },
@@ -15666,64 +16609,53 @@
       "properties" : {
         "requestId" : {
           "type" : "string",
-          "description" : "The ID of the request",
-          "readOnly" : true
+          "description" : "The ID of the request"
         },
         "uri" : {
           "type" : "string",
-          "description" : "The URI for the request",
-          "readOnly" : true
+          "description" : "The URI for the request"
         },
         "submissionTime" : {
           "type" : "string",
           "format" : "date-time",
-          "description" : "The timestamp of when the request was submitted",
-          "readOnly" : true
+          "description" : "The timestamp of when the request was submitted"
         },
         "lastUpdated" : {
           "type" : "string",
           "format" : "date-time",
-          "description" : "The timestamp of when the request was last updated",
-          "readOnly" : true
+          "description" : "The timestamp of when the request was last updated"
         },
         "complete" : {
           "type" : "boolean",
-          "description" : "Whether or not the request is completed",
-          "readOnly" : true
+          "description" : "Whether or not the request is completed"
         },
         "failureReason" : {
           "type" : "string",
-          "description" : "The reason for the request failing, or null if the request has not failed",
-          "readOnly" : true
+          "description" : "The reason for the request failing, or null if the request has not failed"
         },
         "percentCompleted" : {
           "type" : "integer",
           "format" : "int32",
-          "description" : "A value between 0 and 100 (inclusive) indicating how close the request is to completion",
-          "readOnly" : true
+          "description" : "A value between 0 and 100 (inclusive) indicating how close the request is to completion"
         },
         "state" : {
           "type" : "string",
-          "description" : "A description of the current state of the request",
-          "readOnly" : true
+          "description" : "A description of the current state of the request"
         },
         "updateSteps" : {
           "type" : "array",
           "description" : "The steps that are required in order to complete the request, along with the status of each",
-          "readOnly" : true,
           "items" : {
             "$ref" : "#/definitions/ParameterContextUpdateStepDTO"
           }
         },
         "parameterContext" : {
           "description" : "The Parameter Context that is being operated on. This may not be populated until the request has successfully completed.",
-          "readOnly" : true,
           "$ref" : "#/definitions/ParameterContextDTO"
         },
         "referencingComponents" : {
           "type" : "array",
           "description" : "The components that are referenced by the update.",
-          "readOnly" : true,
           "uniqueItems" : true,
           "items" : {
             "$ref" : "#/definitions/AffectedComponentEntity"
@@ -15752,18 +16684,15 @@
       "properties" : {
         "description" : {
           "type" : "string",
-          "description" : "Explanation of what happens in this step",
-          "readOnly" : true
+          "description" : "Explanation of what happens in this step"
         },
         "complete" : {
           "type" : "boolean",
-          "description" : "Whether or not this step has completed",
-          "readOnly" : true
+          "description" : "Whether or not this step has completed"
         },
         "failureReason" : {
           "type" : "string",
-          "description" : "An explanation of why this step failed, or null if this step did not fail",
-          "readOnly" : true
+          "description" : "An explanation of why this step failed, or null if this step did not fail"
         }
       }
     },
@@ -15772,51 +16701,42 @@
       "properties" : {
         "requestId" : {
           "type" : "string",
-          "description" : "The ID of the request",
-          "readOnly" : true
+          "description" : "The ID of the request"
         },
         "uri" : {
           "type" : "string",
-          "description" : "The URI for the request",
-          "readOnly" : true
+          "description" : "The URI for the request"
         },
         "submissionTime" : {
           "type" : "string",
           "format" : "date-time",
-          "description" : "The timestamp of when the request was submitted",
-          "readOnly" : true
+          "description" : "The timestamp of when the request was submitted"
         },
         "lastUpdated" : {
           "type" : "string",
           "format" : "date-time",
-          "description" : "The timestamp of when the request was last updated",
-          "readOnly" : true
+          "description" : "The timestamp of when the request was last updated"
         },
         "complete" : {
           "type" : "boolean",
-          "description" : "Whether or not the request is completed",
-          "readOnly" : true
+          "description" : "Whether or not the request is completed"
         },
         "failureReason" : {
           "type" : "string",
-          "description" : "The reason for the request failing, or null if the request has not failed",
-          "readOnly" : true
+          "description" : "The reason for the request failing, or null if the request has not failed"
         },
         "percentCompleted" : {
           "type" : "integer",
           "format" : "int32",
-          "description" : "A value between 0 and 100 (inclusive) indicating how close the request is to completion",
-          "readOnly" : true
+          "description" : "A value between 0 and 100 (inclusive) indicating how close the request is to completion"
         },
         "state" : {
           "type" : "string",
-          "description" : "A description of the current state of the request",
-          "readOnly" : true
+          "description" : "A description of the current state of the request"
         },
         "updateSteps" : {
           "type" : "array",
           "description" : "The steps that are required in order to complete the request, along with the status of each",
-          "readOnly" : true,
           "items" : {
             "$ref" : "#/definitions/ParameterContextValidationStepDTO"
           }
@@ -15827,7 +16747,6 @@
         },
         "componentValidationResults" : {
           "description" : "The Validation Results that were calculated for each component. This value may not be set until the request completes.",
-          "readOnly" : true,
           "$ref" : "#/definitions/ComponentValidationResultsEntity"
         }
       }
@@ -15853,18 +16772,15 @@
       "properties" : {
         "description" : {
           "type" : "string",
-          "description" : "Explanation of what happens in this step",
-          "readOnly" : true
+          "description" : "Explanation of what happens in this step"
         },
         "complete" : {
           "type" : "boolean",
-          "description" : "Whether or not this step has completed",
-          "readOnly" : true
+          "description" : "Whether or not this step has completed"
         },
         "failureReason" : {
           "type" : "string",
-          "description" : "An explanation of why this step failed, or null if this step did not fail",
-          "readOnly" : true
+          "description" : "An explanation of why this step failed, or null if this step did not fail"
         }
       }
     },
@@ -15881,8 +16797,7 @@
         },
         "currentTime" : {
           "type" : "string",
-          "description" : "The current time on the system.",
-          "readOnly" : true
+          "description" : "The current time on the system."
         }
       },
       "xml" : {
@@ -15927,8 +16842,7 @@
       "properties" : {
         "canWrite" : {
           "type" : "boolean",
-          "description" : "Indicates whether the user can write a given resource.",
-          "readOnly" : true
+          "description" : "Indicates whether the user can write a given resource."
         },
         "parameter" : {
           "description" : "The parameter information",
@@ -16001,13 +16915,11 @@
       "properties" : {
         "canRead" : {
           "type" : "boolean",
-          "description" : "Indicates whether the user can read a given resource.",
-          "readOnly" : true
+          "description" : "Indicates whether the user can read a given resource."
         },
         "canWrite" : {
           "type" : "boolean",
-          "description" : "Indicates whether the user can write a given resource.",
-          "readOnly" : true
+          "description" : "Indicates whether the user can write a given resource."
         }
       }
     },
@@ -16213,8 +17125,7 @@
         },
         "canRead" : {
           "type" : "boolean",
-          "description" : "Indicates whether the user can read a given resource.",
-          "readOnly" : true
+          "description" : "Indicates whether the user can read a given resource."
         }
       },
       "xml" : {
@@ -16292,8 +17203,7 @@
         },
         "canRead" : {
           "type" : "boolean",
-          "description" : "Indicates whether the user can read a given resource.",
-          "readOnly" : true
+          "description" : "Indicates whether the user can read a given resource."
         }
       },
       "xml" : {
@@ -16393,7 +17303,6 @@
         "variables" : {
           "type" : "object",
           "description" : "The variables that are configured for the Process Group. Note that this map contains only those variables that are defined on this Process Group and not any variables that are defined in the parent Process Group, etc. I.e., this Map will not contain all variables that are accessible by components in this Process Group by rather only the variables that are defined for this Process Group itself.",
-          "readOnly" : true,
           "additionalProperties" : {
             "type" : "string"
           }
@@ -16413,8 +17322,21 @@
         },
         "flowfileOutboundPolicy" : {
           "type" : "string",
-          "description" : "The Oubound Policy that is used for determining how FlowFiles should be transferred out of the Process Group.",
+          "description" : "The Outbound Policy that is used for determining how FlowFiles should be transferred out of the Process Group.",
           "enum" : [ "STREAM_WHEN_AVAILABLE", "BATCH_OUTPUT" ]
+        },
+        "defaultFlowFileExpiration" : {
+          "type" : "string",
+          "description" : "The default FlowFile Expiration for this Process Group."
+        },
+        "defaultBackPressureObjectThreshold" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Default value used in this Process Group for the maximum number of objects that can be queued before back pressure is applied."
+        },
+        "defaultBackPressureDataSizeThreshold" : {
+          "type" : "string",
+          "description" : "Default value used in this Process Group for the maximum data size of objects that can be queued before back pressure is applied."
         },
         "runningCount" : {
           "type" : "integer",
@@ -16498,14 +17420,12 @@
         "inputPortCount" : {
           "type" : "integer",
           "format" : "int32",
-          "description" : "The number of input ports in the process group.",
-          "readOnly" : true
+          "description" : "The number of input ports in the process group."
         },
         "outputPortCount" : {
           "type" : "integer",
           "format" : "int32",
-          "description" : "The number of output ports in the process group.",
-          "readOnly" : true
+          "description" : "The number of output ports in the process group."
         }
       }
     },
@@ -16552,7 +17472,6 @@
         },
         "versionedFlowSnapshot" : {
           "description" : "Returns the Versioned Flow that describes the contents of the Versioned Flow to be imported",
-          "readOnly" : true,
           "$ref" : "#/definitions/VersionedFlowSnapshot"
         },
         "runningCount" : {
@@ -16588,7 +17507,6 @@
         "versionedFlowState" : {
           "type" : "string",
           "description" : "The current state of the Process Group, as it relates to the Versioned Flow",
-          "readOnly" : true,
           "enum" : [ "LOCALLY_MODIFIED", "STALE", "LOCALLY_MODIFIED_AND_STALE", "UP_TO_DATE", "SYNC_FAILURE" ]
         },
         "upToDateCount" : {
@@ -16643,14 +17561,12 @@
         "inputPortCount" : {
           "type" : "integer",
           "format" : "int32",
-          "description" : "The number of input ports in the process group.",
-          "readOnly" : true
+          "description" : "The number of input ports in the process group."
         },
         "outputPortCount" : {
           "type" : "integer",
           "format" : "int32",
-          "description" : "The number of output ports in the process group.",
-          "readOnly" : true
+          "description" : "The number of output ports in the process group."
         }
       },
       "xml" : {
@@ -16743,8 +17659,7 @@
       "properties" : {
         "requestId" : {
           "type" : "string",
-          "description" : "The unique ID of this request.",
-          "readOnly" : true
+          "description" : "The unique ID of this request."
         },
         "processGroupId" : {
           "type" : "string",
@@ -16752,34 +17667,28 @@
         },
         "uri" : {
           "type" : "string",
-          "description" : "The URI for future requests to this drop request.",
-          "readOnly" : true
+          "description" : "The URI for future requests to this drop request."
         },
         "lastUpdated" : {
           "type" : "string",
-          "description" : "The last time this request was updated.",
-          "readOnly" : true
+          "description" : "The last time this request was updated."
         },
         "complete" : {
           "type" : "boolean",
-          "description" : "Whether or not this request has completed",
-          "readOnly" : true
+          "description" : "Whether or not this request has completed"
         },
         "failureReason" : {
           "type" : "string",
-          "description" : "An explanation of why this request failed, or null if this request has not failed",
-          "readOnly" : true
+          "description" : "An explanation of why this request failed, or null if this request has not failed"
         },
         "percentCompleted" : {
           "type" : "integer",
           "format" : "int32",
-          "description" : "The percentage complete for the request, between 0 and 100",
-          "readOnly" : true
+          "description" : "The percentage complete for the request, between 0 and 100"
         },
         "state" : {
           "type" : "string",
-          "description" : "The state of the request",
-          "readOnly" : true
+          "description" : "The state of the request"
         }
       }
     },
@@ -16796,7 +17705,6 @@
         },
         "versionedFlowSnapshot" : {
           "description" : "Returns the Versioned Flow to replace with",
-          "readOnly" : true,
           "$ref" : "#/definitions/VersionedFlowSnapshot"
         }
       },
@@ -16840,8 +17748,7 @@
         },
         "canRead" : {
           "type" : "boolean",
-          "description" : "Indicates whether the user can read a given resource.",
-          "readOnly" : true
+          "description" : "Indicates whether the user can read a given resource."
         }
       },
       "xml" : {
@@ -16904,7 +17811,6 @@
         "versionedFlowState" : {
           "type" : "string",
           "description" : "The current state of the Process Group, as it relates to the Versioned Flow",
-          "readOnly" : true,
           "enum" : [ "LOCALLY_MODIFIED", "STALE", "LOCALLY_MODIFIED_AND_STALE", "UP_TO_DATE", "SYNC_FAILURE" ]
         },
         "flowFilesIn" : {
@@ -17041,8 +17947,7 @@
         },
         "canRead" : {
           "type" : "boolean",
-          "description" : "Indicates whether the user can read a given resource.",
-          "readOnly" : true
+          "description" : "Indicates whether the user can read a given resource."
         }
       },
       "xml" : {
@@ -17201,7 +18106,6 @@
         "relationships" : {
           "type" : "array",
           "description" : "The available relationships that the processor currently supports.",
-          "readOnly" : true,
           "items" : {
             "$ref" : "#/definitions/RelationshipDTO"
           }
@@ -17260,13 +18164,107 @@
         "validationStatus" : {
           "type" : "string",
           "description" : "Indicates whether the Processor is valid, invalid, or still in the process of validating (i.e., it is unknown whether or not the Processor is valid)",
-          "readOnly" : true,
           "enum" : [ "VALID", "INVALID", "VALIDATING" ]
         },
         "extensionMissing" : {
           "type" : "boolean",
           "description" : "Whether the underlying extension is missing."
         }
+      }
+    },
+    "ProcessorDiagnosticsDTO" : {
+      "type" : "object",
+      "properties" : {
+        "processor" : {
+          "description" : "Information about the Processor for which the Diagnostic Report is generated",
+          "$ref" : "#/definitions/ProcessorDTO"
+        },
+        "processorStatus" : {
+          "description" : "The Status for the Processor for which the Diagnostic Report is generated",
+          "$ref" : "#/definitions/ProcessorStatusDTO"
+        },
+        "referencedControllerServices" : {
+          "type" : "array",
+          "description" : "Diagnostic Information about all Controller Services that the Processor is referencing",
+          "uniqueItems" : true,
+          "items" : {
+            "$ref" : "#/definitions/ControllerServiceDiagnosticsDTO"
+          }
+        },
+        "incomingConnections" : {
+          "type" : "array",
+          "description" : "Diagnostic Information about all incoming Connections",
+          "uniqueItems" : true,
+          "items" : {
+            "$ref" : "#/definitions/ConnectionDiagnosticsDTO"
+          }
+        },
+        "outgoingConnections" : {
+          "type" : "array",
+          "description" : "Diagnostic Information about all outgoing Connections",
+          "uniqueItems" : true,
+          "items" : {
+            "$ref" : "#/definitions/ConnectionDiagnosticsDTO"
+          }
+        },
+        "jvmDiagnostics" : {
+          "description" : "Diagnostic Information about the JVM and system-level diagnostics",
+          "$ref" : "#/definitions/JVMDiagnosticsDTO"
+        },
+        "threadDumps" : {
+          "type" : "array",
+          "description" : "Thread Dumps that were taken of the threads that are active in the Processor",
+          "items" : {
+            "$ref" : "#/definitions/ThreadDumpDTO"
+          }
+        },
+        "classLoaderDiagnostics" : {
+          "description" : "Information about the Controller Service's Class Loader",
+          "$ref" : "#/definitions/ClassLoaderDiagnosticsDTO"
+        }
+      }
+    },
+    "ProcessorDiagnosticsEntity" : {
+      "type" : "object",
+      "properties" : {
+        "revision" : {
+          "description" : "The revision for this request/response. The revision is required for any mutable flow requests and is included in all responses.",
+          "$ref" : "#/definitions/RevisionDTO"
+        },
+        "id" : {
+          "type" : "string",
+          "description" : "The id of the component."
+        },
+        "uri" : {
+          "type" : "string",
+          "description" : "The URI for futures requests to the component."
+        },
+        "position" : {
+          "description" : "The position of this component in the UI if applicable.",
+          "$ref" : "#/definitions/PositionDTO"
+        },
+        "permissions" : {
+          "description" : "The permissions for this component.",
+          "$ref" : "#/definitions/PermissionsDTO"
+        },
+        "bulletins" : {
+          "type" : "array",
+          "description" : "The bulletins for this component.",
+          "items" : {
+            "$ref" : "#/definitions/BulletinEntity"
+          }
+        },
+        "disconnectedNodeAcknowledged" : {
+          "type" : "boolean",
+          "description" : "Acknowledges that this node is disconnected to allow for mutable requests to proceed."
+        },
+        "component" : {
+          "description" : "The Processor Diagnostics",
+          "$ref" : "#/definitions/ProcessorDiagnosticsDTO"
+        }
+      },
+      "xml" : {
+        "name" : "processorDiagnosticsEntity"
       }
     },
     "ProcessorEntity" : {
@@ -17443,8 +18441,7 @@
         },
         "canRead" : {
           "type" : "boolean",
-          "description" : "Indicates whether the user can read a given resource.",
-          "readOnly" : true
+          "description" : "Indicates whether the user can read a given resource."
         }
       },
       "xml" : {
@@ -17568,8 +18565,7 @@
         },
         "canRead" : {
           "type" : "boolean",
-          "description" : "Indicates whether the user can read a given resource.",
-          "readOnly" : true
+          "description" : "Indicates whether the user can read a given resource."
         }
       },
       "xml" : {
@@ -18659,7 +19655,6 @@
         "validationStatus" : {
           "type" : "string",
           "description" : "Indicates whether the component is valid, invalid, or still in the process of validating (i.e., it is unknown whether or not the component is valid)",
-          "readOnly" : true,
           "enum" : [ "VALID", "INVALID", "VALIDATING" ]
         },
         "aggregateSnapshot" : {
@@ -18683,8 +19678,7 @@
         },
         "canRead" : {
           "type" : "boolean",
-          "description" : "Indicates whether the user can read a given resource.",
-          "readOnly" : true
+          "description" : "Indicates whether the user can read a given resource."
         }
       },
       "xml" : {
@@ -18761,8 +19755,7 @@
         },
         "canRead" : {
           "type" : "boolean",
-          "description" : "Indicates whether the user can read a given resource.",
-          "readOnly" : true
+          "description" : "Indicates whether the user can read a given resource."
         }
       },
       "xml" : {
@@ -18782,6 +19775,60 @@
       },
       "xml" : {
         "name" : "remoteProcessGroupsEntity"
+      }
+    },
+    "RemoteQueuePartitionDTO" : {
+      "type" : "object",
+      "properties" : {
+        "totalFlowFileCount" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Total number of FlowFiles owned by the Connection"
+        },
+        "totalByteCount" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Total number of bytes that make up the content for the FlowFiles owned by this Connection"
+        },
+        "activeQueueFlowFileCount" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Total number of FlowFiles that exist in the Connection's Active Queue, immediately available to be offered up to a component"
+        },
+        "activeQueueByteCount" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Total number of bytes that make up the content for the FlowFiles that are present in the Connection's Active Queue"
+        },
+        "swapFlowFileCount" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The total number of FlowFiles that are swapped out for this Connection"
+        },
+        "swapByteCount" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Total number of bytes that make up the content for the FlowFiles that are swapped out to disk for the Connection"
+        },
+        "swapFiles" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The number of Swap Files that exist for this Connection"
+        },
+        "inFlightFlowFileCount" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The number of In-Flight FlowFiles for this Connection. These are FlowFiles that belong to the connection but are currently being operated on by a Processor, Port, etc."
+        },
+        "inFlightByteCount" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The number bytes that make up the content of the FlowFiles that are In-Flight"
+        },
+        "nodeIdentifier" : {
+          "type" : "string",
+          "description" : "The Node Identifier that this queue partition is sending to"
+        }
       }
     },
     "ReportingTaskDTO" : {
@@ -18887,7 +19934,6 @@
         "validationStatus" : {
           "type" : "string",
           "description" : "Indicates whether the Processor is valid, invalid, or still in the process of validating (i.e., it is unknown whether or not the Processor is valid)",
-          "readOnly" : true,
           "enum" : [ "VALID", "INVALID", "VALIDATING" ]
         },
         "activeThreadCount" : {
@@ -18944,7 +19990,6 @@
         },
         "status" : {
           "description" : "The status for this ReportingTask.",
-          "readOnly" : true,
           "$ref" : "#/definitions/ReportingTaskStatusDTO"
         }
       },
@@ -18979,13 +20024,11 @@
         "runStatus" : {
           "type" : "string",
           "description" : "The run status of this ReportingTask",
-          "readOnly" : true,
           "enum" : [ "RUNNING", "STOPPED", "DISABLED" ]
         },
         "validationStatus" : {
           "type" : "string",
           "description" : "Indicates whether the component is valid, invalid, or still in the process of validating (i.e., it is unknown whether or not the component is valid)",
-          "readOnly" : true,
           "enum" : [ "VALID", "INVALID", "VALIDATING" ]
         },
         "activeThreadCount" : {
@@ -19023,6 +20066,41 @@
       },
       "xml" : {
         "name" : "reportingTasksEntity"
+      }
+    },
+    "RepositoryUsageDTO" : {
+      "type" : "object",
+      "properties" : {
+        "name" : {
+          "type" : "string",
+          "description" : "The name of the repository"
+        },
+        "fileStoreHash" : {
+          "type" : "string",
+          "description" : "A SHA-256 hash of the File Store name/path that is used to store the repository's data. This information is exposed as a hash in order to avoid exposing potentially sensitive information that is not generally relevant. What is typically relevant is whether or not multiple repositories on the same node are using the same File Store, as this indicates that the repositories are competing for the resources of the backing disk/storage mechanism."
+        },
+        "freeSpace" : {
+          "type" : "string",
+          "description" : "Amount of free space."
+        },
+        "totalSpace" : {
+          "type" : "string",
+          "description" : "Amount of total space."
+        },
+        "freeSpaceBytes" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The number of bytes of free space."
+        },
+        "totalSpaceBytes" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The number of bytes of total space."
+        },
+        "utilization" : {
+          "type" : "string",
+          "description" : "Utilization of this storage location."
+        }
       }
     },
     "RequiredPermissionDTO" : {
@@ -19075,13 +20153,11 @@
         "version" : {
           "type" : "integer",
           "format" : "int64",
-          "description" : "NiFi employs an optimistic locking strategy where the client must include a revision in their request when performing an update. In a response to a mutable flow request, this field represents the updated base version.",
-          "minimum": 0
+          "description" : "NiFi employs an optimistic locking strategy where the client must include a revision in their request when performing an update. In a response to a mutable flow request, this field represents the updated base version."
         },
         "lastModifier" : {
           "type" : "string",
-          "description" : "The user that last modified the flow.",
-          "readOnly" : true
+          "description" : "The user that last modified the flow."
         }
       }
     },
@@ -19473,8 +20549,7 @@
         },
         "canRead" : {
           "type" : "boolean",
-          "description" : "Indicates whether the user can read a given resource.",
-          "readOnly" : true
+          "description" : "Indicates whether the user can read a given resource."
         }
       },
       "xml" : {
@@ -19927,6 +21002,41 @@
         "name" : "tenantsEntity"
       }
     },
+    "ThreadDumpDTO" : {
+      "type" : "object",
+      "properties" : {
+        "nodeId" : {
+          "type" : "string",
+          "description" : "The ID of the node in the cluster"
+        },
+        "nodeAddress" : {
+          "type" : "string",
+          "description" : "The address of the node in the cluster"
+        },
+        "apiPort" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The port the node is listening for API requests."
+        },
+        "stackTrace" : {
+          "type" : "string",
+          "description" : "The stack trace for the thread"
+        },
+        "threadName" : {
+          "type" : "string",
+          "description" : "The name of the thread"
+        },
+        "threadActiveMillis" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The number of milliseconds that the thread has been executing in the Processor"
+        },
+        "taskTerminated" : {
+          "type" : "boolean",
+          "description" : "Indicates whether or not the user has requested that the task be terminated. If this is true, it may indicate that the thread is in a state where it will continue running indefinitely without returning."
+        }
+      }
+    },
     "TransactionResultEntity" : {
       "type" : "object",
       "properties" : {
@@ -20004,7 +21114,6 @@
         "userGroups" : {
           "type" : "array",
           "description" : "The groups to which the user belongs. This field is read only and it provided for convenience.",
-          "readOnly" : true,
           "uniqueItems" : true,
           "items" : {
             "$ref" : "#/definitions/TenantEntity"
@@ -20013,7 +21122,6 @@
         "accessPolicies" : {
           "type" : "array",
           "description" : "The access policies this user belongs to.",
-          "readOnly" : true,
           "uniqueItems" : true,
           "items" : {
             "$ref" : "#/definitions/AccessPolicySummaryEntity"
@@ -20101,7 +21209,6 @@
         "accessPolicies" : {
           "type" : "array",
           "description" : "The access policies this user group belongs to. This field was incorrectly defined as an AccessPolicyEntity. For compatibility reasons the field will remain of this type, however only the fields that are present in the AccessPolicySummaryEntity will be populated here.",
-          "readOnly" : true,
           "uniqueItems" : true,
           "items" : {
             "$ref" : "#/definitions/AccessPolicyEntity"
@@ -20196,13 +21303,11 @@
         },
         "processGroupId" : {
           "type" : "string",
-          "description" : "The ID of the Process Group where this Variable is defined",
-          "readOnly" : true
+          "description" : "The ID of the Process Group where this Variable is defined"
         },
         "affectedComponents" : {
           "type" : "array",
           "description" : "A set of all components that will be affected if the value of this variable is changed",
-          "readOnly" : true,
           "uniqueItems" : true,
           "items" : {
             "$ref" : "#/definitions/AffectedComponentEntity"
@@ -20219,8 +21324,7 @@
         },
         "canWrite" : {
           "type" : "boolean",
-          "description" : "Indicates whether the user can write a given resource.",
-          "readOnly" : true
+          "description" : "Indicates whether the user can write a given resource."
         }
       },
       "xml" : {
@@ -20269,51 +21373,42 @@
       "properties" : {
         "requestId" : {
           "type" : "string",
-          "description" : "The ID of the request",
-          "readOnly" : true
+          "description" : "The ID of the request"
         },
         "uri" : {
           "type" : "string",
-          "description" : "The URI for the request",
-          "readOnly" : true
+          "description" : "The URI for the request"
         },
         "submissionTime" : {
           "type" : "string",
           "format" : "date-time",
-          "description" : "The timestamp of when the request was submitted",
-          "readOnly" : true
+          "description" : "The timestamp of when the request was submitted"
         },
         "lastUpdated" : {
           "type" : "string",
           "format" : "date-time",
-          "description" : "The timestamp of when the request was last updated",
-          "readOnly" : true
+          "description" : "The timestamp of when the request was last updated"
         },
         "complete" : {
           "type" : "boolean",
-          "description" : "Whether or not the request is completed",
-          "readOnly" : true
+          "description" : "Whether or not the request is completed"
         },
         "failureReason" : {
           "type" : "string",
-          "description" : "The reason for the request failing, or null if the request has not failed",
-          "readOnly" : true
+          "description" : "The reason for the request failing, or null if the request has not failed"
         },
         "percentCompleted" : {
           "type" : "integer",
           "format" : "int32",
-          "description" : "A value between 0 and 100 (inclusive) indicating how close the request is to completion",
-          "readOnly" : true
+          "description" : "A value between 0 and 100 (inclusive) indicating how close the request is to completion"
         },
         "state" : {
           "type" : "string",
-          "description" : "A description of the current state of the request",
-          "readOnly" : true
+          "description" : "A description of the current state of the request"
         },
         "updateSteps" : {
           "type" : "array",
           "description" : "The steps that are required in order to complete the request, along with the status of each",
-          "readOnly" : true,
           "items" : {
             "$ref" : "#/definitions/VariableRegistryUpdateStepDTO"
           }
@@ -20325,7 +21420,6 @@
         "affectedComponents" : {
           "type" : "array",
           "description" : "A set of all components that will be affected if the value of this variable is changed",
-          "readOnly" : true,
           "uniqueItems" : true,
           "items" : {
             "$ref" : "#/definitions/AffectedComponentEntity"
@@ -20354,18 +21448,15 @@
       "properties" : {
         "description" : {
           "type" : "string",
-          "description" : "Explanation of what happens in this step",
-          "readOnly" : true
+          "description" : "Explanation of what happens in this step"
         },
         "complete" : {
           "type" : "boolean",
-          "description" : "Whether or not this step has completed",
-          "readOnly" : true
+          "description" : "Whether or not this step has completed"
         },
         "failureReason" : {
           "type" : "string",
-          "description" : "An explanation of why this step failed, or null if this step did not fail",
-          "readOnly" : true
+          "description" : "An explanation of why this step failed, or null if this step did not fail"
         }
       }
     },
@@ -20409,8 +21500,7 @@
         },
         "registryName" : {
           "type" : "string",
-          "description" : "The name of the registry that the flow is stored in",
-          "readOnly" : true
+          "description" : "The name of the registry that the flow is stored in"
         },
         "bucketId" : {
           "type" : "string",
@@ -20418,8 +21508,7 @@
         },
         "bucketName" : {
           "type" : "string",
-          "description" : "The name of the bucket that the flow is stored in",
-          "readOnly" : true
+          "description" : "The name of the bucket that the flow is stored in"
         },
         "flowId" : {
           "type" : "string",
@@ -20441,13 +21530,11 @@
         "state" : {
           "type" : "string",
           "description" : "The current state of the Process Group, as it relates to the Versioned Flow",
-          "readOnly" : true,
           "enum" : [ "LOCALLY_MODIFIED", "STALE", "LOCALLY_MODIFIED_AND_STALE", "UP_TO_DATE", "SYNC_FAILURE" ]
         },
         "stateExplanation" : {
           "type" : "string",
-          "description" : "Explanation of why the group is in the specified state",
-          "readOnly" : true
+          "description" : "Explanation of why the group is in the specified state"
         }
       }
     },
@@ -20966,8 +22053,7 @@
       "properties" : {
         "requestId" : {
           "type" : "string",
-          "description" : "The unique ID of this request.",
-          "readOnly" : true
+          "description" : "The unique ID of this request."
         },
         "processGroupId" : {
           "type" : "string",
@@ -20975,38 +22061,31 @@
         },
         "uri" : {
           "type" : "string",
-          "description" : "The URI for future requests to this drop request.",
-          "readOnly" : true
+          "description" : "The URI for future requests to this drop request."
         },
         "lastUpdated" : {
           "type" : "string",
-          "description" : "The last time this request was updated.",
-          "readOnly" : true
+          "description" : "The last time this request was updated."
         },
         "complete" : {
           "type" : "boolean",
-          "description" : "Whether or not this request has completed",
-          "readOnly" : true
+          "description" : "Whether or not this request has completed"
         },
         "failureReason" : {
           "type" : "string",
-          "description" : "An explanation of why this request failed, or null if this request has not failed",
-          "readOnly" : true
+          "description" : "An explanation of why this request failed, or null if this request has not failed"
         },
         "percentCompleted" : {
           "type" : "integer",
           "format" : "int32",
-          "description" : "The percentage complete for the request, between 0 and 100",
-          "readOnly" : true
+          "description" : "The percentage complete for the request, between 0 and 100"
         },
         "state" : {
           "type" : "string",
-          "description" : "The state of the request",
-          "readOnly" : true
+          "description" : "The state of the request"
         },
         "versionControlInformation" : {
           "description" : "The VersionControlInformation that describes where the Versioned Flow is located; this may not be populated until the request is completed.",
-          "readOnly" : true,
           "$ref" : "#/definitions/VersionControlInformationDTO"
         }
       }
@@ -21317,6 +22396,19 @@
           "type" : "string",
           "description" : "The name of the parameter context used by this process group"
         },
+        "defaultFlowFileExpiration" : {
+          "type" : "string",
+          "description" : "The default FlowFile Expiration for this Process Group."
+        },
+        "defaultBackPressureObjectThreshold" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Default value used in this Process Group for the maximum number of objects that can be queued before back pressure is applied."
+        },
+        "defaultBackPressureDataSizeThreshold" : {
+          "type" : "string",
+          "description" : "Default value used in this Process Group for the maximum data size of objects that can be queued before back pressure is applied."
+        },
         "componentType" : {
           "type" : "string",
           "enum" : [ "CONNECTION", "PROCESSOR", "PROCESS_GROUP", "REMOTE_PROCESS_GROUP", "INPUT_PORT", "OUTPUT_PORT", "REMOTE_INPUT_PORT", "REMOTE_OUTPUT_PORT", "FUNNEL", "LABEL", "CONTROLLER_SERVICE" ]
@@ -21462,6 +22554,10 @@
         "sensitive" : {
           "type" : "boolean",
           "description" : "Whether or not the property is considered sensitive"
+        },
+        "resourceDefinition" : {
+          "description" : "Returns the Resource Definition that defines which type(s) of resource(s) this property references, if any",
+          "$ref" : "#/definitions/VersionedResourceDefinition"
         }
       }
     },
@@ -21597,6 +22693,25 @@
         "groupIdentifier" : {
           "type" : "string",
           "description" : "The ID of the Process Group that this component belongs to"
+        }
+      }
+    },
+    "VersionedResourceDefinition" : {
+      "type" : "object",
+      "properties" : {
+        "cardinality" : {
+          "type" : "string",
+          "description" : "The cardinality of the resource",
+          "enum" : [ "SINGLE", "MULTIPLE" ]
+        },
+        "resourceTypes" : {
+          "type" : "array",
+          "description" : "The types of resource that the Property Descriptor is allowed to reference",
+          "uniqueItems" : true,
+          "items" : {
+            "type" : "string",
+            "enum" : [ "FILE", "DIRECTORY", "TEXT", "URL" ]
+          }
         }
       }
     }

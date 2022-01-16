@@ -6,20 +6,20 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // JaxbLink jaxb link
+//
 // swagger:model JaxbLink
 type JaxbLink struct {
 
 	// The href for the link
 	// Format: uri
-	Href strfmt.URI `json:"href,omitempty" xml:"href"`
+	Href strfmt.URI `json:"href,omitempty" xml:"href,attr,omitempty"`
 
 	// The params for the link
 	Params map[string]string `json:"params,omitempty"`

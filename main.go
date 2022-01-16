@@ -145,16 +145,15 @@ func New(host string, port int, usessl bool) *cl {
 	}
 }
 
-func (c *cl) createProcessorGroupOnRoot(name string) (*process_groups.CreateProcessGroupCreated, error) {
+func (c *cl) createProcessorGroupOnRoot(name string) (*process_groups.CreateProcessGroupOK, error) {
 	id, err := c.findRootFlowID()
 	if err != nil {
 		return nil, err
 	}
 	pg := process_groups.NewCreateProcessGroupParams()
 	pge := models.ProcessGroupEntity{}
-	var version0 = int64(0)
 	rev := models.RevisionDTO{
-		Version: &version0,
+		Version: 0,
 	}
 	pge.Revision = &rev
 	pgdto := models.ProcessGroupDTO{}

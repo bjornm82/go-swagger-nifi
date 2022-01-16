@@ -6,5 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 // ActionDetailsDTO action details d t o
+//
 // swagger:model ActionDetailsDTO
 type ActionDetailsDTO interface{}

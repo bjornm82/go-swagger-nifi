@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // ScheduleComponentsReader is a Reader for the ScheduleComponents structure.
@@ -24,42 +23,36 @@ type ScheduleComponentsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ScheduleComponentsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewScheduleComponentsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewScheduleComponentsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewScheduleComponentsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewScheduleComponentsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewScheduleComponentsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewScheduleComponentsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -87,6 +80,10 @@ type ScheduleComponentsOK struct {
 
 func (o *ScheduleComponentsOK) Error() string {
 	return fmt.Sprintf("[PUT /flow/process-groups/{id}][%d] scheduleComponentsOK  %+v", 200, o.Payload)
+}
+
+func (o *ScheduleComponentsOK) GetPayload() *models.ScheduleComponentsEntity {
+	return o.Payload
 }
 
 func (o *ScheduleComponentsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

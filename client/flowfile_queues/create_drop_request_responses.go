@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // CreateDropRequestReader is a Reader for the CreateDropRequest structure.
@@ -24,49 +23,42 @@ type CreateDropRequestReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateDropRequestReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewCreateDropRequestCreated()
+	case 200:
+		result := NewCreateDropRequestOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 202:
 		result := NewCreateDropRequestAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateDropRequestBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewCreateDropRequestUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewCreateDropRequestForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewCreateDropRequestNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewCreateDropRequestConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -79,24 +71,28 @@ func (o *CreateDropRequestReader) ReadResponse(response runtime.ClientResponse, 
 	}
 }
 
-// NewCreateDropRequestCreated creates a CreateDropRequestCreated with default headers values
-func NewCreateDropRequestCreated() *CreateDropRequestCreated {
-	return &CreateDropRequestCreated{}
+// NewCreateDropRequestOK creates a CreateDropRequestOK with default headers values
+func NewCreateDropRequestOK() *CreateDropRequestOK {
+	return &CreateDropRequestOK{}
 }
 
-/*CreateDropRequestCreated handles this case with default header values.
+/*CreateDropRequestOK handles this case with default header values.
 
 successful operation
 */
-type CreateDropRequestCreated struct {
+type CreateDropRequestOK struct {
 	Payload *models.DropRequestEntity
 }
 
-func (o *CreateDropRequestCreated) Error() string {
-	return fmt.Sprintf("[POST /flowfile-queues/{id}/drop-requests][%d] createDropRequestCreated  %+v", 201, o.Payload)
+func (o *CreateDropRequestOK) Error() string {
+	return fmt.Sprintf("[POST /flowfile-queues/{id}/drop-requests][%d] createDropRequestOK  %+v", 200, o.Payload)
 }
 
-func (o *CreateDropRequestCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateDropRequestOK) GetPayload() *models.DropRequestEntity {
+	return o.Payload
+}
+
+func (o *CreateDropRequestOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.DropRequestEntity)
 

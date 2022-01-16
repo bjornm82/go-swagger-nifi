@@ -8,55 +8,45 @@ package models
 import (
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // NodeDTO node d t o
+//
 // swagger:model NodeDTO
 type NodeDTO struct {
 
 	// The active threads for the NiFi on the node.
-	// Read Only: true
 	ActiveThreadCount int32 `json:"activeThreadCount,omitempty"`
 
 	// The node's host/ip address.
-	// Read Only: true
 	Address string `json:"address,omitempty"`
 
 	// The port the node is listening for API requests.
-	// Read Only: true
 	APIPort int32 `json:"apiPort,omitempty"`
 
 	// The time of the node's last connection request.
-	// Read Only: true
 	ConnectionRequested string `json:"connectionRequested,omitempty"`
 
 	// The node's events.
-	// Read Only: true
 	Events []*NodeEventDTO `json:"events"`
 
 	// the time of the nodes's last heartbeat.
-	// Read Only: true
 	Heartbeat string `json:"heartbeat,omitempty"`
 
 	// The id of the node.
-	// Read Only: true
 	NodeID string `json:"nodeId,omitempty"`
 
 	// The time at which this Node was last refreshed.
-	// Read Only: true
 	NodeStartTime string `json:"nodeStartTime,omitempty"`
 
 	// The queue the NiFi on the node.
-	// Read Only: true
 	Queued string `json:"queued,omitempty"`
 
 	// The roles of this node.
-	// Read Only: true
 	// Unique: true
 	Roles []string `json:"roles"`
 

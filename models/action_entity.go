@@ -6,13 +6,13 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // ActionEntity action entity
+//
 // swagger:model ActionEntity
 type ActionEntity struct {
 
@@ -20,8 +20,7 @@ type ActionEntity struct {
 	Action *ActionDTO `json:"action,omitempty"`
 
 	// Indicates whether the user can read a given resource.
-	// Read Only: true
-	CanRead *bool `json:"canRead,omitempty"`
+	CanRead bool `json:"canRead,omitempty"`
 
 	// id
 	ID int32 `json:"id,omitempty"`

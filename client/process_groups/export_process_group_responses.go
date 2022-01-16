@@ -10,8 +10,7 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // ExportProcessGroupReader is a Reader for the ExportProcessGroup structure.
@@ -22,42 +21,36 @@ type ExportProcessGroupReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ExportProcessGroupReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewExportProcessGroupOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewExportProcessGroupBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewExportProcessGroupUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewExportProcessGroupForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewExportProcessGroupNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewExportProcessGroupConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -85,6 +78,10 @@ type ExportProcessGroupOK struct {
 
 func (o *ExportProcessGroupOK) Error() string {
 	return fmt.Sprintf("[GET /process-groups/{id}/download][%d] exportProcessGroupOK  %+v", 200, o.Payload)
+}
+
+func (o *ExportProcessGroupOK) GetPayload() string {
+	return o.Payload
 }
 
 func (o *ExportProcessGroupOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

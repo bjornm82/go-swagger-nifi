@@ -8,14 +8,14 @@ package models
 import (
 	"encoding/json"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // PortRunStatusEntity port run status entity
+//
 // swagger:model PortRunStatusEntity
 type PortRunStatusEntity struct {
 
@@ -92,7 +92,7 @@ const (
 
 // prop value enum
 func (m *PortRunStatusEntity) validateStateEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, portRunStatusEntityTypeStatePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, portRunStatusEntityTypeStatePropEnum, true); err != nil {
 		return err
 	}
 	return nil

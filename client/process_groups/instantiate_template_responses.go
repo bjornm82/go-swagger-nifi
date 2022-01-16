@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // InstantiateTemplateReader is a Reader for the InstantiateTemplate structure.
@@ -24,42 +23,36 @@ type InstantiateTemplateReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *InstantiateTemplateReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewInstantiateTemplateCreated()
+	case 200:
+		result := NewInstantiateTemplateOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewInstantiateTemplateBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewInstantiateTemplateUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewInstantiateTemplateForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewInstantiateTemplateNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewInstantiateTemplateConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -72,24 +65,28 @@ func (o *InstantiateTemplateReader) ReadResponse(response runtime.ClientResponse
 	}
 }
 
-// NewInstantiateTemplateCreated creates a InstantiateTemplateCreated with default headers values
-func NewInstantiateTemplateCreated() *InstantiateTemplateCreated {
-	return &InstantiateTemplateCreated{}
+// NewInstantiateTemplateOK creates a InstantiateTemplateOK with default headers values
+func NewInstantiateTemplateOK() *InstantiateTemplateOK {
+	return &InstantiateTemplateOK{}
 }
 
-/*InstantiateTemplateCreated handles this case with default header values.
+/*InstantiateTemplateOK handles this case with default header values.
 
 successful operation
 */
-type InstantiateTemplateCreated struct {
+type InstantiateTemplateOK struct {
 	Payload *models.FlowEntity
 }
 
-func (o *InstantiateTemplateCreated) Error() string {
-	return fmt.Sprintf("[POST /process-groups/{id}/template-instance][%d] instantiateTemplateCreated  %+v", 201, o.Payload)
+func (o *InstantiateTemplateOK) Error() string {
+	return fmt.Sprintf("[POST /process-groups/{id}/template-instance][%d] instantiateTemplateOK  %+v", 200, o.Payload)
 }
 
-func (o *InstantiateTemplateCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *InstantiateTemplateOK) GetPayload() *models.FlowEntity {
+	return o.Payload
+}
+
+func (o *InstantiateTemplateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.FlowEntity)
 

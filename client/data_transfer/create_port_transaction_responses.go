@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // CreatePortTransactionReader is a Reader for the CreatePortTransaction structure.
@@ -24,49 +23,42 @@ type CreatePortTransactionReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreatePortTransactionReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewCreatePortTransactionCreated()
+	case 200:
+		result := NewCreatePortTransactionOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreatePortTransactionBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewCreatePortTransactionUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewCreatePortTransactionForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewCreatePortTransactionNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewCreatePortTransactionConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewCreatePortTransactionServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -79,24 +71,28 @@ func (o *CreatePortTransactionReader) ReadResponse(response runtime.ClientRespon
 	}
 }
 
-// NewCreatePortTransactionCreated creates a CreatePortTransactionCreated with default headers values
-func NewCreatePortTransactionCreated() *CreatePortTransactionCreated {
-	return &CreatePortTransactionCreated{}
+// NewCreatePortTransactionOK creates a CreatePortTransactionOK with default headers values
+func NewCreatePortTransactionOK() *CreatePortTransactionOK {
+	return &CreatePortTransactionOK{}
 }
 
-/*CreatePortTransactionCreated handles this case with default header values.
+/*CreatePortTransactionOK handles this case with default header values.
 
 successful operation
 */
-type CreatePortTransactionCreated struct {
+type CreatePortTransactionOK struct {
 	Payload *models.TransactionResultEntity
 }
 
-func (o *CreatePortTransactionCreated) Error() string {
-	return fmt.Sprintf("[POST /data-transfer/{portType}/{portId}/transactions][%d] createPortTransactionCreated  %+v", 201, o.Payload)
+func (o *CreatePortTransactionOK) Error() string {
+	return fmt.Sprintf("[POST /data-transfer/{portType}/{portId}/transactions][%d] createPortTransactionOK  %+v", 200, o.Payload)
 }
 
-func (o *CreatePortTransactionCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreatePortTransactionOK) GetPayload() *models.TransactionResultEntity {
+	return o.Payload
+}
+
+func (o *CreatePortTransactionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.TransactionResultEntity)
 

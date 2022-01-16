@@ -10,8 +10,7 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // CreateVersionControlRequestReader is a Reader for the CreateVersionControlRequest structure.
@@ -22,42 +21,36 @@ type CreateVersionControlRequestReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateVersionControlRequestReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewCreateVersionControlRequestCreated()
+	case 200:
+		result := NewCreateVersionControlRequestOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateVersionControlRequestBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewCreateVersionControlRequestUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewCreateVersionControlRequestForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewCreateVersionControlRequestNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewCreateVersionControlRequestConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -70,24 +63,28 @@ func (o *CreateVersionControlRequestReader) ReadResponse(response runtime.Client
 	}
 }
 
-// NewCreateVersionControlRequestCreated creates a CreateVersionControlRequestCreated with default headers values
-func NewCreateVersionControlRequestCreated() *CreateVersionControlRequestCreated {
-	return &CreateVersionControlRequestCreated{}
+// NewCreateVersionControlRequestOK creates a CreateVersionControlRequestOK with default headers values
+func NewCreateVersionControlRequestOK() *CreateVersionControlRequestOK {
+	return &CreateVersionControlRequestOK{}
 }
 
-/*CreateVersionControlRequestCreated handles this case with default header values.
+/*CreateVersionControlRequestOK handles this case with default header values.
 
 successful operation
 */
-type CreateVersionControlRequestCreated struct {
+type CreateVersionControlRequestOK struct {
 	Payload string
 }
 
-func (o *CreateVersionControlRequestCreated) Error() string {
-	return fmt.Sprintf("[POST /versions/active-requests][%d] createVersionControlRequestCreated  %+v", 201, o.Payload)
+func (o *CreateVersionControlRequestOK) Error() string {
+	return fmt.Sprintf("[POST /versions/active-requests][%d] createVersionControlRequestOK  %+v", 200, o.Payload)
 }
 
-func (o *CreateVersionControlRequestCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateVersionControlRequestOK) GetPayload() string {
+	return o.Payload
+}
+
+func (o *CreateVersionControlRequestOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

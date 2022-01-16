@@ -6,13 +6,14 @@ package labels
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new labels API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,8 +25,19 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	GetLabel(params *GetLabelParams, authInfo runtime.ClientAuthInfoWriter) (*GetLabelOK, error)
+
+	RemoveLabel(params *RemoveLabelParams, authInfo runtime.ClientAuthInfoWriter) (*RemoveLabelOK, error)
+
+	UpdateLabel(params *UpdateLabelParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateLabelOK, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-GetLabel gets a label
+  GetLabel gets a label
 */
 func (a *Client) GetLabel(params *GetLabelParams, authInfo runtime.ClientAuthInfoWriter) (*GetLabelOK, error) {
 	// TODO: Validate the params before sending
@@ -38,7 +50,7 @@ func (a *Client) GetLabel(params *GetLabelParams, authInfo runtime.ClientAuthInf
 		Method:             "GET",
 		PathPattern:        "/labels/{id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetLabelReader{formats: a.formats},
@@ -49,12 +61,18 @@ func (a *Client) GetLabel(params *GetLabelParams, authInfo runtime.ClientAuthInf
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetLabelOK), nil
-
+	success, ok := result.(*GetLabelOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getLabel: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-RemoveLabel deletes a label
+  RemoveLabel deletes a label
 */
 func (a *Client) RemoveLabel(params *RemoveLabelParams, authInfo runtime.ClientAuthInfoWriter) (*RemoveLabelOK, error) {
 	// TODO: Validate the params before sending
@@ -67,7 +85,7 @@ func (a *Client) RemoveLabel(params *RemoveLabelParams, authInfo runtime.ClientA
 		Method:             "DELETE",
 		PathPattern:        "/labels/{id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &RemoveLabelReader{formats: a.formats},
@@ -78,12 +96,18 @@ func (a *Client) RemoveLabel(params *RemoveLabelParams, authInfo runtime.ClientA
 	if err != nil {
 		return nil, err
 	}
-	return result.(*RemoveLabelOK), nil
-
+	success, ok := result.(*RemoveLabelOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for removeLabel: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateLabel updates a label
+  UpdateLabel updates a label
 */
 func (a *Client) UpdateLabel(params *UpdateLabelParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateLabelOK, error) {
 	// TODO: Validate the params before sending
@@ -107,8 +131,14 @@ func (a *Client) UpdateLabel(params *UpdateLabelParams, authInfo runtime.ClientA
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateLabelOK), nil
-
+	success, ok := result.(*UpdateLabelOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateLabel: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

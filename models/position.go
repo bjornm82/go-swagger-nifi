@@ -6,12 +6,12 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // Position The position of a component on the graph
+//
 // swagger:model Position
 type Position struct {
 

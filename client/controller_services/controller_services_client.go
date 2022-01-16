@@ -6,13 +6,14 @@ package controller_services
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new controller services API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,24 +25,47 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	ClearStateControllerServices(params *ClearStateControllerServicesParams, authInfo runtime.ClientAuthInfoWriter) (*ClearStateControllerServicesOK, error)
+
+	GetControllerService(params *GetControllerServiceParams, authInfo runtime.ClientAuthInfoWriter) (*GetControllerServiceOK, error)
+
+	GetControllerServiceReferences(params *GetControllerServiceReferencesParams, authInfo runtime.ClientAuthInfoWriter) (*GetControllerServiceReferencesOK, error)
+
+	GetPropertyDescriptorControllerServices(params *GetPropertyDescriptorControllerServicesParams, authInfo runtime.ClientAuthInfoWriter) (*GetPropertyDescriptorControllerServicesOK, error)
+
+	GetStateControllerServices(params *GetStateControllerServicesParams, authInfo runtime.ClientAuthInfoWriter) (*GetStateControllerServicesOK, error)
+
+	RemoveControllerService(params *RemoveControllerServiceParams, authInfo runtime.ClientAuthInfoWriter) (*RemoveControllerServiceOK, error)
+
+	UpdateControllerService(params *UpdateControllerServiceParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateControllerServiceOK, error)
+
+	UpdateControllerServiceReferences(params *UpdateControllerServiceReferencesParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateControllerServiceReferencesOK, error)
+
+	UpdateRunStatusControllerServices(params *UpdateRunStatusControllerServicesParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateRunStatusControllerServicesOK, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-ControllerServicesClearState clears the state for a controller service
+  ClearStateControllerServices clears the state for a controller service
 */
-func (a *Client) ControllerServicesClearState(params *ControllerServicesClearStateParams, authInfo runtime.ClientAuthInfoWriter) (*ControllerServicesClearStateOK, error) {
+func (a *Client) ClearStateControllerServices(params *ClearStateControllerServicesParams, authInfo runtime.ClientAuthInfoWriter) (*ClearStateControllerServicesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewControllerServicesClearStateParams()
+		params = NewClearStateControllerServicesParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "controllerServicesClearState",
+		ID:                 "clearStateControllerServices",
 		Method:             "POST",
 		PathPattern:        "/controller-services/{id}/state/clear-requests",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &ControllerServicesClearStateReader{formats: a.formats},
+		Reader:             &ClearStateControllerServicesReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -49,99 +73,18 @@ func (a *Client) ControllerServicesClearState(params *ControllerServicesClearSta
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ControllerServicesClearStateOK), nil
-
+	success, ok := result.(*ClearStateControllerServicesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for clearStateControllerServices: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ControllerServicesGetPropertyDescriptor gets a controller service property descriptor
-*/
-func (a *Client) ControllerServicesGetPropertyDescriptor(params *ControllerServicesGetPropertyDescriptorParams, authInfo runtime.ClientAuthInfoWriter) (*ControllerServicesGetPropertyDescriptorOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewControllerServicesGetPropertyDescriptorParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "controllerServicesGetPropertyDescriptor",
-		Method:             "GET",
-		PathPattern:        "/controller-services/{id}/descriptors",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &ControllerServicesGetPropertyDescriptorReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*ControllerServicesGetPropertyDescriptorOK), nil
-
-}
-
-/*
-ControllerServicesGetState gets the state for a controller service
-*/
-func (a *Client) ControllerServicesGetState(params *ControllerServicesGetStateParams, authInfo runtime.ClientAuthInfoWriter) (*ControllerServicesGetStateOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewControllerServicesGetStateParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "controllerServicesGetState",
-		Method:             "GET",
-		PathPattern:        "/controller-services/{id}/state",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &ControllerServicesGetStateReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*ControllerServicesGetStateOK), nil
-
-}
-
-/*
-ControllerServicesUpdateRunStatus updates run status of a controller service
-*/
-func (a *Client) ControllerServicesUpdateRunStatus(params *ControllerServicesUpdateRunStatusParams, authInfo runtime.ClientAuthInfoWriter) (*ControllerServicesUpdateRunStatusOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewControllerServicesUpdateRunStatusParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "controllerServicesUpdateRunStatus",
-		Method:             "PUT",
-		PathPattern:        "/controller-services/{id}/run-status",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &ControllerServicesUpdateRunStatusReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*ControllerServicesUpdateRunStatusOK), nil
-
-}
-
-/*
-GetControllerService gets a controller service
+  GetControllerService gets a controller service
 */
 func (a *Client) GetControllerService(params *GetControllerServiceParams, authInfo runtime.ClientAuthInfoWriter) (*GetControllerServiceOK, error) {
 	// TODO: Validate the params before sending
@@ -154,7 +97,7 @@ func (a *Client) GetControllerService(params *GetControllerServiceParams, authIn
 		Method:             "GET",
 		PathPattern:        "/controller-services/{id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetControllerServiceReader{formats: a.formats},
@@ -165,12 +108,18 @@ func (a *Client) GetControllerService(params *GetControllerServiceParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetControllerServiceOK), nil
-
+	success, ok := result.(*GetControllerServiceOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getControllerService: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetControllerServiceReferences gets a controller service
+  GetControllerServiceReferences gets a controller service
 */
 func (a *Client) GetControllerServiceReferences(params *GetControllerServiceReferencesParams, authInfo runtime.ClientAuthInfoWriter) (*GetControllerServiceReferencesOK, error) {
 	// TODO: Validate the params before sending
@@ -183,7 +132,7 @@ func (a *Client) GetControllerServiceReferences(params *GetControllerServiceRefe
 		Method:             "GET",
 		PathPattern:        "/controller-services/{id}/references",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetControllerServiceReferencesReader{formats: a.formats},
@@ -194,12 +143,88 @@ func (a *Client) GetControllerServiceReferences(params *GetControllerServiceRefe
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetControllerServiceReferencesOK), nil
-
+	success, ok := result.(*GetControllerServiceReferencesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getControllerServiceReferences: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-RemoveControllerService deletes a controller service
+  GetPropertyDescriptorControllerServices gets a controller service property descriptor
+*/
+func (a *Client) GetPropertyDescriptorControllerServices(params *GetPropertyDescriptorControllerServicesParams, authInfo runtime.ClientAuthInfoWriter) (*GetPropertyDescriptorControllerServicesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetPropertyDescriptorControllerServicesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getPropertyDescriptorControllerServices",
+		Method:             "GET",
+		PathPattern:        "/controller-services/{id}/descriptors",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetPropertyDescriptorControllerServicesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetPropertyDescriptorControllerServicesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getPropertyDescriptorControllerServices: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetStateControllerServices gets the state for a controller service
+*/
+func (a *Client) GetStateControllerServices(params *GetStateControllerServicesParams, authInfo runtime.ClientAuthInfoWriter) (*GetStateControllerServicesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetStateControllerServicesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getStateControllerServices",
+		Method:             "GET",
+		PathPattern:        "/controller-services/{id}/state",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &GetStateControllerServicesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetStateControllerServicesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getStateControllerServices: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  RemoveControllerService deletes a controller service
 */
 func (a *Client) RemoveControllerService(params *RemoveControllerServiceParams, authInfo runtime.ClientAuthInfoWriter) (*RemoveControllerServiceOK, error) {
 	// TODO: Validate the params before sending
@@ -212,7 +237,7 @@ func (a *Client) RemoveControllerService(params *RemoveControllerServiceParams, 
 		Method:             "DELETE",
 		PathPattern:        "/controller-services/{id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"*/*"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &RemoveControllerServiceReader{formats: a.formats},
@@ -223,12 +248,18 @@ func (a *Client) RemoveControllerService(params *RemoveControllerServiceParams, 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*RemoveControllerServiceOK), nil
-
+	success, ok := result.(*RemoveControllerServiceOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for removeControllerService: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateControllerService updates a controller service
+  UpdateControllerService updates a controller service
 */
 func (a *Client) UpdateControllerService(params *UpdateControllerServiceParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateControllerServiceOK, error) {
 	// TODO: Validate the params before sending
@@ -252,12 +283,18 @@ func (a *Client) UpdateControllerService(params *UpdateControllerServiceParams, 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateControllerServiceOK), nil
-
+	success, ok := result.(*UpdateControllerServiceOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateControllerService: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateControllerServiceReferences updates a controller services references
+  UpdateControllerServiceReferences updates a controller services references
 */
 func (a *Client) UpdateControllerServiceReferences(params *UpdateControllerServiceReferencesParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateControllerServiceReferencesOK, error) {
 	// TODO: Validate the params before sending
@@ -281,8 +318,49 @@ func (a *Client) UpdateControllerServiceReferences(params *UpdateControllerServi
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateControllerServiceReferencesOK), nil
+	success, ok := result.(*UpdateControllerServiceReferencesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateControllerServiceReferences: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
 
+/*
+  UpdateRunStatusControllerServices updates run status of a controller service
+*/
+func (a *Client) UpdateRunStatusControllerServices(params *UpdateRunStatusControllerServicesParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateRunStatusControllerServicesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateRunStatusControllerServicesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "updateRunStatusControllerServices",
+		Method:             "PUT",
+		PathPattern:        "/controller-services/{id}/run-status",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &UpdateRunStatusControllerServicesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateRunStatusControllerServicesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for updateRunStatusControllerServices: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

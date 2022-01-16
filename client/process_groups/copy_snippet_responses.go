@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // CopySnippetReader is a Reader for the CopySnippet structure.
@@ -24,42 +23,36 @@ type CopySnippetReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CopySnippetReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewCopySnippetCreated()
+	case 200:
+		result := NewCopySnippetOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCopySnippetBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewCopySnippetUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewCopySnippetForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewCopySnippetNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewCopySnippetConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -72,24 +65,28 @@ func (o *CopySnippetReader) ReadResponse(response runtime.ClientResponse, consum
 	}
 }
 
-// NewCopySnippetCreated creates a CopySnippetCreated with default headers values
-func NewCopySnippetCreated() *CopySnippetCreated {
-	return &CopySnippetCreated{}
+// NewCopySnippetOK creates a CopySnippetOK with default headers values
+func NewCopySnippetOK() *CopySnippetOK {
+	return &CopySnippetOK{}
 }
 
-/*CopySnippetCreated handles this case with default header values.
+/*CopySnippetOK handles this case with default header values.
 
 successful operation
 */
-type CopySnippetCreated struct {
+type CopySnippetOK struct {
 	Payload *models.FlowEntity
 }
 
-func (o *CopySnippetCreated) Error() string {
-	return fmt.Sprintf("[POST /process-groups/{id}/snippet-instance][%d] copySnippetCreated  %+v", 201, o.Payload)
+func (o *CopySnippetOK) Error() string {
+	return fmt.Sprintf("[POST /process-groups/{id}/snippet-instance][%d] copySnippetOK  %+v", 200, o.Payload)
 }
 
-func (o *CopySnippetCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CopySnippetOK) GetPayload() *models.FlowEntity {
+	return o.Payload
+}
+
+func (o *CopySnippetOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.FlowEntity)
 

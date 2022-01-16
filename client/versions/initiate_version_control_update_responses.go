@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // InitiateVersionControlUpdateReader is a Reader for the InitiateVersionControlUpdate structure.
@@ -24,42 +23,36 @@ type InitiateVersionControlUpdateReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *InitiateVersionControlUpdateReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewInitiateVersionControlUpdateCreated()
+	case 200:
+		result := NewInitiateVersionControlUpdateOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewInitiateVersionControlUpdateBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewInitiateVersionControlUpdateUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewInitiateVersionControlUpdateForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewInitiateVersionControlUpdateNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewInitiateVersionControlUpdateConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -72,24 +65,28 @@ func (o *InitiateVersionControlUpdateReader) ReadResponse(response runtime.Clien
 	}
 }
 
-// NewInitiateVersionControlUpdateCreated creates a InitiateVersionControlUpdateCreated with default headers values
-func NewInitiateVersionControlUpdateCreated() *InitiateVersionControlUpdateCreated {
-	return &InitiateVersionControlUpdateCreated{}
+// NewInitiateVersionControlUpdateOK creates a InitiateVersionControlUpdateOK with default headers values
+func NewInitiateVersionControlUpdateOK() *InitiateVersionControlUpdateOK {
+	return &InitiateVersionControlUpdateOK{}
 }
 
-/*InitiateVersionControlUpdateCreated handles this case with default header values.
+/*InitiateVersionControlUpdateOK handles this case with default header values.
 
 successful operation
 */
-type InitiateVersionControlUpdateCreated struct {
+type InitiateVersionControlUpdateOK struct {
 	Payload *models.VersionedFlowUpdateRequestEntity
 }
 
-func (o *InitiateVersionControlUpdateCreated) Error() string {
-	return fmt.Sprintf("[POST /versions/update-requests/process-groups/{id}][%d] initiateVersionControlUpdateCreated  %+v", 201, o.Payload)
+func (o *InitiateVersionControlUpdateOK) Error() string {
+	return fmt.Sprintf("[POST /versions/update-requests/process-groups/{id}][%d] initiateVersionControlUpdateOK  %+v", 200, o.Payload)
 }
 
-func (o *InitiateVersionControlUpdateCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *InitiateVersionControlUpdateOK) GetPayload() *models.VersionedFlowUpdateRequestEntity {
+	return o.Payload
+}
+
+func (o *InitiateVersionControlUpdateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.VersionedFlowUpdateRequestEntity)
 

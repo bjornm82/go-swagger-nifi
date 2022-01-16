@@ -8,13 +8,13 @@ package models
 import (
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // ControllerServiceEntity controller service entity
+//
 // swagger:model ControllerServiceEntity
 type ControllerServiceEntity struct {
 
@@ -46,7 +46,6 @@ type ControllerServiceEntity struct {
 	Revision *RevisionDTO `json:"revision,omitempty"`
 
 	// The status for this ControllerService.
-	// Read Only: true
 	Status *ControllerServiceStatusDTO `json:"status,omitempty"`
 
 	// The URI for futures requests to the component.

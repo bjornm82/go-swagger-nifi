@@ -8,14 +8,14 @@ package models
 import (
 	"encoding/json"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // FlowBreadcrumbEntity flow breadcrumb entity
+//
 // swagger:model FlowBreadcrumbEntity
 type FlowBreadcrumbEntity struct {
 
@@ -32,7 +32,6 @@ type FlowBreadcrumbEntity struct {
 	Permissions *PermissionsDTO `json:"permissions,omitempty"`
 
 	// The current state of the Process Group, as it relates to the Versioned Flow
-	// Read Only: true
 	// Enum: [LOCALLY_MODIFIED STALE LOCALLY_MODIFIED_AND_STALE UP_TO_DATE SYNC_FAILURE]
 	VersionedFlowState string `json:"versionedFlowState,omitempty"`
 }
@@ -149,7 +148,7 @@ const (
 
 // prop value enum
 func (m *FlowBreadcrumbEntity) validateVersionedFlowStateEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, flowBreadcrumbEntityTypeVersionedFlowStatePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, flowBreadcrumbEntityTypeVersionedFlowStatePropEnum, true); err != nil {
 		return err
 	}
 	return nil

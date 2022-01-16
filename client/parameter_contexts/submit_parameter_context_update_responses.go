@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/bjornm82/go-swagger-nifi/models"
+	"github.com/bjornm82/go-swagger-nifi/models"
 )
 
 // SubmitParameterContextUpdateReader is a Reader for the SubmitParameterContextUpdate structure.
@@ -24,42 +23,36 @@ type SubmitParameterContextUpdateReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SubmitParameterContextUpdateReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
-	case 201:
-		result := NewSubmitParameterContextUpdateCreated()
+	case 200:
+		result := NewSubmitParameterContextUpdateOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewSubmitParameterContextUpdateBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewSubmitParameterContextUpdateUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewSubmitParameterContextUpdateForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewSubmitParameterContextUpdateNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewSubmitParameterContextUpdateConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -72,24 +65,28 @@ func (o *SubmitParameterContextUpdateReader) ReadResponse(response runtime.Clien
 	}
 }
 
-// NewSubmitParameterContextUpdateCreated creates a SubmitParameterContextUpdateCreated with default headers values
-func NewSubmitParameterContextUpdateCreated() *SubmitParameterContextUpdateCreated {
-	return &SubmitParameterContextUpdateCreated{}
+// NewSubmitParameterContextUpdateOK creates a SubmitParameterContextUpdateOK with default headers values
+func NewSubmitParameterContextUpdateOK() *SubmitParameterContextUpdateOK {
+	return &SubmitParameterContextUpdateOK{}
 }
 
-/*SubmitParameterContextUpdateCreated handles this case with default header values.
+/*SubmitParameterContextUpdateOK handles this case with default header values.
 
 successful operation
 */
-type SubmitParameterContextUpdateCreated struct {
+type SubmitParameterContextUpdateOK struct {
 	Payload *models.ParameterContextUpdateRequestEntity
 }
 
-func (o *SubmitParameterContextUpdateCreated) Error() string {
-	return fmt.Sprintf("[POST /parameter-contexts/{contextId}/update-requests][%d] submitParameterContextUpdateCreated  %+v", 201, o.Payload)
+func (o *SubmitParameterContextUpdateOK) Error() string {
+	return fmt.Sprintf("[POST /parameter-contexts/{contextId}/update-requests][%d] submitParameterContextUpdateOK  %+v", 200, o.Payload)
 }
 
-func (o *SubmitParameterContextUpdateCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *SubmitParameterContextUpdateOK) GetPayload() *models.ParameterContextUpdateRequestEntity {
+	return o.Payload
+}
+
+func (o *SubmitParameterContextUpdateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ParameterContextUpdateRequestEntity)
 
