@@ -1153,7 +1153,7 @@ func (a *Client) UpdateVariableRegistry(params *UpdateVariableRegistryParams, au
 /*
 UploadTemplate uploads a template
 */
-func (a *Client) UploadTemplate(params *UploadTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*UploadTemplateOK, error) {
+func (a *Client) UploadTemplate(params *UploadTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*UploadTemplateCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUploadTemplateParams()
@@ -1175,7 +1175,7 @@ func (a *Client) UploadTemplate(params *UploadTemplateParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UploadTemplateOK), nil
+	return result.(*UploadTemplateCreated), nil
 
 }
 

@@ -7857,7 +7857,7 @@
           "type" : "file"
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/TemplateEntity"
