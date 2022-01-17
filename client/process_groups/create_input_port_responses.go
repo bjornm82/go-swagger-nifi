@@ -23,8 +23,8 @@ type CreateInputPortReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateInputPortReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewCreateInputPortOK()
+	case 201:
+		result := NewCreateInputPortCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -65,28 +65,28 @@ func (o *CreateInputPortReader) ReadResponse(response runtime.ClientResponse, co
 	}
 }
 
-// NewCreateInputPortOK creates a CreateInputPortOK with default headers values
-func NewCreateInputPortOK() *CreateInputPortOK {
-	return &CreateInputPortOK{}
+// NewCreateInputPortCreated creates a CreateInputPortCreated with default headers values
+func NewCreateInputPortCreated() *CreateInputPortCreated {
+	return &CreateInputPortCreated{}
 }
 
-/*CreateInputPortOK handles this case with default header values.
+/*CreateInputPortCreated handles this case with default header values.
 
 successful operation
 */
-type CreateInputPortOK struct {
+type CreateInputPortCreated struct {
 	Payload *models.PortEntity
 }
 
-func (o *CreateInputPortOK) Error() string {
-	return fmt.Sprintf("[POST /process-groups/{id}/input-ports][%d] createInputPortOK  %+v", 200, o.Payload)
+func (o *CreateInputPortCreated) Error() string {
+	return fmt.Sprintf("[POST /process-groups/{id}/input-ports][%d] createInputPortCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateInputPortOK) GetPayload() *models.PortEntity {
+func (o *CreateInputPortCreated) GetPayload() *models.PortEntity {
 	return o.Payload
 }
 
-func (o *CreateInputPortOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateInputPortCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.PortEntity)
 

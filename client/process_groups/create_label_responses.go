@@ -23,8 +23,8 @@ type CreateLabelReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateLabelReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewCreateLabelOK()
+	case 201:
+		result := NewCreateLabelCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -65,28 +65,28 @@ func (o *CreateLabelReader) ReadResponse(response runtime.ClientResponse, consum
 	}
 }
 
-// NewCreateLabelOK creates a CreateLabelOK with default headers values
-func NewCreateLabelOK() *CreateLabelOK {
-	return &CreateLabelOK{}
+// NewCreateLabelCreated creates a CreateLabelCreated with default headers values
+func NewCreateLabelCreated() *CreateLabelCreated {
+	return &CreateLabelCreated{}
 }
 
-/*CreateLabelOK handles this case with default header values.
+/*CreateLabelCreated handles this case with default header values.
 
 successful operation
 */
-type CreateLabelOK struct {
+type CreateLabelCreated struct {
 	Payload *models.LabelEntity
 }
 
-func (o *CreateLabelOK) Error() string {
-	return fmt.Sprintf("[POST /process-groups/{id}/labels][%d] createLabelOK  %+v", 200, o.Payload)
+func (o *CreateLabelCreated) Error() string {
+	return fmt.Sprintf("[POST /process-groups/{id}/labels][%d] createLabelCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateLabelOK) GetPayload() *models.LabelEntity {
+func (o *CreateLabelCreated) GetPayload() *models.LabelEntity {
 	return o.Payload
 }
 
-func (o *CreateLabelOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateLabelCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.LabelEntity)
 

@@ -23,8 +23,8 @@ type ClearStateControllerServicesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ClearStateControllerServicesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewClearStateControllerServicesOK()
+	case 201:
+		result := NewClearStateControllerServicesCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -65,28 +65,28 @@ func (o *ClearStateControllerServicesReader) ReadResponse(response runtime.Clien
 	}
 }
 
-// NewClearStateControllerServicesOK creates a ClearStateControllerServicesOK with default headers values
-func NewClearStateControllerServicesOK() *ClearStateControllerServicesOK {
-	return &ClearStateControllerServicesOK{}
+// NewClearStateControllerServicesCreated creates a ClearStateControllerServicesCreated with default headers values
+func NewClearStateControllerServicesCreated() *ClearStateControllerServicesCreated {
+	return &ClearStateControllerServicesCreated{}
 }
 
-/*ClearStateControllerServicesOK handles this case with default header values.
+/*ClearStateControllerServicesCreated handles this case with default header values.
 
 successful operation
 */
-type ClearStateControllerServicesOK struct {
+type ClearStateControllerServicesCreated struct {
 	Payload *models.ComponentStateEntity
 }
 
-func (o *ClearStateControllerServicesOK) Error() string {
-	return fmt.Sprintf("[POST /controller-services/{id}/state/clear-requests][%d] clearStateControllerServicesOK  %+v", 200, o.Payload)
+func (o *ClearStateControllerServicesCreated) Error() string {
+	return fmt.Sprintf("[POST /controller-services/{id}/state/clear-requests][%d] clearStateControllerServicesCreated  %+v", 201, o.Payload)
 }
 
-func (o *ClearStateControllerServicesOK) GetPayload() *models.ComponentStateEntity {
+func (o *ClearStateControllerServicesCreated) GetPayload() *models.ComponentStateEntity {
 	return o.Payload
 }
 
-func (o *ClearStateControllerServicesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *ClearStateControllerServicesCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ComponentStateEntity)
 

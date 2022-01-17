@@ -23,8 +23,8 @@ type CreateRemoteProcessGroupReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateRemoteProcessGroupReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewCreateRemoteProcessGroupOK()
+	case 201:
+		result := NewCreateRemoteProcessGroupCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -65,28 +65,28 @@ func (o *CreateRemoteProcessGroupReader) ReadResponse(response runtime.ClientRes
 	}
 }
 
-// NewCreateRemoteProcessGroupOK creates a CreateRemoteProcessGroupOK with default headers values
-func NewCreateRemoteProcessGroupOK() *CreateRemoteProcessGroupOK {
-	return &CreateRemoteProcessGroupOK{}
+// NewCreateRemoteProcessGroupCreated creates a CreateRemoteProcessGroupCreated with default headers values
+func NewCreateRemoteProcessGroupCreated() *CreateRemoteProcessGroupCreated {
+	return &CreateRemoteProcessGroupCreated{}
 }
 
-/*CreateRemoteProcessGroupOK handles this case with default header values.
+/*CreateRemoteProcessGroupCreated handles this case with default header values.
 
 successful operation
 */
-type CreateRemoteProcessGroupOK struct {
+type CreateRemoteProcessGroupCreated struct {
 	Payload *models.RemoteProcessGroupEntity
 }
 
-func (o *CreateRemoteProcessGroupOK) Error() string {
-	return fmt.Sprintf("[POST /process-groups/{id}/remote-process-groups][%d] createRemoteProcessGroupOK  %+v", 200, o.Payload)
+func (o *CreateRemoteProcessGroupCreated) Error() string {
+	return fmt.Sprintf("[POST /process-groups/{id}/remote-process-groups][%d] createRemoteProcessGroupCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateRemoteProcessGroupOK) GetPayload() *models.RemoteProcessGroupEntity {
+func (o *CreateRemoteProcessGroupCreated) GetPayload() *models.RemoteProcessGroupEntity {
 	return o.Payload
 }
 
-func (o *CreateRemoteProcessGroupOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateRemoteProcessGroupCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RemoteProcessGroupEntity)
 

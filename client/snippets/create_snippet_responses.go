@@ -23,8 +23,8 @@ type CreateSnippetReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateSnippetReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewCreateSnippetOK()
+	case 201:
+		result := NewCreateSnippetCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -65,28 +65,28 @@ func (o *CreateSnippetReader) ReadResponse(response runtime.ClientResponse, cons
 	}
 }
 
-// NewCreateSnippetOK creates a CreateSnippetOK with default headers values
-func NewCreateSnippetOK() *CreateSnippetOK {
-	return &CreateSnippetOK{}
+// NewCreateSnippetCreated creates a CreateSnippetCreated with default headers values
+func NewCreateSnippetCreated() *CreateSnippetCreated {
+	return &CreateSnippetCreated{}
 }
 
-/*CreateSnippetOK handles this case with default header values.
+/*CreateSnippetCreated handles this case with default header values.
 
 successful operation
 */
-type CreateSnippetOK struct {
+type CreateSnippetCreated struct {
 	Payload *models.SnippetEntity
 }
 
-func (o *CreateSnippetOK) Error() string {
-	return fmt.Sprintf("[POST /snippets][%d] createSnippetOK  %+v", 200, o.Payload)
+func (o *CreateSnippetCreated) Error() string {
+	return fmt.Sprintf("[POST /snippets][%d] createSnippetCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateSnippetOK) GetPayload() *models.SnippetEntity {
+func (o *CreateSnippetCreated) GetPayload() *models.SnippetEntity {
 	return o.Payload
 }
 
-func (o *CreateSnippetOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateSnippetCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.SnippetEntity)
 

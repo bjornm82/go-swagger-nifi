@@ -23,8 +23,8 @@ type SubmitReplayReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SubmitReplayReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewSubmitReplayOK()
+	case 201:
+		result := NewSubmitReplayCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -65,28 +65,28 @@ func (o *SubmitReplayReader) ReadResponse(response runtime.ClientResponse, consu
 	}
 }
 
-// NewSubmitReplayOK creates a SubmitReplayOK with default headers values
-func NewSubmitReplayOK() *SubmitReplayOK {
-	return &SubmitReplayOK{}
+// NewSubmitReplayCreated creates a SubmitReplayCreated with default headers values
+func NewSubmitReplayCreated() *SubmitReplayCreated {
+	return &SubmitReplayCreated{}
 }
 
-/*SubmitReplayOK handles this case with default header values.
+/*SubmitReplayCreated handles this case with default header values.
 
 successful operation
 */
-type SubmitReplayOK struct {
+type SubmitReplayCreated struct {
 	Payload *models.ProvenanceEventEntity
 }
 
-func (o *SubmitReplayOK) Error() string {
-	return fmt.Sprintf("[POST /provenance-events/replays][%d] submitReplayOK  %+v", 200, o.Payload)
+func (o *SubmitReplayCreated) Error() string {
+	return fmt.Sprintf("[POST /provenance-events/replays][%d] submitReplayCreated  %+v", 201, o.Payload)
 }
 
-func (o *SubmitReplayOK) GetPayload() *models.ProvenanceEventEntity {
+func (o *SubmitReplayCreated) GetPayload() *models.ProvenanceEventEntity {
 	return o.Payload
 }
 
-func (o *SubmitReplayOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *SubmitReplayCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ProvenanceEventEntity)
 

@@ -23,8 +23,8 @@ type InstantiateTemplateReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *InstantiateTemplateReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewInstantiateTemplateOK()
+	case 201:
+		result := NewInstantiateTemplateCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -65,28 +65,28 @@ func (o *InstantiateTemplateReader) ReadResponse(response runtime.ClientResponse
 	}
 }
 
-// NewInstantiateTemplateOK creates a InstantiateTemplateOK with default headers values
-func NewInstantiateTemplateOK() *InstantiateTemplateOK {
-	return &InstantiateTemplateOK{}
+// NewInstantiateTemplateCreated creates a InstantiateTemplateCreated with default headers values
+func NewInstantiateTemplateCreated() *InstantiateTemplateCreated {
+	return &InstantiateTemplateCreated{}
 }
 
-/*InstantiateTemplateOK handles this case with default header values.
+/*InstantiateTemplateCreated handles this case with default header values.
 
 successful operation
 */
-type InstantiateTemplateOK struct {
+type InstantiateTemplateCreated struct {
 	Payload *models.FlowEntity
 }
 
-func (o *InstantiateTemplateOK) Error() string {
-	return fmt.Sprintf("[POST /process-groups/{id}/template-instance][%d] instantiateTemplateOK  %+v", 200, o.Payload)
+func (o *InstantiateTemplateCreated) Error() string {
+	return fmt.Sprintf("[POST /process-groups/{id}/template-instance][%d] instantiateTemplateCreated  %+v", 201, o.Payload)
 }
 
-func (o *InstantiateTemplateOK) GetPayload() *models.FlowEntity {
+func (o *InstantiateTemplateCreated) GetPayload() *models.FlowEntity {
 	return o.Payload
 }
 
-func (o *InstantiateTemplateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *InstantiateTemplateCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.FlowEntity)
 

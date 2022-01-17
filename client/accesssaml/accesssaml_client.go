@@ -27,13 +27,13 @@ type Client struct {
 
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CreateAccessTokenFromTicketSaml(params *CreateAccessTokenFromTicketSamlParams) (*CreateAccessTokenFromTicketSamlOK, error)
+	CreateAccessTokenFromTicketSaml(params *CreateAccessTokenFromTicketSamlParams) (*CreateAccessTokenFromTicketSamlCreated, error)
 
-	CreateAccessTokenSaml(params *CreateAccessTokenSamlParams) (*CreateAccessTokenSamlOK, error)
+	CreateAccessTokenSaml(params *CreateAccessTokenSamlParams) (*CreateAccessTokenSamlCreated, error)
 
-	CreateDownloadTokenSaml(params *CreateDownloadTokenSamlParams) (*CreateDownloadTokenSamlOK, error)
+	CreateDownloadTokenSaml(params *CreateDownloadTokenSamlParams) (*CreateDownloadTokenSamlCreated, error)
 
-	CreateUIExtensionTokenSaml(params *CreateUIExtensionTokenSamlParams) (*CreateUIExtensionTokenSamlOK, error)
+	CreateUIExtensionTokenSaml(params *CreateUIExtensionTokenSamlParams) (*CreateUIExtensionTokenSamlCreated, error)
 
 	GetAccessStatusSaml(params *GetAccessStatusSamlParams) (*GetAccessStatusSamlOK, error)
 
@@ -51,7 +51,7 @@ type ClientService interface {
 
 	SamlLocalLogout(params *SamlLocalLogoutParams) error
 
-	SamlLoginExchange(params *SamlLoginExchangeParams) (*SamlLoginExchangeOK, error)
+	SamlLoginExchange(params *SamlLoginExchangeParams) (*SamlLoginExchangeCreated, error)
 
 	SamlLoginHTTPPostConsumer(params *SamlLoginHTTPPostConsumerParams) error
 
@@ -75,7 +75,7 @@ type ClientService interface {
 
   The token returned is formatted as a JSON Web Token (JWT). The token is base64 encoded and comprised of three parts. The header, the body, and the signature. The expiration of the token is a contained within the body. The token can be used in the Authorization header in the format 'Authorization: Bearer <token>'. It is also stored in the browser as a cookie.
 */
-func (a *Client) CreateAccessTokenFromTicketSaml(params *CreateAccessTokenFromTicketSamlParams) (*CreateAccessTokenFromTicketSamlOK, error) {
+func (a *Client) CreateAccessTokenFromTicketSaml(params *CreateAccessTokenFromTicketSamlParams) (*CreateAccessTokenFromTicketSamlCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateAccessTokenFromTicketSamlParams()
@@ -96,7 +96,7 @@ func (a *Client) CreateAccessTokenFromTicketSaml(params *CreateAccessTokenFromTi
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CreateAccessTokenFromTicketSamlOK)
+	success, ok := result.(*CreateAccessTokenFromTicketSamlCreated)
 	if ok {
 		return success, nil
 	}
@@ -111,7 +111,7 @@ func (a *Client) CreateAccessTokenFromTicketSaml(params *CreateAccessTokenFromTi
 
   The token returned is formatted as a JSON Web Token (JWT). The token is base64 encoded and comprised of three parts. The header, the body, and the signature. The expiration of the token is a contained within the body. It is stored in the browser as a cookie, but also returned inthe response body to be stored/used by third party client scripts.
 */
-func (a *Client) CreateAccessTokenSaml(params *CreateAccessTokenSamlParams) (*CreateAccessTokenSamlOK, error) {
+func (a *Client) CreateAccessTokenSaml(params *CreateAccessTokenSamlParams) (*CreateAccessTokenSamlCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateAccessTokenSamlParams()
@@ -132,7 +132,7 @@ func (a *Client) CreateAccessTokenSaml(params *CreateAccessTokenSamlParams) (*Cr
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CreateAccessTokenSamlOK)
+	success, ok := result.(*CreateAccessTokenSamlCreated)
 	if ok {
 		return success, nil
 	}
@@ -147,7 +147,7 @@ func (a *Client) CreateAccessTokenSaml(params *CreateAccessTokenSamlParams) (*Cr
 
   The token returned is a base64 encoded string. It is valid for a single request up to five minutes from being issued. It is used as a query parameter name 'access_token'.
 */
-func (a *Client) CreateDownloadTokenSaml(params *CreateDownloadTokenSamlParams) (*CreateDownloadTokenSamlOK, error) {
+func (a *Client) CreateDownloadTokenSaml(params *CreateDownloadTokenSamlParams) (*CreateDownloadTokenSamlCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateDownloadTokenSamlParams()
@@ -168,7 +168,7 @@ func (a *Client) CreateDownloadTokenSaml(params *CreateDownloadTokenSamlParams) 
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CreateDownloadTokenSamlOK)
+	success, ok := result.(*CreateDownloadTokenSamlCreated)
 	if ok {
 		return success, nil
 	}
@@ -183,7 +183,7 @@ func (a *Client) CreateDownloadTokenSaml(params *CreateDownloadTokenSamlParams) 
 
   The token returned is a base64 encoded string. It is valid for a single request up to five minutes from being issued. It is used as a query parameter name 'access_token'.
 */
-func (a *Client) CreateUIExtensionTokenSaml(params *CreateUIExtensionTokenSamlParams) (*CreateUIExtensionTokenSamlOK, error) {
+func (a *Client) CreateUIExtensionTokenSaml(params *CreateUIExtensionTokenSamlParams) (*CreateUIExtensionTokenSamlCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateUIExtensionTokenSamlParams()
@@ -204,7 +204,7 @@ func (a *Client) CreateUIExtensionTokenSaml(params *CreateUIExtensionTokenSamlPa
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CreateUIExtensionTokenSamlOK)
+	success, ok := result.(*CreateUIExtensionTokenSamlCreated)
 	if ok {
 		return success, nil
 	}
@@ -477,7 +477,7 @@ func (a *Client) SamlLocalLogout(params *SamlLocalLogoutParams) error {
 
   Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
-func (a *Client) SamlLoginExchange(params *SamlLoginExchangeParams) (*SamlLoginExchangeOK, error) {
+func (a *Client) SamlLoginExchange(params *SamlLoginExchangeParams) (*SamlLoginExchangeCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSamlLoginExchangeParams()
@@ -498,7 +498,7 @@ func (a *Client) SamlLoginExchange(params *SamlLoginExchangeParams) (*SamlLoginE
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*SamlLoginExchangeOK)
+	success, ok := result.(*SamlLoginExchangeCreated)
 	if ok {
 		return success, nil
 	}

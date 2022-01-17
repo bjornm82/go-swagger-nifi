@@ -21,8 +21,8 @@ type CreateDownloadTokenReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateDownloadTokenReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewCreateDownloadTokenOK()
+	case 201:
+		result := NewCreateDownloadTokenCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -51,28 +51,28 @@ func (o *CreateDownloadTokenReader) ReadResponse(response runtime.ClientResponse
 	}
 }
 
-// NewCreateDownloadTokenOK creates a CreateDownloadTokenOK with default headers values
-func NewCreateDownloadTokenOK() *CreateDownloadTokenOK {
-	return &CreateDownloadTokenOK{}
+// NewCreateDownloadTokenCreated creates a CreateDownloadTokenCreated with default headers values
+func NewCreateDownloadTokenCreated() *CreateDownloadTokenCreated {
+	return &CreateDownloadTokenCreated{}
 }
 
-/*CreateDownloadTokenOK handles this case with default header values.
+/*CreateDownloadTokenCreated handles this case with default header values.
 
 successful operation
 */
-type CreateDownloadTokenOK struct {
+type CreateDownloadTokenCreated struct {
 	Payload string
 }
 
-func (o *CreateDownloadTokenOK) Error() string {
-	return fmt.Sprintf("[POST /access/download-token][%d] createDownloadTokenOK  %+v", 200, o.Payload)
+func (o *CreateDownloadTokenCreated) Error() string {
+	return fmt.Sprintf("[POST /access/download-token][%d] createDownloadTokenCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateDownloadTokenOK) GetPayload() string {
+func (o *CreateDownloadTokenCreated) GetPayload() string {
 	return o.Payload
 }
 
-func (o *CreateDownloadTokenOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateDownloadTokenCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

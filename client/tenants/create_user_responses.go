@@ -23,8 +23,8 @@ type CreateUserReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateUserReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewCreateUserOK()
+	case 201:
+		result := NewCreateUserCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -65,28 +65,28 @@ func (o *CreateUserReader) ReadResponse(response runtime.ClientResponse, consume
 	}
 }
 
-// NewCreateUserOK creates a CreateUserOK with default headers values
-func NewCreateUserOK() *CreateUserOK {
-	return &CreateUserOK{}
+// NewCreateUserCreated creates a CreateUserCreated with default headers values
+func NewCreateUserCreated() *CreateUserCreated {
+	return &CreateUserCreated{}
 }
 
-/*CreateUserOK handles this case with default header values.
+/*CreateUserCreated handles this case with default header values.
 
 successful operation
 */
-type CreateUserOK struct {
+type CreateUserCreated struct {
 	Payload *models.UserEntity
 }
 
-func (o *CreateUserOK) Error() string {
-	return fmt.Sprintf("[POST /tenants/users][%d] createUserOK  %+v", 200, o.Payload)
+func (o *CreateUserCreated) Error() string {
+	return fmt.Sprintf("[POST /tenants/users][%d] createUserCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateUserOK) GetPayload() *models.UserEntity {
+func (o *CreateUserCreated) GetPayload() *models.UserEntity {
 	return o.Payload
 }
 
-func (o *CreateUserOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateUserCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.UserEntity)
 

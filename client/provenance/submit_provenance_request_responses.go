@@ -23,8 +23,8 @@ type SubmitProvenanceRequestReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SubmitProvenanceRequestReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewSubmitProvenanceRequestOK()
+	case 201:
+		result := NewSubmitProvenanceRequestCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -59,28 +59,28 @@ func (o *SubmitProvenanceRequestReader) ReadResponse(response runtime.ClientResp
 	}
 }
 
-// NewSubmitProvenanceRequestOK creates a SubmitProvenanceRequestOK with default headers values
-func NewSubmitProvenanceRequestOK() *SubmitProvenanceRequestOK {
-	return &SubmitProvenanceRequestOK{}
+// NewSubmitProvenanceRequestCreated creates a SubmitProvenanceRequestCreated with default headers values
+func NewSubmitProvenanceRequestCreated() *SubmitProvenanceRequestCreated {
+	return &SubmitProvenanceRequestCreated{}
 }
 
-/*SubmitProvenanceRequestOK handles this case with default header values.
+/*SubmitProvenanceRequestCreated handles this case with default header values.
 
 successful operation
 */
-type SubmitProvenanceRequestOK struct {
+type SubmitProvenanceRequestCreated struct {
 	Payload *models.ProvenanceEntity
 }
 
-func (o *SubmitProvenanceRequestOK) Error() string {
-	return fmt.Sprintf("[POST /provenance][%d] submitProvenanceRequestOK  %+v", 200, o.Payload)
+func (o *SubmitProvenanceRequestCreated) Error() string {
+	return fmt.Sprintf("[POST /provenance][%d] submitProvenanceRequestCreated  %+v", 201, o.Payload)
 }
 
-func (o *SubmitProvenanceRequestOK) GetPayload() *models.ProvenanceEntity {
+func (o *SubmitProvenanceRequestCreated) GetPayload() *models.ProvenanceEntity {
 	return o.Payload
 }
 
-func (o *SubmitProvenanceRequestOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *SubmitProvenanceRequestCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ProvenanceEntity)
 

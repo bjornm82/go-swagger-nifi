@@ -33,7 +33,7 @@ type ClientService interface {
 
 	GetProvenanceEvent(params *GetProvenanceEventParams, authInfo runtime.ClientAuthInfoWriter) (*GetProvenanceEventOK, error)
 
-	SubmitReplay(params *SubmitReplayParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitReplayOK, error)
+	SubmitReplay(params *SubmitReplayParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitReplayCreated, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -146,7 +146,7 @@ func (a *Client) GetProvenanceEvent(params *GetProvenanceEventParams, authInfo r
 /*
   SubmitReplay replays content from a provenance event
 */
-func (a *Client) SubmitReplay(params *SubmitReplayParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitReplayOK, error) {
+func (a *Client) SubmitReplay(params *SubmitReplayParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitReplayCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSubmitReplayParams()
@@ -168,7 +168,7 @@ func (a *Client) SubmitReplay(params *SubmitReplayParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*SubmitReplayOK)
+	success, ok := result.(*SubmitReplayCreated)
 	if ok {
 		return success, nil
 	}

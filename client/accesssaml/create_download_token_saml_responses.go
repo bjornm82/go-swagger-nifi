@@ -21,8 +21,8 @@ type CreateDownloadTokenSamlReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateDownloadTokenSamlReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewCreateDownloadTokenSamlOK()
+	case 201:
+		result := NewCreateDownloadTokenSamlCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -51,28 +51,28 @@ func (o *CreateDownloadTokenSamlReader) ReadResponse(response runtime.ClientResp
 	}
 }
 
-// NewCreateDownloadTokenSamlOK creates a CreateDownloadTokenSamlOK with default headers values
-func NewCreateDownloadTokenSamlOK() *CreateDownloadTokenSamlOK {
-	return &CreateDownloadTokenSamlOK{}
+// NewCreateDownloadTokenSamlCreated creates a CreateDownloadTokenSamlCreated with default headers values
+func NewCreateDownloadTokenSamlCreated() *CreateDownloadTokenSamlCreated {
+	return &CreateDownloadTokenSamlCreated{}
 }
 
-/*CreateDownloadTokenSamlOK handles this case with default header values.
+/*CreateDownloadTokenSamlCreated handles this case with default header values.
 
 successful operation
 */
-type CreateDownloadTokenSamlOK struct {
+type CreateDownloadTokenSamlCreated struct {
 	Payload string
 }
 
-func (o *CreateDownloadTokenSamlOK) Error() string {
-	return fmt.Sprintf("[POST /access/saml/download-token][%d] createDownloadTokenSamlOK  %+v", 200, o.Payload)
+func (o *CreateDownloadTokenSamlCreated) Error() string {
+	return fmt.Sprintf("[POST /access/saml/download-token][%d] createDownloadTokenSamlCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateDownloadTokenSamlOK) GetPayload() string {
+func (o *CreateDownloadTokenSamlCreated) GetPayload() string {
 	return o.Payload
 }
 
-func (o *CreateDownloadTokenSamlOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateDownloadTokenSamlCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

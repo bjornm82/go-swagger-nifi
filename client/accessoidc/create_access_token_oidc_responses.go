@@ -21,8 +21,8 @@ type CreateAccessTokenOidcReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateAccessTokenOidcReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewCreateAccessTokenOidcOK()
+	case 201:
+		result := NewCreateAccessTokenOidcCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -57,28 +57,28 @@ func (o *CreateAccessTokenOidcReader) ReadResponse(response runtime.ClientRespon
 	}
 }
 
-// NewCreateAccessTokenOidcOK creates a CreateAccessTokenOidcOK with default headers values
-func NewCreateAccessTokenOidcOK() *CreateAccessTokenOidcOK {
-	return &CreateAccessTokenOidcOK{}
+// NewCreateAccessTokenOidcCreated creates a CreateAccessTokenOidcCreated with default headers values
+func NewCreateAccessTokenOidcCreated() *CreateAccessTokenOidcCreated {
+	return &CreateAccessTokenOidcCreated{}
 }
 
-/*CreateAccessTokenOidcOK handles this case with default header values.
+/*CreateAccessTokenOidcCreated handles this case with default header values.
 
 successful operation
 */
-type CreateAccessTokenOidcOK struct {
+type CreateAccessTokenOidcCreated struct {
 	Payload string
 }
 
-func (o *CreateAccessTokenOidcOK) Error() string {
-	return fmt.Sprintf("[POST /access/oidc/token][%d] createAccessTokenOidcOK  %+v", 200, o.Payload)
+func (o *CreateAccessTokenOidcCreated) Error() string {
+	return fmt.Sprintf("[POST /access/oidc/token][%d] createAccessTokenOidcCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateAccessTokenOidcOK) GetPayload() string {
+func (o *CreateAccessTokenOidcCreated) GetPayload() string {
 	return o.Payload
 }
 
-func (o *CreateAccessTokenOidcOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateAccessTokenOidcCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

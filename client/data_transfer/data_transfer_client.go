@@ -31,13 +31,13 @@ type ClientService interface {
 
 	CommitOutputPortTransaction(params *CommitOutputPortTransactionParams, authInfo runtime.ClientAuthInfoWriter) (*CommitOutputPortTransactionOK, error)
 
-	CreatePortTransaction(params *CreatePortTransactionParams, authInfo runtime.ClientAuthInfoWriter) (*CreatePortTransactionOK, error)
+	CreatePortTransaction(params *CreatePortTransactionParams, authInfo runtime.ClientAuthInfoWriter) (*CreatePortTransactionCreated, error)
 
 	ExtendInputPortTransactionTTL(params *ExtendInputPortTransactionTTLParams, authInfo runtime.ClientAuthInfoWriter) (*ExtendInputPortTransactionTTLOK, error)
 
 	ExtendOutputPortTransactionTTL(params *ExtendOutputPortTransactionTTLParams, authInfo runtime.ClientAuthInfoWriter) (*ExtendOutputPortTransactionTTLOK, error)
 
-	ReceiveFlowFiles(params *ReceiveFlowFilesParams, authInfo runtime.ClientAuthInfoWriter) (*ReceiveFlowFilesOK, error)
+	ReceiveFlowFiles(params *ReceiveFlowFilesParams, authInfo runtime.ClientAuthInfoWriter) (*ReceiveFlowFilesCreated, error)
 
 	TransferFlowFiles(params *TransferFlowFilesParams, authInfo runtime.ClientAuthInfoWriter) (*TransferFlowFilesOK, error)
 
@@ -117,7 +117,7 @@ func (a *Client) CommitOutputPortTransaction(params *CommitOutputPortTransaction
 /*
   CreatePortTransaction creates a transaction to the specified output port or input port
 */
-func (a *Client) CreatePortTransaction(params *CreatePortTransactionParams, authInfo runtime.ClientAuthInfoWriter) (*CreatePortTransactionOK, error) {
+func (a *Client) CreatePortTransaction(params *CreatePortTransactionParams, authInfo runtime.ClientAuthInfoWriter) (*CreatePortTransactionCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreatePortTransactionParams()
@@ -139,7 +139,7 @@ func (a *Client) CreatePortTransaction(params *CreatePortTransactionParams, auth
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CreatePortTransactionOK)
+	success, ok := result.(*CreatePortTransactionCreated)
 	if ok {
 		return success, nil
 	}
@@ -222,7 +222,7 @@ func (a *Client) ExtendOutputPortTransactionTTL(params *ExtendOutputPortTransact
 /*
   ReceiveFlowFiles transfers flow files to the input port
 */
-func (a *Client) ReceiveFlowFiles(params *ReceiveFlowFilesParams, authInfo runtime.ClientAuthInfoWriter) (*ReceiveFlowFilesOK, error) {
+func (a *Client) ReceiveFlowFiles(params *ReceiveFlowFilesParams, authInfo runtime.ClientAuthInfoWriter) (*ReceiveFlowFilesCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewReceiveFlowFilesParams()
@@ -244,7 +244,7 @@ func (a *Client) ReceiveFlowFiles(params *ReceiveFlowFilesParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*ReceiveFlowFilesOK)
+	success, ok := result.(*ReceiveFlowFilesCreated)
 	if ok {
 		return success, nil
 	}

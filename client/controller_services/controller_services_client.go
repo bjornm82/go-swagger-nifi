@@ -27,7 +27,7 @@ type Client struct {
 
 // ClientService is the interface for Client methods
 type ClientService interface {
-	ClearStateControllerServices(params *ClearStateControllerServicesParams, authInfo runtime.ClientAuthInfoWriter) (*ClearStateControllerServicesOK, error)
+	ClearStateControllerServices(params *ClearStateControllerServicesParams, authInfo runtime.ClientAuthInfoWriter) (*ClearStateControllerServicesCreated, error)
 
 	GetControllerService(params *GetControllerServiceParams, authInfo runtime.ClientAuthInfoWriter) (*GetControllerServiceOK, error)
 
@@ -51,7 +51,7 @@ type ClientService interface {
 /*
   ClearStateControllerServices clears the state for a controller service
 */
-func (a *Client) ClearStateControllerServices(params *ClearStateControllerServicesParams, authInfo runtime.ClientAuthInfoWriter) (*ClearStateControllerServicesOK, error) {
+func (a *Client) ClearStateControllerServices(params *ClearStateControllerServicesParams, authInfo runtime.ClientAuthInfoWriter) (*ClearStateControllerServicesCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewClearStateControllerServicesParams()
@@ -73,7 +73,7 @@ func (a *Client) ClearStateControllerServices(params *ClearStateControllerServic
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*ClearStateControllerServicesOK)
+	success, ok := result.(*ClearStateControllerServicesCreated)
 	if ok {
 		return success, nil
 	}

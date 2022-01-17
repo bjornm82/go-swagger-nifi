@@ -23,8 +23,8 @@ type CreateFlowFileListingReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateFlowFileListingReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewCreateFlowFileListingOK()
+	case 201:
+		result := NewCreateFlowFileListingCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -71,28 +71,28 @@ func (o *CreateFlowFileListingReader) ReadResponse(response runtime.ClientRespon
 	}
 }
 
-// NewCreateFlowFileListingOK creates a CreateFlowFileListingOK with default headers values
-func NewCreateFlowFileListingOK() *CreateFlowFileListingOK {
-	return &CreateFlowFileListingOK{}
+// NewCreateFlowFileListingCreated creates a CreateFlowFileListingCreated with default headers values
+func NewCreateFlowFileListingCreated() *CreateFlowFileListingCreated {
+	return &CreateFlowFileListingCreated{}
 }
 
-/*CreateFlowFileListingOK handles this case with default header values.
+/*CreateFlowFileListingCreated handles this case with default header values.
 
 successful operation
 */
-type CreateFlowFileListingOK struct {
+type CreateFlowFileListingCreated struct {
 	Payload *models.ListingRequestEntity
 }
 
-func (o *CreateFlowFileListingOK) Error() string {
-	return fmt.Sprintf("[POST /flowfile-queues/{id}/listing-requests][%d] createFlowFileListingOK  %+v", 200, o.Payload)
+func (o *CreateFlowFileListingCreated) Error() string {
+	return fmt.Sprintf("[POST /flowfile-queues/{id}/listing-requests][%d] createFlowFileListingCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateFlowFileListingOK) GetPayload() *models.ListingRequestEntity {
+func (o *CreateFlowFileListingCreated) GetPayload() *models.ListingRequestEntity {
 	return o.Payload
 }
 
-func (o *CreateFlowFileListingOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateFlowFileListingCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ListingRequestEntity)
 

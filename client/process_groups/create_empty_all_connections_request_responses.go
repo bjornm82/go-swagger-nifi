@@ -23,8 +23,8 @@ type CreateEmptyAllConnectionsRequestReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateEmptyAllConnectionsRequestReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewCreateEmptyAllConnectionsRequestOK()
+	case 201:
+		result := NewCreateEmptyAllConnectionsRequestCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -71,28 +71,28 @@ func (o *CreateEmptyAllConnectionsRequestReader) ReadResponse(response runtime.C
 	}
 }
 
-// NewCreateEmptyAllConnectionsRequestOK creates a CreateEmptyAllConnectionsRequestOK with default headers values
-func NewCreateEmptyAllConnectionsRequestOK() *CreateEmptyAllConnectionsRequestOK {
-	return &CreateEmptyAllConnectionsRequestOK{}
+// NewCreateEmptyAllConnectionsRequestCreated creates a CreateEmptyAllConnectionsRequestCreated with default headers values
+func NewCreateEmptyAllConnectionsRequestCreated() *CreateEmptyAllConnectionsRequestCreated {
+	return &CreateEmptyAllConnectionsRequestCreated{}
 }
 
-/*CreateEmptyAllConnectionsRequestOK handles this case with default header values.
+/*CreateEmptyAllConnectionsRequestCreated handles this case with default header values.
 
 successful operation
 */
-type CreateEmptyAllConnectionsRequestOK struct {
+type CreateEmptyAllConnectionsRequestCreated struct {
 	Payload *models.ProcessGroupEntity
 }
 
-func (o *CreateEmptyAllConnectionsRequestOK) Error() string {
-	return fmt.Sprintf("[POST /process-groups/{id}/empty-all-connections-requests][%d] createEmptyAllConnectionsRequestOK  %+v", 200, o.Payload)
+func (o *CreateEmptyAllConnectionsRequestCreated) Error() string {
+	return fmt.Sprintf("[POST /process-groups/{id}/empty-all-connections-requests][%d] createEmptyAllConnectionsRequestCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateEmptyAllConnectionsRequestOK) GetPayload() *models.ProcessGroupEntity {
+func (o *CreateEmptyAllConnectionsRequestCreated) GetPayload() *models.ProcessGroupEntity {
 	return o.Payload
 }
 
-func (o *CreateEmptyAllConnectionsRequestOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateEmptyAllConnectionsRequestCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ProcessGroupEntity)
 

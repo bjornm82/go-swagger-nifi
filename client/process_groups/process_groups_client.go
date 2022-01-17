@@ -27,29 +27,29 @@ type Client struct {
 
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CopySnippet(params *CopySnippetParams, authInfo runtime.ClientAuthInfoWriter) (*CopySnippetOK, error)
+	CopySnippet(params *CopySnippetParams, authInfo runtime.ClientAuthInfoWriter) (*CopySnippetCreated, error)
 
-	CreateConnection(params *CreateConnectionParams, authInfo runtime.ClientAuthInfoWriter) (*CreateConnectionOK, error)
+	CreateConnection(params *CreateConnectionParams, authInfo runtime.ClientAuthInfoWriter) (*CreateConnectionCreated, error)
 
-	CreateControllerServiceProcessGroups(params *CreateControllerServiceProcessGroupsParams, authInfo runtime.ClientAuthInfoWriter) (*CreateControllerServiceProcessGroupsOK, error)
+	CreateControllerServiceProcessGroups(params *CreateControllerServiceProcessGroupsParams, authInfo runtime.ClientAuthInfoWriter) (*CreateControllerServiceProcessGroupsCreated, error)
 
-	CreateEmptyAllConnectionsRequest(params *CreateEmptyAllConnectionsRequestParams, authInfo runtime.ClientAuthInfoWriter) (*CreateEmptyAllConnectionsRequestOK, *CreateEmptyAllConnectionsRequestAccepted, error)
+	CreateEmptyAllConnectionsRequest(params *CreateEmptyAllConnectionsRequestParams, authInfo runtime.ClientAuthInfoWriter) (*CreateEmptyAllConnectionsRequestCreated, *CreateEmptyAllConnectionsRequestAccepted, error)
 
-	CreateFunnel(params *CreateFunnelParams, authInfo runtime.ClientAuthInfoWriter) (*CreateFunnelOK, error)
+	CreateFunnel(params *CreateFunnelParams, authInfo runtime.ClientAuthInfoWriter) (*CreateFunnelCreated, error)
 
-	CreateInputPort(params *CreateInputPortParams, authInfo runtime.ClientAuthInfoWriter) (*CreateInputPortOK, error)
+	CreateInputPort(params *CreateInputPortParams, authInfo runtime.ClientAuthInfoWriter) (*CreateInputPortCreated, error)
 
-	CreateLabel(params *CreateLabelParams, authInfo runtime.ClientAuthInfoWriter) (*CreateLabelOK, error)
+	CreateLabel(params *CreateLabelParams, authInfo runtime.ClientAuthInfoWriter) (*CreateLabelCreated, error)
 
-	CreateOutputPort(params *CreateOutputPortParams, authInfo runtime.ClientAuthInfoWriter) (*CreateOutputPortOK, error)
+	CreateOutputPort(params *CreateOutputPortParams, authInfo runtime.ClientAuthInfoWriter) (*CreateOutputPortCreated, error)
 
-	CreateProcessGroup(params *CreateProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*CreateProcessGroupOK, error)
+	CreateProcessGroup(params *CreateProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*CreateProcessGroupCreated, error)
 
-	CreateProcessor(params *CreateProcessorParams, authInfo runtime.ClientAuthInfoWriter) (*CreateProcessorOK, error)
+	CreateProcessor(params *CreateProcessorParams, authInfo runtime.ClientAuthInfoWriter) (*CreateProcessorCreated, error)
 
-	CreateRemoteProcessGroup(params *CreateRemoteProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*CreateRemoteProcessGroupOK, error)
+	CreateRemoteProcessGroup(params *CreateRemoteProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*CreateRemoteProcessGroupCreated, error)
 
-	CreateTemplate(params *CreateTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTemplateOK, error)
+	CreateTemplate(params *CreateTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTemplateCreated, error)
 
 	DeleteReplaceProcessGroupRequest(params *DeleteReplaceProcessGroupRequestParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteReplaceProcessGroupRequestOK, error)
 
@@ -85,13 +85,13 @@ type ClientService interface {
 
 	GetVariableRegistryUpdateRequest(params *GetVariableRegistryUpdateRequestParams, authInfo runtime.ClientAuthInfoWriter) (*GetVariableRegistryUpdateRequestOK, error)
 
-	ImportProcessGroup(params *ImportProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*ImportProcessGroupOK, error)
+	ImportProcessGroup(params *ImportProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*ImportProcessGroupCreated, error)
 
-	ImportTemplate(params *ImportTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*ImportTemplateOK, error)
+	ImportTemplate(params *ImportTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*ImportTemplateCreated, error)
 
-	InitiateReplaceProcessGroup(params *InitiateReplaceProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*InitiateReplaceProcessGroupOK, error)
+	InitiateReplaceProcessGroup(params *InitiateReplaceProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*InitiateReplaceProcessGroupCreated, error)
 
-	InstantiateTemplate(params *InstantiateTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*InstantiateTemplateOK, error)
+	InstantiateTemplate(params *InstantiateTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*InstantiateTemplateCreated, error)
 
 	RemoveDropRequestProcessGroups(params *RemoveDropRequestProcessGroupsParams, authInfo runtime.ClientAuthInfoWriter) (*RemoveDropRequestProcessGroupsOK, error)
 
@@ -99,13 +99,13 @@ type ClientService interface {
 
 	ReplaceProcessGroup(params *ReplaceProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*ReplaceProcessGroupOK, error)
 
-	SubmitUpdateVariableRegistryRequest(params *SubmitUpdateVariableRegistryRequestParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitUpdateVariableRegistryRequestOK, error)
+	SubmitUpdateVariableRegistryRequest(params *SubmitUpdateVariableRegistryRequestParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitUpdateVariableRegistryRequestCreated, error)
 
 	UpdateProcessGroup(params *UpdateProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateProcessGroupOK, error)
 
 	UpdateVariableRegistry(params *UpdateVariableRegistryParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateVariableRegistryOK, error)
 
-	UploadTemplate(params *UploadTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*UploadTemplateOK, error)
+	UploadTemplate(params *UploadTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*UploadTemplateCreated, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -113,7 +113,7 @@ type ClientService interface {
 /*
   CopySnippet copies a snippet and discards it
 */
-func (a *Client) CopySnippet(params *CopySnippetParams, authInfo runtime.ClientAuthInfoWriter) (*CopySnippetOK, error) {
+func (a *Client) CopySnippet(params *CopySnippetParams, authInfo runtime.ClientAuthInfoWriter) (*CopySnippetCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCopySnippetParams()
@@ -135,7 +135,7 @@ func (a *Client) CopySnippet(params *CopySnippetParams, authInfo runtime.ClientA
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CopySnippetOK)
+	success, ok := result.(*CopySnippetCreated)
 	if ok {
 		return success, nil
 	}
@@ -148,7 +148,7 @@ func (a *Client) CopySnippet(params *CopySnippetParams, authInfo runtime.ClientA
 /*
   CreateConnection creates a connection
 */
-func (a *Client) CreateConnection(params *CreateConnectionParams, authInfo runtime.ClientAuthInfoWriter) (*CreateConnectionOK, error) {
+func (a *Client) CreateConnection(params *CreateConnectionParams, authInfo runtime.ClientAuthInfoWriter) (*CreateConnectionCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateConnectionParams()
@@ -170,7 +170,7 @@ func (a *Client) CreateConnection(params *CreateConnectionParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CreateConnectionOK)
+	success, ok := result.(*CreateConnectionCreated)
 	if ok {
 		return success, nil
 	}
@@ -183,7 +183,7 @@ func (a *Client) CreateConnection(params *CreateConnectionParams, authInfo runti
 /*
   CreateControllerServiceProcessGroups creates a new controller service
 */
-func (a *Client) CreateControllerServiceProcessGroups(params *CreateControllerServiceProcessGroupsParams, authInfo runtime.ClientAuthInfoWriter) (*CreateControllerServiceProcessGroupsOK, error) {
+func (a *Client) CreateControllerServiceProcessGroups(params *CreateControllerServiceProcessGroupsParams, authInfo runtime.ClientAuthInfoWriter) (*CreateControllerServiceProcessGroupsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateControllerServiceProcessGroupsParams()
@@ -205,7 +205,7 @@ func (a *Client) CreateControllerServiceProcessGroups(params *CreateControllerSe
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CreateControllerServiceProcessGroupsOK)
+	success, ok := result.(*CreateControllerServiceProcessGroupsCreated)
 	if ok {
 		return success, nil
 	}
@@ -218,7 +218,7 @@ func (a *Client) CreateControllerServiceProcessGroups(params *CreateControllerSe
 /*
   CreateEmptyAllConnectionsRequest creates a request to drop all flowfiles of all connection queues in this process group
 */
-func (a *Client) CreateEmptyAllConnectionsRequest(params *CreateEmptyAllConnectionsRequestParams, authInfo runtime.ClientAuthInfoWriter) (*CreateEmptyAllConnectionsRequestOK, *CreateEmptyAllConnectionsRequestAccepted, error) {
+func (a *Client) CreateEmptyAllConnectionsRequest(params *CreateEmptyAllConnectionsRequestParams, authInfo runtime.ClientAuthInfoWriter) (*CreateEmptyAllConnectionsRequestCreated, *CreateEmptyAllConnectionsRequestAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateEmptyAllConnectionsRequestParams()
@@ -241,7 +241,7 @@ func (a *Client) CreateEmptyAllConnectionsRequest(params *CreateEmptyAllConnecti
 		return nil, nil, err
 	}
 	switch value := result.(type) {
-	case *CreateEmptyAllConnectionsRequestOK:
+	case *CreateEmptyAllConnectionsRequestCreated:
 		return value, nil, nil
 	case *CreateEmptyAllConnectionsRequestAccepted:
 		return nil, value, nil
@@ -254,7 +254,7 @@ func (a *Client) CreateEmptyAllConnectionsRequest(params *CreateEmptyAllConnecti
 /*
   CreateFunnel creates a funnel
 */
-func (a *Client) CreateFunnel(params *CreateFunnelParams, authInfo runtime.ClientAuthInfoWriter) (*CreateFunnelOK, error) {
+func (a *Client) CreateFunnel(params *CreateFunnelParams, authInfo runtime.ClientAuthInfoWriter) (*CreateFunnelCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateFunnelParams()
@@ -276,7 +276,7 @@ func (a *Client) CreateFunnel(params *CreateFunnelParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CreateFunnelOK)
+	success, ok := result.(*CreateFunnelCreated)
 	if ok {
 		return success, nil
 	}
@@ -289,7 +289,7 @@ func (a *Client) CreateFunnel(params *CreateFunnelParams, authInfo runtime.Clien
 /*
   CreateInputPort creates an input port
 */
-func (a *Client) CreateInputPort(params *CreateInputPortParams, authInfo runtime.ClientAuthInfoWriter) (*CreateInputPortOK, error) {
+func (a *Client) CreateInputPort(params *CreateInputPortParams, authInfo runtime.ClientAuthInfoWriter) (*CreateInputPortCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateInputPortParams()
@@ -311,7 +311,7 @@ func (a *Client) CreateInputPort(params *CreateInputPortParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CreateInputPortOK)
+	success, ok := result.(*CreateInputPortCreated)
 	if ok {
 		return success, nil
 	}
@@ -324,7 +324,7 @@ func (a *Client) CreateInputPort(params *CreateInputPortParams, authInfo runtime
 /*
   CreateLabel creates a label
 */
-func (a *Client) CreateLabel(params *CreateLabelParams, authInfo runtime.ClientAuthInfoWriter) (*CreateLabelOK, error) {
+func (a *Client) CreateLabel(params *CreateLabelParams, authInfo runtime.ClientAuthInfoWriter) (*CreateLabelCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateLabelParams()
@@ -346,7 +346,7 @@ func (a *Client) CreateLabel(params *CreateLabelParams, authInfo runtime.ClientA
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CreateLabelOK)
+	success, ok := result.(*CreateLabelCreated)
 	if ok {
 		return success, nil
 	}
@@ -359,7 +359,7 @@ func (a *Client) CreateLabel(params *CreateLabelParams, authInfo runtime.ClientA
 /*
   CreateOutputPort creates an output port
 */
-func (a *Client) CreateOutputPort(params *CreateOutputPortParams, authInfo runtime.ClientAuthInfoWriter) (*CreateOutputPortOK, error) {
+func (a *Client) CreateOutputPort(params *CreateOutputPortParams, authInfo runtime.ClientAuthInfoWriter) (*CreateOutputPortCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateOutputPortParams()
@@ -381,7 +381,7 @@ func (a *Client) CreateOutputPort(params *CreateOutputPortParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CreateOutputPortOK)
+	success, ok := result.(*CreateOutputPortCreated)
 	if ok {
 		return success, nil
 	}
@@ -394,7 +394,7 @@ func (a *Client) CreateOutputPort(params *CreateOutputPortParams, authInfo runti
 /*
   CreateProcessGroup creates a process group
 */
-func (a *Client) CreateProcessGroup(params *CreateProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*CreateProcessGroupOK, error) {
+func (a *Client) CreateProcessGroup(params *CreateProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*CreateProcessGroupCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateProcessGroupParams()
@@ -416,7 +416,7 @@ func (a *Client) CreateProcessGroup(params *CreateProcessGroupParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CreateProcessGroupOK)
+	success, ok := result.(*CreateProcessGroupCreated)
 	if ok {
 		return success, nil
 	}
@@ -429,7 +429,7 @@ func (a *Client) CreateProcessGroup(params *CreateProcessGroupParams, authInfo r
 /*
   CreateProcessor creates a new processor
 */
-func (a *Client) CreateProcessor(params *CreateProcessorParams, authInfo runtime.ClientAuthInfoWriter) (*CreateProcessorOK, error) {
+func (a *Client) CreateProcessor(params *CreateProcessorParams, authInfo runtime.ClientAuthInfoWriter) (*CreateProcessorCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateProcessorParams()
@@ -451,7 +451,7 @@ func (a *Client) CreateProcessor(params *CreateProcessorParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CreateProcessorOK)
+	success, ok := result.(*CreateProcessorCreated)
 	if ok {
 		return success, nil
 	}
@@ -464,7 +464,7 @@ func (a *Client) CreateProcessor(params *CreateProcessorParams, authInfo runtime
 /*
   CreateRemoteProcessGroup creates a new process group
 */
-func (a *Client) CreateRemoteProcessGroup(params *CreateRemoteProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*CreateRemoteProcessGroupOK, error) {
+func (a *Client) CreateRemoteProcessGroup(params *CreateRemoteProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*CreateRemoteProcessGroupCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateRemoteProcessGroupParams()
@@ -486,7 +486,7 @@ func (a *Client) CreateRemoteProcessGroup(params *CreateRemoteProcessGroupParams
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CreateRemoteProcessGroupOK)
+	success, ok := result.(*CreateRemoteProcessGroupCreated)
 	if ok {
 		return success, nil
 	}
@@ -499,7 +499,7 @@ func (a *Client) CreateRemoteProcessGroup(params *CreateRemoteProcessGroupParams
 /*
   CreateTemplate creates a template and discards the specified snippet
 */
-func (a *Client) CreateTemplate(params *CreateTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTemplateOK, error) {
+func (a *Client) CreateTemplate(params *CreateTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTemplateCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateTemplateParams()
@@ -521,7 +521,7 @@ func (a *Client) CreateTemplate(params *CreateTemplateParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CreateTemplateOK)
+	success, ok := result.(*CreateTemplateCreated)
 	if ok {
 		return success, nil
 	}
@@ -1139,7 +1139,7 @@ func (a *Client) GetVariableRegistryUpdateRequest(params *GetVariableRegistryUpd
 /*
   ImportProcessGroup imports a specified process group
 */
-func (a *Client) ImportProcessGroup(params *ImportProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*ImportProcessGroupOK, error) {
+func (a *Client) ImportProcessGroup(params *ImportProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*ImportProcessGroupCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewImportProcessGroupParams()
@@ -1161,7 +1161,7 @@ func (a *Client) ImportProcessGroup(params *ImportProcessGroupParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*ImportProcessGroupOK)
+	success, ok := result.(*ImportProcessGroupCreated)
 	if ok {
 		return success, nil
 	}
@@ -1174,7 +1174,7 @@ func (a *Client) ImportProcessGroup(params *ImportProcessGroupParams, authInfo r
 /*
   ImportTemplate imports a template
 */
-func (a *Client) ImportTemplate(params *ImportTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*ImportTemplateOK, error) {
+func (a *Client) ImportTemplate(params *ImportTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*ImportTemplateCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewImportTemplateParams()
@@ -1196,7 +1196,7 @@ func (a *Client) ImportTemplate(params *ImportTemplateParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*ImportTemplateOK)
+	success, ok := result.(*ImportTemplateCreated)
 	if ok {
 		return success, nil
 	}
@@ -1211,7 +1211,7 @@ func (a *Client) ImportTemplate(params *ImportTemplateParams, authInfo runtime.C
 
   This will initiate the action of replacing a process group with the given process group. This can be a lengthy process, as it will stop any Processors and disable any Controller Services necessary to perform the action and then restart them. As a result, the endpoint will immediately return a ProcessGroupReplaceRequestEntity, and the process of replacing the flow will occur asynchronously in the background. The client may then periodically poll the status of the request by issuing a GET request to /process-groups/replace-requests/{requestId}. Once the request is completed, the client is expected to issue a DELETE request to /process-groups/replace-requests/{requestId}. Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
-func (a *Client) InitiateReplaceProcessGroup(params *InitiateReplaceProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*InitiateReplaceProcessGroupOK, error) {
+func (a *Client) InitiateReplaceProcessGroup(params *InitiateReplaceProcessGroupParams, authInfo runtime.ClientAuthInfoWriter) (*InitiateReplaceProcessGroupCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewInitiateReplaceProcessGroupParams()
@@ -1233,7 +1233,7 @@ func (a *Client) InitiateReplaceProcessGroup(params *InitiateReplaceProcessGroup
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*InitiateReplaceProcessGroupOK)
+	success, ok := result.(*InitiateReplaceProcessGroupCreated)
 	if ok {
 		return success, nil
 	}
@@ -1246,7 +1246,7 @@ func (a *Client) InitiateReplaceProcessGroup(params *InitiateReplaceProcessGroup
 /*
   InstantiateTemplate instantiates a template
 */
-func (a *Client) InstantiateTemplate(params *InstantiateTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*InstantiateTemplateOK, error) {
+func (a *Client) InstantiateTemplate(params *InstantiateTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*InstantiateTemplateCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewInstantiateTemplateParams()
@@ -1268,7 +1268,7 @@ func (a *Client) InstantiateTemplate(params *InstantiateTemplateParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*InstantiateTemplateOK)
+	success, ok := result.(*InstantiateTemplateCreated)
 	if ok {
 		return success, nil
 	}
@@ -1390,7 +1390,7 @@ func (a *Client) ReplaceProcessGroup(params *ReplaceProcessGroupParams, authInfo
 
   Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
-func (a *Client) SubmitUpdateVariableRegistryRequest(params *SubmitUpdateVariableRegistryRequestParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitUpdateVariableRegistryRequestOK, error) {
+func (a *Client) SubmitUpdateVariableRegistryRequest(params *SubmitUpdateVariableRegistryRequestParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitUpdateVariableRegistryRequestCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSubmitUpdateVariableRegistryRequestParams()
@@ -1412,7 +1412,7 @@ func (a *Client) SubmitUpdateVariableRegistryRequest(params *SubmitUpdateVariabl
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*SubmitUpdateVariableRegistryRequestOK)
+	success, ok := result.(*SubmitUpdateVariableRegistryRequestCreated)
 	if ok {
 		return success, nil
 	}
@@ -1497,7 +1497,7 @@ func (a *Client) UpdateVariableRegistry(params *UpdateVariableRegistryParams, au
 /*
   UploadTemplate uploads a template
 */
-func (a *Client) UploadTemplate(params *UploadTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*UploadTemplateOK, error) {
+func (a *Client) UploadTemplate(params *UploadTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*UploadTemplateCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUploadTemplateParams()
@@ -1519,7 +1519,7 @@ func (a *Client) UploadTemplate(params *UploadTemplateParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*UploadTemplateOK)
+	success, ok := result.(*UploadTemplateCreated)
 	if ok {
 		return success, nil
 	}

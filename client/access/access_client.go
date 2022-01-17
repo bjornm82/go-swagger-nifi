@@ -27,13 +27,13 @@ type Client struct {
 
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CreateAccessToken(params *CreateAccessTokenParams) (*CreateAccessTokenOK, error)
+	CreateAccessToken(params *CreateAccessTokenParams) (*CreateAccessTokenCreated, error)
 
-	CreateAccessTokenFromTicket(params *CreateAccessTokenFromTicketParams) (*CreateAccessTokenFromTicketOK, error)
+	CreateAccessTokenFromTicket(params *CreateAccessTokenFromTicketParams) (*CreateAccessTokenFromTicketCreated, error)
 
-	CreateDownloadToken(params *CreateDownloadTokenParams) (*CreateDownloadTokenOK, error)
+	CreateDownloadToken(params *CreateDownloadTokenParams) (*CreateDownloadTokenCreated, error)
 
-	CreateUIExtensionToken(params *CreateUIExtensionTokenParams) (*CreateUIExtensionTokenOK, error)
+	CreateUIExtensionToken(params *CreateUIExtensionTokenParams) (*CreateUIExtensionTokenCreated, error)
 
 	GetAccessStatus(params *GetAccessStatusParams) (*GetAccessStatusOK, error)
 
@@ -57,7 +57,7 @@ type ClientService interface {
 
   The token returned is formatted as a JSON Web Token (JWT). The token is base64 encoded and comprised of three parts. The header, the body, and the signature. The expiration of the token is a contained within the body. It is stored in the browser as a cookie, but also returned inthe response body to be stored/used by third party client scripts.
 */
-func (a *Client) CreateAccessToken(params *CreateAccessTokenParams) (*CreateAccessTokenOK, error) {
+func (a *Client) CreateAccessToken(params *CreateAccessTokenParams) (*CreateAccessTokenCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateAccessTokenParams()
@@ -78,7 +78,7 @@ func (a *Client) CreateAccessToken(params *CreateAccessTokenParams) (*CreateAcce
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CreateAccessTokenOK)
+	success, ok := result.(*CreateAccessTokenCreated)
 	if ok {
 		return success, nil
 	}
@@ -93,7 +93,7 @@ func (a *Client) CreateAccessToken(params *CreateAccessTokenParams) (*CreateAcce
 
   The token returned is formatted as a JSON Web Token (JWT). The token is base64 encoded and comprised of three parts. The header, the body, and the signature. The expiration of the token is a contained within the body. The token can be used in the Authorization header in the format 'Authorization: Bearer <token>'. It is also stored in the browser as a cookie.
 */
-func (a *Client) CreateAccessTokenFromTicket(params *CreateAccessTokenFromTicketParams) (*CreateAccessTokenFromTicketOK, error) {
+func (a *Client) CreateAccessTokenFromTicket(params *CreateAccessTokenFromTicketParams) (*CreateAccessTokenFromTicketCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateAccessTokenFromTicketParams()
@@ -114,7 +114,7 @@ func (a *Client) CreateAccessTokenFromTicket(params *CreateAccessTokenFromTicket
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CreateAccessTokenFromTicketOK)
+	success, ok := result.(*CreateAccessTokenFromTicketCreated)
 	if ok {
 		return success, nil
 	}
@@ -129,7 +129,7 @@ func (a *Client) CreateAccessTokenFromTicket(params *CreateAccessTokenFromTicket
 
   The token returned is a base64 encoded string. It is valid for a single request up to five minutes from being issued. It is used as a query parameter name 'access_token'.
 */
-func (a *Client) CreateDownloadToken(params *CreateDownloadTokenParams) (*CreateDownloadTokenOK, error) {
+func (a *Client) CreateDownloadToken(params *CreateDownloadTokenParams) (*CreateDownloadTokenCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateDownloadTokenParams()
@@ -150,7 +150,7 @@ func (a *Client) CreateDownloadToken(params *CreateDownloadTokenParams) (*Create
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CreateDownloadTokenOK)
+	success, ok := result.(*CreateDownloadTokenCreated)
 	if ok {
 		return success, nil
 	}
@@ -165,7 +165,7 @@ func (a *Client) CreateDownloadToken(params *CreateDownloadTokenParams) (*Create
 
   The token returned is a base64 encoded string. It is valid for a single request up to five minutes from being issued. It is used as a query parameter name 'access_token'.
 */
-func (a *Client) CreateUIExtensionToken(params *CreateUIExtensionTokenParams) (*CreateUIExtensionTokenOK, error) {
+func (a *Client) CreateUIExtensionToken(params *CreateUIExtensionTokenParams) (*CreateUIExtensionTokenCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateUIExtensionTokenParams()
@@ -186,7 +186,7 @@ func (a *Client) CreateUIExtensionToken(params *CreateUIExtensionTokenParams) (*
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CreateUIExtensionTokenOK)
+	success, ok := result.(*CreateUIExtensionTokenCreated)
 	if ok {
 		return success, nil
 	}

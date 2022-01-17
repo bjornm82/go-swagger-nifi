@@ -23,8 +23,8 @@ type CreateParameterContextReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateParameterContextReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewCreateParameterContextOK()
+	case 201:
+		result := NewCreateParameterContextCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -65,28 +65,28 @@ func (o *CreateParameterContextReader) ReadResponse(response runtime.ClientRespo
 	}
 }
 
-// NewCreateParameterContextOK creates a CreateParameterContextOK with default headers values
-func NewCreateParameterContextOK() *CreateParameterContextOK {
-	return &CreateParameterContextOK{}
+// NewCreateParameterContextCreated creates a CreateParameterContextCreated with default headers values
+func NewCreateParameterContextCreated() *CreateParameterContextCreated {
+	return &CreateParameterContextCreated{}
 }
 
-/*CreateParameterContextOK handles this case with default header values.
+/*CreateParameterContextCreated handles this case with default header values.
 
 successful operation
 */
-type CreateParameterContextOK struct {
+type CreateParameterContextCreated struct {
 	Payload *models.ParameterContextEntity
 }
 
-func (o *CreateParameterContextOK) Error() string {
-	return fmt.Sprintf("[POST /parameter-contexts][%d] createParameterContextOK  %+v", 200, o.Payload)
+func (o *CreateParameterContextCreated) Error() string {
+	return fmt.Sprintf("[POST /parameter-contexts][%d] createParameterContextCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateParameterContextOK) GetPayload() *models.ParameterContextEntity {
+func (o *CreateParameterContextCreated) GetPayload() *models.ParameterContextEntity {
 	return o.Payload
 }
 
-func (o *CreateParameterContextOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateParameterContextCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ParameterContextEntity)
 

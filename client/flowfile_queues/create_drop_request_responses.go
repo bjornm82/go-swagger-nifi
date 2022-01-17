@@ -23,8 +23,8 @@ type CreateDropRequestReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateDropRequestReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewCreateDropRequestOK()
+	case 201:
+		result := NewCreateDropRequestCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -71,28 +71,28 @@ func (o *CreateDropRequestReader) ReadResponse(response runtime.ClientResponse, 
 	}
 }
 
-// NewCreateDropRequestOK creates a CreateDropRequestOK with default headers values
-func NewCreateDropRequestOK() *CreateDropRequestOK {
-	return &CreateDropRequestOK{}
+// NewCreateDropRequestCreated creates a CreateDropRequestCreated with default headers values
+func NewCreateDropRequestCreated() *CreateDropRequestCreated {
+	return &CreateDropRequestCreated{}
 }
 
-/*CreateDropRequestOK handles this case with default header values.
+/*CreateDropRequestCreated handles this case with default header values.
 
 successful operation
 */
-type CreateDropRequestOK struct {
+type CreateDropRequestCreated struct {
 	Payload *models.DropRequestEntity
 }
 
-func (o *CreateDropRequestOK) Error() string {
-	return fmt.Sprintf("[POST /flowfile-queues/{id}/drop-requests][%d] createDropRequestOK  %+v", 200, o.Payload)
+func (o *CreateDropRequestCreated) Error() string {
+	return fmt.Sprintf("[POST /flowfile-queues/{id}/drop-requests][%d] createDropRequestCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateDropRequestOK) GetPayload() *models.DropRequestEntity {
+func (o *CreateDropRequestCreated) GetPayload() *models.DropRequestEntity {
 	return o.Payload
 }
 
-func (o *CreateDropRequestOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateDropRequestCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.DropRequestEntity)
 

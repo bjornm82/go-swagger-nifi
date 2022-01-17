@@ -23,8 +23,8 @@ type CreateProcessorReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateProcessorReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewCreateProcessorOK()
+	case 201:
+		result := NewCreateProcessorCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -65,28 +65,28 @@ func (o *CreateProcessorReader) ReadResponse(response runtime.ClientResponse, co
 	}
 }
 
-// NewCreateProcessorOK creates a CreateProcessorOK with default headers values
-func NewCreateProcessorOK() *CreateProcessorOK {
-	return &CreateProcessorOK{}
+// NewCreateProcessorCreated creates a CreateProcessorCreated with default headers values
+func NewCreateProcessorCreated() *CreateProcessorCreated {
+	return &CreateProcessorCreated{}
 }
 
-/*CreateProcessorOK handles this case with default header values.
+/*CreateProcessorCreated handles this case with default header values.
 
 successful operation
 */
-type CreateProcessorOK struct {
+type CreateProcessorCreated struct {
 	Payload *models.ProcessorEntity
 }
 
-func (o *CreateProcessorOK) Error() string {
-	return fmt.Sprintf("[POST /process-groups/{id}/processors][%d] createProcessorOK  %+v", 200, o.Payload)
+func (o *CreateProcessorCreated) Error() string {
+	return fmt.Sprintf("[POST /process-groups/{id}/processors][%d] createProcessorCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateProcessorOK) GetPayload() *models.ProcessorEntity {
+func (o *CreateProcessorCreated) GetPayload() *models.ProcessorEntity {
 	return o.Payload
 }
 
-func (o *CreateProcessorOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateProcessorCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ProcessorEntity)
 

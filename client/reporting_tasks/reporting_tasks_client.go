@@ -27,7 +27,7 @@ type Client struct {
 
 // ClientService is the interface for Client methods
 type ClientService interface {
-	ClearStateReportingTasks(params *ClearStateReportingTasksParams, authInfo runtime.ClientAuthInfoWriter) (*ClearStateReportingTasksOK, error)
+	ClearStateReportingTasks(params *ClearStateReportingTasksParams, authInfo runtime.ClientAuthInfoWriter) (*ClearStateReportingTasksCreated, error)
 
 	GetPropertyDescriptorReportingTasks(params *GetPropertyDescriptorReportingTasksParams, authInfo runtime.ClientAuthInfoWriter) (*GetPropertyDescriptorReportingTasksOK, error)
 
@@ -47,7 +47,7 @@ type ClientService interface {
 /*
   ClearStateReportingTasks clears the state for a reporting task
 */
-func (a *Client) ClearStateReportingTasks(params *ClearStateReportingTasksParams, authInfo runtime.ClientAuthInfoWriter) (*ClearStateReportingTasksOK, error) {
+func (a *Client) ClearStateReportingTasks(params *ClearStateReportingTasksParams, authInfo runtime.ClientAuthInfoWriter) (*ClearStateReportingTasksCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewClearStateReportingTasksParams()
@@ -69,7 +69,7 @@ func (a *Client) ClearStateReportingTasks(params *ClearStateReportingTasksParams
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*ClearStateReportingTasksOK)
+	success, ok := result.(*ClearStateReportingTasksCreated)
 	if ok {
 		return success, nil
 	}

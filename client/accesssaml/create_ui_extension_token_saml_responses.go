@@ -21,8 +21,8 @@ type CreateUIExtensionTokenSamlReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateUIExtensionTokenSamlReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewCreateUIExtensionTokenSamlOK()
+	case 201:
+		result := NewCreateUIExtensionTokenSamlCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -51,28 +51,28 @@ func (o *CreateUIExtensionTokenSamlReader) ReadResponse(response runtime.ClientR
 	}
 }
 
-// NewCreateUIExtensionTokenSamlOK creates a CreateUIExtensionTokenSamlOK with default headers values
-func NewCreateUIExtensionTokenSamlOK() *CreateUIExtensionTokenSamlOK {
-	return &CreateUIExtensionTokenSamlOK{}
+// NewCreateUIExtensionTokenSamlCreated creates a CreateUIExtensionTokenSamlCreated with default headers values
+func NewCreateUIExtensionTokenSamlCreated() *CreateUIExtensionTokenSamlCreated {
+	return &CreateUIExtensionTokenSamlCreated{}
 }
 
-/*CreateUIExtensionTokenSamlOK handles this case with default header values.
+/*CreateUIExtensionTokenSamlCreated handles this case with default header values.
 
 successful operation
 */
-type CreateUIExtensionTokenSamlOK struct {
+type CreateUIExtensionTokenSamlCreated struct {
 	Payload string
 }
 
-func (o *CreateUIExtensionTokenSamlOK) Error() string {
-	return fmt.Sprintf("[POST /access/saml/ui-extension-token][%d] createUiExtensionTokenSamlOK  %+v", 200, o.Payload)
+func (o *CreateUIExtensionTokenSamlCreated) Error() string {
+	return fmt.Sprintf("[POST /access/saml/ui-extension-token][%d] createUiExtensionTokenSamlCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateUIExtensionTokenSamlOK) GetPayload() string {
+func (o *CreateUIExtensionTokenSamlCreated) GetPayload() string {
 	return o.Payload
 }
 
-func (o *CreateUIExtensionTokenSamlOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateUIExtensionTokenSamlCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

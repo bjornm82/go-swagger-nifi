@@ -21,8 +21,8 @@ type CreateUIExtensionTokenReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateUIExtensionTokenReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewCreateUIExtensionTokenOK()
+	case 201:
+		result := NewCreateUIExtensionTokenCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -51,28 +51,28 @@ func (o *CreateUIExtensionTokenReader) ReadResponse(response runtime.ClientRespo
 	}
 }
 
-// NewCreateUIExtensionTokenOK creates a CreateUIExtensionTokenOK with default headers values
-func NewCreateUIExtensionTokenOK() *CreateUIExtensionTokenOK {
-	return &CreateUIExtensionTokenOK{}
+// NewCreateUIExtensionTokenCreated creates a CreateUIExtensionTokenCreated with default headers values
+func NewCreateUIExtensionTokenCreated() *CreateUIExtensionTokenCreated {
+	return &CreateUIExtensionTokenCreated{}
 }
 
-/*CreateUIExtensionTokenOK handles this case with default header values.
+/*CreateUIExtensionTokenCreated handles this case with default header values.
 
 successful operation
 */
-type CreateUIExtensionTokenOK struct {
+type CreateUIExtensionTokenCreated struct {
 	Payload string
 }
 
-func (o *CreateUIExtensionTokenOK) Error() string {
-	return fmt.Sprintf("[POST /access/ui-extension-token][%d] createUiExtensionTokenOK  %+v", 200, o.Payload)
+func (o *CreateUIExtensionTokenCreated) Error() string {
+	return fmt.Sprintf("[POST /access/ui-extension-token][%d] createUiExtensionTokenCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateUIExtensionTokenOK) GetPayload() string {
+func (o *CreateUIExtensionTokenCreated) GetPayload() string {
 	return o.Payload
 }
 
-func (o *CreateUIExtensionTokenOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateUIExtensionTokenCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

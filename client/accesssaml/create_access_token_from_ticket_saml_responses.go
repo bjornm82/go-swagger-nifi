@@ -21,8 +21,8 @@ type CreateAccessTokenFromTicketSamlReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateAccessTokenFromTicketSamlReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewCreateAccessTokenFromTicketSamlOK()
+	case 201:
+		result := NewCreateAccessTokenFromTicketSamlCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -57,28 +57,28 @@ func (o *CreateAccessTokenFromTicketSamlReader) ReadResponse(response runtime.Cl
 	}
 }
 
-// NewCreateAccessTokenFromTicketSamlOK creates a CreateAccessTokenFromTicketSamlOK with default headers values
-func NewCreateAccessTokenFromTicketSamlOK() *CreateAccessTokenFromTicketSamlOK {
-	return &CreateAccessTokenFromTicketSamlOK{}
+// NewCreateAccessTokenFromTicketSamlCreated creates a CreateAccessTokenFromTicketSamlCreated with default headers values
+func NewCreateAccessTokenFromTicketSamlCreated() *CreateAccessTokenFromTicketSamlCreated {
+	return &CreateAccessTokenFromTicketSamlCreated{}
 }
 
-/*CreateAccessTokenFromTicketSamlOK handles this case with default header values.
+/*CreateAccessTokenFromTicketSamlCreated handles this case with default header values.
 
 successful operation
 */
-type CreateAccessTokenFromTicketSamlOK struct {
+type CreateAccessTokenFromTicketSamlCreated struct {
 	Payload string
 }
 
-func (o *CreateAccessTokenFromTicketSamlOK) Error() string {
-	return fmt.Sprintf("[POST /access/saml/kerberos][%d] createAccessTokenFromTicketSamlOK  %+v", 200, o.Payload)
+func (o *CreateAccessTokenFromTicketSamlCreated) Error() string {
+	return fmt.Sprintf("[POST /access/saml/kerberos][%d] createAccessTokenFromTicketSamlCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateAccessTokenFromTicketSamlOK) GetPayload() string {
+func (o *CreateAccessTokenFromTicketSamlCreated) GetPayload() string {
 	return o.Payload
 }
 
-func (o *CreateAccessTokenFromTicketSamlOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateAccessTokenFromTicketSamlCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

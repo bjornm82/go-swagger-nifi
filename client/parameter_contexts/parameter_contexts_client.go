@@ -27,7 +27,7 @@ type Client struct {
 
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CreateParameterContext(params *CreateParameterContextParams, authInfo runtime.ClientAuthInfoWriter) (*CreateParameterContextOK, error)
+	CreateParameterContext(params *CreateParameterContextParams, authInfo runtime.ClientAuthInfoWriter) (*CreateParameterContextCreated, error)
 
 	DeleteParameterContext(params *DeleteParameterContextParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteParameterContextOK, error)
 
@@ -41,9 +41,9 @@ type ClientService interface {
 
 	GetValidationRequest(params *GetValidationRequestParams, authInfo runtime.ClientAuthInfoWriter) (*GetValidationRequestOK, error)
 
-	SubmitParameterContextUpdate(params *SubmitParameterContextUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitParameterContextUpdateOK, error)
+	SubmitParameterContextUpdate(params *SubmitParameterContextUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitParameterContextUpdateCreated, error)
 
-	SubmitValidationRequest(params *SubmitValidationRequestParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitValidationRequestOK, error)
+	SubmitValidationRequest(params *SubmitValidationRequestParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitValidationRequestCreated, error)
 
 	UpdateParameterContext(params *UpdateParameterContextParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateParameterContextOK, error)
 
@@ -53,7 +53,7 @@ type ClientService interface {
 /*
   CreateParameterContext creates a parameter context
 */
-func (a *Client) CreateParameterContext(params *CreateParameterContextParams, authInfo runtime.ClientAuthInfoWriter) (*CreateParameterContextOK, error) {
+func (a *Client) CreateParameterContext(params *CreateParameterContextParams, authInfo runtime.ClientAuthInfoWriter) (*CreateParameterContextCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateParameterContextParams()
@@ -75,7 +75,7 @@ func (a *Client) CreateParameterContext(params *CreateParameterContextParams, au
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CreateParameterContextOK)
+	success, ok := result.(*CreateParameterContextCreated)
 	if ok {
 		return success, nil
 	}
@@ -312,7 +312,7 @@ func (a *Client) GetValidationRequest(params *GetValidationRequestParams, authIn
 
   This will initiate the process of updating a Parameter Context. Changing the value of a Parameter may require that one or more components be stopped and restarted, so this acttion may take significantly more time than many other REST API actions. As a result, this endpoint will immediately return a ParameterContextUpdateRequestEntity, and the process of updating the necessary components will occur asynchronously in the background. The client may then periodically poll the status of the request by issuing a GET request to /parameter-contexts/update-requests/{requestId}. Once the request is completed, the client is expected to issue a DELETE request to /parameter-contexts/update-requests/{requestId}.
 */
-func (a *Client) SubmitParameterContextUpdate(params *SubmitParameterContextUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitParameterContextUpdateOK, error) {
+func (a *Client) SubmitParameterContextUpdate(params *SubmitParameterContextUpdateParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitParameterContextUpdateCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSubmitParameterContextUpdateParams()
@@ -334,7 +334,7 @@ func (a *Client) SubmitParameterContextUpdate(params *SubmitParameterContextUpda
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*SubmitParameterContextUpdateOK)
+	success, ok := result.(*SubmitParameterContextUpdateCreated)
 	if ok {
 		return success, nil
 	}
@@ -349,7 +349,7 @@ func (a *Client) SubmitParameterContextUpdate(params *SubmitParameterContextUpda
 
   This will initiate the process of validating all components whose Process Group is bound to the specified Parameter Context. Performing validation against an arbitrary number of components may be expect and take significantly more time than many other REST API actions. As a result, this endpoint will immediately return a ParameterContextValidationRequestEntity, and the process of validating the necessary components will occur asynchronously in the background. The client may then periodically poll the status of the request by issuing a GET request to /parameter-contexts/validation-requests/{requestId}. Once the request is completed, the client is expected to issue a DELETE request to /parameter-contexts/validation-requests/{requestId}.
 */
-func (a *Client) SubmitValidationRequest(params *SubmitValidationRequestParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitValidationRequestOK, error) {
+func (a *Client) SubmitValidationRequest(params *SubmitValidationRequestParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitValidationRequestCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSubmitValidationRequestParams()
@@ -371,7 +371,7 @@ func (a *Client) SubmitValidationRequest(params *SubmitValidationRequestParams, 
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*SubmitValidationRequestOK)
+	success, ok := result.(*SubmitValidationRequestCreated)
 	if ok {
 		return success, nil
 	}

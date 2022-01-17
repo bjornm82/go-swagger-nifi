@@ -37,9 +37,9 @@ type ClientService interface {
 
 	GetSearchOptions(params *GetSearchOptionsParams, authInfo runtime.ClientAuthInfoWriter) (*GetSearchOptionsOK, error)
 
-	SubmitLineageRequest(params *SubmitLineageRequestParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitLineageRequestOK, error)
+	SubmitLineageRequest(params *SubmitLineageRequestParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitLineageRequestCreated, error)
 
-	SubmitProvenanceRequest(params *SubmitProvenanceRequestParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitProvenanceRequestOK, error)
+	SubmitProvenanceRequest(params *SubmitProvenanceRequestParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitProvenanceRequestCreated, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -224,7 +224,7 @@ func (a *Client) GetSearchOptions(params *GetSearchOptionsParams, authInfo runti
 
   Lineage queries may be long running so this endpoint submits a request. The response will include the current state of the query. If the request is not completed the URI in the response can be used at a later time to get the updated state of the query. Once the query has completed the lineage request should be deleted by the client who originally submitted it.
 */
-func (a *Client) SubmitLineageRequest(params *SubmitLineageRequestParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitLineageRequestOK, error) {
+func (a *Client) SubmitLineageRequest(params *SubmitLineageRequestParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitLineageRequestCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSubmitLineageRequestParams()
@@ -246,7 +246,7 @@ func (a *Client) SubmitLineageRequest(params *SubmitLineageRequestParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*SubmitLineageRequestOK)
+	success, ok := result.(*SubmitLineageRequestCreated)
 	if ok {
 		return success, nil
 	}
@@ -261,7 +261,7 @@ func (a *Client) SubmitLineageRequest(params *SubmitLineageRequestParams, authIn
 
   Provenance queries may be long running so this endpoint submits a request. The response will include the current state of the query. If the request is not completed the URI in the response can be used at a later time to get the updated state of the query. Once the query has completed the provenance request should be deleted by the client who originally submitted it.
 */
-func (a *Client) SubmitProvenanceRequest(params *SubmitProvenanceRequestParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitProvenanceRequestOK, error) {
+func (a *Client) SubmitProvenanceRequest(params *SubmitProvenanceRequestParams, authInfo runtime.ClientAuthInfoWriter) (*SubmitProvenanceRequestCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSubmitProvenanceRequestParams()
@@ -283,7 +283,7 @@ func (a *Client) SubmitProvenanceRequest(params *SubmitProvenanceRequestParams, 
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*SubmitProvenanceRequestOK)
+	success, ok := result.(*SubmitProvenanceRequestCreated)
 	if ok {
 		return success, nil
 	}

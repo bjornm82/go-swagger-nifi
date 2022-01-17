@@ -23,8 +23,8 @@ type CreateBulletinReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateBulletinReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewCreateBulletinOK()
+	case 201:
+		result := NewCreateBulletinCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -59,28 +59,28 @@ func (o *CreateBulletinReader) ReadResponse(response runtime.ClientResponse, con
 	}
 }
 
-// NewCreateBulletinOK creates a CreateBulletinOK with default headers values
-func NewCreateBulletinOK() *CreateBulletinOK {
-	return &CreateBulletinOK{}
+// NewCreateBulletinCreated creates a CreateBulletinCreated with default headers values
+func NewCreateBulletinCreated() *CreateBulletinCreated {
+	return &CreateBulletinCreated{}
 }
 
-/*CreateBulletinOK handles this case with default header values.
+/*CreateBulletinCreated handles this case with default header values.
 
 successful operation
 */
-type CreateBulletinOK struct {
+type CreateBulletinCreated struct {
 	Payload *models.BulletinEntity
 }
 
-func (o *CreateBulletinOK) Error() string {
-	return fmt.Sprintf("[POST /controller/bulletin][%d] createBulletinOK  %+v", 200, o.Payload)
+func (o *CreateBulletinCreated) Error() string {
+	return fmt.Sprintf("[POST /controller/bulletin][%d] createBulletinCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateBulletinOK) GetPayload() *models.BulletinEntity {
+func (o *CreateBulletinCreated) GetPayload() *models.BulletinEntity {
 	return o.Payload
 }
 
-func (o *CreateBulletinOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateBulletinCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BulletinEntity)
 

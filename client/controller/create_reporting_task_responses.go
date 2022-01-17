@@ -23,8 +23,8 @@ type CreateReportingTaskReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateReportingTaskReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewCreateReportingTaskOK()
+	case 201:
+		result := NewCreateReportingTaskCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -59,28 +59,28 @@ func (o *CreateReportingTaskReader) ReadResponse(response runtime.ClientResponse
 	}
 }
 
-// NewCreateReportingTaskOK creates a CreateReportingTaskOK with default headers values
-func NewCreateReportingTaskOK() *CreateReportingTaskOK {
-	return &CreateReportingTaskOK{}
+// NewCreateReportingTaskCreated creates a CreateReportingTaskCreated with default headers values
+func NewCreateReportingTaskCreated() *CreateReportingTaskCreated {
+	return &CreateReportingTaskCreated{}
 }
 
-/*CreateReportingTaskOK handles this case with default header values.
+/*CreateReportingTaskCreated handles this case with default header values.
 
 successful operation
 */
-type CreateReportingTaskOK struct {
+type CreateReportingTaskCreated struct {
 	Payload *models.ReportingTaskEntity
 }
 
-func (o *CreateReportingTaskOK) Error() string {
-	return fmt.Sprintf("[POST /controller/reporting-tasks][%d] createReportingTaskOK  %+v", 200, o.Payload)
+func (o *CreateReportingTaskCreated) Error() string {
+	return fmt.Sprintf("[POST /controller/reporting-tasks][%d] createReportingTaskCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateReportingTaskOK) GetPayload() *models.ReportingTaskEntity {
+func (o *CreateReportingTaskCreated) GetPayload() *models.ReportingTaskEntity {
 	return o.Payload
 }
 
-func (o *CreateReportingTaskOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateReportingTaskCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ReportingTaskEntity)
 

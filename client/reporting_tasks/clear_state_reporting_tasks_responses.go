@@ -23,8 +23,8 @@ type ClearStateReportingTasksReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ClearStateReportingTasksReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewClearStateReportingTasksOK()
+	case 201:
+		result := NewClearStateReportingTasksCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -65,28 +65,28 @@ func (o *ClearStateReportingTasksReader) ReadResponse(response runtime.ClientRes
 	}
 }
 
-// NewClearStateReportingTasksOK creates a ClearStateReportingTasksOK with default headers values
-func NewClearStateReportingTasksOK() *ClearStateReportingTasksOK {
-	return &ClearStateReportingTasksOK{}
+// NewClearStateReportingTasksCreated creates a ClearStateReportingTasksCreated with default headers values
+func NewClearStateReportingTasksCreated() *ClearStateReportingTasksCreated {
+	return &ClearStateReportingTasksCreated{}
 }
 
-/*ClearStateReportingTasksOK handles this case with default header values.
+/*ClearStateReportingTasksCreated handles this case with default header values.
 
 successful operation
 */
-type ClearStateReportingTasksOK struct {
+type ClearStateReportingTasksCreated struct {
 	Payload *models.ComponentStateEntity
 }
 
-func (o *ClearStateReportingTasksOK) Error() string {
-	return fmt.Sprintf("[POST /reporting-tasks/{id}/state/clear-requests][%d] clearStateReportingTasksOK  %+v", 200, o.Payload)
+func (o *ClearStateReportingTasksCreated) Error() string {
+	return fmt.Sprintf("[POST /reporting-tasks/{id}/state/clear-requests][%d] clearStateReportingTasksCreated  %+v", 201, o.Payload)
 }
 
-func (o *ClearStateReportingTasksOK) GetPayload() *models.ComponentStateEntity {
+func (o *ClearStateReportingTasksCreated) GetPayload() *models.ComponentStateEntity {
 	return o.Payload
 }
 
-func (o *ClearStateReportingTasksOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *ClearStateReportingTasksCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ComponentStateEntity)
 

@@ -23,8 +23,8 @@ type ClearStateProcessorsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ClearStateProcessorsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewClearStateProcessorsOK()
+	case 201:
+		result := NewClearStateProcessorsCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -65,28 +65,28 @@ func (o *ClearStateProcessorsReader) ReadResponse(response runtime.ClientRespons
 	}
 }
 
-// NewClearStateProcessorsOK creates a ClearStateProcessorsOK with default headers values
-func NewClearStateProcessorsOK() *ClearStateProcessorsOK {
-	return &ClearStateProcessorsOK{}
+// NewClearStateProcessorsCreated creates a ClearStateProcessorsCreated with default headers values
+func NewClearStateProcessorsCreated() *ClearStateProcessorsCreated {
+	return &ClearStateProcessorsCreated{}
 }
 
-/*ClearStateProcessorsOK handles this case with default header values.
+/*ClearStateProcessorsCreated handles this case with default header values.
 
 successful operation
 */
-type ClearStateProcessorsOK struct {
+type ClearStateProcessorsCreated struct {
 	Payload *models.ComponentStateEntity
 }
 
-func (o *ClearStateProcessorsOK) Error() string {
-	return fmt.Sprintf("[POST /processors/{id}/state/clear-requests][%d] clearStateProcessorsOK  %+v", 200, o.Payload)
+func (o *ClearStateProcessorsCreated) Error() string {
+	return fmt.Sprintf("[POST /processors/{id}/state/clear-requests][%d] clearStateProcessorsCreated  %+v", 201, o.Payload)
 }
 
-func (o *ClearStateProcessorsOK) GetPayload() *models.ComponentStateEntity {
+func (o *ClearStateProcessorsCreated) GetPayload() *models.ComponentStateEntity {
 	return o.Payload
 }
 
-func (o *ClearStateProcessorsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *ClearStateProcessorsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ComponentStateEntity)
 

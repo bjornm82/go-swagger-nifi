@@ -23,8 +23,8 @@ type ImportProcessGroupReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ImportProcessGroupReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewImportProcessGroupOK()
+	case 201:
+		result := NewImportProcessGroupCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -59,28 +59,28 @@ func (o *ImportProcessGroupReader) ReadResponse(response runtime.ClientResponse,
 	}
 }
 
-// NewImportProcessGroupOK creates a ImportProcessGroupOK with default headers values
-func NewImportProcessGroupOK() *ImportProcessGroupOK {
-	return &ImportProcessGroupOK{}
+// NewImportProcessGroupCreated creates a ImportProcessGroupCreated with default headers values
+func NewImportProcessGroupCreated() *ImportProcessGroupCreated {
+	return &ImportProcessGroupCreated{}
 }
 
-/*ImportProcessGroupOK handles this case with default header values.
+/*ImportProcessGroupCreated handles this case with default header values.
 
 successful operation
 */
-type ImportProcessGroupOK struct {
+type ImportProcessGroupCreated struct {
 	Payload *models.ProcessGroupEntity
 }
 
-func (o *ImportProcessGroupOK) Error() string {
-	return fmt.Sprintf("[POST /process-groups/{id}/process-groups/import][%d] importProcessGroupOK  %+v", 200, o.Payload)
+func (o *ImportProcessGroupCreated) Error() string {
+	return fmt.Sprintf("[POST /process-groups/{id}/process-groups/import][%d] importProcessGroupCreated  %+v", 201, o.Payload)
 }
 
-func (o *ImportProcessGroupOK) GetPayload() *models.ProcessGroupEntity {
+func (o *ImportProcessGroupCreated) GetPayload() *models.ProcessGroupEntity {
 	return o.Payload
 }
 
-func (o *ImportProcessGroupOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *ImportProcessGroupCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ProcessGroupEntity)
 

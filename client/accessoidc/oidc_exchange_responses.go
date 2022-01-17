@@ -21,8 +21,8 @@ type OidcExchangeReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *OidcExchangeReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewOidcExchangeOK()
+	case 201:
+		result := NewOidcExchangeCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -33,28 +33,28 @@ func (o *OidcExchangeReader) ReadResponse(response runtime.ClientResponse, consu
 	}
 }
 
-// NewOidcExchangeOK creates a OidcExchangeOK with default headers values
-func NewOidcExchangeOK() *OidcExchangeOK {
-	return &OidcExchangeOK{}
+// NewOidcExchangeCreated creates a OidcExchangeCreated with default headers values
+func NewOidcExchangeCreated() *OidcExchangeCreated {
+	return &OidcExchangeCreated{}
 }
 
-/*OidcExchangeOK handles this case with default header values.
+/*OidcExchangeCreated handles this case with default header values.
 
 successful operation
 */
-type OidcExchangeOK struct {
+type OidcExchangeCreated struct {
 	Payload string
 }
 
-func (o *OidcExchangeOK) Error() string {
-	return fmt.Sprintf("[POST /access/oidc/exchange][%d] oidcExchangeOK  %+v", 200, o.Payload)
+func (o *OidcExchangeCreated) Error() string {
+	return fmt.Sprintf("[POST /access/oidc/exchange][%d] oidcExchangeCreated  %+v", 201, o.Payload)
 }
 
-func (o *OidcExchangeOK) GetPayload() string {
+func (o *OidcExchangeCreated) GetPayload() string {
 	return o.Payload
 }
 
-func (o *OidcExchangeOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *OidcExchangeCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

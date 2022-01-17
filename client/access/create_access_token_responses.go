@@ -21,8 +21,8 @@ type CreateAccessTokenReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateAccessTokenReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewCreateAccessTokenOK()
+	case 201:
+		result := NewCreateAccessTokenCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -57,28 +57,28 @@ func (o *CreateAccessTokenReader) ReadResponse(response runtime.ClientResponse, 
 	}
 }
 
-// NewCreateAccessTokenOK creates a CreateAccessTokenOK with default headers values
-func NewCreateAccessTokenOK() *CreateAccessTokenOK {
-	return &CreateAccessTokenOK{}
+// NewCreateAccessTokenCreated creates a CreateAccessTokenCreated with default headers values
+func NewCreateAccessTokenCreated() *CreateAccessTokenCreated {
+	return &CreateAccessTokenCreated{}
 }
 
-/*CreateAccessTokenOK handles this case with default header values.
+/*CreateAccessTokenCreated handles this case with default header values.
 
 successful operation
 */
-type CreateAccessTokenOK struct {
+type CreateAccessTokenCreated struct {
 	Payload string
 }
 
-func (o *CreateAccessTokenOK) Error() string {
-	return fmt.Sprintf("[POST /access/token][%d] createAccessTokenOK  %+v", 200, o.Payload)
+func (o *CreateAccessTokenCreated) Error() string {
+	return fmt.Sprintf("[POST /access/token][%d] createAccessTokenCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateAccessTokenOK) GetPayload() string {
+func (o *CreateAccessTokenCreated) GetPayload() string {
 	return o.Payload
 }
 
-func (o *CreateAccessTokenOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateAccessTokenCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

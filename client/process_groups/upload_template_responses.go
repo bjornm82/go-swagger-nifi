@@ -23,8 +23,8 @@ type UploadTemplateReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UploadTemplateReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewUploadTemplateOK()
+	case 201:
+		result := NewUploadTemplateCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -59,28 +59,28 @@ func (o *UploadTemplateReader) ReadResponse(response runtime.ClientResponse, con
 	}
 }
 
-// NewUploadTemplateOK creates a UploadTemplateOK with default headers values
-func NewUploadTemplateOK() *UploadTemplateOK {
-	return &UploadTemplateOK{}
+// NewUploadTemplateCreated creates a UploadTemplateCreated with default headers values
+func NewUploadTemplateCreated() *UploadTemplateCreated {
+	return &UploadTemplateCreated{}
 }
 
-/*UploadTemplateOK handles this case with default header values.
+/*UploadTemplateCreated handles this case with default header values.
 
 successful operation
 */
-type UploadTemplateOK struct {
+type UploadTemplateCreated struct {
 	Payload *models.TemplateEntity
 }
 
-func (o *UploadTemplateOK) Error() string {
-	return fmt.Sprintf("[POST /process-groups/{id}/templates/upload][%d] uploadTemplateOK  %+v", 200, o.Payload)
+func (o *UploadTemplateCreated) Error() string {
+	return fmt.Sprintf("[POST /process-groups/{id}/templates/upload][%d] uploadTemplateCreated  %+v", 201, o.Payload)
 }
 
-func (o *UploadTemplateOK) GetPayload() *models.TemplateEntity {
+func (o *UploadTemplateCreated) GetPayload() *models.TemplateEntity {
 	return o.Payload
 }
 
-func (o *UploadTemplateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *UploadTemplateCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.TemplateEntity)
 

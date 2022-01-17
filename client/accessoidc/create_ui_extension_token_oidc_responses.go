@@ -21,8 +21,8 @@ type CreateUIExtensionTokenOidcReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateUIExtensionTokenOidcReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewCreateUIExtensionTokenOidcOK()
+	case 201:
+		result := NewCreateUIExtensionTokenOidcCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -51,28 +51,28 @@ func (o *CreateUIExtensionTokenOidcReader) ReadResponse(response runtime.ClientR
 	}
 }
 
-// NewCreateUIExtensionTokenOidcOK creates a CreateUIExtensionTokenOidcOK with default headers values
-func NewCreateUIExtensionTokenOidcOK() *CreateUIExtensionTokenOidcOK {
-	return &CreateUIExtensionTokenOidcOK{}
+// NewCreateUIExtensionTokenOidcCreated creates a CreateUIExtensionTokenOidcCreated with default headers values
+func NewCreateUIExtensionTokenOidcCreated() *CreateUIExtensionTokenOidcCreated {
+	return &CreateUIExtensionTokenOidcCreated{}
 }
 
-/*CreateUIExtensionTokenOidcOK handles this case with default header values.
+/*CreateUIExtensionTokenOidcCreated handles this case with default header values.
 
 successful operation
 */
-type CreateUIExtensionTokenOidcOK struct {
+type CreateUIExtensionTokenOidcCreated struct {
 	Payload string
 }
 
-func (o *CreateUIExtensionTokenOidcOK) Error() string {
-	return fmt.Sprintf("[POST /access/oidc/ui-extension-token][%d] createUiExtensionTokenOidcOK  %+v", 200, o.Payload)
+func (o *CreateUIExtensionTokenOidcCreated) Error() string {
+	return fmt.Sprintf("[POST /access/oidc/ui-extension-token][%d] createUiExtensionTokenOidcCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateUIExtensionTokenOidcOK) GetPayload() string {
+func (o *CreateUIExtensionTokenOidcCreated) GetPayload() string {
 	return o.Payload
 }
 
-func (o *CreateUIExtensionTokenOidcOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateUIExtensionTokenOidcCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

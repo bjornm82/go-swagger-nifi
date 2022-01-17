@@ -23,8 +23,8 @@ type SubmitParameterContextUpdateReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SubmitParameterContextUpdateReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewSubmitParameterContextUpdateOK()
+	case 201:
+		result := NewSubmitParameterContextUpdateCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -65,28 +65,28 @@ func (o *SubmitParameterContextUpdateReader) ReadResponse(response runtime.Clien
 	}
 }
 
-// NewSubmitParameterContextUpdateOK creates a SubmitParameterContextUpdateOK with default headers values
-func NewSubmitParameterContextUpdateOK() *SubmitParameterContextUpdateOK {
-	return &SubmitParameterContextUpdateOK{}
+// NewSubmitParameterContextUpdateCreated creates a SubmitParameterContextUpdateCreated with default headers values
+func NewSubmitParameterContextUpdateCreated() *SubmitParameterContextUpdateCreated {
+	return &SubmitParameterContextUpdateCreated{}
 }
 
-/*SubmitParameterContextUpdateOK handles this case with default header values.
+/*SubmitParameterContextUpdateCreated handles this case with default header values.
 
 successful operation
 */
-type SubmitParameterContextUpdateOK struct {
+type SubmitParameterContextUpdateCreated struct {
 	Payload *models.ParameterContextUpdateRequestEntity
 }
 
-func (o *SubmitParameterContextUpdateOK) Error() string {
-	return fmt.Sprintf("[POST /parameter-contexts/{contextId}/update-requests][%d] submitParameterContextUpdateOK  %+v", 200, o.Payload)
+func (o *SubmitParameterContextUpdateCreated) Error() string {
+	return fmt.Sprintf("[POST /parameter-contexts/{contextId}/update-requests][%d] submitParameterContextUpdateCreated  %+v", 201, o.Payload)
 }
 
-func (o *SubmitParameterContextUpdateOK) GetPayload() *models.ParameterContextUpdateRequestEntity {
+func (o *SubmitParameterContextUpdateCreated) GetPayload() *models.ParameterContextUpdateRequestEntity {
 	return o.Payload
 }
 
-func (o *SubmitParameterContextUpdateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *SubmitParameterContextUpdateCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ParameterContextUpdateRequestEntity)
 

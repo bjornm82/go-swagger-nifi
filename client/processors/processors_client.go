@@ -27,7 +27,7 @@ type Client struct {
 
 // ClientService is the interface for Client methods
 type ClientService interface {
-	ClearStateProcessors(params *ClearStateProcessorsParams, authInfo runtime.ClientAuthInfoWriter) (*ClearStateProcessorsOK, error)
+	ClearStateProcessors(params *ClearStateProcessorsParams, authInfo runtime.ClientAuthInfoWriter) (*ClearStateProcessorsCreated, error)
 
 	DeleteProcessor(params *DeleteProcessorParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteProcessorOK, error)
 
@@ -35,7 +35,7 @@ type ClientService interface {
 
 	GetProcessorDiagnostics(params *GetProcessorDiagnosticsParams, authInfo runtime.ClientAuthInfoWriter) (*GetProcessorDiagnosticsOK, error)
 
-	GetProcessorRunStatusDetails(params *GetProcessorRunStatusDetailsParams, authInfo runtime.ClientAuthInfoWriter) (*GetProcessorRunStatusDetailsOK, error)
+	GetProcessorRunStatusDetails(params *GetProcessorRunStatusDetailsParams, authInfo runtime.ClientAuthInfoWriter) (*GetProcessorRunStatusDetailsCreated, error)
 
 	GetPropertyDescriptorProcessors(params *GetPropertyDescriptorProcessorsParams, authInfo runtime.ClientAuthInfoWriter) (*GetPropertyDescriptorProcessorsOK, error)
 
@@ -53,7 +53,7 @@ type ClientService interface {
 /*
   ClearStateProcessors clears the state for a processor
 */
-func (a *Client) ClearStateProcessors(params *ClearStateProcessorsParams, authInfo runtime.ClientAuthInfoWriter) (*ClearStateProcessorsOK, error) {
+func (a *Client) ClearStateProcessors(params *ClearStateProcessorsParams, authInfo runtime.ClientAuthInfoWriter) (*ClearStateProcessorsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewClearStateProcessorsParams()
@@ -75,7 +75,7 @@ func (a *Client) ClearStateProcessors(params *ClearStateProcessorsParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*ClearStateProcessorsOK)
+	success, ok := result.(*ClearStateProcessorsCreated)
 	if ok {
 		return success, nil
 	}
@@ -195,7 +195,7 @@ func (a *Client) GetProcessorDiagnostics(params *GetProcessorDiagnosticsParams, 
 /*
   GetProcessorRunStatusDetails submits a query to retrieve the run status details of all processors that are in the given list of processor i ds
 */
-func (a *Client) GetProcessorRunStatusDetails(params *GetProcessorRunStatusDetailsParams, authInfo runtime.ClientAuthInfoWriter) (*GetProcessorRunStatusDetailsOK, error) {
+func (a *Client) GetProcessorRunStatusDetails(params *GetProcessorRunStatusDetailsParams, authInfo runtime.ClientAuthInfoWriter) (*GetProcessorRunStatusDetailsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetProcessorRunStatusDetailsParams()
@@ -217,7 +217,7 @@ func (a *Client) GetProcessorRunStatusDetails(params *GetProcessorRunStatusDetai
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*GetProcessorRunStatusDetailsOK)
+	success, ok := result.(*GetProcessorRunStatusDetailsCreated)
 	if ok {
 		return success, nil
 	}

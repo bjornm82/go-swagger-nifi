@@ -23,8 +23,8 @@ type ImportTemplateReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ImportTemplateReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewImportTemplateOK()
+	case 201:
+		result := NewImportTemplateCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -59,28 +59,28 @@ func (o *ImportTemplateReader) ReadResponse(response runtime.ClientResponse, con
 	}
 }
 
-// NewImportTemplateOK creates a ImportTemplateOK with default headers values
-func NewImportTemplateOK() *ImportTemplateOK {
-	return &ImportTemplateOK{}
+// NewImportTemplateCreated creates a ImportTemplateCreated with default headers values
+func NewImportTemplateCreated() *ImportTemplateCreated {
+	return &ImportTemplateCreated{}
 }
 
-/*ImportTemplateOK handles this case with default header values.
+/*ImportTemplateCreated handles this case with default header values.
 
 successful operation
 */
-type ImportTemplateOK struct {
+type ImportTemplateCreated struct {
 	Payload *models.TemplateEntity
 }
 
-func (o *ImportTemplateOK) Error() string {
-	return fmt.Sprintf("[POST /process-groups/{id}/templates/import][%d] importTemplateOK  %+v", 200, o.Payload)
+func (o *ImportTemplateCreated) Error() string {
+	return fmt.Sprintf("[POST /process-groups/{id}/templates/import][%d] importTemplateCreated  %+v", 201, o.Payload)
 }
 
-func (o *ImportTemplateOK) GetPayload() *models.TemplateEntity {
+func (o *ImportTemplateCreated) GetPayload() *models.TemplateEntity {
 	return o.Payload
 }
 
-func (o *ImportTemplateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *ImportTemplateCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.TemplateEntity)
 

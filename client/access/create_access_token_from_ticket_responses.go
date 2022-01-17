@@ -21,8 +21,8 @@ type CreateAccessTokenFromTicketReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateAccessTokenFromTicketReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewCreateAccessTokenFromTicketOK()
+	case 201:
+		result := NewCreateAccessTokenFromTicketCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -57,28 +57,28 @@ func (o *CreateAccessTokenFromTicketReader) ReadResponse(response runtime.Client
 	}
 }
 
-// NewCreateAccessTokenFromTicketOK creates a CreateAccessTokenFromTicketOK with default headers values
-func NewCreateAccessTokenFromTicketOK() *CreateAccessTokenFromTicketOK {
-	return &CreateAccessTokenFromTicketOK{}
+// NewCreateAccessTokenFromTicketCreated creates a CreateAccessTokenFromTicketCreated with default headers values
+func NewCreateAccessTokenFromTicketCreated() *CreateAccessTokenFromTicketCreated {
+	return &CreateAccessTokenFromTicketCreated{}
 }
 
-/*CreateAccessTokenFromTicketOK handles this case with default header values.
+/*CreateAccessTokenFromTicketCreated handles this case with default header values.
 
 successful operation
 */
-type CreateAccessTokenFromTicketOK struct {
+type CreateAccessTokenFromTicketCreated struct {
 	Payload string
 }
 
-func (o *CreateAccessTokenFromTicketOK) Error() string {
-	return fmt.Sprintf("[POST /access/kerberos][%d] createAccessTokenFromTicketOK  %+v", 200, o.Payload)
+func (o *CreateAccessTokenFromTicketCreated) Error() string {
+	return fmt.Sprintf("[POST /access/kerberos][%d] createAccessTokenFromTicketCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateAccessTokenFromTicketOK) GetPayload() string {
+func (o *CreateAccessTokenFromTicketCreated) GetPayload() string {
 	return o.Payload
 }
 
-func (o *CreateAccessTokenFromTicketOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateAccessTokenFromTicketCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

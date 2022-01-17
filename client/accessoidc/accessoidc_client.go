@@ -27,13 +27,13 @@ type Client struct {
 
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CreateAccessTokenFromTicketOidc(params *CreateAccessTokenFromTicketOidcParams) (*CreateAccessTokenFromTicketOidcOK, error)
+	CreateAccessTokenFromTicketOidc(params *CreateAccessTokenFromTicketOidcParams) (*CreateAccessTokenFromTicketOidcCreated, error)
 
-	CreateAccessTokenOidc(params *CreateAccessTokenOidcParams) (*CreateAccessTokenOidcOK, error)
+	CreateAccessTokenOidc(params *CreateAccessTokenOidcParams) (*CreateAccessTokenOidcCreated, error)
 
-	CreateDownloadTokenOidc(params *CreateDownloadTokenOidcParams) (*CreateDownloadTokenOidcOK, error)
+	CreateDownloadTokenOidc(params *CreateDownloadTokenOidcParams) (*CreateDownloadTokenOidcCreated, error)
 
-	CreateUIExtensionTokenOidc(params *CreateUIExtensionTokenOidcParams) (*CreateUIExtensionTokenOidcOK, error)
+	CreateUIExtensionTokenOidc(params *CreateUIExtensionTokenOidcParams) (*CreateUIExtensionTokenOidcCreated, error)
 
 	GetAccessStatusOidc(params *GetAccessStatusOidcParams) (*GetAccessStatusOidcOK, error)
 
@@ -51,7 +51,7 @@ type ClientService interface {
 
 	OidcCallback(params *OidcCallbackParams) error
 
-	OidcExchange(params *OidcExchangeParams) (*OidcExchangeOK, error)
+	OidcExchange(params *OidcExchangeParams) (*OidcExchangeCreated, error)
 
 	OidcLogout(params *OidcLogoutParams) error
 
@@ -67,7 +67,7 @@ type ClientService interface {
 
   The token returned is formatted as a JSON Web Token (JWT). The token is base64 encoded and comprised of three parts. The header, the body, and the signature. The expiration of the token is a contained within the body. The token can be used in the Authorization header in the format 'Authorization: Bearer <token>'. It is also stored in the browser as a cookie.
 */
-func (a *Client) CreateAccessTokenFromTicketOidc(params *CreateAccessTokenFromTicketOidcParams) (*CreateAccessTokenFromTicketOidcOK, error) {
+func (a *Client) CreateAccessTokenFromTicketOidc(params *CreateAccessTokenFromTicketOidcParams) (*CreateAccessTokenFromTicketOidcCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateAccessTokenFromTicketOidcParams()
@@ -88,7 +88,7 @@ func (a *Client) CreateAccessTokenFromTicketOidc(params *CreateAccessTokenFromTi
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CreateAccessTokenFromTicketOidcOK)
+	success, ok := result.(*CreateAccessTokenFromTicketOidcCreated)
 	if ok {
 		return success, nil
 	}
@@ -103,7 +103,7 @@ func (a *Client) CreateAccessTokenFromTicketOidc(params *CreateAccessTokenFromTi
 
   The token returned is formatted as a JSON Web Token (JWT). The token is base64 encoded and comprised of three parts. The header, the body, and the signature. The expiration of the token is a contained within the body. It is stored in the browser as a cookie, but also returned inthe response body to be stored/used by third party client scripts.
 */
-func (a *Client) CreateAccessTokenOidc(params *CreateAccessTokenOidcParams) (*CreateAccessTokenOidcOK, error) {
+func (a *Client) CreateAccessTokenOidc(params *CreateAccessTokenOidcParams) (*CreateAccessTokenOidcCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateAccessTokenOidcParams()
@@ -124,7 +124,7 @@ func (a *Client) CreateAccessTokenOidc(params *CreateAccessTokenOidcParams) (*Cr
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CreateAccessTokenOidcOK)
+	success, ok := result.(*CreateAccessTokenOidcCreated)
 	if ok {
 		return success, nil
 	}
@@ -139,7 +139,7 @@ func (a *Client) CreateAccessTokenOidc(params *CreateAccessTokenOidcParams) (*Cr
 
   The token returned is a base64 encoded string. It is valid for a single request up to five minutes from being issued. It is used as a query parameter name 'access_token'.
 */
-func (a *Client) CreateDownloadTokenOidc(params *CreateDownloadTokenOidcParams) (*CreateDownloadTokenOidcOK, error) {
+func (a *Client) CreateDownloadTokenOidc(params *CreateDownloadTokenOidcParams) (*CreateDownloadTokenOidcCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateDownloadTokenOidcParams()
@@ -160,7 +160,7 @@ func (a *Client) CreateDownloadTokenOidc(params *CreateDownloadTokenOidcParams) 
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CreateDownloadTokenOidcOK)
+	success, ok := result.(*CreateDownloadTokenOidcCreated)
 	if ok {
 		return success, nil
 	}
@@ -175,7 +175,7 @@ func (a *Client) CreateDownloadTokenOidc(params *CreateDownloadTokenOidcParams) 
 
   The token returned is a base64 encoded string. It is valid for a single request up to five minutes from being issued. It is used as a query parameter name 'access_token'.
 */
-func (a *Client) CreateUIExtensionTokenOidc(params *CreateUIExtensionTokenOidcParams) (*CreateUIExtensionTokenOidcOK, error) {
+func (a *Client) CreateUIExtensionTokenOidc(params *CreateUIExtensionTokenOidcParams) (*CreateUIExtensionTokenOidcCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateUIExtensionTokenOidcParams()
@@ -196,7 +196,7 @@ func (a *Client) CreateUIExtensionTokenOidc(params *CreateUIExtensionTokenOidcPa
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CreateUIExtensionTokenOidcOK)
+	success, ok := result.(*CreateUIExtensionTokenOidcCreated)
 	if ok {
 		return success, nil
 	}
@@ -469,7 +469,7 @@ func (a *Client) OidcCallback(params *OidcCallbackParams) error {
 
   Note: This endpoint is subject to change as NiFi and it's REST API evolve.
 */
-func (a *Client) OidcExchange(params *OidcExchangeParams) (*OidcExchangeOK, error) {
+func (a *Client) OidcExchange(params *OidcExchangeParams) (*OidcExchangeCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewOidcExchangeParams()
@@ -490,7 +490,7 @@ func (a *Client) OidcExchange(params *OidcExchangeParams) (*OidcExchangeOK, erro
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*OidcExchangeOK)
+	success, ok := result.(*OidcExchangeCreated)
 	if ok {
 		return success, nil
 	}

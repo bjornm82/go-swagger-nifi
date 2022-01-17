@@ -23,8 +23,8 @@ type SaveToFlowRegistryReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SaveToFlowRegistryReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewSaveToFlowRegistryOK()
+	case 201:
+		result := NewSaveToFlowRegistryCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -65,28 +65,28 @@ func (o *SaveToFlowRegistryReader) ReadResponse(response runtime.ClientResponse,
 	}
 }
 
-// NewSaveToFlowRegistryOK creates a SaveToFlowRegistryOK with default headers values
-func NewSaveToFlowRegistryOK() *SaveToFlowRegistryOK {
-	return &SaveToFlowRegistryOK{}
+// NewSaveToFlowRegistryCreated creates a SaveToFlowRegistryCreated with default headers values
+func NewSaveToFlowRegistryCreated() *SaveToFlowRegistryCreated {
+	return &SaveToFlowRegistryCreated{}
 }
 
-/*SaveToFlowRegistryOK handles this case with default header values.
+/*SaveToFlowRegistryCreated handles this case with default header values.
 
 successful operation
 */
-type SaveToFlowRegistryOK struct {
+type SaveToFlowRegistryCreated struct {
 	Payload *models.VersionControlInformationEntity
 }
 
-func (o *SaveToFlowRegistryOK) Error() string {
-	return fmt.Sprintf("[POST /versions/process-groups/{id}][%d] saveToFlowRegistryOK  %+v", 200, o.Payload)
+func (o *SaveToFlowRegistryCreated) Error() string {
+	return fmt.Sprintf("[POST /versions/process-groups/{id}][%d] saveToFlowRegistryCreated  %+v", 201, o.Payload)
 }
 
-func (o *SaveToFlowRegistryOK) GetPayload() *models.VersionControlInformationEntity {
+func (o *SaveToFlowRegistryCreated) GetPayload() *models.VersionControlInformationEntity {
 	return o.Payload
 }
 
-func (o *SaveToFlowRegistryOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *SaveToFlowRegistryCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.VersionControlInformationEntity)
 

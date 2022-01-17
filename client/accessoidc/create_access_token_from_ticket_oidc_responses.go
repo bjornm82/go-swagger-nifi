@@ -21,8 +21,8 @@ type CreateAccessTokenFromTicketOidcReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateAccessTokenFromTicketOidcReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 200:
-		result := NewCreateAccessTokenFromTicketOidcOK()
+	case 201:
+		result := NewCreateAccessTokenFromTicketOidcCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -57,28 +57,28 @@ func (o *CreateAccessTokenFromTicketOidcReader) ReadResponse(response runtime.Cl
 	}
 }
 
-// NewCreateAccessTokenFromTicketOidcOK creates a CreateAccessTokenFromTicketOidcOK with default headers values
-func NewCreateAccessTokenFromTicketOidcOK() *CreateAccessTokenFromTicketOidcOK {
-	return &CreateAccessTokenFromTicketOidcOK{}
+// NewCreateAccessTokenFromTicketOidcCreated creates a CreateAccessTokenFromTicketOidcCreated with default headers values
+func NewCreateAccessTokenFromTicketOidcCreated() *CreateAccessTokenFromTicketOidcCreated {
+	return &CreateAccessTokenFromTicketOidcCreated{}
 }
 
-/*CreateAccessTokenFromTicketOidcOK handles this case with default header values.
+/*CreateAccessTokenFromTicketOidcCreated handles this case with default header values.
 
 successful operation
 */
-type CreateAccessTokenFromTicketOidcOK struct {
+type CreateAccessTokenFromTicketOidcCreated struct {
 	Payload string
 }
 
-func (o *CreateAccessTokenFromTicketOidcOK) Error() string {
-	return fmt.Sprintf("[POST /access/oidc/kerberos][%d] createAccessTokenFromTicketOidcOK  %+v", 200, o.Payload)
+func (o *CreateAccessTokenFromTicketOidcCreated) Error() string {
+	return fmt.Sprintf("[POST /access/oidc/kerberos][%d] createAccessTokenFromTicketOidcCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateAccessTokenFromTicketOidcOK) GetPayload() string {
+func (o *CreateAccessTokenFromTicketOidcCreated) GetPayload() string {
 	return o.Payload
 }
 
-func (o *CreateAccessTokenFromTicketOidcOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateAccessTokenFromTicketOidcCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
