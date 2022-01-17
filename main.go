@@ -152,8 +152,9 @@ func (c *cl) createProcessorGroupOnRoot(name string) (*process_groups.CreateProc
 	}
 	pg := process_groups.NewCreateProcessGroupParams()
 	pge := models.ProcessGroupEntity{}
+	var revInt = int64(0)
 	rev := models.RevisionDTO{
-		Version: 0,
+		Version: &revInt,
 	}
 	pge.Revision = &rev
 	pgdto := models.ProcessGroupDTO{}
