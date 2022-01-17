@@ -46,7 +46,7 @@ func (a *Client) GetResources(params *GetResourcesParams, authInfo runtime.Clien
 		Method:             "GET",
 		PathPattern:        "/resources",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"*/*"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetResourcesReader{formats: a.formats},

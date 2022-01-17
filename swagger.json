@@ -110,7 +110,7 @@
         "summary" : "Gets the status the client's access",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getAccessStatus",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -143,7 +143,7 @@
         "summary" : "Retrieves the access configuration for this NiFi",
         "description" : "",
         "operationId" : "getLoginConfigAccess",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -218,8 +218,8 @@
         "summary" : "Redirect/callback URI for processing the result of the Apache Knox login sequence.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "knoxCallback",
-        "consumes" : [ "*/*" ],
-        "produces" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -233,8 +233,8 @@
         "summary" : "Performs a logout in the Apache Knox.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "knoxLogout",
-        "consumes" : [ "*/*" ],
-        "produces" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -248,8 +248,8 @@
         "summary" : "Initiates a request to authenticate through Apache Knox.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "knoxRequest",
-        "consumes" : [ "*/*" ],
-        "produces" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -263,8 +263,8 @@
         "summary" : "Performs a logout for other providers that have been issued a JWT.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "logOut",
-        "consumes" : [ "*/*" ],
-        "produces" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
             "description" : "User was logged out successfully."
@@ -284,8 +284,8 @@
         "summary" : "Completes the logout sequence by removing the cached Logout Request and Cookie if they existed and redirects to /nifi/login.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "logOutCompleteAccess",
-        "consumes" : [ "*/*" ],
-        "produces" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
             "description" : "User was logged out successfully."
@@ -305,7 +305,7 @@
         "summary" : "Gets the status the client's access",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getAccessStatusOidc",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -338,8 +338,8 @@
         "summary" : "Redirect/callback URI for processing the result of the OpenId Connect login sequence.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "oidcCallback",
-        "consumes" : [ "*/*" ],
-        "produces" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -353,7 +353,7 @@
         "summary" : "Retrieves the access configuration for this NiFi",
         "description" : "",
         "operationId" : "getLoginConfigOidc",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -398,7 +398,7 @@
         "summary" : "Retrieves a JWT following a successful login sequence using the configured OpenId Connect provider.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "oidcExchange",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "text/plain" ],
         "responses" : {
           "200" : {
@@ -446,8 +446,8 @@
         "summary" : "Redirect/callback URI for processing the result of the Apache Knox login sequence.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "knoxCallbackOidc",
-        "consumes" : [ "*/*" ],
-        "produces" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -461,8 +461,8 @@
         "summary" : "Performs a logout in the Apache Knox.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "knoxLogoutOidc",
-        "consumes" : [ "*/*" ],
-        "produces" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -476,8 +476,8 @@
         "summary" : "Initiates a request to authenticate through Apache Knox.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "knoxRequestOidc",
-        "consumes" : [ "*/*" ],
-        "produces" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -491,8 +491,8 @@
         "summary" : "Performs a logout in the OpenId Provider.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "oidcLogout",
-        "consumes" : [ "*/*" ],
-        "produces" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -504,8 +504,8 @@
         "summary" : "Performs a logout for other providers that have been issued a JWT.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "logOutOidc",
-        "consumes" : [ "*/*" ],
-        "produces" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
             "description" : "User was logged out successfully."
@@ -525,8 +525,8 @@
         "summary" : "Completes the logout sequence by removing the cached Logout Request and Cookie if they existed and redirects to /nifi/login.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "logOutCompleteOidc",
-        "consumes" : [ "*/*" ],
-        "produces" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
             "description" : "User was logged out successfully."
@@ -546,8 +546,8 @@
         "summary" : "Redirect/callback URI for processing the result of the OpenId Connect logout sequence.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "oidcLogoutCallback",
-        "consumes" : [ "*/*" ],
-        "produces" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -561,8 +561,8 @@
         "summary" : "Initiates a request to authenticate through the configured OpenId Connect provider.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "oidcRequest",
-        "consumes" : [ "*/*" ],
-        "produces" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -644,7 +644,7 @@
         "summary" : "Gets the status the client's access",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getAccessStatusSaml",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -677,7 +677,7 @@
         "summary" : "Retrieves the access configuration for this NiFi",
         "description" : "",
         "operationId" : "getLoginConfigSaml",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -752,8 +752,8 @@
         "summary" : "Redirect/callback URI for processing the result of the Apache Knox login sequence.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "knoxCallbackSaml",
-        "consumes" : [ "*/*" ],
-        "produces" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -767,8 +767,8 @@
         "summary" : "Performs a logout in the Apache Knox.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "knoxLogoutSaml",
-        "consumes" : [ "*/*" ],
-        "produces" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -782,8 +782,8 @@
         "summary" : "Initiates a request to authenticate through Apache Knox.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "knoxRequestSaml",
-        "consumes" : [ "*/*" ],
-        "produces" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -797,8 +797,8 @@
         "summary" : "Local logout when SAML is enabled, does not communicate with the IDP.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "samlLocalLogout",
-        "consumes" : [ "*/*" ],
-        "produces" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -812,8 +812,8 @@
         "summary" : "Processes the SSO response from the SAML identity provider for HTTP-REDIRECT binding.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "samlLoginHttpRedirectConsumer",
-        "consumes" : [ "*/*" ],
-        "produces" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -826,7 +826,7 @@
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "samlLoginHttpPostConsumer",
         "consumes" : [ "application/x-www-form-urlencoded" ],
-        "produces" : [ "*/*" ],
+        "produces" : [ "application/json" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -840,7 +840,7 @@
         "summary" : "Retrieves a JWT following a successful login sequence using the configured SAML identity provider.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "samlLoginExchange",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "text/plain" ],
         "responses" : {
           "200" : {
@@ -858,8 +858,8 @@
         "summary" : "Initiates an SSO request to the configured SAML identity provider.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "samlLoginRequest",
-        "consumes" : [ "*/*" ],
-        "produces" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -873,8 +873,8 @@
         "summary" : "Performs a logout for other providers that have been issued a JWT.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "logOutSaml",
-        "consumes" : [ "*/*" ],
-        "produces" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
             "description" : "User was logged out successfully."
@@ -894,8 +894,8 @@
         "summary" : "Completes the logout sequence by removing the cached Logout Request and Cookie if they existed and redirects to /nifi/login.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "logOutCompleteSaml",
-        "consumes" : [ "*/*" ],
-        "produces" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
             "description" : "User was logged out successfully."
@@ -915,7 +915,7 @@
         "summary" : "Retrieves the service provider metadata.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "samlMetadata",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/samlmetadata+xml" ],
         "responses" : {
           "default" : {
@@ -930,8 +930,8 @@
         "summary" : "Processes a SingleLogout message from the configured SAML identity provider using the HTTP-REDIRECT binding.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "samlSingleLogoutHttpRedirectConsumer",
-        "consumes" : [ "*/*" ],
-        "produces" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -943,8 +943,8 @@
         "summary" : "Processes a SingleLogout message from the configured SAML identity provider using the HTTP-POST binding.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "samlSingleLogoutHttpPostConsumer",
-        "consumes" : [ "*/*" ],
-        "produces" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -958,8 +958,8 @@
         "summary" : "Initiates a logout request using the SingleLogout service of the configured SAML identity provider.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "samlSingleLogoutRequest",
-        "consumes" : [ "*/*" ],
-        "produces" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "responses" : {
           "default" : {
             "description" : "successful operation"
@@ -1109,7 +1109,7 @@
         "summary" : "Gets a connection",
         "description" : "",
         "operationId" : "getConnection",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -1207,7 +1207,7 @@
         "summary" : "Deletes a connection",
         "description" : "",
         "operationId" : "deleteConnection",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -1273,7 +1273,7 @@
         "summary" : "Gets a controller service",
         "description" : "",
         "operationId" : "getControllerService",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -1365,7 +1365,7 @@
         "summary" : "Deletes a controller service",
         "description" : "",
         "operationId" : "removeControllerService",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -1433,7 +1433,7 @@
         "summary" : "Gets a controller service property descriptor",
         "description" : "",
         "operationId" : "getPropertyDescriptorControllerServices",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -1482,7 +1482,7 @@
         "summary" : "Gets a controller service",
         "description" : "",
         "operationId" : "getControllerServiceReferences",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -1625,7 +1625,7 @@
         "summary" : "Gets the state for a controller service",
         "description" : "",
         "operationId" : "getStateControllerServices",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -1668,7 +1668,7 @@
         "summary" : "Clears the state for a controller service",
         "description" : "",
         "operationId" : "clearStateControllerServices",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -1753,7 +1753,7 @@
         "summary" : "Gets the contents of the cluster",
         "description" : "Returns the contents of the cluster including all nodes and their status.",
         "operationId" : "getCluster",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -1786,7 +1786,7 @@
         "summary" : "Gets a node in the cluster",
         "description" : "",
         "operationId" : "getNode",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -1876,7 +1876,7 @@
         "summary" : "Removes a node from the cluster",
         "description" : "",
         "operationId" : "deleteNode",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -1919,7 +1919,7 @@
         "summary" : "Retrieves the configuration for this NiFi Controller",
         "description" : "",
         "operationId" : "getControllerConfig",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -2038,7 +2038,7 @@
         "summary" : "Purges history",
         "description" : "",
         "operationId" : "deleteHistory",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "endDate",
@@ -2078,7 +2078,7 @@
         "summary" : "Gets the listing of available registry clients",
         "description" : "",
         "operationId" : "getRegistryClients",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -2154,7 +2154,7 @@
         "summary" : "Gets a registry client",
         "description" : "",
         "operationId" : "getRegistryClient",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -2244,7 +2244,7 @@
         "summary" : "Deletes a registry client",
         "description" : "",
         "operationId" : "deleteRegistryClient",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -2352,7 +2352,7 @@
         "summary" : "Gets status history for the node",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getNodeStatusHistory",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -2388,7 +2388,7 @@
         "summary" : "Gets the current counters for this NiFi",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getCounters",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "nodewise",
@@ -2435,7 +2435,7 @@
         "summary" : "Updates the specified counter. This will reset the counter value to 0",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "updateCounter",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -2478,7 +2478,7 @@
         "summary" : "Extend transaction TTL",
         "description" : "",
         "operationId" : "extendInputPortTransactionTTL",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "portId",
@@ -2633,7 +2633,7 @@
         "summary" : "Extend transaction TTL",
         "description" : "",
         "operationId" : "extendOutputPortTransactionTTL",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "portId",
@@ -2746,7 +2746,7 @@
         "summary" : "Transfer flow files from the output port",
         "description" : "",
         "operationId" : "transferFlowFiles",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/octet-stream" ],
         "parameters" : [ {
           "name" : "portId",
@@ -2848,7 +2848,7 @@
         "summary" : "Retrieves details about this NiFi to put in the About dialog",
         "description" : "",
         "operationId" : "getAboutInfo",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -2881,7 +2881,7 @@
         "summary" : "Retrieves the banners for this NiFi",
         "description" : "",
         "operationId" : "getBanners",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -2914,7 +2914,7 @@
         "summary" : "Gets current bulletins",
         "description" : "",
         "operationId" : "getBulletinBoard",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "after",
@@ -2986,7 +2986,7 @@
         "summary" : "Generates a client id.",
         "description" : "",
         "operationId" : "generateClientId",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "text/plain" ],
         "responses" : {
           "200" : {
@@ -3019,7 +3019,7 @@
         "summary" : "Searches the cluster for a node with the specified address",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "searchCluster",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "q",
@@ -3062,7 +3062,7 @@
         "summary" : "The cluster summary for this NiFi",
         "description" : "",
         "operationId" : "getClusterSummary",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -3095,7 +3095,7 @@
         "summary" : "Retrieves the configuration for this NiFi flow",
         "description" : "",
         "operationId" : "getFlowConfig",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -3128,7 +3128,7 @@
         "summary" : "Gets statistics for a connection",
         "description" : "",
         "operationId" : "getConnectionStatistics",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "nodewise",
@@ -3184,7 +3184,7 @@
         "summary" : "Gets status for a connection",
         "description" : "",
         "operationId" : "getConnectionStatus",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "nodewise",
@@ -3240,7 +3240,7 @@
         "summary" : "Gets the status history for a connection",
         "description" : "",
         "operationId" : "getConnectionStatusHistory",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -3283,7 +3283,7 @@
         "summary" : "Retrieves the types of controller services that this NiFi supports",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getControllerServiceTypes",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "serviceType",
@@ -3359,7 +3359,7 @@
         "summary" : "Retrieves Controller level bulletins",
         "description" : "",
         "operationId" : "getBulletins",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -3401,7 +3401,7 @@
         "summary" : "Gets controller services for reporting tasks",
         "description" : "",
         "operationId" : "getControllerServicesFromController",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -3434,7 +3434,7 @@
         "summary" : "Retrieves the user identity of the user making the request",
         "description" : "",
         "operationId" : "getCurrentUser",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -3455,7 +3455,7 @@
         "summary" : "Gets configuration history",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "queryHistory",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "offset",
@@ -3537,7 +3537,7 @@
         "summary" : "Gets configuration history for a component",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getComponentHistory",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "componentId",
@@ -3582,7 +3582,7 @@
         "summary" : "Gets an action",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getAction",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -3625,7 +3625,7 @@
         "summary" : "Gets status for an input port",
         "description" : "",
         "operationId" : "getInputPortStatus",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "nodewise",
@@ -3681,8 +3681,8 @@
         "summary" : "Gets all metrics for the flow from a particular node",
         "description" : "",
         "operationId" : "getFlowMetrics",
-        "consumes" : [ "*/*" ],
-        "produces" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "producer",
           "in" : "path",
@@ -3724,7 +3724,7 @@
         "summary" : "Gets status for an output port",
         "description" : "",
         "operationId" : "getOutputPortStatus",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "nodewise",
@@ -3780,7 +3780,7 @@
         "summary" : "Gets all Parameter Contexts",
         "description" : "",
         "operationId" : "getParameterContexts",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -3813,7 +3813,7 @@
         "summary" : "Retrieves the types of prioritizers that this NiFi supports",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getPrioritizers",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -3846,7 +3846,7 @@
         "summary" : "Gets a process group",
         "description" : "",
         "operationId" : "getFlow",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -3940,7 +3940,7 @@
         "summary" : "Gets all controller services",
         "description" : "",
         "operationId" : "getControllerServicesFromGroup",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -4045,7 +4045,7 @@
         "summary" : "Gets the status for a process group",
         "description" : "The status for a process group includes status for all descendent components. When invoked on the root group with recursive set to true, it will return the current status of every component in the flow.",
         "operationId" : "getProcessGroupStatus",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "recursive",
@@ -4108,7 +4108,7 @@
         "summary" : "Gets status history for a remote process group",
         "description" : "",
         "operationId" : "getProcessGroupStatusHistory",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -4151,7 +4151,7 @@
         "summary" : "Retrieves the types of processors that this NiFi supports",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getProcessorTypes",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "bundleGroupFilter",
@@ -4203,7 +4203,7 @@
         "summary" : "Gets status for a processor",
         "description" : "",
         "operationId" : "getProcessorStatus",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "nodewise",
@@ -4259,7 +4259,7 @@
         "summary" : "Gets status history for a processor",
         "description" : "",
         "operationId" : "getProcessorStatusHistory",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -4302,7 +4302,7 @@
         "summary" : "Gets the listing of available registries",
         "description" : "",
         "operationId" : "getRegistries",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -4338,7 +4338,7 @@
         "summary" : "Gets the buckets from the specified registry for the current user",
         "description" : "",
         "operationId" : "getBuckets",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -4381,7 +4381,7 @@
         "summary" : "Gets the flows from the specified registry and bucket for the current user",
         "description" : "",
         "operationId" : "getFlows",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "registry-id",
@@ -4430,7 +4430,7 @@
         "summary" : "Gets the flow versions from the specified registry and bucket for the specified flow for the current user",
         "description" : "",
         "operationId" : "getVersions",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "registry-id",
@@ -4485,7 +4485,7 @@
         "summary" : "Gets status for a remote process group",
         "description" : "",
         "operationId" : "getRemoteProcessGroupStatus",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "nodewise",
@@ -4541,7 +4541,7 @@
         "summary" : "Gets the status history",
         "description" : "",
         "operationId" : "getRemoteProcessGroupStatusHistory",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -4584,7 +4584,7 @@
         "summary" : "Retrieves the types of reporting tasks that this NiFi supports",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getReportingTaskTypes",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "bundleGroupFilter",
@@ -4636,7 +4636,7 @@
         "summary" : "Gets all reporting tasks",
         "description" : "",
         "operationId" : "getReportingTasks",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -4669,7 +4669,7 @@
         "summary" : "Performs a search against this NiFi using the specified search term",
         "description" : "Only search results from authorized components will be returned.",
         "operationId" : "searchFlow",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "q",
@@ -4713,7 +4713,7 @@
         "summary" : "Gets the current status of this NiFi",
         "description" : "",
         "operationId" : "getControllerStatus",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -4746,7 +4746,7 @@
         "summary" : "Gets all templates",
         "description" : "",
         "operationId" : "getTemplates",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -4779,7 +4779,7 @@
         "summary" : "Creates a request to drop the contents of the queue in this connection.",
         "description" : "",
         "operationId" : "createDropRequest",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -4825,7 +4825,7 @@
         "summary" : "Gets the current status of a drop request for the specified connection.",
         "description" : "",
         "operationId" : "getDropRequest",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -4872,7 +4872,7 @@
         "summary" : "Cancels and/or removes a request to drop the contents of this connection.",
         "description" : "",
         "operationId" : "removeDropRequestFlowFile",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -4921,7 +4921,7 @@
         "summary" : "Gets a FlowFile from a Connection.",
         "description" : "",
         "operationId" : "getFlowFile",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -4976,8 +4976,8 @@
         "summary" : "Gets the content for a FlowFile in a Connection.",
         "description" : "",
         "operationId" : "downloadFlowFileContent",
-        "consumes" : [ "*/*" ],
-        "produces" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "clientId",
           "in" : "query",
@@ -5037,7 +5037,7 @@
         "summary" : "Lists the contents of the queue in this connection.",
         "description" : "",
         "operationId" : "createFlowFileListing",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -5083,7 +5083,7 @@
         "summary" : "Gets the current status of a listing request for the specified connection.",
         "description" : "",
         "operationId" : "getListingRequest",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -5130,7 +5130,7 @@
         "summary" : "Cancels and/or removes a request to list the contents of this connection.",
         "description" : "",
         "operationId" : "deleteListingRequest",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -5179,7 +5179,7 @@
         "summary" : "Gets a funnel",
         "description" : "",
         "operationId" : "getFunnel",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -5269,7 +5269,7 @@
         "summary" : "Deletes a funnel",
         "description" : "",
         "operationId" : "removeFunnel",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -5333,7 +5333,7 @@
         "summary" : "Gets an input port",
         "description" : "",
         "operationId" : "getInputPort",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -5423,7 +5423,7 @@
         "summary" : "Deletes an input port",
         "description" : "",
         "operationId" : "removeInputPort",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -5538,7 +5538,7 @@
         "summary" : "Gets a label",
         "description" : "",
         "operationId" : "getLabel",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -5628,7 +5628,7 @@
         "summary" : "Deletes a label",
         "description" : "",
         "operationId" : "removeLabel",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -5692,7 +5692,7 @@
         "summary" : "Gets an output port",
         "description" : "",
         "operationId" : "getOutputPort",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -5782,7 +5782,7 @@
         "summary" : "Deletes an output port",
         "description" : "",
         "operationId" : "removeOutputPort",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -5998,7 +5998,7 @@
         "summary" : "Returns the Update Request with the given ID",
         "description" : "Returns the Update Request with the given ID. Once an Update Request has been created by performing a POST to /nifi-api/parameter-contexts, that request can subsequently be retrieved via this endpoint, and the request that is fetched will contain the updated state, such as percent complete, the current state of the request, and any failures. ",
         "operationId" : "getParameterContextUpdate",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "contextId",
@@ -6045,7 +6045,7 @@
         "summary" : "Deletes the Update Request with the given ID",
         "description" : "Deletes the Update Request with the given ID. After a request is created via a POST to /nifi-api/parameter-contexts/update-requests, it is expected that the client will properly clean up the request by DELETE'ing it, once the Update process has completed. If the request is deleted before the request completes, then the Update request will finish the step that it is currently performing and then will cancel any subsequent steps.",
         "operationId" : "deleteUpdateRequestParameterContexts",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "disconnectedNodeAcknowledged",
@@ -6151,7 +6151,7 @@
         "summary" : "Returns the Validation Request with the given ID",
         "description" : "Returns the Validation Request with the given ID. Once a Validation Request has been created by performing a POST to /nifi-api/validation-contexts, that request can subsequently be retrieved via this endpoint, and the request that is fetched will contain the updated state, such as percent complete, the current state of the request, and any failures. ",
         "operationId" : "getValidationRequest",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "contextId",
@@ -6198,7 +6198,7 @@
         "summary" : "Deletes the Validation Request with the given ID",
         "description" : "Deletes the Validation Request with the given ID. After a request is created via a POST to /nifi-api/validation-contexts, it is expected that the client will properly clean up the request by DELETE'ing it, once the validation process has completed. If the request is deleted before the request completes, then the Validation request will finish the step that it is currently performing and then will cancel any subsequent steps.",
         "operationId" : "deleteValidationRequest",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "disconnectedNodeAcknowledged",
@@ -6254,7 +6254,7 @@
         "summary" : "Returns the Parameter Context with the given ID",
         "description" : "Returns the Parameter Context with the given ID.",
         "operationId" : "getParameterContext",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -6345,7 +6345,7 @@
         "summary" : "Deletes the Parameter Context with the given ID",
         "description" : "Deletes the Parameter Context with the given ID.",
         "operationId" : "deleteParameterContext",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -6458,7 +6458,7 @@
         "summary" : "Gets an access policy for the specified action and resource",
         "description" : "Will return the effective policy if no component specific policy exists for the specified action and resource. Must have Read permissions to the policy with the desired action and resource. Permissions for the policy that is returned will be indicated in the response. This means the client could be authorized to get the policy for a given component but the effective policy may be inherited from an ancestor Process Group. If the client does not have permissions to that policy, the response will not include the policy and the permissions in the response will be marked accordingly. If the client does not have permissions to the policy of the desired action and resource a 403 response will be returned.",
         "operationId" : "getAccessPolicyForResource",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "action",
@@ -6509,7 +6509,7 @@
         "summary" : "Gets an access policy",
         "description" : "",
         "operationId" : "getAccessPolicy",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -6599,7 +6599,7 @@
         "summary" : "Deletes an access policy",
         "description" : "",
         "operationId" : "removeAccessPolicy",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -6663,7 +6663,7 @@
         "summary" : "Returns the Replace Request with the given ID",
         "description" : "Returns the Replace Request with the given ID. Once a Replace Request has been created by performing a POST to /process-groups/{id}/replace-requests, that request can subsequently be retrieved via this endpoint, and the request that is fetched will contain the updated state, such as percent complete, the current state of the request, and any failures. Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getReplaceProcessGroupRequest",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -6704,7 +6704,7 @@
         "summary" : "Deletes the Replace Request with the given ID",
         "description" : "Deletes the Replace Request with the given ID. After a request is created via a POST to /process-groups/{id}/replace-requests, it is expected that the client will properly clean up the request by DELETE'ing it, once the Replace process has completed. If the request is deleted before the request completes, then the Replace request will finish the step that it is currently performing and then will cancel any subsequent steps. Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "deleteReplaceProcessGroupRequest",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "disconnectedNodeAcknowledged",
@@ -6754,7 +6754,7 @@
         "summary" : "Gets a process group's variable registry",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getVariableRegistryUpdateRequest",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "groupId",
@@ -6801,7 +6801,7 @@
         "summary" : "Deletes an update request for a process group's variable registry. If the request is not yet complete, it will automatically be cancelled.",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "deleteVariableRegistryUpdateRequest",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "groupId",
@@ -6857,7 +6857,7 @@
         "summary" : "Gets a process group",
         "description" : "",
         "operationId" : "getProcessGroup",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -6947,7 +6947,7 @@
         "summary" : "Deletes a process group",
         "description" : "",
         "operationId" : "removeProcessGroup",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -7015,7 +7015,7 @@
         "summary" : "Gets all connections",
         "description" : "",
         "operationId" : "getConnections",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -7163,7 +7163,7 @@
         "summary" : "Gets a process group for download",
         "description" : "",
         "operationId" : "exportProcessGroup",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -7206,7 +7206,7 @@
         "summary" : "Creates a request to drop all flowfiles of all connection queues in this process group.",
         "description" : "",
         "operationId" : "createEmptyAllConnectionsRequest",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -7254,7 +7254,7 @@
         "summary" : "Gets the current status of a drop all flowfiles request.",
         "description" : "",
         "operationId" : "getDropAllFlowfilesRequest",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -7303,7 +7303,7 @@
         "summary" : "Cancels and/or removes a request to drop all flowfiles.",
         "description" : "",
         "operationId" : "removeDropRequestProcessGroups",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -7407,7 +7407,7 @@
         "summary" : "Gets all funnels",
         "description" : "",
         "operationId" : "getFunnels",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -7499,7 +7499,7 @@
         "summary" : "Gets all input ports",
         "description" : "",
         "operationId" : "getInputPorts",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -7591,7 +7591,7 @@
         "summary" : "Gets all labels",
         "description" : "",
         "operationId" : "getLabels",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -7683,7 +7683,7 @@
         "summary" : "Gets a list of local modifications to the Process Group since it was last synchronized with the Flow Registry",
         "description" : "",
         "operationId" : "getLocalModifications",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -7728,7 +7728,7 @@
         "summary" : "Gets all output ports",
         "description" : "",
         "operationId" : "getOutputPorts",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -7820,7 +7820,7 @@
         "summary" : "Gets all process groups",
         "description" : "",
         "operationId" : "getProcessGroups",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -7952,7 +7952,7 @@
         "summary" : "Gets all processors",
         "description" : "",
         "operationId" : "getProcessors",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -8055,7 +8055,7 @@
         "summary" : "Gets all remote process groups",
         "description" : "",
         "operationId" : "getRemoteProcessGroups",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -8457,7 +8457,7 @@
         "summary" : "Gets a process group's variable registry",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getVariableRegistry",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -8652,7 +8652,7 @@
         "summary" : "Gets a processor",
         "description" : "",
         "operationId" : "getProcessor",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -8744,7 +8744,7 @@
         "summary" : "Deletes a processor",
         "description" : "",
         "operationId" : "deleteProcessor",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -8810,7 +8810,7 @@
         "summary" : "Gets the descriptor for a processor property",
         "description" : "",
         "operationId" : "getPropertyDescriptorProcessors",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "clientId",
@@ -8865,7 +8865,7 @@
         "summary" : "Gets diagnostics information about a processor",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getProcessorDiagnostics",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -8959,7 +8959,7 @@
         "summary" : "Gets the state for a processor",
         "description" : "",
         "operationId" : "getStateProcessors",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -9002,7 +9002,7 @@
         "summary" : "Clears the state for a processor",
         "description" : "",
         "operationId" : "clearStateProcessors",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -9045,7 +9045,7 @@
         "summary" : "Terminates a processor, essentially \"deleting\" its threads and any active tasks",
         "description" : "",
         "operationId" : "terminateProcessor",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -9181,7 +9181,7 @@
         "summary" : "Gets a provenance event",
         "description" : "",
         "operationId" : "getProvenanceEvent",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "clusterNodeId",
@@ -9230,8 +9230,8 @@
         "summary" : "Gets the input content for a provenance event",
         "description" : "",
         "operationId" : "getInputContent",
-        "consumes" : [ "*/*" ],
-        "produces" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "clusterNodeId",
           "in" : "query",
@@ -9281,8 +9281,8 @@
         "summary" : "Gets the output content for a provenance event",
         "description" : "",
         "operationId" : "getOutputContent",
-        "consumes" : [ "*/*" ],
-        "produces" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "clusterNodeId",
           "in" : "query",
@@ -9379,7 +9379,7 @@
         "summary" : "Gets a lineage query",
         "description" : "",
         "operationId" : "getLineage",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "clusterNodeId",
@@ -9428,7 +9428,7 @@
         "summary" : "Deletes a lineage query",
         "description" : "",
         "operationId" : "deleteLineage",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "clusterNodeId",
@@ -9477,7 +9477,7 @@
         "summary" : "Gets the searchable attributes for provenance events",
         "description" : "",
         "operationId" : "getSearchOptions",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -9510,7 +9510,7 @@
         "summary" : "Gets a provenance query",
         "description" : "",
         "operationId" : "getProvenance",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "clusterNodeId",
@@ -9573,7 +9573,7 @@
         "summary" : "Deletes a provenance query",
         "description" : "",
         "operationId" : "deleteProvenance",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "clusterNodeId",
@@ -9673,7 +9673,7 @@
         "summary" : "Gets a remote process group",
         "description" : "",
         "operationId" : "getRemoteProcessGroup",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -9763,7 +9763,7 @@
         "summary" : "Deletes a remote process group",
         "description" : "",
         "operationId" : "removeRemoteProcessGroup",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -10106,7 +10106,7 @@
         "summary" : "Gets the state for a RemoteProcessGroup",
         "description" : "",
         "operationId" : "getStateRemoteProcessGroups",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -10149,7 +10149,7 @@
         "summary" : "Gets a reporting task",
         "description" : "",
         "operationId" : "getReportingTask",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -10241,7 +10241,7 @@
         "summary" : "Deletes a reporting task",
         "description" : "",
         "operationId" : "removeReportingTask",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -10307,7 +10307,7 @@
         "summary" : "Gets a reporting task property descriptor",
         "description" : "",
         "operationId" : "getPropertyDescriptorReportingTasks",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -10407,7 +10407,7 @@
         "summary" : "Gets the state for a reporting task",
         "description" : "",
         "operationId" : "getStateReportingTasks",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -10450,7 +10450,7 @@
         "summary" : "Clears the state for a reporting task",
         "description" : "",
         "operationId" : "clearStateReportingTasks",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -10493,7 +10493,7 @@
         "summary" : "Gets the available resources that support access/authorization policies",
         "description" : "",
         "operationId" : "getResources",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -10520,7 +10520,7 @@
         "summary" : "Returns the details about this NiFi necessary to communicate via site to site",
         "description" : "",
         "operationId" : "getSiteToSiteDetails",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -10553,7 +10553,7 @@
         "summary" : "Returns the available Peers and its status of this NiFi",
         "description" : "",
         "operationId" : "getPeers",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json", "application/xml" ],
         "responses" : {
           "200" : {
@@ -10682,7 +10682,7 @@
         "summary" : "Deletes the components in a snippet and discards the snippet",
         "description" : "",
         "operationId" : "deleteSnippet",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "disconnectedNodeAcknowledged",
@@ -10734,7 +10734,7 @@
         "summary" : "Gets the diagnostics for the system NiFi is running on",
         "description" : "",
         "operationId" : "getSystemDiagnostics",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "nodewise",
@@ -10775,7 +10775,7 @@
         "summary" : "Deletes a template",
         "description" : "",
         "operationId" : "removeTemplate",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "disconnectedNodeAcknowledged",
@@ -10827,7 +10827,7 @@
         "summary" : "Exports a template",
         "description" : "",
         "operationId" : "exportTemplate",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/xml" ],
         "parameters" : [ {
           "name" : "id",
@@ -10870,7 +10870,7 @@
         "summary" : "Searches for a tenant with the specified identity",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "searchTenants",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "q",
@@ -10913,7 +10913,7 @@
         "summary" : "Gets all user groups",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getUserGroups",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -10992,7 +10992,7 @@
         "summary" : "Gets a user group",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getUserGroup",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -11082,7 +11082,7 @@
         "summary" : "Deletes a user group",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "removeUserGroup",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -11144,7 +11144,7 @@
         "summary" : "Gets all users",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getUsers",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -11223,7 +11223,7 @@
         "summary" : "Gets a user",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getUser",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -11313,7 +11313,7 @@
         "summary" : "Deletes a user",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "removeUser",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -11469,7 +11469,7 @@
         "summary" : "Deletes the version control request with the given ID",
         "description" : "Deletes the Version Control Request with the given ID. This will allow other threads to save flows to the Flow Registry. See also the documentation for POSTing to /versions/active-requests for information regarding why this is done. Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "deleteVersionControlRequest",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "disconnectedNodeAcknowledged",
@@ -11513,7 +11513,7 @@
         "summary" : "Gets the Version Control information for a process group",
         "description" : "Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getVersionInformation",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -11660,7 +11660,7 @@
         "summary" : "Stops version controlling the Process Group with the given ID",
         "description" : "Stops version controlling the Process Group with the given ID. The Process Group will no longer track to any Versioned Flow. Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "stopVersionControl",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
@@ -11724,7 +11724,7 @@
         "summary" : "Gets the latest version of a Process Group for download",
         "description" : "",
         "operationId" : "exportFlowVersion",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -11828,7 +11828,7 @@
         "summary" : "Returns the Revert Request with the given ID",
         "description" : "Returns the Revert Request with the given ID. Once a Revert Request has been created by performing a POST to /versions/revert-requests/process-groups/{id}, that request can subsequently be retrieved via this endpoint, and the request that is fetched will contain the updated state, such as percent complete, the current state of the request, and any failures. Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getRevertRequest",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -11869,7 +11869,7 @@
         "summary" : "Deletes the Revert Request with the given ID",
         "description" : "Deletes the Revert Request with the given ID. After a request is created via a POST to /versions/revert-requests/process-groups/{id}, it is expected that the client will properly clean up the request by DELETE'ing it, once the Revert process has completed. If the request is deleted before the request completes, then the Revert request will finish the step that it is currently performing and then will cancel any subsequent steps. Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "deleteRevertRequest",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "disconnectedNodeAcknowledged",
@@ -11980,7 +11980,7 @@
         "summary" : "Returns the Update Request with the given ID",
         "description" : "Returns the Update Request with the given ID. Once an Update Request has been created by performing a POST to /versions/update-requests/process-groups/{id}, that request can subsequently be retrieved via this endpoint, and the request that is fetched will contain the updated state, such as percent complete, the current state of the request, and any failures. Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "getUpdateRequest",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
@@ -12021,7 +12021,7 @@
         "summary" : "Deletes the Update Request with the given ID",
         "description" : "Deletes the Update Request with the given ID. After a request is created via a POST to /versions/update-requests/process-groups/{id}, it is expected that the client will properly clean up the request by DELETE'ing it, once the Update process has completed. If the request is deleted before the request completes, then the Update request will finish the step that it is currently performing and then will cancel any subsequent steps. Note: This endpoint is subject to change as NiFi and it's REST API evolve.",
         "operationId" : "deleteUpdateRequestVersions",
-        "consumes" : [ "*/*" ],
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "disconnectedNodeAcknowledged",

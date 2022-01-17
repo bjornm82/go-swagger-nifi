@@ -46,7 +46,7 @@ func (a *Client) GetSystemDiagnostics(params *GetSystemDiagnosticsParams, authIn
 		Method:             "GET",
 		PathPattern:        "/system-diagnostics",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"*/*"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetSystemDiagnosticsReader{formats: a.formats},

@@ -85,7 +85,7 @@ func (a *Client) DeleteSnippet(params *DeleteSnippetParams, authInfo runtime.Cli
 		Method:             "DELETE",
 		PathPattern:        "/snippets/{id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"*/*"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &DeleteSnippetReader{formats: a.formats},
