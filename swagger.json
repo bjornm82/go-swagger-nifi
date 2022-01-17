@@ -164,7 +164,7 @@
         "consumes" : [ "application/x-www-form-urlencoded" ],
         "produces" : [ "text/plain" ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "type" : "string"
@@ -191,7 +191,7 @@
         "consumes" : [ "text/plain" ],
         "produces" : [ "text/plain" ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "type" : "string"
@@ -374,7 +374,7 @@
         "consumes" : [ "application/x-www-form-urlencoded" ],
         "produces" : [ "text/plain" ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "type" : "string"
@@ -401,7 +401,7 @@
         "consumes" : [ "application/json" ],
         "produces" : [ "text/plain" ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "type" : "string"
@@ -419,7 +419,7 @@
         "consumes" : [ "text/plain" ],
         "produces" : [ "text/plain" ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "type" : "string"
@@ -590,7 +590,7 @@
           "type" : "string"
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "type" : "string"
@@ -620,7 +620,7 @@
         "consumes" : [ "application/x-www-form-urlencoded" ],
         "produces" : [ "text/plain" ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "type" : "string"
@@ -698,7 +698,7 @@
         "consumes" : [ "application/x-www-form-urlencoded" ],
         "produces" : [ "text/plain" ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "type" : "string"
@@ -725,7 +725,7 @@
         "consumes" : [ "text/plain" ],
         "produces" : [ "text/plain" ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "type" : "string"
@@ -843,7 +843,7 @@
         "consumes" : [ "application/json" ],
         "produces" : [ "text/plain" ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "type" : "string"
@@ -987,7 +987,7 @@
           "type" : "string"
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "type" : "string"
@@ -1017,7 +1017,7 @@
         "consumes" : [ "application/x-www-form-urlencoded" ],
         "produces" : [ "text/plain" ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "type" : "string"
@@ -1055,7 +1055,7 @@
           "type" : "string"
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "type" : "string"
@@ -1085,7 +1085,7 @@
         "consumes" : [ "application/x-www-form-urlencoded" ],
         "produces" : [ "text/plain" ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "type" : "string"
@@ -1678,7 +1678,7 @@
           "type" : "string"
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ComponentStateEntity"
@@ -1723,7 +1723,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/BulletinEntity"
@@ -2004,7 +2004,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ControllerServiceEntity"
@@ -2124,7 +2124,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/RegistryClientEntity"
@@ -2318,7 +2318,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ReportingTaskEntity"
@@ -2597,7 +2597,7 @@
           "type" : "string"
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "type" : "string"
@@ -2812,7 +2812,7 @@
           "type" : "string"
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/TransactionResultEntity"
@@ -4789,7 +4789,7 @@
           "type" : "string"
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/DropRequestEntity"
@@ -5047,7 +5047,7 @@
           "type" : "string"
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ListingRequestEntity"
@@ -5909,7 +5909,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ParameterContextEntity"
@@ -5959,7 +5959,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ParameterContextUpdateRequestEntity"
@@ -6118,7 +6118,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ParameterContextValidationRequestEntity"
@@ -6425,7 +6425,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/AccessPolicyEntity"
@@ -7074,7 +7074,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ConnectionEntity"
@@ -7129,7 +7129,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ControllerServiceEntity"
@@ -7216,7 +7216,7 @@
           "type" : "string"
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ProcessGroupEntity"
@@ -7466,7 +7466,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/FunnelEntity"
@@ -7558,7 +7558,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/PortEntity"
@@ -7650,7 +7650,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/LabelEntity"
@@ -7787,7 +7787,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/PortEntity"
@@ -7879,7 +7879,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ProcessGroupEntity"
@@ -7922,7 +7922,7 @@
           "type" : "string"
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ProcessGroupEntity"
@@ -8018,7 +8018,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ProcessorEntity"
@@ -8114,7 +8114,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/RemoteProcessGroupEntity"
@@ -8165,7 +8165,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ProcessGroupReplaceRequestEntity"
@@ -8226,7 +8226,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/FlowEntity"
@@ -8281,7 +8281,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/FlowEntity"
@@ -8336,7 +8336,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/TemplateEntity"
@@ -8381,7 +8381,7 @@
           "type" : "string"
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/TemplateEntity"
@@ -8427,7 +8427,7 @@
           "type" : "file"
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/TemplateEntity"
@@ -8574,7 +8574,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/VariableRegistryUpdateRequestEntity"
@@ -8619,7 +8619,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ProcessorsRunStatusDetailsEntity"
@@ -9012,7 +9012,7 @@
           "type" : "string"
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ComponentStateEntity"
@@ -9100,7 +9100,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ProvenanceEntity"
@@ -9144,7 +9144,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ProvenanceEventEntity"
@@ -9344,7 +9344,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/LineageEntity"
@@ -10460,7 +10460,7 @@
           "type" : "string"
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ComponentStateEntity"
@@ -10598,7 +10598,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/SnippetEntity"
@@ -10959,7 +10959,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/UserGroupEntity"
@@ -11190,7 +11190,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/UserEntity"
@@ -11387,7 +11387,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "type" : "string"
@@ -11572,7 +11572,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/VersionControlInformationEntity"
@@ -11785,7 +11785,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/VersionedFlowUpdateRequestEntity"
@@ -11937,7 +11937,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/VersionedFlowUpdateRequestEntity"
