@@ -145,7 +145,7 @@ func New(host string, port int, usessl bool) *cl {
 	}
 }
 
-func (c *cl) createProcessorGroupOnRoot(name string) (*process_groups.CreateProcessGroupOK, error) {
+func (c *cl) createProcessorGroupOnRoot(name string) (*process_groups.CreateProcessGroupCreated, error) {
 	id, err := c.findRootFlowID()
 	if err != nil {
 		return nil, err
